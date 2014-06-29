@@ -10,6 +10,11 @@
 
 @interface MoreMainVC : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *btnAdd;
-- (IBAction)btnAdd:(id)sender;
 
+- (IBAction)btnAdd:(id)sender;
+- (IBAction)btnFav:(id)sender;
+- (IBAction)btnAccountInfo:(id)sender;
+- (IBAction)btnBuy:(id)sender;
+- (IBAction)btnContact:(id)sender;
+- (IBAction)btnAboutUS:(id)sender;
 @end

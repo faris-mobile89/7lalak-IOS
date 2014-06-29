@@ -8,16 +8,41 @@
 
 #import "MoreMainVC.h"
 #import "AddVideoVC.h"
+#import "FavoriteVC.h"
+#import "UserInfoVC.h"
+#import "RegisterVC.h"
 
 @interface MoreMainVC ()
 
 @end
+Boolean isRegistered=FALSE;
 
 @implementation MoreMainVC
 
 - (void)viewDidLoad
 {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"UserInfoData.plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path])
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"UserInfoData" ofType:@"plist"];
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error];
+    }
+    
+    NSArray *userData = [[NSArray alloc]initWithContentsOfFile:path];
+    
+    if ([userData count]>0) {
+        
+        isRegistered = TRUE;
+    }
     [super viewDidLoad];
 }
 
@@ -32,19 +57,64 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+-(void)registerView{
+    
+    NSLog(@"waiting for register");
+    
+    RegisterVC *userRegister = [self.storyboard instantiateViewControllerWithIdentifier:@"registerVC"];
+    [self.navigationController pushViewController: userRegister animated:YES];
 }
-*/
 
 - (IBAction)btnAdd:(id)sender {
     
-    AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
-    [self.navigationController pushViewController:video animated:YES];
+    if (isRegistered) {
+        
+        AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
+        [self.navigationController pushViewController:video animated:YES];
+    }else{
+        [self registerView];
+    }
+}
+
+- (IBAction)btnFav:(id)sender {
+    
+    FavoriteVC *fav = [self.storyboard instantiateViewControllerWithIdentifier:@"FavVC"];
+    [self.navigationController pushViewController:fav animated:YES];
+}
+
+- (IBAction)btnAccountInfo:(id)sender {
+    if (isRegistered) {
+        
+        UserInfoVC *info = [self.storyboard instantiateViewControllerWithIdentifier:@"UserInfoVC"];
+        [self.navigationController pushViewController:info animated:YES];
+    }else{
+        [self registerView];
+    }
+}
+
+- (IBAction)btnBuy:(id)sender {
+    
+    if (isRegistered) {
+        
+        UserInfoVC *info = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
+        [self.navigationController pushViewController:info animated:YES];
+    }else{
+        [self registerView];
+    }
+}
+
+- (IBAction)btnContact:(id)sender {
+}
+
+- (IBAction)btnAboutUS:(id)sender {
 }
 @end

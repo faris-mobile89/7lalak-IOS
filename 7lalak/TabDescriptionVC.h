@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *fDate;
 @property (weak, nonatomic) IBOutlet UILabel *fPrice;
 @property (weak, nonatomic) IBOutlet UITextView *fDescription;
-@property (weak, nonatomic) IBOutlet UIButton *btnFav;
+@property (weak, nonatomic) IBOutlet UIButton *btnFav1;
 
 - (IBAction)btnFavClick:(id)sender;
 - (IBAction)btnCallClick:(id)sender;

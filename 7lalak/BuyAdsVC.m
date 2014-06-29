@@ -1,19 +1,18 @@
 //
-//  AddVideoVC.m
+//  BuyAdsVC.m
 //  7lalak
 //
-//  Created by Faris IOS on 6/25/14.
+//  Created by Faris IOS on 6/29/14.
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
 
-#import "AddVideoVC.h"
+#import "BuyAdsVC.h"
 
-@interface AddVideoVC ()
+@interface BuyAdsVC ()
 
 @end
 
-@implementation AddVideoVC
-
+@implementation BuyAdsVC
 
 - (void)viewDidLoad
 {
@@ -24,5 +23,4 @@
 {
     [super didReceiveMemoryWarning];
 }
-
 @end

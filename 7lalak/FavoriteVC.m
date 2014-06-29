@@ -1,0 +1,190 @@
+//
+//  FavoriteVC.m
+//  7lalak
+//
+//  Created by Faris IOS on 6/29/14.
+//  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
+//
+
+#import "FavoriteVC.h"
+#import "ItemViewCell.h"
+#import "UIColor_hex.h"
+#import "UIImageView+WebCache.h"
+#import "ItemDetailsViewController.h"
+
+
+
+@interface FavoriteVC (){
+    NSInteger selectedIndex;
+    NSArray *arr;
+    NSString *filePath;
+}
+
+@end
+
+@implementation FavoriteVC
+@synthesize jsonObject;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    arr =[[NSArray alloc]initWithObjects:@"a",@"b", nil];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Fav.plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path])
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Fav" ofType:@"plist"];
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error];
+    }
+    filePath = path;
+    //NSLog(@"plist%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
+    
+    jsonObject = [[NSMutableArray alloc]initWithContentsOfFile:path];
+    
+   // NSLog(@"%@",[jsonObject objectAtIndex:0]);
+    
+    // NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithArray:arr copyItems:YES];
+    
+    // NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithArray:[[NSArray alloc]initWithObjects:@"f", nil]copyItems:YES];
+    
+    //  [jsonObjects addObject:@"fa"];
+    
+    //[jsonObjects writeToFile:path atomically:YES];
+    // NSLog(@"content%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
+}
+
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return [jsonObject count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ItemViewCell *cell = (ItemViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ItemCell" forIndexPath:indexPath];
+    
+    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundView = [UIView new] ;
+    cell.selectedBackgroundView = [UIView new];
+    
+    cell.fImage.layer.backgroundColor=[[UIColor clearColor] CGColor];
+    cell.fImage.layer.cornerRadius=10;
+    cell.fImage.layer.borderWidth=2.0;
+    cell.fImage.layer.masksToBounds = YES;
+    cell.fImage.clipsToBounds = YES;
+    cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
+    
+    
+    [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
+                                     [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
+                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    
+    if ([[[jsonObject
+           objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
+        [cell.fType setImage:[UIImage imageNamed:@"ic_video_ads.png"]];
+    }
+    
+    [cell.fTitle setText:[[ jsonObject
+                           objectAtIndex:indexPath.row]objectForKey:@"description"]];
+    
+    [cell.fDate setText:[[jsonObject
+                          objectAtIndex:indexPath.row]objectForKey:@"created"]];
+    
+    [cell.fPrice setText:[[jsonObject
+                           objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return 90;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    selectedIndex = indexPath.row;
+    ItemDetailsViewController *detail= [self.storyboard instantiateViewControllerWithIdentifier:@"itemDetailsContainer"];
+    detail.jsonObject =[jsonObject  objectAtIndex:selectedIndex];
+    [self.navigationController pushViewController:detail animated:YES];
+    
+    // [self performSegueWithIdentifier:@"itemDetails" sender:self];
+    
+    
+}
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    
+    [super setEditing:editing animated:animated];
+    if (editing) {
+        NSLog(@"edit on");
+        NSLog(@"edit%i",[jsonObject count]);
+
+    }else {
+        NSLog(@"Done");
+        
+        NSLog(@"edit%i",[jsonObject count]);
+
+    }
+    
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        int index = indexPath.row;
+        [jsonObject removeObjectAtIndex:index];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+}
+
+
+
+#pragma mark - Navigation
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([[segue identifier] isEqualToString:@""] ){
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+@end

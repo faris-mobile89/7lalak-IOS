@@ -28,7 +28,7 @@
     
     [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
 
-    
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,7 +38,32 @@
 
 
 - (IBAction)btnFavClick:(id)sender {
+    
+   // NSLog(@"JSONObject%@",jsonObject);
+    
+    _btnFav1.hidden = TRUE;
+    
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Fav.plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path])
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Fav" ofType:@"plist"];
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&error];
+    }
+    NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithContentsOfFile:path];
+    
+    [jsonObjects addObject:jsonObject];
+    [jsonObjects writeToFile:path atomically:YES];
+    
+    //NSLog(@"plist%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
 }
+
 - (IBAction)btnCallClick:(id)sender {
     NSString *phNo = fPhone.text;
     NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];

@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
     //NSLog(@"Param%@",catId);
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
@@ -120,7 +121,6 @@
     }
     
 }
-
 -(Boolean)testInternetConcecction{
     
     Boolean connectedStatus=false;
@@ -186,7 +186,6 @@
     
     [cell.fPrice setText:[[[jsonObject objectForKey:@"items"]
                           objectAtIndex:indexPath.row]objectForKey:@"price"]];
-    //٠٧٩٥٩٨٩٨٨٧
     return cell;
 }
 
