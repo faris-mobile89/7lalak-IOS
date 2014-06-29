@@ -11,6 +11,7 @@
 #import "FavoriteVC.h"
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
+#import "ContactUsVC.h"
 
 @interface MoreMainVC ()
 
@@ -113,6 +114,9 @@ Boolean isRegistered=FALSE;
 }
 
 - (IBAction)btnContact:(id)sender {
+    
+    ContactUsVC *contactUs = [self.storyboard instantiateViewControllerWithIdentifier:@"contactUsVC"];
+    [self.navigationController pushViewController:contactUs animated:YES];
 }
 
 - (IBAction)btnAboutUS:(id)sender {

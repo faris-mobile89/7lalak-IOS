@@ -37,49 +37,43 @@ TabDescriptionVC *tabDescription;
     [self.containterView addSubview:tabDescription.view];
     [self addChildViewController:tabDescription];
     [tabDescription didMoveToParentViewController:self];
+    
+    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
+        [_tabsView setTitle:@"Video" forSegmentAtIndex:1];
+    }
     [super viewDidLoad];
 }
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)tabsChanged:(id)sender {
     [[self.containterView subviews ]makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+    
     NSInteger index = [self.tabsView selectedSegmentIndex];
     if (index==1) {
-        //item.view.frame= self.containterView.bounds;
-        tabImage.var=@"hii";
-        [tabImage willMoveToParentViewController:self];
-        [self.containterView addSubview:tabImage.view];
-        [self addChildViewController:tabImage];
-        [tabImage didMoveToParentViewController:self];
+        
+        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
+            
+            [tabVideo willMoveToParentViewController:self];
+            [self.containterView addSubview:tabVideo.view];
+            [self addChildViewController:tabVideo];
+            [tabVideo didMoveToParentViewController:self];
+            
+            
+        }else{
+            
+            [tabImage willMoveToParentViewController:self];
+            [self.containterView addSubview:tabImage.view];
+            [self addChildViewController:tabImage];
+            [tabImage didMoveToParentViewController:self];
+        }
         
     }else{
         
-        /*
+        
         [tabDescription willMoveToParentViewController:self];
         [self.containterView addSubview:tabDescription.view];
         [self addChildViewController:tabDescription];
         [tabDescription didMoveToParentViewController:self];
-        [super viewDidLoad];
-        */
-        
-        [tabVideo willMoveToParentViewController:self];
-        [self.containterView addSubview:tabVideo.view];
-        [self addChildViewController:tabVideo];
-        [tabVideo didMoveToParentViewController:self];
-        
     }
     
 }

@@ -16,7 +16,6 @@
 
 @interface FavoriteVC (){
     NSInteger selectedIndex;
-    NSArray *arr;
     NSString *filePath;
 }
 
@@ -28,12 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    arr =[[NSArray alloc]initWithObjects:@"a",@"b", nil];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSError *error;
@@ -49,21 +45,11 @@
         
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
-    filePath = path;
-    //NSLog(@"plist%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
     
+    filePath = path;
+    //jsonObject = [[NSMutableArray alloc]init];
     jsonObject = [[NSMutableArray alloc]initWithContentsOfFile:path];
     
-   // NSLog(@"%@",[jsonObject objectAtIndex:0]);
-    
-    // NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithArray:arr copyItems:YES];
-    
-    // NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithArray:[[NSArray alloc]initWithObjects:@"f", nil]copyItems:YES];
-    
-    //  [jsonObjects addObject:@"fa"];
-    
-    //[jsonObjects writeToFile:path atomically:YES];
-    // NSLog(@"content%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
 }
 
 
@@ -143,20 +129,18 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated{
     
     [super setEditing:editing animated:animated];
-    if (editing) {
-        NSLog(@"edit on");
-        NSLog(@"edit%i",[jsonObject count]);
-
-    }else {
-        NSLog(@"Done");
-        
-        NSLog(@"edit%i",[jsonObject count]);
-
-    }
     
+    if (editing) {
+        //NSLog(@"edit on");
+    }else {
+      //  NSLog(@"Done");
+        NSMutableArray * newArray =jsonObject;
+        [newArray writeToFile:filePath atomically:YES];
+    }
 }
 
 

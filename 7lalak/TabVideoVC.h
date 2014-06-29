@@ -10,9 +10,12 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 
-@interface TabVideoVC : UIViewController{
-     MPMoviePlayerController *moviePlayer;
+@interface TabVideoVC : UIViewController<UITableViewDataSource,UITableViewDelegate>
+{
+   MPMoviePlayerController *moviePlayer;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (weak, nonatomic) IBOutlet UIView *videoHolderView;
 @property (weak,nonatomic) id jsonObject;

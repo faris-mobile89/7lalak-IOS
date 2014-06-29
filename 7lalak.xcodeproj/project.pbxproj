@@ -10,6 +10,9 @@
 		E00A360519584C0900A7B45A /* ItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A360419584C0900A7B45A /* ItemDetailsViewController.m */; };
 		E016E2DE19579E2A007EE60B /* Home1ViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E016E2DC19579E2A007EE60B /* Home1ViewCell.m */; };
 		E016E2DF19579E2A007EE60B /* Home1ViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E016E2DD19579E2A007EE60B /* Home1ViewCell.xib */; };
+		E0227F0B1960642D00E16FDD /* TableViewController134.m in Sources */ = {isa = PBXBuildFile; fileRef = E0227F0A1960642D00E16FDD /* TableViewController134.m */; };
+		E0227F121960672700E16FDD /* VideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0227F101960672700E16FDD /* VideoCell.m */; };
+		E0227F131960672700E16FDD /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0227F111960672700E16FDD /* VideoCell.xib */; };
 		E023973F195FEE8600E0AA28 /* UserInfoData.plist in Resources */ = {isa = PBXBuildFile; fileRef = E023973E195FEE8600E0AA28 /* UserInfoData.plist */; };
 		E0239742195FEEBB00E0AA28 /* UserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0239741195FEEBB00E0AA28 /* UserInfoVC.m */; };
 		E0239745195FF2F500E0AA28 /* BuyAdsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0239744195FF2F500E0AA28 /* BuyAdsVC.m */; };
@@ -116,6 +119,7 @@
 		E0D8820D1958634A00557F5B /* TabDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D8820C1958634A00557F5B /* TabDescriptionVC.m */; };
 		E0D882101958637E00557F5B /* TabImagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D8820F1958637E00557F5B /* TabImagesVC.m */; };
 		E0D882131958639100557F5B /* TabVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D882121958639100557F5B /* TabVideoVC.m */; };
+		E0E5DAA9196061ED002FD514 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E5DAA8196061ED002FD514 /* ContactUsVC.m */; };
 		E0E84EC2195A52BC00308080 /* background-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EB6195A52BC00308080 /* background-gradient.png */; };
 		E0E84EC3195A52BC00308080 /* background-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EB7195A52BC00308080 /* background-gradient@2x.png */; };
 		E0E84EC4195A52BC00308080 /* button-background.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EB8195A52BC00308080 /* button-background.png */; };
@@ -154,6 +158,11 @@
 		E016E2DB19579E2A007EE60B /* Home1ViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home1ViewCell.h; sourceTree = "<group>"; };
 		E016E2DC19579E2A007EE60B /* Home1ViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home1ViewCell.m; sourceTree = "<group>"; };
 		E016E2DD19579E2A007EE60B /* Home1ViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Home1ViewCell.xib; sourceTree = "<group>"; };
+		E0227F091960642D00E16FDD /* TableViewController134.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController134.h; sourceTree = "<group>"; };
+		E0227F0A1960642D00E16FDD /* TableViewController134.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController134.m; sourceTree = "<group>"; };
+		E0227F0F1960672700E16FDD /* VideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCell.h; sourceTree = "<group>"; };
+		E0227F101960672700E16FDD /* VideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCell.m; sourceTree = "<group>"; };
+		E0227F111960672700E16FDD /* VideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
 		E023973E195FEE8600E0AA28 /* UserInfoData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfoData.plist; sourceTree = "<group>"; };
 		E0239740195FEEBB00E0AA28 /* UserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoVC.h; sourceTree = "<group>"; };
 		E0239741195FEEBB00E0AA28 /* UserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoVC.m; sourceTree = "<group>"; };
@@ -309,6 +318,8 @@
 		E0D8820F1958637E00557F5B /* TabImagesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabImagesVC.m; sourceTree = "<group>"; };
 		E0D882111958639100557F5B /* TabVideoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabVideoVC.h; sourceTree = "<group>"; };
 		E0D882121958639100557F5B /* TabVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabVideoVC.m; sourceTree = "<group>"; };
+		E0E5DAA7196061ED002FD514 /* ContactUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsVC.h; sourceTree = "<group>"; };
+		E0E5DAA8196061ED002FD514 /* ContactUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsVC.m; sourceTree = "<group>"; };
 		E0E84EB6195A52BC00308080 /* background-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient.png"; sourceTree = "<group>"; };
 		E0E84EB7195A52BC00308080 /* background-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient@2x.png"; sourceTree = "<group>"; };
 		E0E84EB8195A52BC00308080 /* button-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-background.png"; sourceTree = "<group>"; };
@@ -404,6 +415,10 @@
 				E0239744195FF2F500E0AA28 /* BuyAdsVC.m */,
 				E0239746195FF3AC00E0AA28 /* RegisterVC.h */,
 				E0239747195FF3AC00E0AA28 /* RegisterVC.m */,
+				E0E5DAA7196061ED002FD514 /* ContactUsVC.h */,
+				E0E5DAA8196061ED002FD514 /* ContactUsVC.m */,
+				E0227F091960642D00E16FDD /* TableViewController134.h */,
+				E0227F0A1960642D00E16FDD /* TableViewController134.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -659,6 +674,9 @@
 				E032F9AD1958A570003ED896 /* ItemViewCell.h */,
 				E032F9AE1958A570003ED896 /* ItemViewCell.m */,
 				E032F9AF1958A570003ED896 /* ItemViewCell.xib */,
+				E0227F0F1960672700E16FDD /* VideoCell.h */,
+				E0227F101960672700E16FDD /* VideoCell.m */,
+				E0227F111960672700E16FDD /* VideoCell.xib */,
 			);
 			name = CustomCell;
 			sourceTree = "<group>";
@@ -758,6 +776,7 @@
 				E0F09D1E195A070100BAF4F6 /* btn_favo.png in Resources */,
 				E032F9B41958A71C003ED896 /* ic_image_ads.png in Resources */,
 				E058B2AA1958766100D658DB /* success.png in Resources */,
+				E0227F131960672700E16FDD /* VideoCell.xib in Resources */,
 				E058B2A11958766100D658DB /* img_btn_playlist.png in Resources */,
 				E058B2A31958766100D658DB /* img_btn_previous.png in Resources */,
 				E0890D451955C65F009A9A48 /* Images.xcassets in Resources */,
@@ -850,6 +869,7 @@
 				E0480D66195D18C200EAA25A /* SDWebImageDownloaderOperation.m in Sources */,
 				E0480D68195D18C200EAA25A /* SDWebImagePrefetcher.m in Sources */,
 				E0D882131958639100557F5B /* TabVideoVC.m in Sources */,
+				E0227F0B1960642D00E16FDD /* TableViewController134.m in Sources */,
 				E0A560C1195CF26900FD0D70 /* HUD.m in Sources */,
 				E0239748195FF3AC00E0AA28 /* RegisterVC.m in Sources */,
 				E0890D431955C65F009A9A48 /* SecondViewController.m in Sources */,
@@ -859,6 +879,7 @@
 				E032F9B01958A570003ED896 /* ItemViewCell.m in Sources */,
 				E0480D69195D18C200EAA25A /* UIButton+WebCache.m in Sources */,
 				E0480D6A195D18C200EAA25A /* UIImage+GIF.m in Sources */,
+				E0E5DAA9196061ED002FD514 /* ContactUsVC.m in Sources */,
 				E0A560CB195CF6C200FD0D70 /* MBProgressHUD.m in Sources */,
 				E0890D371955C65F009A9A48 /* AppDelegate.m in Sources */,
 				E0A560BF195CF26900FD0D70 /* Connection.m in Sources */,
@@ -877,6 +898,7 @@
 				E0480D6E195D18C200EAA25A /* UIImageView+WebCache.m in Sources */,
 				E0480D65195D18C200EAA25A /* SDWebImageDownloader.m in Sources */,
 				E0D882101958637E00557F5B /* TabImagesVC.m in Sources */,
+				E0227F121960672700E16FDD /* VideoCell.m in Sources */,
 				E0F1ED79195FD9E10088AFD1 /* FavoriteVC.m in Sources */,
 				E0480D60195D18C200EAA25A /* MKAnnotationView+WebCache.m in Sources */,
 				E0A560C8195CF57200FD0D70 /* JSONLoader.m in Sources */,

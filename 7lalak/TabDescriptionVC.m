@@ -11,13 +11,13 @@
 
 
 @interface TabDescriptionVC ()
-
+@property (strong,nonatomic) NSMutableArray *jsonObjects;
 @end
 
 @implementation TabDescriptionVC
 @synthesize jsonObject;
 @synthesize fPrice,fDate,fDescription,fImage,fPhone;
-
+@synthesize jsonObjects;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,6 +43,8 @@
     
     _btnFav1.hidden = TRUE;
     
+    
+    
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -56,12 +58,20 @@
         
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
-    NSMutableArray *jsonObjects = [[NSMutableArray alloc]initWithContentsOfFile:path];
+    
+    if ([[NSMutableArray alloc]initWithContentsOfFile:path]==nil) {
+       jsonObjects = [[NSMutableArray alloc]init];
+    }else{
+       jsonObjects =[[NSMutableArray alloc]initWithContentsOfFile:path];
+    }
     
     [jsonObjects addObject:jsonObject];
     [jsonObjects writeToFile:path atomically:YES];
     
-    //NSLog(@"plist%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
+    NSLog(@"path%@",path);
+    
+    NSLog(@"plist:%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
+    
 }
 
 - (IBAction)btnCallClick:(id)sender {

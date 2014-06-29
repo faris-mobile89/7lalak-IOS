@@ -7,6 +7,7 @@
 //
 
 #import "OffersVC.h"
+#import "InternetConnection.h"
 
 @interface OffersVC ()
 
@@ -18,55 +19,95 @@
 - (void)viewDidLoad
 {
     
-     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName: [UIColor orangeColor]};
-    [[UINavigationBar  appearance] setBarTintColor:[UIColor orangeColor]];
-
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     
-    // Init the pages texts, and pictures.
-    ICETutorialPage *layer1 = [[ICETutorialPage alloc] initWithTitle:@"Picture 1"
-                                                            subTitle:@"Champs-Elysées by night"
-                                                         pictureName:@"tutorial_background_00@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer2 = [[ICETutorialPage alloc] initWithTitle:@"Picture 2"
-                                                            subTitle:@"The Eiffel Tower with\n cloudy weather"
-                                                         pictureName:@"tutorial_background_01@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer3 = [[ICETutorialPage alloc] initWithTitle:@"Picture 3"
-                                                            subTitle:@"An other famous street of Paris"
-                                                         pictureName:@"tutorial_background_02@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer4 = [[ICETutorialPage alloc] initWithTitle:@"Picture 4"
-                                                            subTitle:@"The Eiffel Tower with a better weather"
-                                                         pictureName:@"tutorial_background_03@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer5 = [[ICETutorialPage alloc] initWithTitle:@"Picture 5"
-                                                            subTitle:@"The Louvre's Museum Pyramide"
-                                                         pictureName:@"tutorial_background_04@2x.jpg"
-                                                            duration:3.0];
-    ICETutorialPage *layer6 = [[ICETutorialPage alloc] initWithTitle:@"Picture 5"
-                                                            subTitle:@"The Louvre's Museum Pyramide"
-                                                         pictureName:@"tutorial_background_04@2x.jpg"
-                                                            duration:3.0];
+    _fWebView.delegate = self;
+    /*
+    _fWebView.delegate = self;
+    NSBundle *bundle=[NSBundle mainBundle];
+    NSString *filePath = [bundle pathForResource:@"index" ofType: @"html"];
+    NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+    NSURLRequest *request = [NSURLRequest requestWithURL:fileUrl];
     
+   // [_fWebView loadRequest:request];
+    */
+    /*
+    NSString * htmlHeader = @ "<html><head>\
+    <style type='text/css'> @import url('www/css/movies-app.css');</style>\
+    <script type ='text/javascript' charset ='utf-8' src ='test.js'></ script></head>\
+    <body style='background-color:red;'>";
+    NSString * htmlBody = @ "<h1>hi</h1><p><img alt=\"dept\" src=\"\"/></p>" ;
+    NSString * htmlFooter = @ "</body></html>";
+    NSString * strHtml = [[NSString alloc] initWithFormat: @ "%@%@%@", htmlHeader, htmlBody, htmlFooter];
+    [_fWebView loadHTMLString: strHtml baseURL: [NSURL fileURLWithPath: [[NSBundle mainBundle] resourcePath] isDirectory: YES]];
+    */
     
-    NSArray *tutorialLayers = @[layer1,layer2,layer3,layer4,layer5,layer6];
+    _fWebView.scrollView.scrollEnabled = NO;
     
-    
-    // Set the subTitles style with few properties and let the others by default.
-    [[ICETutorialStyle sharedInstance] setSubTitleColor:[UIColor whiteColor]];
-    [[ICETutorialStyle sharedInstance] setSubTitleOffset:200];
-    
-    // Init tutorial.
-    self.viewController = [[ICETutorialController alloc] initWithPages:tutorialLayers
-                                                              delegate:self];
-    
-    // Run it.
-    [self.viewController startScrolling];
-    self.viewController.view.frame = CGRectMake(0, 0, 320, self.viewController.view.frame.size.height);
-    [self.view addSubview: self.viewController.view];
+    [self loadWebPage];
+  
     
     [super viewDidLoad];
+}
+UIActivityIndicatorView *activityIndicator;
+
+-(void)loadWebPage{
+    
+    NSString *urlAddress = @"http://serv01.vm1692.sgvps.net/~karasi/sale/widgets/offers/index.html";
+    
+    if ([self connectedToInternet]) {
+        
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+        [self.view addSubview: activityIndicator];
+        
+        [activityIndicator startAnimating];
+        //Create a URL object.
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        
+        //URL Requst Object
+        [self.fWebView loadHTMLString:@"" baseURL:nil];
+        NSURLRequest* requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
+        [self performSelector:@selector(hideHUD) withObject:nil afterDelay:9];
+        //Load the request in the UIWebView.
+        [self.fWebView loadRequest:requestObj];
+	}
+	else {
+		UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Error connecting to the internet" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+		[someError show];
+	}
+
+}
+
+- (BOOL)connectedToInternet
+{
+    InternetConnection *networkReachability = [InternetConnection reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    
+    return networkStatus == NotReachable ?FALSE:TRUE;
+}
+
+
+-(void)hideHUD
+{
+     [activityIndicator stopAnimating];
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+}
+
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    //this method will call after getting any error while loading the web view.
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    return YES;
 }
 
 -(BOOL)prefersStatusBarHidden{
@@ -76,18 +117,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

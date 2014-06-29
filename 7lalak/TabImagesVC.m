@@ -78,7 +78,7 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 
 - (void)viewDidLoad {
     
-    NSLog(@"images%i",[[jsonObject objectForKey:@"imgs"]count]);
+    //NSLog(@"images%i",[[jsonObject objectForKey:@"imgs"]count]);
     
 
     NSArray *itemLayers ;
