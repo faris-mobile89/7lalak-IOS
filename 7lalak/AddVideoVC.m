@@ -1,22 +1,22 @@
 //
-//  SecondViewController.m
+//  AddVideoVC.m
 //  7lalak
 //
-//  Created by Faris IOS on 6/21/14.
+//  Created by Faris IOS on 6/25/14.
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "AddVideoVC.h"
 
-@interface SecondViewController ()
+@interface AddVideoVC ()
 
 @end
 
-@implementation SecondViewController
+@implementation AddVideoVC
+
 
 - (void)viewDidLoad
 {
-      
     [super viewDidLoad];
 }
 
@@ -24,5 +24,6 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 
 @end

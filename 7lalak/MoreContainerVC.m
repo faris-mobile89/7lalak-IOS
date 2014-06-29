@@ -1,28 +1,34 @@
 //
-//  SecondViewController.m
+//  MoreContainerVC.m
 //  7lalak
 //
-//  Created by Faris IOS on 6/21/14.
+//  Created by Faris IOS on 6/25/14.
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "MoreContainerVC.h"
 
-@interface SecondViewController ()
+@interface MoreContainerVC ()
 
 @end
 
-@implementation SecondViewController
+@implementation MoreContainerVC
+
 
 - (void)viewDidLoad
 {
-      
+
+    
     [super viewDidLoad];
+}
+-(BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
+
 
 @end
