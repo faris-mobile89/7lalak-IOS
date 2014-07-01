@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ItemsViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
+@interface ItemsViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSString *catId;
+@property (nonatomic) int numberOfnewPosts;
+@property (nonatomic) UIRefreshControl *refreshControl;
 @end

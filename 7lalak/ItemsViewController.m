@@ -37,6 +37,14 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    //[self.tableView setBackgroundColor:[UIColor clearColor]];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(insertNewObject:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.view addSubview:self.refreshControl];
+    
+    
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getItemsFromCategory&cat_id=%@",catId];
     
@@ -121,6 +129,22 @@
     }
     
 }
+
+- (void)insertNewObject:(id)sender
+{
+    NSLog(@"%d new fetched objects",self.numberOfnewPosts);
+
+    [self.refreshControl endRefreshing];
+    
+}
+
+- (void)insertObject:(id)newObject
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadData];
+}
+
 -(Boolean)testInternetConcecction{
     
     Boolean connectedStatus=false;
@@ -203,7 +227,17 @@
     
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat maxY = scrollView.contentSize.height+scrollView.contentInset.bottom;
+    CGFloat botY = scrollView.contentOffset.y+scrollView.frame.size.height;
+   // NSLog(@"y = %f, maxY = %f", botY, maxY);
+    
+    if(botY >= maxY) {
+        // load next page
+       // NSLog(@"load");
+    }
+}
 
 
 

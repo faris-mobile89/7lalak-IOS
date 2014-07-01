@@ -8,6 +8,7 @@
 
 #import "MoreMainVC.h"
 #import "AddVideoVC.h"
+#import "AddImageVC.h"
 #import "FavoriteVC.h"
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
@@ -77,10 +78,14 @@ Boolean isRegistered=FALSE;
 
 - (IBAction)btnAdd:(id)sender {
     
-    if (isRegistered) {
+    if (!isRegistered) {
         
-        AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
-        [self.navigationController pushViewController:video animated:YES];
+       // AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
+       // [self.navigationController pushViewController:video animated:YES];
+        
+         AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
+         [self.navigationController pushViewController:imageVC animated:YES];
+        
     }else{
         [self registerView];
     }

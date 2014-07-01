@@ -106,6 +106,130 @@
             </objects>
             <point key="canvasLocation" x="1657" y="483"/>
         </scene>
+        <!--Add ImageVC-->
+        <scene sceneID="lQ4-jN-VTg">
+            <objects>
+                <viewController storyboardIdentifier="addImages" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O0f-XM-K1F" customClass="AddImageVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ObQ-xL-bOW"/>
+                        <viewControllerLayoutGuide type="bottom" id="Biv-j3-Epg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jac-DC-bqp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JVE-pM-vI9">
+                                <rect key="frame" x="39" y="9" width="242" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eqd-cV-kKR">
+                                <rect key="frame" x="39" y="74" width="242" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fNq-6v-zKJ">
+                                <rect key="frame" x="39" y="221" width="242" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mZ7-77-JLK">
+                                <rect key="frame" x="39" y="236" width="242" height="103"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ajs-RH-QAk">
+                                    <size key="itemSize" width="103" height="97"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="1" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ca9-sO-3V7">
+                                        <rect key="frame" x="8" y="4" width="103" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="103" height="97"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ckb-8x-vrH">
+                                                    <rect key="frame" x="6" y="6" width="90" height="65"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPo-91-hMU">
+                                                    <rect key="frame" x="73" y="74" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="X">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="ckb-8x-vrH" firstAttribute="leading" secondItem="Ca9-sO-3V7" secondAttribute="leading" constant="5" id="9mr-mz-iCm"/>
+                                            <constraint firstAttribute="trailing" secondItem="ckb-8x-vrH" secondAttribute="trailing" constant="8" id="aYm-ZI-JSG"/>
+                                            <constraint firstItem="ckb-8x-vrH" firstAttribute="top" secondItem="Ca9-sO-3V7" secondAttribute="top" constant="11" id="bzu-jb-Lgp"/>
+                                            <constraint firstAttribute="bottom" secondItem="ckb-8x-vrH" secondAttribute="bottom" constant="14" id="wYJ-dh-XIX"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="O0f-XM-K1F" id="Tee-O4-bkV"/>
+                                    <outlet property="delegate" destination="O0f-XM-K1F" id="udZ-hV-ybF"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JS9-dg-Oga">
+                                <rect key="frame" x="163" y="344" width="118" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Upload">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getPhoto:" destination="O0f-XM-K1F" eventType="touchUpInside" id="c4i-rY-x6o"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDa-Hu-UHO">
+                                <rect key="frame" x="39" y="344" width="118" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add Image">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getPhoto:" destination="O0f-XM-K1F" eventType="touchUpInside" id="UVk-Pm-Bm8"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3A-b9-6PY">
+                                <rect key="frame" x="39" y="92" width="242" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="O0f-XM-K1F" id="esJ-xD-9wm"/>
+                                    <outlet property="delegate" destination="O0f-XM-K1F" id="OMW-qb-h9I"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="519"/>
+                    <connections>
+                        <outlet property="choosePhotoBtn" destination="wDa-Hu-UHO" id="scq-qn-Eli"/>
+                        <outlet property="collectionView" destination="mZ7-77-JLK" id="Rgc-Ra-Hku"/>
+                        <outlet property="pickerCategories" destination="r3A-b9-6PY" id="oRH-Yy-BfS"/>
+                        <outlet property="takePhotoBtn" destination="JS9-dg-Oga" id="wvl-zO-C4l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Yf-TuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1875" y="2110"/>
+        </scene>
         <!--Add VideoVC-->
         <scene sceneID="yYn-ZZ-3nu">
             <objects>
@@ -134,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPc-U0-vC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="1751"/>
+            <point key="canvasLocation" x="1870" y="1489"/>
         </scene>
         <!--FavoriteVC-->
         <scene sceneID="qAJ-cw-bJ6">
@@ -475,7 +599,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="519"/>
                     <connections>
-                        <segue destination="BTy-pw-Cuh" kind="custom" identifier="itemsDetails" id="bwg-Q4-TMm"/>
+                        <segue destination="GpT-Tq-sko" kind="custom" identifier="itemsDetails" id="0mT-o8-ASV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeK-Af-2UR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -483,28 +607,25 @@
             <point key="canvasLocation" x="1853" y="-246"/>
         </scene>
         <!--Items View Controller-->
-        <scene sceneID="05D-FZ-SCd">
+        <scene sceneID="lps-Yh-wH3">
             <objects>
-                <tableViewController id="BTy-pw-Cuh" customClass="ItemsViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fFD-0n-YKY">
+                <viewController id="GpT-Tq-sko" customClass="ItemsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ahV-FB-Lxu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="BTy-pw-Cuh" id="FoU-MV-B8Z"/>
-                            <outlet property="delegate" destination="BTy-pw-Cuh" id="VaI-Ph-262"/>
-                        </connections>
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="519"/>
                     <connections>
-                        <segue destination="J6u-Yd-hCd" kind="custom" identifier="itemDetails" id="lar-bk-pRf"/>
+                        <outlet property="tableView" destination="ahV-FB-Lxu" id="iKc-rd-w2M"/>
+                        <segue destination="J6u-Yd-hCd" kind="custom" identifier="itemDetails" id="PVg-nQ-fLp"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c9L-mA-UOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uxi-A7-OH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2245" y="-246"/>
+            <point key="canvasLocation" x="2247" y="-231"/>
         </scene>
         <!--Item Details View Controller-->
         <scene sceneID="9Lw-Rg-NPg">
