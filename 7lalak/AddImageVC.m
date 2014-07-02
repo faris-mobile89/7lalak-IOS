@@ -17,7 +17,7 @@
     NSArray *recipeImages;
     NSMutableArray *imagesData;
     NSMutableArray *pickerJsonData;
-    
+    NSMutableArray *mainCat;
 }
 @end
 
@@ -54,8 +54,8 @@
     
     [self.navigationController presentViewController:picker animated:YES completion:nil];
 	
-	//[self presentModalViewController:picker animated:YES];
 }
+
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -132,6 +132,8 @@
         [choosePhotoBtn setEnabled:TRUE];
     }
 }
+int subIndexCount=0;
+int selectedMainRowindex=0;
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 2;
@@ -140,29 +142,90 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 3;
+    if (component ==0) {
+        return [mainCat count];
+    }else if (component==1){
+        if (subIndexCount > 0) {
+            return subIndexCount;
+        }
+    }
+    return 0;
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    
+    UILabel* label = (UILabel*)view;
+    if (!label){
+        label = [[UILabel alloc] init];
+        [label setFont:[UIFont  boldSystemFontOfSize:10]];
+        /*
+        label.backgroundColor = [UIColor lightGrayColor];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
+        label.text = [NSString stringWithFormat:@"  %d", row+1];
+        */
+        if (component == 0) {
+            if ([mainCat count]>0) {
+                label.text=  [mainCat objectAtIndex:row];
+            }
+        }
+        else if (component==1){
+            if ([pickerJsonData count]>0 && subIndexCount > 0) {
+                
+                label.text=  [[[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]valueForKey:@"subCat"]objectAtIndex:row]valueForKey:@"name"];
+                
+            }else{
+                NSLog(@"SubCat is Empty!");
+            }
+            
+        }
+    }
+    return label;
+}
+
+/*
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     
     if (component == 0) {
-        return @"Nemer";
+        if ([mainCat count]>0) {
+            return  [mainCat objectAtIndex:row];
+        }
     }
     else if (component==1){
+        if ([pickerJsonData count]>0 && subIndexCount > 0) {
+            
+         return  [[[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]valueForKey:@"subCat"]objectAtIndex:row]valueForKey:@"name"];
+
+        }else{
+            NSLog(@"SubCat is Empty!");
+        }
+
     }
     return @"";
-    //return _nationlaitesNames[row];
 }
-
+*/
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
     if (component==0){
         
-        [_pickerCategories reloadComponent:1];
-    }
+        if ([pickerJsonData count] > 0) {
+
+            subIndexCount = [[[[pickerJsonData objectAtIndex:0]objectAtIndex:row]valueForKey:@"subCat"]count];
+            NSLog(@"sub index count%i",subIndexCount);
+            selectedMainRowindex = row;
+            NSLog(@"selected index: %i",selectedMainRowindex);
+             [_pickerCategories reloadComponent:1];
+        }
+        
+
+        
+    }else if(component ==1){
+
+        }
 }
 -(void)loadPickerViewData{
+    
     NSLog(@"loading...");
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://serv01.vm1692.sgvps.net/~karasi/sale/UiPickerDataIOS.php?tag=getAllCat"];
@@ -198,14 +261,21 @@
                      dispatch_async(dispatch_get_main_queue(), ^{
                         id json = jsonObject;
                          [activityIndicator stopAnimating];
+                         [pickerJsonData addObject:[json objectForKey:@"MainCat"]];
                          
-                         NSLog(@"jsonObject: %@", [json objectForKey:@"MainCat"]);
-                         NSMutableArray *mainCat= [[NSMutableArray alloc]init];
+                         
+                         //NSLog(@"jsonObject: %@", [json objectForKey:@"MainCat"]);
+                         mainCat= [[NSMutableArray alloc]init];
+                         
                          for (int i =0 ; i<= [json count]+1; i++) {
                              [mainCat addObject: [[[json objectForKey:@"MainCat"]objectAtIndex:i]objectForKey:@"name"]];
-                             
                          }
-                         NSLog(@"array%@",mainCat);
+                         // set defualt index to first row of categories
+                         subIndexCount =  [[[[pickerJsonData objectAtIndex:0]valueForKey:@"subCat"]objectAtIndex:0]count];
+                         
+                         [_pickerCategories reloadAllComponents];
+                         [_pickerCategories reloadComponent:0];
+                         
                          
                          
                      });
