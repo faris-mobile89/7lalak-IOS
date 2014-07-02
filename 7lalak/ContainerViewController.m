@@ -38,7 +38,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
 
-  NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
+   NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
 
@@ -115,14 +115,13 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //[self handleError:error]; // execute on main thread!
                 NSLog(@"ERROR: %@", error);
+                UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                
+                [internetError show];
+                [activityIndicator stopAnimating];
             });
         }
     }];
-
-    
-     if ([self testInternetConcecction]) {
-        // NSLog(@"Connected");
-     }
     
 }
 
@@ -236,7 +235,6 @@
      tableVC.catId =[[[jsonObject objectForKey:@"MainCat"] objectAtIndex:selectedIndex]objectForKey:@"id"];
  }
 }
-
 
 - (void)didReceiveMemoryWarning
 {

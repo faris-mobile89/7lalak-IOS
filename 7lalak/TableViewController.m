@@ -110,6 +110,10 @@
              dispatch_async(dispatch_get_main_queue(), ^{
                  //[self handleError:error]; // execute on main thread!
                  NSLog(@"ERROR: %@", error);
+                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                 
+                 [internetError show];
+                 [activityIndicator stopAnimating];
              });
          }
      }];
