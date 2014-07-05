@@ -13,6 +13,9 @@
 #import "UploadCell.h"
 #import "UIColor_hex.h"
 
+#define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
+#define SCREEN_HEIGHT [[UIScreen mainScreen ] bounds].size.height>=568.0f?480:300;
+
 @interface AddImageVC (){
     NSArray *recipeImages;
     NSMutableArray *imagesData;
@@ -31,6 +34,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (!IS_HEIGHT_GTE_568) {
+        _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
+    }
+
     selectedMainCatID=0000;
     selectedSubCatID=0000;
     _fAdsPrice.delegate=self;
@@ -69,6 +76,9 @@
     
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
+    
+  //  picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
+
 	
 	if((UIButton *) sender == choosePhotoBtn) {
 		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;

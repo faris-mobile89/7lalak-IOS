@@ -13,6 +13,7 @@
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
 #import "ContactUsVC.h"
+#include "BuyAdsVC.h"
 
 @interface MoreMainVC ()
 
@@ -68,6 +69,7 @@ Boolean isRegistered=FALSE;
  // Pass the selected object to the new view controller.
  }
  */
+
 -(void)registerView{
     
     NSLog(@"waiting for register");
@@ -109,10 +111,10 @@ Boolean isRegistered=FALSE;
 
 - (IBAction)btnBuy:(id)sender {
     
-    if (isRegistered) {
+    if (!isRegistered) {
         
-        UserInfoVC *info = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
-        [self.navigationController pushViewController:info animated:YES];
+        BuyAdsVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
+        [self.navigationController pushViewController:buy animated:YES];
     }else{
         [self registerView];
     }

@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     
     _fWebView.delegate = self;
     /*
@@ -54,7 +54,8 @@ UIActivityIndicatorView *activityIndicator;
 -(void)loadWebPage{
     
     NSString *urlAddress = @"http://serv01.vm1692.sgvps.net/~karasi/sale/widgets/offers/index.html";
-    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+
     if ([self connectedToInternet]) {
         
         [[NSURLCache sharedURLCache] removeAllCachedResponses];

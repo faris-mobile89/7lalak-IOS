@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E0890D221955C65F009A9A48"
-               BuildableName = "7lalak.app"
-               BlueprintName = "7lalak"
+               BuildableName = "hlalek.app"
+               BlueprintName = "hlalek"
                ReferencedContainer = "container:7lalak.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E0890D491955C65F009A9A48"
-               BuildableName = "7lalakTests.xctest"
-               BlueprintName = "7lalakTests"
+               BuildableName = "hlalekTests.xctest"
+               BlueprintName = "hlalekTests"
                ReferencedContainer = "container:7lalak.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E0890D221955C65F009A9A48"
-            BuildableName = "7lalak.app"
-            BlueprintName = "7lalak"
+            BuildableName = "hlalek.app"
+            BlueprintName = "hlalek"
             ReferencedContainer = "container:7lalak.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E0890D221955C65F009A9A48"
-            BuildableName = "7lalak.app"
-            BlueprintName = "7lalak"
+            BuildableName = "hlalek.app"
+            BlueprintName = "hlalek"
             ReferencedContainer = "container:7lalak.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E0890D221955C65F009A9A48"
-            BuildableName = "7lalak.app"
-            BlueprintName = "7lalak"
+            BuildableName = "hlalek.app"
+            BlueprintName = "hlalek"
             ReferencedContainer = "container:7lalak.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

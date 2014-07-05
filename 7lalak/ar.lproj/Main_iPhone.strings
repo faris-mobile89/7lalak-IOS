@@ -1,6 +1,15 @@
 
 /* Class = "IBUIButton"; normalTitle = "Favoriate"; ObjectID = "4Ly-XL-kVF"; */
-"4Ly-XL-kVF.normalTitle" = "Favoriate";
+"4Ly-XL-kVF.normalTitle" = "المفضله";
+
+/* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "4Qa-c8-Jlr"; */
+"4Qa-c8-Jlr.placeholder" = "Email";
+
+/* Class = "IBUIButton"; normalTitle = "Register"; ObjectID = "83g-Ak-yCs"; */
+"83g-Ak-yCs.normalTitle" = "Register";
+
+/* Class = "IBUITextField"; placeholder = "Phone"; ObjectID = "9Xc-wB-Lx0"; */
+"9Xc-wB-Lx0.placeholder" = "Phone";
 
 /* Class = "IBUITabBarItem"; title = "more"; ObjectID = "Arq-bH-MYh"; */
 "Arq-bH-MYh.title" = "more";
@@ -11,26 +20,50 @@
 /* Class = "IBUISegmentedControl"; DGT-vc-gWN.segmentTitles[1] = "Images"; ObjectID = "DGT-vc-gWN"; */
 "DGT-vc-gWN.segmentTitles[1]" = "Images";
 
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "DI8-NT-ocz"; */
+"DI8-NT-ocz.text" = "Label";
+
+/* Class = "IBUITextField"; placeholder = "price"; ObjectID = "Eqd-cV-kKR"; */
+"Eqd-cV-kKR.placeholder" = "price";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "GN3-H5-pMX"; */
+"GN3-H5-pMX.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Upload"; ObjectID = "JS9-dg-Oga"; */
+"JS9-dg-Oga.normalTitle" = "Upload";
+
+/* Class = "IBUITextField"; placeholder = "text"; ObjectID = "JVE-pM-vI9"; */
+"JVE-pM-vI9.placeholder" = "text";
+
+/* Class = "IBUINavigationItem"; title = "7lalak"; ObjectID = "K9i-wD-gzP"; */
+"K9i-wD-gzP.title" = "7lalak";
+
 /* Class = "IBUITabBarItem"; title = "Offers"; ObjectID = "Ll7-FC-s3U"; */
 "Ll7-FC-s3U.title" = "Offers";
+
+/* Class = "IBUILabel"; text = "Contact Us"; ObjectID = "Lrn-Ji-m1i"; */
+"Lrn-Ji-m1i.text" = "Contact Us";
 
 /* Class = "IBUILabel"; text = "7817170"; ObjectID = "M9U-8k-VFZ"; */
 "M9U-8k-VFZ.text" = "7817170";
 
 /* Class = "IBUIButton"; normalTitle = "Buy Ads"; ObjectID = "Mg0-0Y-Vsi"; */
-"Mg0-0Y-Vsi.normalTitle" = "Buy Ads";
+"Mg0-0Y-Vsi.normalTitle" = "شراء اعلانات";
 
 /* Class = "IBUIButton"; normalTitle = "About Us  "; ObjectID = "Mnz-Zc-c7X"; */
-"Mnz-Zc-c7X.normalTitle" = "About Us  ";
+"Mnz-Zc-c7X.normalTitle" = "من نحن";
 
 /* Class = "IBUIViewController"; title = "Second"; ObjectID = "QUy-BD-bpt"; */
 "QUy-BD-bpt.title" = "Second";
 
-/* Class = "IBUILabel"; text = "1"; ObjectID = "Qle-Rg-8v4"; */
-"Qle-Rg-8v4.text" = "1";
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "S3W-oc-pP8"; */
+"S3W-oc-pP8.text" = "Label";
 
 /* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo"; ObjectID = "S9G-cY-Hb5"; */
 "S9G-cY-Hb5.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo";
+
+/* Class = "IBUITextField"; placeholder = "User Name"; ObjectID = "SGf-6C-Mp7"; */
+"SGf-6C-Mp7.placeholder" = "User Name";
 
 /* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "WO3-Ho-BSM"; */
 "WO3-Ho-BSM.normalTitle" = "Button";
@@ -38,29 +71,38 @@
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "YWq-4T-106"; */
 "YWq-4T-106.text" = "Label";
 
-/* Class = "IBUITabBarItem"; title = "Music"; ObjectID = "Z7h-1E-pvt"; */
-"Z7h-1E-pvt.title" = "Music";
+/* Class = "IBUITabBarItem"; title = "Media"; ObjectID = "Z7h-1E-pvt"; */
+"Z7h-1E-pvt.title" = "صوتيات";
 
 /* Class = "IBUIButton"; normalTitle = "Contact Us"; ObjectID = "aPb-YA-Nva"; */
-"aPb-YA-Nva.normalTitle" = "Contact Us";
+"aPb-YA-Nva.normalTitle" = "اتصل بنا";
 
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "dZ0-ci-DwJ"; */
-"dZ0-ci-DwJ.normalTitle" = "Button";
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "cff-Rq-Tzb"; */
+"cff-Rq-Tzb.text" = "Label";
 
 /* Class = "IBUIButton"; normalTitle = "Add"; ObjectID = "idl-cu-MSd"; */
 "idl-cu-MSd.normalTitle" = "Add";
 
-/* Class = "IBUILabel"; text = "of 3"; ObjectID = "jzt-C7-U4h"; */
-"jzt-C7-U4h.text" = "of 3";
+/* Class = "IBUIButton"; normalTitle = "Send"; ObjectID = "jGw-kx-MF0"; */
+"jGw-kx-MF0.normalTitle" = "Send";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "krE-Vr-iFg"; */
 "krE-Vr-iFg.text" = "Label";
 
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "sGh-QK-Hx1"; */
-"sGh-QK-Hx1.normalTitle" = "Button";
+/* Class = "IBUILabel"; text = "Registeration"; ObjectID = "s5H-9d-1Qk"; */
+"s5H-9d-1Qk.text" = "Registeration";
 
 /* Class = "IBUIButton"; normalTitle = "Account    Info"; ObjectID = "tfQ-E5-brK"; */
 "tfQ-E5-brK.normalTitle" = "Account    Info";
 
+/* Class = "IBUIButton"; normalTitle = "ِEnglish"; ObjectID = "tsD-7m-HtE"; */
+"tsD-7m-HtE.normalTitle" = "ِانجليزي";
+
 /* Class = "IBUITabBarItem"; title = "Home"; ObjectID = "u1e-5L-l1D"; */
-"u1e-5L-l1D.title" = "Home";
+"u1e-5L-l1D.title" = "رى";
+
+/* Class = "IBUIButton"; normalTitle = "عربي"; ObjectID = "vS6-rM-A24"; */
+"vS6-rM-A24.normalTitle" = "عربي";
+
+/* Class = "IBUIButton"; normalTitle = "Add Image"; ObjectID = "wDa-Hu-UHO"; */
+"wDa-Hu-UHO.normalTitle" = "Add Image";

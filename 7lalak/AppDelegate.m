@@ -7,14 +7,31 @@
 //
 
 #import "AppDelegate.h"
+#import "LocalizeHelper.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+   // LocalizationSetLanguage(@"Arabic");
+    
+    NSString *tempValue =@"ar";
+    
+    NSString *currentLanguage = @"en";
+    
+    if ([tempValue rangeOfString:NSLocalizedString(@"English", nil)].location != NSNotFound) {
+        currentLanguage = @"en";
+    } else if ([tempValue rangeOfString:NSLocalizedString(@"Arabic", nil)].location != NSNotFound) {
+        currentLanguage = @"ar";
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ar", nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     
     // Override point for customization after application launch.
     return YES;
