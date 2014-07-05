@@ -18,6 +18,7 @@
 @synthesize jsonObject;
 @synthesize fPrice,fDate,fDescription,fImage,fPhone;
 @synthesize jsonObjects;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -27,8 +28,6 @@
     [fDate setText:[jsonObject objectForKey:@"created"]];
     
     [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
-
-   
 }
 
 - (void)didReceiveMemoryWarning

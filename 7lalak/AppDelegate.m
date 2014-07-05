@@ -20,18 +20,7 @@
     
    // LocalizationSetLanguage(@"Arabic");
     
-    NSString *tempValue =@"ar";
-    
-    NSString *currentLanguage = @"en";
-    
-    if ([tempValue rangeOfString:NSLocalizedString(@"English", nil)].location != NSNotFound) {
-        currentLanguage = @"en";
-    } else if ([tempValue rangeOfString:NSLocalizedString(@"Arabic", nil)].location != NSNotFound) {
-        currentLanguage = @"ar";
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ar", nil] forKey:@"AppleLanguages"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+  
     
     // Override point for customization after application launch.
     return YES;

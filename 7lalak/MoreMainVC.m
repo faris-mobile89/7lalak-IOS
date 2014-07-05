@@ -13,7 +13,7 @@
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
 #import "ContactUsVC.h"
-#include "BuyAdsVC.h"
+#include "BuyTableVC.h"
 
 @interface MoreMainVC ()
 
@@ -25,6 +25,11 @@ Boolean isRegistered=FALSE;
 - (void)viewDidLoad
 {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationController.navigationBar.translucent = NO;
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -100,8 +105,8 @@ Boolean isRegistered=FALSE;
 }
 
 - (IBAction)btnAccountInfo:(id)sender {
+    
     if (isRegistered) {
-        
         UserInfoVC *info = [self.storyboard instantiateViewControllerWithIdentifier:@"UserInfoVC"];
         [self.navigationController pushViewController:info animated:YES];
     }else{
@@ -113,7 +118,7 @@ Boolean isRegistered=FALSE;
     
     if (!isRegistered) {
         
-        BuyAdsVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
+        BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
         [self.navigationController pushViewController:buy animated:YES];
     }else{
         [self registerView];
