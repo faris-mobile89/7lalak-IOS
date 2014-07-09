@@ -22,31 +22,69 @@
 
 @interface ItemsViewController ()
 @property NSInteger selectedIndex;
-@property (nonatomic,copy) id jsonObject;
+@property (nonatomic,strong) NSMutableArray * jsonObject;
 
 @end
 
 @implementation ItemsViewController
 @synthesize jsonObject,selectedIndex;
 @synthesize catId;
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"Param%@",catId);
+    jsonObject = [[NSMutableArray alloc]init];
     
-   // [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    _numberOfnewPosts = 3;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
-    //[self.tableView setBackgroundColor:[UIColor clearColor]];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(insertNewObject:) forControlEvents:UIControlEventValueChanged];
-    
     [self.view addSubview:self.refreshControl];
     
     
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getItemsFromCategory&cat_id=%@",catId];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",catId,0];
+    
+    [self loadFeeds:strUrl];
+    
+    
+    
+}
+
+- (void)insertNewObject:(id)sender
+{
+    NSLog(@"%d new fetched objects",self.numberOfnewPosts);
+    
+    [self loadMoreFeed:_numberOfnewPosts];
+    
+}
+
+- (void)insertObject:(NSMutableArray *)newObject
+{
+     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    NSMutableArray *oldArray = [jsonObject mutableCopy];
+    
+    NSMutableArray *newArray =[[newObject valueForKey:@"items"]mutableCopy];
+    
+    [newArray addObjectsFromArray:oldArray];
+    
+    
+    jsonObject = newArray;
+    
+    
+    
+    NSLog(@"DataSource:%@",jsonObject);
+    //[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadData];
+}
+
+-(void)loadFeeds:(NSString *)urlString{
+    
+    
     
     NSURL* url = [NSURL URLWithString:urlString];
     
@@ -74,14 +112,16 @@
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
                  
-                 jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                 if (jsonObject) {
+                 NSMutableArray  *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (json) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         // self.model = jsonObject;
+                         
                          [activityIndicator stopAnimating];
+                         jsonObject = [json valueForKey:@"items"];
+                         
                          [self.tableView reloadData];
                          
-                       //  NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"items"]);
+                         NSLog(@"jsonObject: %@", jsonObject);
                          
                          
                      });
@@ -130,19 +170,88 @@
     
 }
 
-- (void)insertNewObject:(id)sender
-{
-    NSLog(@"%d new fetched objects",self.numberOfnewPosts);
-
-    [self.refreshControl endRefreshing];
+-(void)loadMoreFeed:(int )QueryCount{
     
-}
-
-- (void)insertObject:(id)newObject
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView reloadData];
+    NSLog(@"loading more ..");
+    
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",catId,QueryCount];
+    
+    NSURL* url = [NSURL URLWithString:strUrl];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 NSMutableArray  * MorejsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (MorejsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                         //NSLog(@"jsonObject: %@", [MorejsonObject valueForKey:@"items"]);
+                         
+                         if ([MorejsonObject valueForKey:@"items"]!=nil &&
+                             [[MorejsonObject valueForKey:@"items"]count] >0) {
+                             
+                             _numberOfnewPosts+=3;
+                             [self insertObject:MorejsonObject];
+                         }
+                         
+                         [self.refreshControl endRefreshing];
+                         
+                     });
+                 } else {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         //[self handleError:error];
+                         NSLog(@"ERROR: %@", error);
+                     });
+                 }
+             }
+             
+             else if(httpResponse.statusCode == 408){
+                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                 [someError show];
+                 [self.refreshControl endRefreshing];
+             }else{
+                 
+                 // status code indicates error, or didn't receive type of data requested
+                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
+                                   
+                                   (int)(httpResponse.statusCode),
+                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
+                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
+                                                      code:-1000
+                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     //[self handleError:error];  // execute on main thread!
+                     NSLog(@"ERROR: %@", error);
+                     [self.refreshControl endRefreshing];
+                 });
+             }
+         }
+         else {
+             // request failed - error contains info about the failure
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //[self handleError:error]; // execute on main thread!
+                 NSLog(@"ERROR: %@", error);
+                 [self.refreshControl endRefreshing];
+             });
+         }
+     }];
+    
+    
 }
 
 -(Boolean)testInternetConcecction{
@@ -170,7 +279,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [[jsonObject objectForKey:@"items"]count];
+    if ([jsonObject count] > 0 && jsonObject !=nil)
+        return [jsonObject count];
+    
+    else
+        return 0;
 }
 
 
@@ -193,23 +306,24 @@
     
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
-                                  [[[jsonObject objectForKey:@"items"] objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+                                     [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
+                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
     
-    if ([[[[jsonObject objectForKey:@"items"]
-          objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
+    if ([[[jsonObject
+           objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
         [cell.fType setImage:[UIImage imageNamed:@"ic_video_ads.png"]];
     }
-   
+    
     [cell.fTitle setText:
-     [[[jsonObject objectForKey:@"items"]
+     [[jsonObject
        objectAtIndex:indexPath.row]objectForKey:@"description"]];
     
-    [cell.fDate setText:[[[jsonObject objectForKey:@"items"]
-                         objectAtIndex:indexPath.row]objectForKey:@"created"]];
+    [cell.fDate setText:[[jsonObject
+                          objectAtIndex:indexPath.row]objectForKey:@"created"]];
     
-    [cell.fPrice setText:[[[jsonObject objectForKey:@"items"]
-                          objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    [cell.fPrice setText:[[jsonObject
+                           objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    
     return cell;
 }
 
@@ -227,19 +341,6 @@
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat maxY = scrollView.contentSize.height+scrollView.contentInset.bottom;
-    CGFloat botY = scrollView.contentOffset.y+scrollView.frame.size.height;
-   // NSLog(@"y = %f, maxY = %f", botY, maxY);
-    
-    if(botY >= maxY) {
-        // load next page
-       // NSLog(@"load");
-    }
-}
-
-
 
 #pragma mark - Navigation
 
@@ -248,7 +349,7 @@
     if ([[segue identifier] isEqualToString:@"itemDetails"] ){
         
         ItemDetailsViewController *itemDetailsVC = [segue destinationViewController];
-        itemDetailsVC.jsonObject =[[jsonObject objectForKey:@"items"] objectAtIndex:selectedIndex];
+        itemDetailsVC.jsonObject =[jsonObject objectAtIndex:selectedIndex];
     }
 }
 
