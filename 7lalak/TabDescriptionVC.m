@@ -103,6 +103,7 @@
     if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
         [[UIApplication sharedApplication] openURL: whatsappURL];
     }
+    
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller

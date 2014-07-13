@@ -27,9 +27,31 @@
 @implementation ContainerViewController
 @synthesize jsonObject,selectedIndex;
 
+- (id)init
+{
+    
+    self = [super init];
+    if (self) {
+        
+  
+    }
+    return self;
+    
+}
+-(void)viewDidAppear:(BOOL)animated{
+    
+  //  _imgBanner.frame = CGRectMake(0, 340, 320, 48);
+
+}
+-(void)viewWillLayoutSubviews{
+    
+   // _imgBanner.frame = CGRectMake(0, 340, 320, 48);
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
@@ -53,10 +75,6 @@
     [activityIndicator startAnimating];
 
     
-
-   // urlRequest.timeoutInterval =70;
-    //[urlRequest addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-   // urlRequest setTimeoutInterval:[nst]
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest
@@ -82,6 +100,7 @@
                         [self.tableView reloadData];
 
                        //NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
+                        [self loadBanner];
 
                         
                     });
@@ -129,6 +148,50 @@
     
 }
 
+-(void)loadBanner{
+    _imgBanner.frame = CGRectMake(0, 340, 320, 48);
+
+    
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?cat=main"];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 id jsonBanner = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonBanner) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                         NSLog(@"Banner%@",[jsonBanner objectForKey:@"url"]);
+                         if ([jsonBanner objectForKey:@"url"]!=nil) {
+                         [_imgBanner sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
+                         }
+                     });
+                 }
+             }
+             
+       
+         }
+     }];
+    
+
+}
+
+
+
 -(Boolean)testInternetConcecction{
     
     Boolean connectedStatus=false;
@@ -142,25 +205,6 @@
 	}
     return connectedStatus;
 }
-
-/*
-
--(Boolean)testInternetConcecction{
-    
-   Boolean connectedStatus=FALSE;
-   InternetConnection *networkReachability = [InternetConnection reachabilityForInternetConnection];
-   NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-   connectedStatus = networkStatus == NotReachable ?FALSE:TRUE;
-    
-	if (connectedStatus==FALSE) {
-		UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Error connecting to the internet" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-		[someError show];
-        
-	}
-    return connectedStatus;
-    
-}
- */
 
 
 

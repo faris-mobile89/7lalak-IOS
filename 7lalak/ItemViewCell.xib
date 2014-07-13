@@ -21,6 +21,10 @@
                         <rect key="frame" x="0.0" y="3" width="91" height="89"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zWz-R9-aLN">
+                        <rect key="frame" x="2" y="5" width="83" height="81"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="blah blah blah" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="181" translatesAutoresizingMaskIntoConstraints="NO" id="w3U-tJ-OEs">
                         <rect key="frame" x="99" y="8" width="181" height="45"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,6 +58,7 @@
                 <outlet property="fPrice" destination="XJY-XB-8dY" id="dLl-rw-rlr"/>
                 <outlet property="fTitle" destination="w3U-tJ-OEs" id="CYL-Hy-bZh"/>
                 <outlet property="fType" destination="fwM-cv-vBg" id="qbt-fR-6cT"/>
+                <outlet property="imgSold" destination="zWz-R9-aLN" id="5zi-R5-DYj"/>
             </connections>
         </tableViewCell>
     </objects>

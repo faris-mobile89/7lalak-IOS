@@ -23,37 +23,52 @@
     NSMutableArray *pickerJsonData;
     NSMutableArray *mainCat;
     UIActivityIndicatorView *activityIndicator;
-    int selectedMainCatID,selectedSubCatID;
+    
+   
 }
+@property NSDictionary *jsonObject;
+@property NSDictionary *subCat;
+@property NSString *catId;
+@property NSString *selectedMaincatId;
+@property NSString *selectedSubcatId;
+
 @end
 
 
 @implementation AddImageVC
 @synthesize choosePhotoBtn, takePhotoBtn;
 @synthesize userID;
+@synthesize subCat,catId,selectedMaincatId,selectedSubcatId,jsonObject;
+float hieght ;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!IS_HEIGHT_GTE_568) {
+    
+    hieght = SCREEN_HEIGHT;
+    
+    if (hieght < 500) {
         _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
     }
+    jsonObject =[[NSDictionary alloc]init];
+    subCat = [[NSDictionary alloc]init];
+    catId =[[NSString alloc]init];
+    selectedMaincatId  = [[NSString alloc]init];
+    selectedSubcatId   = [[NSString alloc]init];
 
-    selectedMainCatID=0000;
-    selectedSubCatID=0000;
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
+    _fAdsText.layer.cornerRadius=10;
+    _fAdsText.layer.borderWidth=2.0;
+    _fAdsText.clipsToBounds = YES;
+    _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
     [self.view addSubview: activityIndicator];
     
-
-    selectedMainRowindex =0;
-    subIndexCount=0;
     [activityIndicator startAnimating];
     
     pickerJsonData = [[NSMutableArray alloc]init];
     
-    [self loadPickerViewData ];
     
     _pickerCategories.frame = CGRectMake(0, 0, 300, 162.0);
     imagesData = [[NSMutableArray alloc]init];
@@ -62,13 +77,14 @@
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     
     [_collectionView registerNib:[UINib nibWithNibName:@"UploadCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [self loadMainCat];
 }
 
 - (IBAction)uploadButtonAction:(id)sender {
-    if ([_fAdsPrice.text length] > 0  && [_fAdsText.text length]>0 && selectedSubCatID != 0000 ) {
-        [self uploadService];
+    
+    if ([_fAdsPrice.text length] >= 1  && [_fAdsText.text length]> 5 ) {
         NSLog(@"starting Upload");
-        NSLog(@"mainID:%i,subId:%i",selectedMainCatID,selectedSubCatID);
+        [self uploadService];
     }
 }
 
@@ -116,9 +132,9 @@
 -(void)uploadService{
     
     //NSLog(@"asdf%@",data);
-    NSString * MCID =[[NSString alloc]initWithFormat:@"%i",selectedMainCatID];
-    NSString * SCID =[[NSString alloc]initWithFormat:@"%i",selectedMainCatID];
-
+    NSString * MCID =[[NSString alloc]initWithFormat:@"%@",selectedMaincatId];
+    NSString * SCID =[[NSString alloc]initWithFormat:@"%@",selectedSubcatId];
+    userID =@"fsdf";
     NSDictionary *dictParameter = @{@"addImage": @{@"userID": userID, @"text":_fAdsText.text,@"price":_fAdsPrice.text, @"mainCatId":MCID,@"subCatID":SCID}};
     
     NSString *strURL = @"http://serv01.vm1692.sgvps.net/~karasi/sale/uploader.php";
@@ -196,8 +212,8 @@
         [choosePhotoBtn setEnabled:TRUE];
     }
 }
-int subIndexCount=0;
-int selectedMainRowindex=0;
+
+#pragma mark pickerView
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 2;
@@ -207,11 +223,9 @@ int selectedMainRowindex=0;
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     if (component ==0) {
-        return [mainCat count];
+        return [[jsonObject objectForKey:@"MainCat"]count];
     }else if (component==1){
-        if (subIndexCount > 0) {
-            return subIndexCount;
-        }
+        return [[subCat objectForKey:@"SubCat"]count];
     }
     return 0;
 }
@@ -222,28 +236,27 @@ int selectedMainRowindex=0;
     if (!label){
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:10]];
-       
-        /*
-         label.backgroundColor = [UIColor lightGrayColor];
-         label.textColor = [UIColor blackColor];
-         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
+        
+        
+        
+         if(hieght<500){
+         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
          label.text = [NSString stringWithFormat:@"  %d", row+1];
-         */
-       
+         }
+        
         if (component == 0) {
-            if ([mainCat count]>0) {
-                label.text=  [mainCat objectAtIndex:row];
+            if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                label.text= lableText;
             }
         }
+        
         else if (component==1){
-            if ([pickerJsonData count]>0 && subIndexCount > 0) {
-             
-                label.text=  [[[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]valueForKey:@"subCat"]objectAtIndex:row]valueForKey:@"name"];
+            if ([[subCat objectForKey:@"SubCat"]count]>0) {
                 
-            }else{
-                NSLog(@"SubCat is Empty!");
+                label.text=  [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"];
+                
             }
-            
         }
         
     }
@@ -255,53 +268,21 @@ int selectedMainRowindex=0;
     
     if (component==0){
         
-        if ([pickerJsonData count] > 0) {
-            
-            selectedMainCatID = [[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]objectForKey:@"id"]integerValue];
-            
-            subIndexCount = [[[[pickerJsonData objectAtIndex:0]objectAtIndex:row]valueForKey:@"subCat"]count];
-            NSLog(@"sub index count%i",subIndexCount);
-            selectedMainRowindex = row;
-            NSLog(@"selected index: %i",selectedMainRowindex);
-            [_pickerCategories reloadComponent:1];
-        }
-        
-        
-        
-    }else if(component ==1){
-         selectedSubCatID=  [[[[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]valueForKey:@"subCat"]objectAtIndex:row]valueForKey:@"id"]integerValue];
+        catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
+        [self loadSubCat];
+        selectedMaincatId = catId;
+    }else if (component == 1){
+        selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
     }
 }
-/*
- - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
- {
- 
- if (component == 0) {
- if ([mainCat count]>0) {
- return  [mainCat objectAtIndex:row];
- }
- }
- else if (component==1){
- if ([pickerJsonData count]>0 && subIndexCount > 0) {
- 
- return  [[[[[pickerJsonData objectAtIndex:0]objectAtIndex:selectedMainRowindex]valueForKey:@"subCat"]objectAtIndex:row]valueForKey:@"name"];
- 
- }else{
- NSLog(@"SubCat is Empty!");
- }
- 
- }
- return @"";
- }
- */
 
--(void)loadPickerViewData{
+
+-(void)loadSubCat{
+ 
+ 
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
-    NSLog(@"loading...");
-    
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://serv01.vm1692.sgvps.net/~karasi/sale/UiPickerDataIOS.php?tag=getAllCat"];
-    
-    NSURL* url = [NSURL URLWithString:urlString];
+    NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -323,48 +304,30 @@ int selectedMainRowindex=0;
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
                  
-                 id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                 if (jsonObject) {
+                 subCat = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         id json = jsonObject;
                          [activityIndicator stopAnimating];
-                         [pickerJsonData addObject:[json objectForKey:@"MainCat"]];
+                         [_pickerCategories reloadComponent:1];
+                         
+                         if ([subCat count]>0)
+                             selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          
                          
-                         //NSLog(@"jsonObject: %@", [json objectForKey:@"MainCat"]);
-                         mainCat= [[NSMutableArray alloc]init];
-                         
-                         for (int i =0 ; i<= [json count]+1; i++) {
-                             [mainCat addObject: [[[json objectForKey:@"MainCat"]objectAtIndex:i]objectForKey:@"name"]];
-                         }
-                         
-                         selectedMainCatID = [[[[pickerJsonData objectAtIndex:0]objectAtIndex:0]objectForKey:@"id"]integerValue];
-                         
-                         selectedSubCatID=  [[[[[[pickerJsonData objectAtIndex:0]objectAtIndex:0]valueForKey:@"subCat"]objectAtIndex:0]valueForKey:@"id"]integerValue];
-                         
-                         // set defualt index to first row of categories
-                         subIndexCount =  [[[[[pickerJsonData objectAtIndex:0]objectAtIndex:0] valueForKey:@"subCat"]objectAtIndex:0]count];
-                         
-                         [_pickerCategories reloadAllComponents];
-                         [_pickerCategories reloadComponent:0];
-                         
-                         
+                         //NSLog(@"subCat: %@", subCat);
                          
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          //[self handleError:error];
                          NSLog(@"ERROR: %@", error);
-                         UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                         
-                         [internetError show];
-
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 
+                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                 [someError show];
              }else{
                  [activityIndicator stopAnimating];
                  
@@ -379,9 +342,6 @@ int selectedMainRowindex=0;
                  dispatch_async(dispatch_get_main_queue(), ^{
                      //[self handleError:error];  // execute on main thread!
                      NSLog(@"ERROR: %@", error);
-                     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                     
-                     [internetError show];
                      [activityIndicator stopAnimating];
                  });
              }
@@ -391,25 +351,114 @@ int selectedMainRowindex=0;
              dispatch_async(dispatch_get_main_queue(), ^{
                  //[self handleError:error]; // execute on main thread!
                  NSLog(@"ERROR: %@", error);
-                 
                  UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  
                  [internetError show];
                  [activityIndicator stopAnimating];
-
              });
          }
      }];
     
+}
+
+-(void)loadMainCat{
+    
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+
+    
+    [activityIndicator startAnimating];
+    
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [activityIndicator stopAnimating];
+                         [_pickerCategories reloadComponent:0];
+                         
+                         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
+                         selectedMaincatId = catId;
+                         [self loadSubCat];
+                         
+                         // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
+                         
+                         
+                         
+                     });
+                 } else {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         NSLog(@"ERROR: %@", error);
+                     });
+                 }
+             }
+             
+             else if(httpResponse.statusCode == 408){
+                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                 [someError show];
+             }else{
+                 [activityIndicator stopAnimating];
+                 
+                 // status code indicates error, or didn't receive type of data requested
+                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
+                                   
+                                   (int)(httpResponse.statusCode),
+                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
+                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
+                                                      code:-1000
+                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     //[self handleError:error];  // execute on main thread!
+                     NSLog(@"ERROR: %@", error);
+                     [activityIndicator stopAnimating];
+                 });
+             }
+         }
+         else {
+             // request failed - error contains info about the failure
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //[self handleError:error]; // execute on main thread!
+                 NSLog(@"ERROR: %@", error);
+                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                 
+                 [internetError show];
+                 [activityIndicator stopAnimating];
+             });
+         }
+     }];
     
 }
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
     return YES;
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
-    [_fAdsText resignFirstResponder];
     [_fAdsPrice resignFirstResponder];
     
     return YES;

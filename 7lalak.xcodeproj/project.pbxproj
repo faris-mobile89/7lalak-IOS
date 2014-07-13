@@ -139,6 +139,8 @@
 		E09264C6195A4FA2000D6BC1 /* ICETutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264C1195A4FA2000D6BC1 /* ICETutorialController.m */; };
 		E09264C7195A4FA2000D6BC1 /* ICETutorialPage.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264C3195A4FA2000D6BC1 /* ICETutorialPage.m */; };
 		E09264C8195A4FA2000D6BC1 /* ICETutorialStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264C5195A4FA2000D6BC1 /* ICETutorialStyle.m */; };
+		E097DC401971ACA4004E65F8 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E097DC3F1971ACA4004E65F8 /* SearchVC.m */; };
+		E097DC431971ACBA004E65F8 /* SearchResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E097DC421971ACBA004E65F8 /* SearchResultsVC.m */; };
 		E09C4870196843C5008C7C20 /* LocalizeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C486F196843C5008C7C20 /* LocalizeHelper.m */; };
 		E09C487819685CD4008C7C20 /* AdsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C487319685CD4008C7C20 /* AdsDetailViewController.m */; };
 		E09C487919685CD4008C7C20 /* InAppAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C487519685CD4008C7C20 /* InAppAPHelper.m */; };
@@ -381,6 +383,10 @@
 		E09264C3195A4FA2000D6BC1 /* ICETutorialPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICETutorialPage.m; sourceTree = "<group>"; };
 		E09264C4195A4FA2000D6BC1 /* ICETutorialStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICETutorialStyle.h; sourceTree = "<group>"; };
 		E09264C5195A4FA2000D6BC1 /* ICETutorialStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICETutorialStyle.m; sourceTree = "<group>"; };
+		E097DC3E1971ACA4004E65F8 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
+		E097DC3F1971ACA4004E65F8 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
+		E097DC411971ACBA004E65F8 /* SearchResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsVC.h; sourceTree = "<group>"; };
+		E097DC421971ACBA004E65F8 /* SearchResultsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsVC.m; sourceTree = "<group>"; };
 		E09C486E196843C5008C7C20 /* LocalizeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizeHelper.h; sourceTree = "<group>"; };
 		E09C486F196843C5008C7C20 /* LocalizeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizeHelper.m; sourceTree = "<group>"; };
 		E09C4871196846D6008C7C20 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -482,13 +488,17 @@
 				E0F660061957B9CA00A73EB7 /* ItemsViewController.h */,
 				E0F660071957B9CA00A73EB7 /* ItemsViewController.m */,
 				E00A360319584C0900A7B45A /* ItemDetailsViewController.h */,
-				E00A360419584C0900A7B45A /* ItemDetailsViewController.m */,
 				E0D8820B1958634A00557F5B /* TabDescriptionVC.h */,
 				E0D8820C1958634A00557F5B /* TabDescriptionVC.m */,
+				E00A360419584C0900A7B45A /* ItemDetailsViewController.m */,
 				E0D8820E1958637E00557F5B /* TabImagesVC.h */,
 				E0D8820F1958637E00557F5B /* TabImagesVC.m */,
 				E0D882111958639100557F5B /* TabVideoVC.h */,
 				E0D882121958639100557F5B /* TabVideoVC.m */,
+				E097DC3E1971ACA4004E65F8 /* SearchVC.h */,
+				E097DC3F1971ACA4004E65F8 /* SearchVC.m */,
+				E097DC411971ACBA004E65F8 /* SearchResultsVC.h */,
+				E097DC421971ACBA004E65F8 /* SearchResultsVC.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1076,6 +1086,7 @@
 			files = (
 				E066B8161961BC0A0065F675 /* UIProgressView+AFNetworking.m in Sources */,
 				E0480D6F195D18C200EAA25A /* UIView+WebCacheOperation.m in Sources */,
+				E097DC431971ACBA004E65F8 /* SearchResultsVC.m in Sources */,
 				E066B82D1961BCA10065F675 /* AFHTTPRequestOperationManager.m in Sources */,
 				E03E1C2D195AA1EF00DAEB6A /* MoreMainVC.m in Sources */,
 				E066B8331961BCA10065F675 /* AFURLResponseSerialization.m in Sources */,
@@ -1098,6 +1109,7 @@
 				E0239748195FF3AC00E0AA28 /* RegisterVC.m in Sources */,
 				E0239742195FEEBB00E0AA28 /* UserInfoVC.m in Sources */,
 				E0A357FD1964A33D0058146B /* HomePageVC.m in Sources */,
+				E097DC401971ACA4004E65F8 /* SearchVC.m in Sources */,
 				E0480D6B195D18C200EAA25A /* UIImage+MultiFormat.m in Sources */,
 				E0F660081957B9CA00A73EB7 /* ItemsViewController.m in Sources */,
 				E032F9B01958A570003ED896 /* ItemViewCell.m in Sources */,

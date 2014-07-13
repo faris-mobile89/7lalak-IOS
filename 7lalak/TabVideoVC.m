@@ -87,7 +87,7 @@
     cell.backgroundView = [UIView new] ;
     cell.selectedBackgroundView = [UIView new];
     
-    cell.fVideoTitle.text=[[NSString alloc]initWithFormat:@"Video %i",indexPath.row+1];
+    cell.fVideoTitle.text=[[NSString alloc]initWithFormat:@"Video %li",indexPath.row+1];
 
     //UIWebView  *wbView = (UIWebView *)[cell.contentView viewWithTag:1];
     NSString *embedHTML = @"\

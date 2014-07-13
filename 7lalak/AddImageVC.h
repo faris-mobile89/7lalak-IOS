@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddImageVC : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate> {
+@interface AddImageVC : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate,UITextViewDelegate> {
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;
     NSString *userID;
 }
-@property (weak, nonatomic) IBOutlet UITextField *fAdsText;
-@property (weak, nonatomic) IBOutlet UITextField *fAdsPrice;
+@property (strong, nonatomic) IBOutlet UITextView *fAdsText;
+@property (strong, nonatomic) IBOutlet UITextField *fAdsPrice;
 @property (strong,nonatomic) NSString *userID;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerCategories;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIPickerView *pickerCategories;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
 - (IBAction)uploadButtonAction:(id)sender;

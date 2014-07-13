@@ -102,6 +102,13 @@
     
     [cell.fPrice setText:[[jsonObject
                            objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    
+    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
+    
+    if (status == 2) {
+        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+    }
+    
     return cell;
 }
 

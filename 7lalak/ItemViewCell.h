@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *fPrice;
 @property (weak, nonatomic) IBOutlet UILabel *fDate;
 @property (weak, nonatomic) IBOutlet UIImageView *fType;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSold;
 
 @end

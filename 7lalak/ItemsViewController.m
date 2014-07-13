@@ -31,11 +31,17 @@
 @synthesize catId;
 
 
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     jsonObject = [[NSMutableArray alloc]init];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search"
+                                                                              style:UIBarButtonItemStyleBordered
+                                                                             target:self
+                                                                             action:@selector(searchTapped:)];
     _numberOfnewPosts = 3;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
@@ -51,7 +57,11 @@
     [self loadFeeds:strUrl];
     
     
+}
+-(void)searchTapped:(id)sender{
     
+    [self  performSegueWithIdentifier:@"search_seuge" sender:sender];
+    NSLog(@"Search..");
 }
 
 - (void)insertNewObject:(id)sender
@@ -121,7 +131,7 @@
                          
                          [self.tableView reloadData];
                          
-                         NSLog(@"jsonObject: %@", jsonObject);
+                        // NSLog(@"jsonObject: %@", jsonObject);
                          
                          
                      });
@@ -174,7 +184,7 @@
     
     NSLog(@"loading more ..");
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",catId,QueryCount];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",@"1",QueryCount];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     
@@ -323,6 +333,12 @@
     
     [cell.fPrice setText:[[jsonObject
                            objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    
+    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
+    
+    if (status == 2) {
+        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+    }
     
     return cell;
 }

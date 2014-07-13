@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ContactUsVC : UIViewController
+@interface ContactUsVC : UIViewController<UITextViewDelegate>
+- (IBAction)btnSend:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UITextView *contactForm;
 
 @end
