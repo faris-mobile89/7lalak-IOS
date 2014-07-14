@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E00947051973A8D000A43DD4 /* ic_video_file.png in Resources */ = {isa = PBXBuildFile; fileRef = E00947041973A8D000A43DD4 /* ic_video_file.png */; };
 		E00A360519584C0900A7B45A /* ItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A360419584C0900A7B45A /* ItemDetailsViewController.m */; };
 		E01417E11966C3AA000EF66E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01417E01966C3AA000EF66E /* StoreKit.framework */; };
 		E01417E51966D2B9000EF66E /* home_Ads.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E01417E41966D2B9000EF66E /* home_Ads.jpg */; };
@@ -192,6 +193,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E00947041973A8D000A43DD4 /* ic_video_file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_video_file.png; sourceTree = "<group>"; };
 		E00A360319584C0900A7B45A /* ItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailsViewController.h; sourceTree = "<group>"; };
 		E00A360419584C0900A7B45A /* ItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsViewController.m; sourceTree = "<group>"; };
 		E01417E01966C3AA000EF66E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -574,6 +576,7 @@
 			isa = PBXGroup;
 			children = (
 				E0680205196876850002B692 /* app_icon */,
+				E00947041973A8D000A43DD4 /* ic_video_file.png */,
 				E01417E41966D2B9000EF66E /* home_Ads.jpg */,
 				E08F4C7C19624B0A00A6DDFB /* photo-frame.png */,
 				E0F09D21195A070900BAF4F6 /* btn_call.png */,
@@ -1028,6 +1031,7 @@
 				E08F4C8E19626C3F00A6DDFB /* UploadCell.xib in Resources */,
 				E023973F195FEE8600E0AA28 /* UserInfoData.plist in Resources */,
 				E0890D311955C65F009A9A48 /* InfoPlist.strings in Resources */,
+				E00947051973A8D000A43DD4 /* ic_video_file.png in Resources */,
 				E0E84EC7195A52BC00308080 /* Default.png in Resources */,
 				E016E2DF19579E2A007EE60B /* Home1ViewCell.xib in Resources */,
 				E0680211196876A70002B692 /* Icon-Small-50@2x.png in Resources */,

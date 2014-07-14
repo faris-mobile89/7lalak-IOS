@@ -87,15 +87,30 @@ Boolean isRegistered=FALSE;
     
     if (!isRegistered) {
         
-       // AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
-       // [self.navigationController pushViewController:video animated:YES];
+        UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:@"Please choose Ads type" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Image",@"Video", nil];
+        [chooser show];
         
-         AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
-         [self.navigationController pushViewController:imageVC animated:YES];
+        
         
     }else{
         [self registerView];
     }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+        
+    if (buttonIndex == 1) {
+        
+        AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
+        [self.navigationController pushViewController:imageVC animated:YES];
+        
+    }else if (buttonIndex == 2){
+        
+        AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
+        [self.navigationController pushViewController:video animated:YES];
+    }
+    
+
 }
 
 - (IBAction)btnFav:(id)sender {

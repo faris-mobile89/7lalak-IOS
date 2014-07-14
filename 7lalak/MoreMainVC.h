@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoreMainVC : UIViewController
+@interface MoreMainVC : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnAdd;
 
 - (IBAction)btnAdd:(id)sender;

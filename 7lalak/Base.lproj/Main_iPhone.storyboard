@@ -110,7 +110,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eqd-cV-kKR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price (KD)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eqd-cV-kKR">
                                 <rect key="frame" x="39" y="83" width="242" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -156,13 +156,19 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3A-b9-6PY">
-                                <rect key="frame" x="39" y="103" width="242" height="162"/>
+                                <rect key="frame" x="39" y="124" width="242" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <outlet property="dataSource" destination="O0f-XM-K1F" id="esJ-xD-9wm"/>
                                     <outlet property="delegate" destination="O0f-XM-K1F" id="OMW-qb-h9I"/>
                                 </connections>
                             </pickerView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNX-0l-GXM">
+                                <rect key="frame" x="40" y="114" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter Text here" translatesAutoresizingMaskIntoConstraints="NO" id="wZ3-7m-HLe">
                                 <rect key="frame" x="40" y="8" width="241" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -187,37 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Yf-TuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1851" y="2294"/>
-        </scene>
-        <!--Add VideoVC-->
-        <scene sceneID="yYn-ZZ-3nu">
-            <objects>
-                <viewController storyboardIdentifier="addVideoView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1lU-bd-exC" customClass="AddVideoVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="muZ-W0-fp3"/>
-                        <viewControllerLayoutGuide type="bottom" id="JAY-7c-97t"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="g8d-JR-c0p">
-                        <rect key="frame" x="0.0" y="44" width="320" height="474"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO3-Ho-BSM">
-                                <rect key="frame" x="62" y="243" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.36793346090000001" green="0.72203842470000001" blue="0.08493650287" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="o5I-wy-L9J"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="518"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UPc-U0-vC7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1875" y="1241"/>
+            <point key="canvasLocation" x="2166" y="1117"/>
         </scene>
         <!--FavoriteVC-->
         <scene sceneID="qAJ-cw-bJ6">
@@ -1372,7 +1348,6 @@
                     <size key="freeformSize" width="320" height="519"/>
                     <connections>
                         <outlet property="btnAdd" destination="idl-cu-MSd" id="fti-N0-SVb"/>
-                        <segue destination="1lU-bd-exC" kind="push" id="7G5-21-Jvr"/>
                         <segue destination="hj5-b6-KYA" kind="push" identifier="FavVC" id="pWa-1D-gZp"/>
                         <segue destination="BAX-V8-wkT" kind="push" id="Y3F-Pg-iEc"/>
                     </connections>
@@ -1424,6 +1399,99 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVC-K3-B1c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="657" y="-302"/>
+        </scene>
+        <!--Add VideoVC-->
+        <scene sceneID="NmE-lj-RCa">
+            <objects>
+                <viewController storyboardIdentifier="addVideoView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KIp-7a-fFk" customClass="AddVideoVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wmQ-hm-LGW"/>
+                        <viewControllerLayoutGuide type="bottom" id="pQp-Qe-k7K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SRM-mT-cOa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price (KD)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wqh-YW-vAD">
+                                <rect key="frame" x="39" y="83" width="242" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAL-8A-IyS">
+                                <rect key="frame" x="163" y="332" width="118" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Upload">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="uploadButtonAction:" destination="KIp-7a-fFk" eventType="touchUpInside" id="G48-k4-a4B"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ag-Tp-joS">
+                                <rect key="frame" x="39" y="332" width="118" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add Video">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addVideoButton:" destination="KIp-7a-fFk" eventType="touchUpInside" id="ghc-LC-n6a"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdy-lB-0t7">
+                                <rect key="frame" x="39" y="139" width="242" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="KIp-7a-fFk" id="W3e-IW-3Ef"/>
+                                    <outlet property="delegate" destination="KIp-7a-fFk" id="zqe-Xf-c7F"/>
+                                </connections>
+                            </pickerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter Text here" translatesAutoresizingMaskIntoConstraints="NO" id="L6X-Nv-2jc">
+                                <rect key="frame" x="40" y="8" width="241" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTm-dm-yZ7">
+                                <rect key="frame" x="104" y="295" width="172" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDH-96-6VL">
+                                <rect key="frame" x="29" y="256" width="70" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aau-Ai-HSO">
+                                <rect key="frame" x="39" y="114" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="519"/>
+                    <connections>
+                        <outlet property="buttonaddVideo" destination="8ag-Tp-joS" id="sKX-X7-TwD"/>
+                        <outlet property="fAdsPrice" destination="Wqh-YW-vAD" id="gRf-W6-yrR"/>
+                        <outlet property="fAdsText" destination="L6X-Nv-2jc" id="Llh-q8-3nF"/>
+                        <outlet property="imageVideoIndicator" destination="sDH-96-6VL" id="OxY-br-gQn"/>
+                        <outlet property="pickerCategories" destination="Pdy-lB-0t7" id="lqW-ig-ntL"/>
+                        <outlet property="textVideoindicator" destination="iTm-dm-yZ7" id="tmt-pB-jY0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zwZ-vZ-CPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1805" y="1117"/>
         </scene>
     </scenes>
     <resources>

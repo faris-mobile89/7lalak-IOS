@@ -39,7 +39,8 @@
 @synthesize choosePhotoBtn, takePhotoBtn;
 @synthesize userID;
 @synthesize subCat,catId,selectedMaincatId,selectedSubcatId,jsonObject;
-float hieght ;
+float hieght;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -90,20 +91,27 @@ float hieght ;
 
 -(IBAction) getPhoto:(id) sender {
     
-	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Pick from gallery",@"Open camera", nil];
+    [chooser show];
+	
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
-    
-  //  picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
 
-	
-	if((UIButton *) sender == choosePhotoBtn) {
-		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	} else {
-		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-	}
+
+    if (buttonIndex == 1) {
+       // picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        [self.navigationController presentViewController:picker animated:YES completion:nil];
+
+    }else if (buttonIndex == 2){
+ 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self.navigationController presentViewController:picker animated:YES completion:nil];
+
+    }
     
-    [self.navigationController presentViewController:picker animated:YES completion:nil];
-	
+    
 }
 
 
@@ -147,9 +155,7 @@ float hieght ;
         for (int i =0 ; i<[imagesDataToUpload count]; i++) {
             
             NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-            
             date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
-            
             NSString *imageName = [[NSString alloc]initWithFormat:@"7lalak_IOS%i_%@%@",i,
                                    date,@".jpg"];
            
@@ -453,6 +459,15 @@ float hieght ;
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (textField == _fAdsPrice) {
+        
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return (newLength > 10) ? NO : YES;
+    }
+    else return YES;
+}
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
     return YES;
