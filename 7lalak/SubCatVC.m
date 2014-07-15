@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
 
-#import "TableViewController.h"
+#import "SubCatVC.h"
 #import "Home1ViewCell.h"
 #import "ItemsViewController.h"
 #import <UIKit/UIColor.h>
@@ -19,24 +19,31 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-
-
-@interface TableViewController ()
+@interface SubCatVC ()
 @property NSInteger selectedIndex;
 @property (nonatomic,copy) id jsonObject;
 @end
 
-@implementation TableViewController
+@implementation SubCatVC
 @synthesize jsonObject,selectedIndex;
 @synthesize catId;
+
+
+UIImageView *bannerView;
+
+-(void)viewDidLayoutSubviews{
+    
+    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-44);
+    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 48)];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-  //  [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    [self.tableView setBackgroundColor: [UIColor clearColor]];
+    
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL* url = [NSURL URLWithString:urlString];
@@ -48,7 +55,6 @@
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -71,7 +77,7 @@
                          // self.model = jsonObject;
                          [activityIndicator stopAnimating];
                          [self.tableView reloadData];
-                         
+                         [self loadBanner];
                        //  NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"SubCat"]);
                          
                          
@@ -125,6 +131,50 @@
     
 }
 
+
+-(void)loadBanner{
+    
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 id jsonBanner = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonBanner) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                         if ([jsonBanner objectForKey:@"url"]!=nil) {
+                             
+                             [self.view addSubview:bannerView];
+                             [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
+                             
+                         }
+                     });
+                 }
+             }
+             
+             
+         }
+     }];
+    
+    
+}
+
+
 -(Boolean)testInternetConcecction{
     
     Boolean connectedStatus=false;
@@ -174,7 +224,7 @@
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                   [[[jsonObject objectForKey:@"SubCat"] objectAtIndex:indexPath.row]objectForKey:@"image"]]
-                placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+                placeholderImage:[UIImage imageNamed:@"img_7lalek.png"]];
     [cell.fLabel setText:
      [[[jsonObject objectForKey:@"SubCat"]
        objectAtIndex:indexPath.row]objectForKey:@"name"]];
@@ -203,7 +253,7 @@
     
     if ([[segue identifier] isEqualToString:@"itemsDetails"] ){
         
-        TableViewController *tableVC = [segue destinationViewController];
+        SubCatVC *tableVC = [segue destinationViewController];
         
         NSString *param = [[NSString alloc]initWithFormat:@"%@%@",
         [[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"],catId ];

@@ -10,6 +10,5 @@
 
 @interface ContainerViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *imgBanner;
 @property (nonatomic,copy) id jsonObject;
 @end

@@ -10,7 +10,6 @@
 		E00947051973A8D000A43DD4 /* ic_video_file.png in Resources */ = {isa = PBXBuildFile; fileRef = E00947041973A8D000A43DD4 /* ic_video_file.png */; };
 		E00A360519584C0900A7B45A /* ItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A360419584C0900A7B45A /* ItemDetailsViewController.m */; };
 		E01417E11966C3AA000EF66E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01417E01966C3AA000EF66E /* StoreKit.framework */; };
-		E01417E51966D2B9000EF66E /* home_Ads.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E01417E41966D2B9000EF66E /* home_Ads.jpg */; };
 		E016E2DE19579E2A007EE60B /* Home1ViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E016E2DC19579E2A007EE60B /* Home1ViewCell.m */; };
 		E016E2DF19579E2A007EE60B /* Home1ViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E016E2DD19579E2A007EE60B /* Home1ViewCell.xib */; };
 		E0227F121960672700E16FDD /* VideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0227F101960672700E16FDD /* VideoCell.m */; };
@@ -130,8 +129,10 @@
 		E0890D4E1955C65F009A9A48 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0890D2A1955C65F009A9A48 /* UIKit.framework */; };
 		E0890D561955C65F009A9A48 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E0890D541955C65F009A9A48 /* InfoPlist.strings */; };
 		E0890D581955C65F009A9A48 /* _lalakTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E0890D571955C65F009A9A48 /* _lalakTests.m */; };
-		E0890D631955C8FE009A9A48 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0890D621955C8FE009A9A48 /* TableViewController.m */; };
+		E0890D631955C8FE009A9A48 /* SubCatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0890D621955C8FE009A9A48 /* SubCatVC.m */; };
 		E0890D661955C94C009A9A48 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0890D651955C94C009A9A48 /* ContainerViewController.m */; };
+		E08AA1DF1974FE61002F5835 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08AA1DE1974FE61002F5835 /* AudioToolbox.framework */; };
+		E08AA1E11974FF6B002F5835 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = E08AA1E01974FF6B002F5835 /* tap.aif */; };
 		E08F4C7B196241F500A6DDFB /* AddImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E08F4C7A196241F500A6DDFB /* AddImageVC.m */; };
 		E08F4C7D19624B0A00A6DDFB /* photo-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = E08F4C7C19624B0A00A6DDFB /* photo-frame.png */; };
 		E08F4C8D19626C3F00A6DDFB /* UploadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E08F4C8B19626C3F00A6DDFB /* UploadCell.m */; };
@@ -147,6 +148,7 @@
 		E09C487919685CD4008C7C20 /* InAppAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C487519685CD4008C7C20 /* InAppAPHelper.m */; };
 		E09C487A19685CD4008C7C20 /* BuyTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C487719685CD4008C7C20 /* BuyTableVC.m */; };
 		E09C487D19685D2A008C7C20 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E09C487C19685D2A008C7C20 /* IAPHelper.m */; };
+		E0A33C461974C051007350DC /* 216097452.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E0A33C451974C051007350DC /* 216097452.jpg */; };
 		E0A357FD1964A33D0058146B /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A357FC1964A33C0058146B /* HomePageVC.m */; };
 		E0A358011964ACF30058146B /* MediaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A358001964ACF30058146B /* MediaVC.m */; };
 		E0A560B8195CF1AE00FD0D70 /* UIColor_hex.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A560B7195CF1AE00FD0D70 /* UIColor_hex.m */; };
@@ -197,7 +199,6 @@
 		E00A360319584C0900A7B45A /* ItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailsViewController.h; sourceTree = "<group>"; };
 		E00A360419584C0900A7B45A /* ItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsViewController.m; sourceTree = "<group>"; };
 		E01417E01966C3AA000EF66E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		E01417E41966D2B9000EF66E /* home_Ads.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home_Ads.jpg; sourceTree = "<group>"; };
 		E016E2DB19579E2A007EE60B /* Home1ViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home1ViewCell.h; sourceTree = "<group>"; };
 		E016E2DC19579E2A007EE60B /* Home1ViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home1ViewCell.m; sourceTree = "<group>"; };
 		E016E2DD19579E2A007EE60B /* Home1ViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Home1ViewCell.xib; sourceTree = "<group>"; };
@@ -367,10 +368,14 @@
 		E0890D531955C65F009A9A48 /* hlalekTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "hlalekTests-Info.plist"; sourceTree = "<group>"; };
 		E0890D551955C65F009A9A48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E0890D571955C65F009A9A48 /* _lalakTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _lalakTests.m; sourceTree = "<group>"; };
-		E0890D611955C8FE009A9A48 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		E0890D621955C8FE009A9A48 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		E0890D611955C8FE009A9A48 /* SubCatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCatVC.h; sourceTree = "<group>"; };
+		E0890D621955C8FE009A9A48 /* SubCatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCatVC.m; sourceTree = "<group>"; };
 		E0890D641955C94C009A9A48 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		E0890D651955C94C009A9A48 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		E08AA1DB1974FB0C002F5835 /* hlalek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = hlalek.entitlements; sourceTree = "<group>"; };
+		E08AA1DC1974FBE2002F5835 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E08AA1DE1974FE61002F5835 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E08AA1E01974FF6B002F5835 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = tap.aif; path = ../../../../Downloads/SysSound/Resources/sounds/tap.aif; sourceTree = "<group>"; };
 		E08F4C79196241F500A6DDFB /* AddImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageVC.h; sourceTree = "<group>"; };
 		E08F4C7A196241F500A6DDFB /* AddImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageVC.m; sourceTree = "<group>"; };
 		E08F4C7C19624B0A00A6DDFB /* photo-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-frame.png"; sourceTree = "<group>"; };
@@ -400,6 +405,7 @@
 		E09C487719685CD4008C7C20 /* BuyTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTableVC.m; sourceTree = "<group>"; };
 		E09C487B19685D2A008C7C20 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
 		E09C487C19685D2A008C7C20 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
+		E0A33C451974C051007350DC /* 216097452.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 216097452.jpg; sourceTree = "<group>"; };
 		E0A357FB1964A33C0058146B /* HomePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageVC.h; sourceTree = "<group>"; };
 		E0A357FC1964A33C0058146B /* HomePageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageVC.m; sourceTree = "<group>"; };
 		E0A357FF1964ACF30058146B /* MediaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaVC.h; sourceTree = "<group>"; };
@@ -455,6 +461,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E08AA1DF1974FE61002F5835 /* AudioToolbox.framework in Frameworks */,
 				E0E84ED0195A7A7B00308080 /* MediaPlayer.framework in Frameworks */,
 				E0890D291955C65F009A9A48 /* CoreGraphics.framework in Frameworks */,
 				E01417E11966C3AA000EF66E /* StoreKit.framework in Frameworks */,
@@ -485,8 +492,8 @@
 				E0890D3F1955C65F009A9A48 /* FirstViewController.m */,
 				E0890D641955C94C009A9A48 /* ContainerViewController.h */,
 				E0890D651955C94C009A9A48 /* ContainerViewController.m */,
-				E0890D611955C8FE009A9A48 /* TableViewController.h */,
-				E0890D621955C8FE009A9A48 /* TableViewController.m */,
+				E0890D611955C8FE009A9A48 /* SubCatVC.h */,
+				E0890D621955C8FE009A9A48 /* SubCatVC.m */,
 				E0F660061957B9CA00A73EB7 /* ItemsViewController.h */,
 				E0F660071957B9CA00A73EB7 /* ItemsViewController.m */,
 				E00A360319584C0900A7B45A /* ItemDetailsViewController.h */,
@@ -575,9 +582,9 @@
 		E058B251195875FA00D658DB /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E0A33C451974C051007350DC /* 216097452.jpg */,
 				E0680205196876850002B692 /* app_icon */,
 				E00947041973A8D000A43DD4 /* ic_video_file.png */,
-				E01417E41966D2B9000EF66E /* home_Ads.jpg */,
 				E08F4C7C19624B0A00A6DDFB /* photo-frame.png */,
 				E0F09D21195A070900BAF4F6 /* btn_call.png */,
 				E0F09D1B195A070100BAF4F6 /* btn_favo.png */,
@@ -698,6 +705,7 @@
 		E0890D1A1955C65F009A9A48 = {
 			isa = PBXGroup;
 			children = (
+				E08AA1DB1974FB0C002F5835 /* hlalek.entitlements */,
 				E0890D2C1955C65F009A9A48 /* 7lalak */,
 				E0890D511955C65F009A9A48 /* 7lalakTests */,
 				E0890D251955C65F009A9A48 /* Frameworks */,
@@ -717,6 +725,8 @@
 		E0890D251955C65F009A9A48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E08AA1DE1974FE61002F5835 /* AudioToolbox.framework */,
+				E08AA1DC1974FBE2002F5835 /* AVFoundation.framework */,
 				E01417E01966C3AA000EF66E /* StoreKit.framework */,
 				E0E84ECF195A7A7B00308080 /* MediaPlayer.framework */,
 				E0890D261955C65F009A9A48 /* Foundation.framework */,
@@ -730,6 +740,7 @@
 		E0890D2C1955C65F009A9A48 /* 7lalak */ = {
 			isa = PBXGroup;
 			children = (
+				E08AA1E01974FF6B002F5835 /* tap.aif */,
 				E0E84EB5195A52BC00308080 /* Resources */,
 				E09264BF195A4FA2000D6BC1 /* Libraries */,
 				E058B251195875FA00D658DB /* images */,
@@ -952,6 +963,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
 						};
 					};
 					E0890D491955C65F009A9A48 = {
@@ -1019,12 +1033,14 @@
 				E058B28D1958766100D658DB /* ic_more_media_selected.png in Resources */,
 				E058B2A41958766100D658DB /* img_btn_repeat_pressed.png in Resources */,
 				E0E84EC2195A52BC00308080 /* background-gradient.png in Resources */,
+				E0A33C461974C051007350DC /* 216097452.jpg in Resources */,
 				E058B2871958766100D658DB /* ic_favorite.png in Resources */,
 				E0E84EC4195A52BC00308080 /* button-background.png in Resources */,
 				E058B2981958766100D658DB /* img_btn_forward_pressed.png in Resources */,
 				E058B28B1958766100D658DB /* ic_more_info.png in Resources */,
 				E058B2991958766100D658DB /* img_btn_forward.png in Resources */,
 				E058B2921958766100D658DB /* ic_phone.png in Resources */,
+				E08AA1E11974FF6B002F5835 /* tap.aif in Resources */,
 				E0680210196876A70002B692 /* Icon-Small-50.png in Resources */,
 				E068020419686BF00002B692 /* ProductCell.xib in Resources */,
 				E058B2911958766100D658DB /* ic_offers_selected.png in Resources */,
@@ -1063,7 +1079,6 @@
 				E0F1ED7B195FDCCA0088AFD1 /* Fav.plist in Resources */,
 				E058B29A1958766100D658DB /* img_btn_next_pressed.png in Resources */,
 				E058B28E1958766100D658DB /* ic_more_normal.png in Resources */,
-				E01417E51966D2B9000EF66E /* home_Ads.jpg in Resources */,
 				E08F4C7D19624B0A00A6DDFB /* photo-frame.png in Resources */,
 				E0E8C2FB195889B5007CFA13 /* ads.png in Resources */,
 				E032F9AC195892B1003ED896 /* bg tabs1.png in Resources */,
@@ -1141,7 +1156,7 @@
 				E0890D401955C65F009A9A48 /* FirstViewController.m in Sources */,
 				E0480D67195D18C200EAA25A /* SDWebImageManager.m in Sources */,
 				E0480D6C195D18C200EAA25A /* UIImage+WebP.m in Sources */,
-				E0890D631955C8FE009A9A48 /* TableViewController.m in Sources */,
+				E0890D631955C8FE009A9A48 /* SubCatVC.m in Sources */,
 				E016E2DE19579E2A007EE60B /* Home1ViewCell.m in Sources */,
 				E0890D331955C65F009A9A48 /* main.m in Sources */,
 				E09264C7195A4FA2000D6BC1 /* ICETutorialPage.m in Sources */,
@@ -1298,7 +1313,7 @@
 				GCC_PREFIX_HEADER = "7lalak/hlalek-Prefix.pch";
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
 				PRODUCT_NAME = hlalek;
-				PROVISIONING_PROFILE = "97242CE1-B1B3-4C10-A017-AD9DA5E39A64";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1315,7 +1330,7 @@
 				GCC_PREFIX_HEADER = "7lalak/hlalek-Prefix.pch";
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
 				PRODUCT_NAME = hlalek;
-				PROVISIONING_PROFILE = "97242CE1-B1B3-4C10-A017-AD9DA5E39A64";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

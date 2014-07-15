@@ -19,28 +19,9 @@
 - (void)viewDidLoad
 {
     
-    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
-    
+   [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     _fWebView.delegate = self;
-    /*
-    _fWebView.delegate = self;
-    NSBundle *bundle=[NSBundle mainBundle];
-    NSString *filePath = [bundle pathForResource:@"index" ofType: @"html"];
-    NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
-    NSURLRequest *request = [NSURLRequest requestWithURL:fileUrl];
-    
-   // [_fWebView loadRequest:request];
-    */
-    /*
-    NSString * htmlHeader = @ "<html><head>\
-    <style type='text/css'> @import url('www/css/movies-app.css');</style>\
-    <script type ='text/javascript' charset ='utf-8' src ='test.js'></ script></head>\
-    <body style='background-color:red;'>";
-    NSString * htmlBody = @ "<h1>hi</h1><p><img alt=\"dept\" src=\"\"/></p>" ;
-    NSString * htmlFooter = @ "</body></html>";
-    NSString * strHtml = [[NSString alloc] initWithFormat: @ "%@%@%@", htmlHeader, htmlBody, htmlFooter];
-    [_fWebView loadHTMLString: strHtml baseURL: [NSURL fileURLWithPath: [[NSBundle mainBundle] resourcePath] isDirectory: YES]];
-    */
+
     
     _fWebView.scrollView.scrollEnabled = NO;
     

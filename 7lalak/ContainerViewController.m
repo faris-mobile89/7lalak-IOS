@@ -7,7 +7,7 @@
 //
 
 #import "ContainerViewController.h"
-#import "TableViewController.h"
+#import "SubCatVC.h"
 #import "Home1ViewCell.h"
 #import <UIKit/UIColor.h>
 #import "UIColor_Hex.h"
@@ -17,7 +17,9 @@
 #import "Connection.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "HomePageVC.h"
 
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 
 @interface ContainerViewController ()
@@ -27,27 +29,16 @@
 @implementation ContainerViewController
 @synthesize jsonObject,selectedIndex;
 
-- (id)init
-{
-    
-    self = [super init];
-    if (self) {
-        
-  
-    }
-    return self;
-    
-}
--(void)viewDidAppear:(BOOL)animated{
-    
-  //  _imgBanner.frame = CGRectMake(0, 340, 320, 48);
+UIImageView *bannerView;
 
-}
--(void)viewWillLayoutSubviews{
-    
-   // _imgBanner.frame = CGRectMake(0, 340, 320, 48);
 
+-(void)viewDidLayoutSubviews{
+    
+    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-44);
+    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 48)];
 }
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -57,7 +48,13 @@
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
     self.navigationController.navigationBar.translucent = NO;
+ 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home Page"
+                                                                              style:UIBarButtonItemStyleBordered
+                                                                             target:self
+                                                                             action:@selector(home:)];
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
@@ -147,12 +144,16 @@
     }];
     
 }
+-(void)home:(id)sender{
+    
+    UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"navi"];
+    
+    [self presentViewController:home animated:YES completion:nil];
+}
 
 -(void)loadBanner{
-    _imgBanner.frame = CGRectMake(0, 340, 320, 48);
-
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?cat=main"];
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -175,9 +176,13 @@
                  if (jsonBanner) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
-                         NSLog(@"Banner%@",[jsonBanner objectForKey:@"url"]);
                          if ([jsonBanner objectForKey:@"url"]!=nil) {
-                         [_imgBanner sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
+                             
+                          
+
+                             [self.view addSubview:bannerView];
+                             [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
+                             
                          }
                      });
                  }
@@ -242,7 +247,7 @@
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                   [[[jsonObject objectForKey:@"MainCat"] objectAtIndex:indexPath.row]objectForKey:@"image"]]
-                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+                   placeholderImage:[UIImage imageNamed:@"img_7lalek.png"]];
     [cell.fLabel setText:
     [[[jsonObject objectForKey:@"MainCat"]
       objectAtIndex:indexPath.row]objectForKey:@"name"]];
@@ -279,7 +284,7 @@
  
  if ([[segue identifier] isEqualToString:@"table"] ){
      
-    TableViewController *tableVC = [segue destinationViewController];
+    SubCatVC *tableVC = [segue destinationViewController];
      tableVC.catId =[[[jsonObject objectForKey:@"MainCat"] objectAtIndex:selectedIndex]objectForKey:@"id"];
  }
 }

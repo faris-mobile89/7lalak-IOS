@@ -7,7 +7,7 @@
 //
 
 #import "MediaVC.h"
-#define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface MediaVC ()
 
@@ -16,21 +16,31 @@
 @implementation MediaVC
 
 
+
 - (void)viewDidLoad
 {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    
     _holder.layer.cornerRadius = 18;
-
-    if (IS_HEIGHT_GTE_568) {
-        [_ios5View setHidden:FALSE];
-        [_ios4View setHidden:TRUE];
-    }else{
-        [_ios5View setHidden:TRUE];
-        [_ios4View setHidden:FALSE];
-    }
+   
     
     [super viewDidLoad];
 }
+-(void)set4SFrame{
+    
+    _ios5View.frame = CGRectMake(0, 365, 320, 88);
+
+}
+
+-(void)viewDidLayoutSubviews{
+    
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (IS_4S) {
+        
+    [self set4SFrame];
+    }
+}
+
 -(BOOL)prefersStatusBarHidden{
     return TRUE;
 }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
+@interface SubCatVC : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSString *catId;
 @end

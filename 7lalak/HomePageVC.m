@@ -8,13 +8,14 @@
 
 #import "HomePageVC.h"
 #import "LocalizeHelper.h"
+#import "FirstViewController.h"
 
 @interface HomePageVC ()
 
 @end
 
 @implementation HomePageVC
-
+/*
 -(id)init{
     
     NSString *tempValue =@"ar";
@@ -31,14 +32,28 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     return nil;
 }
-
+ */
+-(BOOL)prefersStatusBarHidden{
+    
+    return YES;
+}
 - (void)viewDidLoad
 {
     
-    
+    /*
     [_fImageTopAds setImage:
      [UIImage imageWithData:[NSData dataWithContentsOfURL:
                              [NSURL URLWithString:@"http://"]]]];
+     
+     */
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    self.title=@"7lalek Home Page";
+    
     [super viewDidLoad];
 }
 

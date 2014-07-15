@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MediaVC : UIViewController
-@property (weak, nonatomic) IBOutlet UIView *ios4View;
-
-@property (weak, nonatomic) IBOutlet UIView *ios5View;
-
 @property (weak, nonatomic) IBOutlet UIView *holder;
-
+@property (weak, nonatomic) IBOutlet UIView *ios5View;
 @end

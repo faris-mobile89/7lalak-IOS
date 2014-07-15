@@ -19,7 +19,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-
 @interface ItemsViewController ()
 @property NSInteger selectedIndex;
 @property (nonatomic,strong) NSMutableArray * jsonObject;
@@ -29,8 +28,16 @@
 @implementation ItemsViewController
 @synthesize jsonObject,selectedIndex;
 @synthesize catId;
+@synthesize soundFileURLRef;
+@synthesize soundFileObject;
 
+UIImageView *bannerView;
 
+-(void)viewDidLayoutSubviews{
+    
+    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-44);
+    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 48)];
+}
 
 
 
@@ -42,14 +49,17 @@
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
-    _numberOfnewPosts = 3;
-    
+    _numberOfnewPosts = 10;
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc]init];
+    tableViewController.tableView = self.tableView;
+    
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(insertNewObject:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:self.refreshControl];
-    
+    tableViewController.refreshControl=self.refreshControl;
     
     
     NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",catId,0];
@@ -58,18 +68,78 @@
     
     
 }
+-(void)loadBanner{
+    
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 id jsonBanner = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonBanner) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                         if ([jsonBanner objectForKey:@"url"]!=nil) {
+                             
+                             [self.view addSubview:bannerView];
+                             [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
+                             
+                         }
+                     });
+                 }
+             }
+             
+             
+         }
+     }];
+    
+    
+}
+
 -(void)searchTapped:(id)sender{
     
     [self  performSegueWithIdentifier:@"search_seuge" sender:sender];
-    NSLog(@"Search..");
 }
 
 - (void)insertNewObject:(id)sender
 {
-    NSLog(@"%d new fetched objects",self.numberOfnewPosts);
-    
+    [self playTick];
     [self loadMoreFeed:_numberOfnewPosts];
     
+}
+-(void)playTick{
+    
+    // Create the URL for the source audio file. The URLForResource:withExtension: method is
+    //    new in iOS 4.0.
+    NSURL *tapSound   = [[NSBundle mainBundle] URLForResource: @"tap"
+                                                withExtension: @"aif"];
+    
+    // Store the URL as a CFURLRef instance
+    self.soundFileURLRef = (__bridge CFURLRef) tapSound ;
+    
+    // Create a system sound object representing the sound file.
+    AudioServicesCreateSystemSoundID (
+                                      
+                                      soundFileURLRef,
+                                      &soundFileObject
+                                      );
+    NSLog(@"%d new fetched objects",self.numberOfnewPosts);
+    
+    AudioServicesPlaySystemSound (soundFileObject);
 }
 
 - (void)insertObject:(NSMutableArray *)newObject
@@ -85,10 +155,7 @@
     
     jsonObject = newArray;
     
-    
-    
-    NSLog(@"DataSource:%@",jsonObject);
-    //[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+   // NSLog(@"DataSource:%@",jsonObject);
     [self.tableView reloadData];
 }
 
@@ -130,7 +197,7 @@
                          jsonObject = [json valueForKey:@"items"];
                          
                          [self.tableView reloadData];
-                         
+                         [self loadBanner];
                         // NSLog(@"jsonObject: %@", jsonObject);
                          
                          
@@ -212,10 +279,11 @@
                          
                          //NSLog(@"jsonObject: %@", [MorejsonObject valueForKey:@"items"]);
                          
+                         if (jsonObject !=nil)
                          if ([MorejsonObject valueForKey:@"items"]!=nil &&
                              [[MorejsonObject valueForKey:@"items"]count] >0) {
                              
-                             _numberOfnewPosts+=3;
+                             _numberOfnewPosts+=10;
                              [self insertObject:MorejsonObject];
                          }
                          
@@ -317,7 +385,7 @@
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                      [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+                   placeholderImage:[UIImage imageNamed:@"img_7lalek.png"]];
     
     if ([[[jsonObject
            objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {

@@ -24,7 +24,8 @@ TabDescriptionVC *tabDescription;
 
 - (void)viewDidLoad
 {
-    NSLog(@"JSONObject%@",jsonObject);
+    //NSLog(@"JSONObject%@",jsonObject);
+    
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
     tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];

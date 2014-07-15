@@ -116,8 +116,6 @@ float hieght;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    
     // grab our movie URL
     NSURL *chosenMovie = [info objectForKey:UIImagePickerControllerMediaURL];
     // save it to the documents directory
