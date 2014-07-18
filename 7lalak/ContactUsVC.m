@@ -8,6 +8,7 @@
 
 #import "ContactUsVC.h"
 #include "UIColor_hex.h"
+#import "LocalizeHelper.h"
 
 @interface ContactUsVC ()
 
@@ -26,8 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = LocalizedString(@"TITLE_MORE_CONTACT_Us");
     _contactForm.layer.cornerRadius=10;
-    _contactForm.layer.borderWidth=2.0;
+    _contactForm.layer.borderWidth=0.5;
     _contactForm.clipsToBounds = YES;
     _contactForm.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     

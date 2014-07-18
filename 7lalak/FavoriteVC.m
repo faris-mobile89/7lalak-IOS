@@ -11,7 +11,7 @@
 #import "UIColor_hex.h"
 #import "UIImageView+WebCache.h"
 #import "ItemDetailsViewController.h"
-
+#import "LocalizeHelper.h"
 
 
 @interface FavoriteVC (){
@@ -24,9 +24,11 @@
 @implementation FavoriteVC
 @synthesize jsonObject;
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = LocalizedString(@"TITLE_MORE_FAV");
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     

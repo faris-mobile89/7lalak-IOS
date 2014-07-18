@@ -7,6 +7,7 @@
 //
 
 #import "UserInfoVC.h"
+#import "LocalizeHelper.h"
 
 @interface UserInfoVC ()
 
@@ -19,6 +20,8 @@
 {
     [super viewDidLoad];
     
+    self.title = LocalizedString(@"TITLE_MORE_ACCOUNT_INFO");
+
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];

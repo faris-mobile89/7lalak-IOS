@@ -8,6 +8,7 @@
 
 #import "SearchVC.h"
 #import "SearchResultsVC.h"
+#import "LocalizeHelper.h"
 
 @interface SearchVC ()
 @property NSDictionary *jsonObject;
@@ -34,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title =@"Search";
+    self.title =LocalizedString(@"SEARCH");
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
     catId =[[NSString alloc]init];
@@ -82,7 +83,7 @@
 -(void)loadSubCat{
     
 
-       NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+       NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?device=IOS&lang=%@&tag=getSubCat&mainId=%@",@"ar",catId];
     
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -125,46 +126,36 @@
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+                
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 
-                 [internetError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
              });
          }
      }];
 
+}
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 
 -(void)loadMainCat{
@@ -278,13 +269,6 @@
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:10]];
         
-        /*
-         label.backgroundColor = [UIColor lightGrayColor];
-         label.textColor = [UIColor blackColor];
-         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
-         label.text = [NSString stringWithFormat:@"  %d", row+1];
-         */
-        
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
                 NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
@@ -335,8 +319,6 @@
 
 
 - (IBAction)btnSearch:(id)sender {
-    
-//    NSLog(@"selected(%@,%@)",_selectedMaincatId,_selectedSubcatId);
     
     if (_price_from.text ==nil ) {
         _price_from.text=@"";

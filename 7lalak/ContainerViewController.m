@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HomePageVC.h"
+#import "LocalizeHelper.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -50,8 +51,8 @@ UIImageView *bannerView;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     self.navigationController.navigationBar.translucent = NO;
- 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home Page"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:LocalizedString(@"HOME_TITLE")
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(home:)];
@@ -61,7 +62,7 @@ UIImageView *bannerView;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
 
-   NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
+   NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
 
@@ -83,8 +84,6 @@ UIImageView *bannerView;
 
         if (data) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-            // check status code and possibly MIME type (which shall start with "application/json"):
-           // NSRange range = [response.MIMEType rangeOfString:@"application/json"];
 
             if (httpResponse.statusCode == 200 /* OK */) {
                 NSError* error;
@@ -92,7 +91,6 @@ UIImageView *bannerView;
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if (jsonObject) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        // self.model = jsonObject;
                         [activityIndicator stopAnimating];
                         [self.tableView reloadData];
 
@@ -103,47 +101,39 @@ UIImageView *bannerView;
                     });
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        //[self handleError:error];
-                        NSLog(@"ERROR: %@", error);
+                       // NSLog(@"ERROR: %@", error);
                     });
                 }
             }
             
             else if(httpResponse.statusCode == 408){
-                UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                [someError show];
+                [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
             }else{
                 [activityIndicator stopAnimating];
-
-                // status code indicates error, or didn't receive type of data requested
-                NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                  
-                                  (int)(httpResponse.statusCode),
-                                  [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                     code:-1000
-                                                 userInfo:@{NSLocalizedDescriptionKey: desc}];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self handleError:error];  // execute on main thread!
                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                 });
             }
         }
         else {
-            // request failed - error contains info about the failure
             dispatch_async(dispatch_get_main_queue(), ^{
-                //[self handleError:error]; // execute on main thread!
-                NSLog(@"ERROR: %@", error);
-                UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                
-                [internetError show];
+               // NSLog(@"ERROR: %@", error);
+                [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                 [activityIndicator stopAnimating];
             });
         }
     }];
     
 }
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+}
+
 -(void)home:(id)sender{
     
     UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"navi"];
@@ -153,7 +143,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=IOS&cat=main"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -196,7 +186,6 @@ UIImageView *bannerView;
 }
 
 
-
 -(Boolean)testInternetConcecction{
     
     Boolean connectedStatus=false;
@@ -210,8 +199,6 @@ UIImageView *bannerView;
 	}
     return connectedStatus;
 }
-
-
 
 #pragma mark - Table view data source
 
@@ -257,7 +244,6 @@ UIImageView *bannerView;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-
     return 95;
 }
 
@@ -265,17 +251,9 @@ UIImageView *bannerView;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    
     selectedIndex = indexPath.row;
-   // NSLog(@"selectd%i",selectedIndex);
-    
     [self performSegueWithIdentifier:@"table" sender:self];
-
-
 }
-
-
-
 
 
 #pragma mark - Navigation

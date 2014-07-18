@@ -38,12 +38,7 @@
 
 - (IBAction)btnFavClick:(id)sender {
     
-   // NSLog(@"JSONObject%@",jsonObject);
-    
     _btnFav1.hidden = TRUE;
-    
-    
-    
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -67,10 +62,6 @@
     [jsonObjects addObject:jsonObject];
     [jsonObjects writeToFile:path atomically:YES];
     
-    NSLog(@"path%@",path);
-    
-    NSLog(@"plist:%@",[[NSMutableArray alloc]initWithContentsOfFile:path]);
-    
 }
 
 - (IBAction)btnCallClick:(id)sender {
@@ -90,8 +81,8 @@
     
     MFMessageComposeViewController *messageInstance = [[MFMessageComposeViewController alloc]init];
     if ([MFMessageComposeViewController canSendText]) {
-        messageInstance.body = @"Hello from Shah";
-        messageInstance.recipients = [NSArray arrayWithObjects:@"12345678",nil];
+        messageInstance.body = @"";
+        messageInstance.recipients = [NSArray arrayWithObjects:fPhone.text,nil];
         messageInstance.messageComposeDelegate = self;
         [self presentModalViewController:messageInstance animated:YES];
     }

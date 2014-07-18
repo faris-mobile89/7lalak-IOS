@@ -210,6 +210,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ooH-jZ-uAB"/>
+                    <size key="freeformSize" width="320" height="519"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2Z-bU-BEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -285,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29c-br-aYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2963" y="2365"/>
+            <point key="canvasLocation" x="3718" y="2418"/>
         </scene>
         <!--Buy TableVC-->
         <scene sceneID="P3A-0Z-AiH">
@@ -295,6 +296,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Uhe-U2-eaR" detailTextLabel="pv8-1F-1Pz" style="IBUITableViewCellStyleValue1" id="MjL-Gb-gGH">
                                 <rect key="frame" x="0.0" y="22" width="320" height="75"/>
@@ -307,7 +309,7 @@
                                             <rect key="frame" x="15" y="27" width="33" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pv8-1F-1Pz">
@@ -318,7 +320,9 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -377,13 +381,6 @@
                                     <action selector="fbtnRegister:" destination="28e-oi-Rwh" eventType="touchUpInside" id="cVN-fs-XZT"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Registeration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5H-9d-1Qk">
-                                <rect key="frame" x="109" y="47" width="132" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -393,11 +390,12 @@
                         <outlet property="fEmail" destination="4Qa-c8-Jlr" id="rhD-hN-5la"/>
                         <outlet property="fPhone" destination="9Xc-wB-Lx0" id="Xt3-np-MzT"/>
                         <outlet property="fUserName" destination="SGf-6C-Mp7" id="nsJ-bg-6RP"/>
+                        <segue destination="JxV-t7-v5m" kind="push" identifier="confirm_register" id="nEG-Di-x1U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKV-hb-WPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3350" y="1763"/>
+            <point key="canvasLocation" x="3313" y="1738"/>
         </scene>
         <!--Contact UsVC-->
         <scene sceneID="aA5-Xg-luh">
@@ -411,13 +409,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact Us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrn-Ji-m1i">
-                                <rect key="frame" x="108" y="46" width="105" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGw-kx-MF0">
                                 <rect key="frame" x="103" y="345" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -611,7 +602,7 @@
             </objects>
             <point key="canvasLocation" x="651" y="417"/>
         </scene>
-        <!--Home PageVC - 7lalak-->
+        <!--Home PageVC - 7lalek-->
         <scene sceneID="i6l-E0-WSx">
             <objects>
                 <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aaS-mL-xXO" customClass="HomePageVC" sceneMemberID="viewController">
@@ -671,7 +662,7 @@
                             <constraint firstItem="sdH-ks-uKf" firstAttribute="top" secondItem="UBW-Qi-3aC" secondAttribute="bottom" constant="2" id="xbi-WA-UF9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="7lalak" id="K9i-wD-gzP"/>
+                    <navigationItem key="navigationItem" title="7lalek" id="K9i-wD-gzP"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="btn_ar" destination="tsD-7m-HtE" id="8uA-Rw-m2Y"/>
@@ -695,7 +686,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibL-6w-SUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1171" y="147"/>
+            <point key="canvasLocation" x="-1091" y="170"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
@@ -1458,6 +1449,58 @@
             </objects>
             <point key="canvasLocation" x="2795" y="-254"/>
         </scene>
+        <!--Register ConfirmVC-->
+        <scene sceneID="vjy-Dj-2Bb">
+            <objects>
+                <viewController storyboardIdentifier="registerConfirmVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JxV-t7-v5m" customClass="RegisterConfirmVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TJr-bu-ZlE"/>
+                        <viewControllerLayoutGuide type="bottom" id="k5W-Yo-b62"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fAJ-UV-yfh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="verification code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gkk-UO-JgC">
+                                <rect key="frame" x="96" y="167" width="128" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BI7-Ey-a7t">
+                                <rect key="frame" x="96" y="236" width="128" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Verify">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnLoginClick:" destination="JxV-t7-v5m" eventType="touchUpInside" id="uae-bL-JUP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You will recieve verification code in a few minutes." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="229" translatesAutoresizingMaskIntoConstraints="NO" id="SCG-fT-emM">
+                                <rect key="frame" x="52" y="63" width="229" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eJf-VN-e05"/>
+                    <size key="freeformSize" width="320" height="518"/>
+                    <connections>
+                        <outlet property="btnLogin" destination="BI7-Ey-a7t" id="un1-jD-r0S"/>
+                        <outlet property="textVerificationCode" destination="gkk-UO-JgC" id="hq7-OS-Vyc"/>
+                        <segue destination="pDn-fm-IQH" kind="push" identifier="return_to_more_segue" id="hQQ-yp-goo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfJ-Ar-zW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3329" y="2468"/>
+        </scene>
     </scenes>
     <resources>
         <image name="216097452.jpg" width="802" height="1275"/>
@@ -1491,6 +1534,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ofS-Pz-jgy"/>
+        <segue reference="Wfx-rF-7HL"/>
         <segue reference="EH6-vT-1a4"/>
     </inferredMetricsTieBreakers>
 </document>

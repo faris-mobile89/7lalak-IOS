@@ -17,6 +17,7 @@
 #import "Connection.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LocalizeHelper.h"
 
 
 @interface ItemsViewController ()
@@ -45,7 +46,7 @@ UIImageView *bannerView;
 {
     [super viewDidLoad];
     jsonObject = [[NSMutableArray alloc]init];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"SEARCH")
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
@@ -62,7 +63,7 @@ UIImageView *bannerView;
     tableViewController.refreshControl=self.refreshControl;
     
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",catId,0];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
     
     [self loadFeeds:strUrl];
     
@@ -123,8 +124,6 @@ UIImageView *bannerView;
 }
 -(void)playTick{
     
-    // Create the URL for the source audio file. The URLForResource:withExtension: method is
-    //    new in iOS 4.0.
     NSURL *tapSound   = [[NSBundle mainBundle] URLForResource: @"tap"
                                                 withExtension: @"aif"];
     
@@ -144,18 +143,13 @@ UIImageView *bannerView;
 
 - (void)insertObject:(NSMutableArray *)newObject
 {
-     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
     NSMutableArray *oldArray = [jsonObject mutableCopy];
     
     NSMutableArray *newArray =[[newObject valueForKey:@"items"]mutableCopy];
     
     [newArray addObjectsFromArray:oldArray];
     
-    
     jsonObject = newArray;
-    
-   // NSLog(@"DataSource:%@",jsonObject);
     [self.tableView reloadData];
 }
 
@@ -205,53 +199,33 @@ UIImageView *bannerView;
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
+                       //  NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
+                  //   NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
+               //  NSLog(@"ERROR: %@", error);
              });
          }
      }];
-    
-    
-    if ([self testInternetConcecction]) {
-        //  NSLog(@"Connected");
-    }
     
 }
 
 -(void)loadMoreFeed:(int )QueryCount{
     
-    NSLog(@"loading more ..");
-    
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i",@"1",QueryCount];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",@"1",QueryCount,@"ar"];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     
@@ -277,8 +251,6 @@ UIImageView *bannerView;
                  if (MorejsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
-                         //NSLog(@"jsonObject: %@", [MorejsonObject valueForKey:@"items"]);
-                         
                          if (jsonObject !=nil)
                          if ([MorejsonObject valueForKey:@"items"]!=nil &&
                              [[MorejsonObject valueForKey:@"items"]count] >0) {
@@ -292,38 +264,22 @@ UIImageView *bannerView;
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
                  [self.refreshControl endRefreshing];
              }else{
                  
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
                      [self.refreshControl endRefreshing];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
                  [self.refreshControl endRefreshing];
              });
          }
@@ -340,10 +296,16 @@ UIImageView *bannerView;
         connectedStatus= TRUE;
 	}
 	else {
-		UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Error connecting to the internet" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-		[someError show];
+        [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
 	}
     return connectedStatus;
+}
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 
 

@@ -1,16 +1,9 @@
-//
-//  FruitTableViewController.m
-//  BuyFruit
-//
-//  Created by Michael Beyer on 19.09.13.
-//  Copyright (c) 2013 Michael Beyer. All rights reserved.
-//
 
-
-// This imports the FruitIAPHelper class we wrote
 #import "InAppAPHelper.h"
 #import "BuyTableVC.h"
 #import "ProductCell.h"
+#import "LocalizeHelper.h"
+#import "UIColor_hex.h"
 
 @interface BuyTableVC ()
 
@@ -42,6 +35,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
+
         [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:nil]forCellReuseIdentifier:@"Cell"];
     
     [self reload];
@@ -74,7 +69,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+   // static NSString *CellIdentifier = @"Cell";
    
     /*UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -91,11 +86,13 @@
     
     [self.priceFormatter setLocale:product.priceLocale];
     cell.detailTextLabel.text = [self.priceFormatter stringFromNumber:product.price];
-    
+    /*
     if ([[InAppAPHelper sharedInstance] productPurchased:product.productIdentifier]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.accessoryView = nil;
     } else {
+        */
+    
         UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         buyButton.frame = CGRectMake(0, 0, 72, 37);
         [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
@@ -103,7 +100,10 @@
         [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = buyButton;
-    }
+    
+    //}
+
+    [cell setBackgroundColor:[UIColor colorWithHexString:@"CC3333"]];
     return cell;
 }
 
@@ -158,7 +158,7 @@
 {
     UIButton *buyButton = (UIButton *)sender;
     SKProduct *product = self.products[buyButton.tag];
-    NSLog(@"Buying %@ ... (buyButtonTapped in FruitTableViewController.m", product.productIdentifier);
+    NSLog(@"Buying %@ ... (buyButtonTapped in BuyTableVC.m", product.productIdentifier);
     [[InAppAPHelper sharedInstance] buyProduct:product];
 }
 

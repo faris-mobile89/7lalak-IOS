@@ -15,6 +15,7 @@
 #import "Connection.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LocalizeHelper.h"
 
 @interface SearchResultsVC ()
 @property NSInteger selectedIndex;
@@ -82,59 +83,40 @@
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         
-                          NSLog(@"jsonObject: %@", jsonObject);
-                         
-                         
-                         if ([[jsonObject valueForKey:@"error"]intValue]==1) {
+                                                  
+                    if (jsonObject !=nil){
                              
-                             UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Search Result"
-                                                                                 message: @"No result found !"
-                                                                                delegate: self cancelButtonTitle:
-                                                       @"Finish" otherButtonTitles: nil];
-                             [someError show];
+                        if ([[jsonObject valueForKey:@"error"]intValue]==1) {
+                            
+                            UIAlertView *someError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"SEARCH_RESULT")
+                                                                                message: LocalizedString(@"ERROR_NO_RESULT")
+                                                                               delegate: self cancelButtonTitle:
+                                                      LocalizedString(@"DONE") otherButtonTitles: nil];
+                            [someError show];
                          }else if([[jsonObject valueForKey:@"error"]intValue]==0){
                              
                              jsonObject = [jsonObject valueForKey:@"items"];
                              [_tableView reloadData];
+                          }
                          }
-                         
-                         
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
              });
          }
      }];
@@ -143,6 +125,12 @@
     
 }
 
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+}
 
 #pragma mark - Table view data source
 

@@ -149,14 +149,17 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Bought successfully!"
                                                       message:@"Thank you for your purchase. Enjoy!"
-                                                     delegate:nil
+                                                     delegate:self
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
     [message show];
+    NSLog(@"save to server product id%@",transaction.payment.productIdentifier);
     
+    /*
     [self provideContentForProductIdentifier:transaction.payment.productIdentifier];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:transaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+     */
 }
 
 // called when a transaction has been restored and successfully completed
@@ -166,7 +169,7 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Restored successfully!"
                                                       message:@"Enjoy!"
-                                                     delegate:nil
+                                                     delegate:self
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
     [message show];

@@ -40,20 +40,19 @@
 - (void)viewDidLoad
 {
     
-    /*
+    
     [_fImageTopAds setImage:
      [UIImage imageWithData:[NSData dataWithContentsOfURL:
                              [NSURL URLWithString:@"http://"]]]];
-     
-     */
+    
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
-    self.title=@"7lalek Home Page";
-    
+        
+    //self.title=LocalizedString(@"HOME_TITLE");
+
     [super viewDidLoad];
 }
 
@@ -62,15 +61,5 @@
     [super didReceiveMemoryWarning];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

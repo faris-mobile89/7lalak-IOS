@@ -16,9 +16,6 @@
 ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 #pragma mark - View lifecycle
 
@@ -80,7 +77,6 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
     
     //NSLog(@"images%i",[[jsonObject objectForKey:@"imgs"]count]);
     
-
     NSArray *itemLayers ;
     
     switch ([[jsonObject objectForKey:@"imgs"]count]) {
@@ -156,5 +152,9 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 
 @end

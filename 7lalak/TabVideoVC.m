@@ -8,6 +8,7 @@
 
 #import "TabVideoVC.h"
 #import "VideoCell.h"
+#import "LocalizeHelper.h"
 
 @interface TabVideoVC ()
 
@@ -87,7 +88,9 @@
     cell.backgroundView = [UIView new] ;
     cell.selectedBackgroundView = [UIView new];
     
-    cell.fVideoTitle.text=[[NSString alloc]initWithFormat:@"Video %li",indexPath.row+1];
+    NSString*videoText= LocalizedString(@"VIDEO");
+    
+    cell.fVideoTitle.text=[[NSString alloc]initWithFormat:@"%@ %i",videoText,indexPath.row+1];
 
     //UIWebView  *wbView = (UIWebView *)[cell.contentView viewWithTag:1];
     NSString *embedHTML = @"\

@@ -9,6 +9,7 @@
 #import "AdsDetailViewController.h"
 #import "InAppAPHelper.h"
 #include "UIColor_hex.h"
+#import "LocalizeHelper.h"
 
 @interface AdsDetailViewController ()
 
@@ -28,6 +29,7 @@
 - (void)viewWillAppear:(BOOL)animated
 
 {
+    self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
     CGRect frame = self.view.frame;
     frame.size.height -= 100;
     self.view.frame = frame;
@@ -41,8 +43,9 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.translucent = NO;
-    
+    /*
     if (self.product != nil) {
+        
         // Check if chosen product has been bought yet
         if ([[NSUserDefaults standardUserDefaults] boolForKey:self.product.productIdentifier]){
             NSLog(@"Product purchased");
@@ -59,9 +62,10 @@
             self.packageLable.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:self.packageLable];
         }
-        else
-        {
-            NSLog(@"Product not purchased");
+    }
+     */
+    
+           // NSLog(@"Product not purchased");
             
             self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 240, 80)];
             self.packageLable.text = @"You can buy more Advertising";
@@ -88,8 +92,6 @@
             NSString *title = [[NSString alloc]initWithFormat:@"%@ - %@%@",@"Buy this package",_product.price,@"$"];
             [self.button setTitle: title forState:UIControlStateNormal];
             [self.view addSubview:self.button];
-        }
-    }
 }
 
 - (void) refreshView
@@ -124,7 +126,7 @@
     NSString *productIdentifier = notification.object;
     if ([self.product.productIdentifier isEqualToString:productIdentifier]) {
         NSLog(@"This product has been purchased!");
-        [self refreshView];
+       // [self refreshView];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "OffersVC.h"
 #import "InternetConnection.h"
+#import "LocalizeHelper.h"
 
 @interface OffersVC ()
 
@@ -57,10 +58,17 @@ UIActivityIndicatorView *activityIndicator;
         [self.fWebView loadRequest:requestObj];
 	}
 	else {
-		UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Error connecting to the internet" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-		[someError show];
+        [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
+
 	}
 
+}
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 
 - (BOOL)connectedToInternet

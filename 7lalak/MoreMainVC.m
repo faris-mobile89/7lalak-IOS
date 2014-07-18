@@ -13,13 +13,14 @@
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
 #import "ContactUsVC.h"
-#include "BuyTableVC.h"
+#import "BuyTableVC.h"
+#import "LocalizeHelper.h"
 
 @interface MoreMainVC ()
 
 @end
 Boolean isRegistered=FALSE;
-
+NSString *userID;
 @implementation MoreMainVC
 
 - (void)viewDidLoad
@@ -30,6 +31,18 @@ Boolean isRegistered=FALSE;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.translucent = NO;
+    
+    
+    [super viewDidLoad];
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
+
+
+-(void)getUserData{
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -47,33 +60,16 @@ Boolean isRegistered=FALSE;
     
     NSArray *userData = [[NSArray alloc]initWithContentsOfFile:path];
     
-    if ([userData count]>0) {
+    if ([userData count]>0 && userData !=nil) {
         
-        isRegistered = TRUE;
+        if ([[userData valueForKey:@"active"]isEqualToString:@"true"]) {
+            isRegistered = TRUE;
+            userID = [userData valueForKey:@"id"];
+        }
+        
     }
-    [super viewDidLoad];
 }
 
--(BOOL)prefersStatusBarHidden{
-    return YES;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 -(void)registerView{
     
@@ -85,12 +81,14 @@ Boolean isRegistered=FALSE;
 
 - (IBAction)btnAdd:(id)sender {
     
+    [self getUserData];
+    
     if (!isRegistered) {
         
-        UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:@"Please choose Ads type" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Image",@"Video", nil];
+        UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_CHOOSE_ADS") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL")
+                                               otherButtonTitles:LocalizedString(@"IMAGE"),
+                                LocalizedString(@"VIDEO"), nil];
         [chooser show];
-        
-        
         
     }else{
         [self registerView];
@@ -98,19 +96,12 @@ Boolean isRegistered=FALSE;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-        
-    if (buttonIndex == 1) {
-        
-        AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
-        [self.navigationController pushViewController:imageVC animated:YES];
-        
-    }else if (buttonIndex == 2){
-        
-        AddVideoVC *video = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
-        [self.navigationController pushViewController:video animated:YES];
-    }
     
-
+    if (buttonIndex == 1) {
+        [self checkUserAdsScore:@"image"];
+    }else if (buttonIndex == 2){
+        [self checkUserAdsScore:@"video"];
+    }
 }
 
 - (IBAction)btnFav:(id)sender {
@@ -120,6 +111,8 @@ Boolean isRegistered=FALSE;
 }
 
 - (IBAction)btnAccountInfo:(id)sender {
+    
+    [self getUserData];
     
     if (isRegistered) {
         UserInfoVC *info = [self.storyboard instantiateViewControllerWithIdentifier:@"UserInfoVC"];
@@ -131,6 +124,7 @@ Boolean isRegistered=FALSE;
 
 - (IBAction)btnBuy:(id)sender {
     
+    [self getUserData];
     if (!isRegistered) {
         
         BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
@@ -147,5 +141,112 @@ Boolean isRegistered=FALSE;
 }
 
 - (IBAction)btnAboutUS:(id)sender {
+}
+
+-(void)checkUserAdsScore :(NSString *)choosenType{
+    
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/authuntication.php"];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
+    [self.view addSubview: activityIndicator];
+    
+    [activityIndicator startAnimating];
+    
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 id  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [activityIndicator stopAnimating];
+                         
+                         
+                         if (jsonObject!=nil) {
+                             
+                             if ([choosenType isEqualToString:@"image"]) {
+                                 NSString *AdsImageScore = [[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"];
+                                 int count = [AdsImageScore intValue];
+                                 NSLog(@"Image choosen");
+                                 if ( count < 1 ) {
+                                     NSLog(@"score is 0");
+                                      [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
+                                 }else{
+                                     NSLog(@"video choosen");
+                                     AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
+                                     imageVC.userID = userID;
+                                     [self.navigationController pushViewController:imageVC animated:YES];
+                                 }
+                                 
+                             }else if ([choosenType isEqualToString:@"video"]){
+                                 NSString *AdsVideoScore = [[jsonObject objectForKey:@"userInfo"]valueForKey:@"VideosScore"];
+                                 int count = [AdsVideoScore intValue];
+                                 if (count < 1) {
+                                     NSLog(@"video score is 0");
+                                     [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
+                                 }else{
+                                     AddVideoVC *videoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
+                                     videoVC.userID = userID;
+                                     [self.navigationController pushViewController:videoVC animated:YES];
+                                 }
+                             }
+                         }
+                     });
+                 } else {
+                     [activityIndicator stopAnimating];
+                 }
+             }
+             
+             else if(httpResponse.statusCode == 408){
+                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
+                                        message:LocalizedString(@"error_internet_timeout")];
+                 
+             }else{
+                 [activityIndicator stopAnimating];
+             }
+         }
+         else {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
+                 [activityIndicator stopAnimating];
+             });
+         }
+     }];
+    
+}
+
+-(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+    
+}
+
+-(void)showMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"DONE") otherButtonTitles: nil];
+    
+    [internetError show];
+    
+}
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
 }
 @end

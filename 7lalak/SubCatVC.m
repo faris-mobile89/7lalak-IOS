@@ -17,6 +17,7 @@
 #import "Connection.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LocalizeHelper.h"
 
 
 @interface SubCatVC ()
@@ -134,7 +135,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
+    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=IOS&cat=main&lang=en"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -183,10 +184,16 @@ UIImageView *bannerView;
         connectedStatus= TRUE;
 	}
 	else {
-		UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Error connecting to the internet" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-		[someError show];
+		[self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
 	}
     return connectedStatus;
+}
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 
 

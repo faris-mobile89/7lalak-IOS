@@ -10,6 +10,7 @@
 #import "TabImagesVC.h"
 #import "TabVideoVC.h"
 #import "TabDescriptionVC.h"
+#import "LocalizeHelper.h"
 
 @interface ItemDetailsViewController ()
 
@@ -40,7 +41,7 @@ TabDescriptionVC *tabDescription;
     [tabDescription didMoveToParentViewController:self];
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-        [_tabsView setTitle:@"Video" forSegmentAtIndex:1];
+        [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
     }
     [super viewDidLoad];
 }
@@ -58,6 +59,7 @@ TabDescriptionVC *tabDescription;
             [self.containterView addSubview:tabVideo.view];
             [self addChildViewController:tabVideo];
             [tabVideo didMoveToParentViewController:self];
+            [tabVideo setTitle:LocalizedString(@"VIDEO")];
             
             
         }else{
@@ -66,6 +68,7 @@ TabDescriptionVC *tabDescription;
             [self.containterView addSubview:tabImage.view];
             [self addChildViewController:tabImage];
             [tabImage didMoveToParentViewController:self];
+            [tabImage setTitle:LocalizedString(@"IMAGES")];
         }
         
     }else{
@@ -75,6 +78,7 @@ TabDescriptionVC *tabDescription;
         [self.containterView addSubview:tabDescription.view];
         [self addChildViewController:tabDescription];
         [tabDescription didMoveToParentViewController:self];
+        [tabDescription setTitle:LocalizedString(@"DESCRIPTION")];
     }
     
 }

@@ -13,6 +13,7 @@
 #import "UploadCell.h"
 #import "UIColor_hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "LocalizeHelper.h"
 
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
 #define SCREEN_HEIGHT [[UIScreen mainScreen ] bounds].size.height>=568.0f?480:300;
@@ -46,6 +47,7 @@ float hieght;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     self.title = LocalizedString(@"TITLE_MORE_ADD_VIDEO");
     
     hieght = SCREEN_HEIGHT;
     
@@ -61,7 +63,7 @@ float hieght;
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
     _fAdsText.layer.cornerRadius=10;
-    _fAdsText.layer.borderWidth=2.0;
+    _fAdsText.layer.borderWidth=0.5;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -131,9 +133,9 @@ float hieght;
     videoURL = fileURL;
 
     
-    _textVideoindicator.text=@"1 video added successfuly";
+    _textVideoindicator.text=LocalizedString(@"ONE_VID_ATTACHED");
     [_imageVideoIndicator setImage:[UIImage imageNamed:@"ic_video_file.png"]];
-    [_buttonaddVideo setTitle:@"Replace Video" forState:UIControlStateNormal];
+    [_buttonaddVideo setTitle:LocalizedString(@"REPLACE_VID") forState:UIControlStateNormal];
     
     //[imagesDataToUpload addObject:imageToUpload];
     
@@ -169,12 +171,10 @@ float hieght;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSLog(@"starting");
+        NSLog(@"starting Upload ...");
         
         
         NSData *videoData= [NSData dataWithContentsOfURL:videoURL];
-
-        NSLog(@"videoData");
 
     [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/quicktime"];
     }
@@ -182,7 +182,7 @@ float hieght;
                                            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                                            [activityIndicator stopAnimating];
                                            
-                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:@"Uploader" message:@"Your Ads has been added" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil        , nil];
+                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_ADs_Added") delegate:self cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles:nil        , nil];
                                            [successAlert show];
                                            
                                        }

@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "UploadCell.h"
 #import "UIColor_hex.h"
+#import "LocalizeHelper.h"
 
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
 #define SCREEN_HEIGHT [[UIScreen mainScreen ] bounds].size.height>=568.0f?480:300;
@@ -44,7 +45,8 @@ float hieght;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
+
     hieght = SCREEN_HEIGHT;
     
     if (hieght < 500) {
@@ -59,7 +61,7 @@ float hieght;
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
     _fAdsText.layer.cornerRadius=10;
-    _fAdsText.layer.borderWidth=2.0;
+    _fAdsText.layer.borderWidth=0.5;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
