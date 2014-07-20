@@ -45,7 +45,7 @@ UIImageView *bannerView;
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
     [self.tableView setBackgroundColor: [UIColor clearColor]];
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL* url = [NSURL URLWithString:urlString];
     
@@ -135,7 +135,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=IOS&cat=main&lang=en"];
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=IOS&cat=main&lang=en"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

@@ -61,7 +61,7 @@
 }
 -(void)submit{
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://serv01.vm1692.sgvps.net/~karasi/sale/contact-us.php?text=%@",_contactForm.text];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/contact-us.php?text=%@",_contactForm.text];
     
     NSURL* url = [NSURL URLWithString:urlString];
     

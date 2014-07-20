@@ -145,7 +145,7 @@ NSString *userID;
 
 -(void)checkUserAdsScore :(NSString *)choosenType{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/authuntication.php"];
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/authuntication.php"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

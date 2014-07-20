@@ -43,7 +43,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
 
         NSString *strUrl = [[NSString alloc]
-                            initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/search-items.php?tag=search&keyword=%@&mainID=%@&subID=%@&priceFrom=%@&priceTo=%@",_keyword,_mainCatID,_subCatID,_priceFrom,_priceTo];
+                            initWithFormat:@"http://185.56.85.28/~c7lalek4/api/search-items.php?tag=search&keyword=%@&mainID=%@&subID=%@&priceFrom=%@&priceTo=%@",_keyword,_mainCatID,_subCatID,_priceFrom,_priceTo];
     NSLog(@"URL:%@",strUrl);
     
     NSURL *searchURL = [NSURL URLWithString:strUrl];

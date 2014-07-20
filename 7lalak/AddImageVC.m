@@ -147,7 +147,7 @@ float hieght;
     userID =@"fsdf";
     NSDictionary *dictParameter = @{@"addImage": @{@"userID": userID, @"text":_fAdsText.text,@"price":_fAdsPrice.text, @"mainCatId":MCID,@"subCatID":SCID}};
     
-    NSString *strURL = @"http://serv01.vm1692.sgvps.net/~karasi/sale/uploader.php";
+    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/uploader.php";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -288,7 +288,7 @@ float hieght;
 -(void)loadSubCat{
  
  
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -371,7 +371,7 @@ float hieght;
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
 

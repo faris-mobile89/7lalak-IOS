@@ -83,7 +83,7 @@
 -(void)loadSubCat{
     
 
-       NSString *urlString = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/getSubCategories.php?device=IOS&lang=%@&tag=getSubCat&mainId=%@",@"ar",catId];
+       NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?device=IOS&lang=%@&tag=getSubCat&mainId=%@",@"ar",catId];
     
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -160,7 +160,7 @@
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getMainCategories.php?tag=getMainCat"];
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

@@ -38,7 +38,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [[jsonObject objectForKey:@"vids"]count];
+    return 1;//[[jsonObject objectForKey:@"vids"]count];
 }
 
 
@@ -88,11 +88,6 @@
     cell.backgroundView = [UIView new] ;
     cell.selectedBackgroundView = [UIView new];
     
-    NSString*videoText= LocalizedString(@"VIDEO");
-    
-    cell.fVideoTitle.text=[[NSString alloc]initWithFormat:@"%@ %i",videoText,indexPath.row+1];
-
-    //UIWebView  *wbView = (UIWebView *)[cell.contentView viewWithTag:1];
     NSString *embedHTML = @"\
     <html><head>\
     <style type=\"text/css\">\
@@ -105,7 +100,7 @@
     width=\"%0.0f\" height=\"%0.0f\"></embed>\
     </body></html>";
     
-    NSString *html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:indexPath.row], 126.0, 109.0];
+    NSString *html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:indexPath.row], 243.0, 243.0];
     [cell.fWebView loadHTMLString:html baseURL:nil];
     return cell;
     

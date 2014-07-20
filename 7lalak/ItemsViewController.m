@@ -50,7 +50,7 @@ UIImageView *bannerView;
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
-    _numberOfnewPosts = 10;
+    _numberOfnewPosts = 3;
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
@@ -63,7 +63,7 @@ UIImageView *bannerView;
     tableViewController.refreshControl=self.refreshControl;
     
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
     
     [self loadFeeds:strUrl];
     
@@ -71,7 +71,7 @@ UIImageView *bannerView;
 }
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://serv01.vm1692.sgvps.net/~karasi/sale/getBanner.php?device=ios&cat=main"];
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=ios&cat=main"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -225,7 +225,7 @@ UIImageView *bannerView;
 
 -(void)loadMoreFeed:(int )QueryCount{
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://ns1.vm1692.sgvps.net/~karasi/sale/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",@"1",QueryCount,@"ar"];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",catId,QueryCount,@"ar"];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     
@@ -260,19 +260,16 @@ UIImageView *bannerView;
                          }
                          
                          [self.refreshControl endRefreshing];
-                         
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                      });
                  }
              }
-             
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
                  [self.refreshControl endRefreshing];
              }else{
-                 
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.refreshControl endRefreshing];
                  });
