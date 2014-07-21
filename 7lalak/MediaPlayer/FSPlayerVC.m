@@ -7,12 +7,11 @@
  */
 
 #import "FSPlayerVC.h"
-
 #import "FSAudioStream.h"
 #import "FSAudioController.h"
 #import "FSPlaylistItem.h"
 #import "AJNotificationView.h"
-
+#import "PlayListPicker1.h"
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface FSPlayerVC ()
@@ -33,6 +32,7 @@
  * View control
  * =======================================
  */
+
 -(void)set4SFrame{
     
     _ios5View.frame = CGRectMake(0, 365, 320, 88);
@@ -71,16 +71,23 @@
                                                 animated:NO];
 #endif
     
+    /*
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBarHidden = NO;
     
     _stationURL = nil;
     self.navigationItem.rightBarButtonItem = nil;
+    */
     
+    UINavigationController *favNav = [[UINavigationController alloc]
+                                      initWithRootViewController:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    NSLog(@"back ya man");
+    
     if (_shouldStartPlaying) {
         _shouldStartPlaying = NO;
         [self.audioController play];
@@ -538,6 +545,14 @@
             }
         }
     }
+}
+
+- (IBAction)btnPlayListPicker:(id)sender {
+    
+    //PlayListPicker1 *picker= [[PlayListPicker1 alloc]init];
+    [self  performSegueWithIdentifier:@"pick" sender:nil];
+     
+    
 }
 
 @end

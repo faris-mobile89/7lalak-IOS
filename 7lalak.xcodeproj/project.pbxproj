@@ -96,6 +96,7 @@
 		E058B2AA1958766100D658DB /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = E058B27D1958766100D658DB /* success.png */; };
 		E058B2AB1958766100D658DB /* track_info_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E058B27E1958766100D658DB /* track_info_bg.png */; };
 		E0624CB11964D3BE00FCC3AA /* HysteriaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E0624CB01964D3BE00FCC3AA /* HysteriaPlayer.m */; };
+		E0656CD2197C77870013DD43 /* PlayListPicker1.m in Sources */ = {isa = PBXBuildFile; fileRef = E0656CD1197C77870013DD43 /* PlayListPicker1.m */; };
 		E066B8111961BC0A0065F675 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E066B8011961BC0A0065F675 /* AFNetworkActivityIndicatorManager.m */; };
 		E066B8121961BC0A0065F675 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E066B8031961BC0A0065F675 /* UIActivityIndicatorView+AFNetworking.m */; };
 		E066B8131961BC0A0065F675 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E066B8051961BC0A0065F675 /* UIAlertView+AFNetworking.m */; };
@@ -345,6 +346,8 @@
 		E058B27E1958766100D658DB /* track_info_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = track_info_bg.png; sourceTree = "<group>"; };
 		E0624CAF1964D3BE00FCC3AA /* HysteriaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HysteriaPlayer.h; sourceTree = "<group>"; };
 		E0624CB01964D3BE00FCC3AA /* HysteriaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HysteriaPlayer.m; sourceTree = "<group>"; };
+		E0656CD0197C77870013DD43 /* PlayListPicker1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayListPicker1.h; sourceTree = "<group>"; };
+		E0656CD1197C77870013DD43 /* PlayListPicker1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayListPicker1.m; sourceTree = "<group>"; };
 		E066B8001961BC0A0065F675 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		E066B8011961BC0A0065F675 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		E066B8021961BC0A0065F675 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -590,6 +593,8 @@
 				E02455C6197B98BB00D1C9F0 /* AJNotificationView.m */,
 				E02455C8197B98FF00D1C9F0 /* FSPlayerVC.h */,
 				E02455C1197B985700D1C9F0 /* FSPlayerVC.m */,
+				E0656CD0197C77870013DD43 /* PlayListPicker1.h */,
+				E0656CD1197C77870013DD43 /* PlayListPicker1.m */,
 				E02455AE197B982100D1C9F0 /* astreamer */,
 				E02455A7197B981600D1C9F0 /* Additions */,
 				E024558E197B97FD00D1C9F0 /* Common */,
@@ -1326,6 +1331,7 @@
 				E02455C7197B98BB00D1C9F0 /* AJNotificationView.m in Sources */,
 				E02455C0197B982100D1C9F0 /* stream_configuration.cpp in Sources */,
 				E09264C7195A4FA2000D6BC1 /* ICETutorialPage.m in Sources */,
+				E0656CD2197C77870013DD43 /* PlayListPicker1.m in Sources */,
 				E066B8311961BCA10065F675 /* AFURLConnectionOperation.m in Sources */,
 				E066B8121961BC0A0065F675 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				E0480D6E195D18C200EAA25A /* UIImageView+WebCache.m in Sources */,

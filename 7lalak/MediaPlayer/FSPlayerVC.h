@@ -41,6 +41,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *holder;
 @property (weak, nonatomic) IBOutlet UIView *ios5View;
+- (IBAction)btnPlayListPicker:(id)sender;
 
 /**
  * If this property is set to true, the stream playback is started

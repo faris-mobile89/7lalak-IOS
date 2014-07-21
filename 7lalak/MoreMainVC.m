@@ -58,32 +58,30 @@ NSString *userID;
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     
-    NSArray *userData = [[NSArray alloc]initWithContentsOfFile:path];
-    
+    NSDictionary *userData =[NSDictionary dictionaryWithContentsOfFile:path];
+
     if ([userData count]>0 && userData !=nil) {
         
-        if ([[userData valueForKey:@"active"]isEqualToString:@"true"]) {
+        if ([[userData valueForKey:@"ACTIVE"]isEqualToString:@"true"]) {
             isRegistered = TRUE;
-            userID = [userData valueForKey:@"id"];
+            userID = [userData valueForKey:@"ID"];
         }
-        
     }
 }
 
 
 -(void)registerView{
     
-    NSLog(@"waiting for register");
-    
-    RegisterVC *userRegister = [self.storyboard instantiateViewControllerWithIdentifier:@"registerVC"];
-    [self.navigationController pushViewController: userRegister animated:YES];
+        RegisterVC *userRegister = [self.storyboard instantiateViewControllerWithIdentifier:@"registerVC"];
+        [self.navigationController pushViewController: userRegister animated:YES];
+
 }
 
 - (IBAction)btnAdd:(id)sender {
     
     [self getUserData];
     
-    if (!isRegistered) {
+    if (isRegistered) {
         
         UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_CHOOSE_ADS") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL")
                                                otherButtonTitles:LocalizedString(@"IMAGE"),
@@ -125,7 +123,7 @@ NSString *userID;
 - (IBAction)btnBuy:(id)sender {
     
     [self getUserData];
-    if (!isRegistered) {
+    if (isRegistered) {
         
         BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
         [self.navigationController pushViewController:buy animated:YES];
@@ -245,6 +243,7 @@ NSString *userID;
     [internetError show];
     
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

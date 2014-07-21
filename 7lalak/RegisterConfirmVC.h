@@ -11,7 +11,7 @@
 @interface RegisterConfirmVC : UIViewController<UIAlertViewDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textVerificationCode;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
-
+@property (strong,nonatomic) NSString *phoneNumber;
 - (IBAction)btnLoginClick:(id)sender;
 
 @end

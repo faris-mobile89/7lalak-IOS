@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *fPhone;
 @property (weak, nonatomic) IBOutlet UILabel *fAdsVideoCount;
 @property (weak, nonatomic) IBOutlet UILabel *fAdsImagesCount;
+@property (weak, nonatomic) IBOutlet UIButton *btnDeactive;
+- (IBAction)btnDeactiveAccount:(id)sender;
 
 @end

@@ -9,6 +9,9 @@
 #import "RegisterVC.h"
 #import "RegisterConfirmVC.h"
 #import "LocalizeHelper.h"
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "AFNetworking.h"
 
 @interface RegisterVC ()
 
@@ -37,7 +40,7 @@ int phoneLength =10;
         if ([_fPhone.text length]!= phoneLength ){
             [self showErrorMessage:@"Phone number not valid"];
         }else
-              if (![self NSStringIsValidEmail:_fEmail.text]) {
+            if (![self NSStringIsValidEmail:_fEmail.text]) {
                 
                 [self showErrorMessage:@"Email not valid"];
                 
@@ -45,7 +48,7 @@ int phoneLength =10;
                 // create init user data
                 [self createUserData];
             }
-        }
+    }
 }
 
 -(void)showErrorMessage:(NSString *)msg{
@@ -71,102 +74,80 @@ int phoneLength =10;
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     
+    
     NSDictionary *user =@{
-                          @"id": @"null",
-                          @"username":_fUserName.text,
-                          @"email":_fEmail.text,
-                          @"phone":_fPhone.text,
-                          @"active":@"false",
-                          @"VCODE":@"Null",
-                          @"images_score":@"null",
-                          @"video_score":@"null"
+                          @"ID": @"null",
+                          @"USERNAME":_fUserName.text,
+                          @"EMAIL":_fEmail.text,
+                          @"PHONE":_fPhone.text,
+                          @"ACTIVE":@"false",
+                          @"VCODE":@"null",
+                          @"API_KEY":@"null",
+                          @"IMAGE_SCORE":@"null",
+                          @"VIDEO_SCORE":@"null"
                           };
     
     [user writeToFile:path atomically:YES];
-    [self performSegueWithIdentifier:@"confirm_register" sender:self];
+    
+    [self sendRegisterationRequest];
+    
+    //[self performSegueWithIdentifier:@"confirm_register" sender:self];
     
     //NSLog(@"id  %@",[user valueForKey:@"id"]);
-  //    NSLog(@"content:%@",[NSDictionary dictionaryWithContentsOfFile:path]);
+    //    NSLog(@"content:%@",[NSDictionary dictionaryWithContentsOfFile:path]);
 }
--(void)sendUserData{
+
+-(void)sendRegisterationRequest{
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://example.com"];
-    
-    NSURL* url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/SMS_authentication/process.php";
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+10);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
     
+    NSDictionary *dictParameter =@{
+                                   @"username": _fUserName.text,
+                                   @"phone_number":_fPhone.text,
+                                   @"email":_fEmail.text,
+                                   @"action":@"token"
+                                   };
     
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:queue
-                           completionHandler:^(NSURLResponse* response,
-                                               NSData* data,
-                                               NSError* error)
-     {
-         
-         if (data) {
-             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-             
-             if (httpResponse.statusCode == 200 /* OK */) {
-                 NSError* error;
-                 
-                 id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                 if (jsonObject) {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         // self.model = jsonObject;
-                         [activityIndicator stopAnimating];
-                         
-                         //  NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"items"]);
-                         
-                         
-                     });
-                 } else {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
-                     });
-                 }
-             }
-             
-             else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
-             }else{
-                 [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
-                     [activityIndicator stopAnimating];
-                 });
-             }
-         }
-         else {
-             // request failed - error contains info about the failure
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-             });
-         }
-     }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    }
+                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                           NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                                           [activityIndicator stopAnimating];
+                                           if (responseObject != nil) {
+                                               if ([[responseObject valueForKey:@"error"]intValue] == 0) {
+                                                   //seccess ;
+                                                   [self performSegueWithIdentifier:@"confirm_register" sender:self];
+                                               }else
+                                                   if ([[responseObject valueForKey:@"error"]intValue] == 1) {
+                                                       
+                                                       if ( [[responseObject valueForKey:@"verified"]intValue]== 0 ) {
+                                                           
+                                                           [self performSegueWithIdentifier:@"confirm_register" sender:self];
+                                                       }else{
+                                                       UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"" message:@"The number already registered" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
+                                                       [error show];
+                                                       }
+                                                   }
+                                           }
+                                           
+                                           
+                                           
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                           [activityIndicator stopAnimating];
+                                       }];
     
-
+    [op start];
 }
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
@@ -204,15 +185,15 @@ int phoneLength =10;
 
 
 
- #pragma mark - Navigation
- 
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
-     if ([segue.identifier isEqualToString:@"confirm_register"]) {
-        // RegisterConfirmVC *confirm = segue.destinationViewController ;
-         
-     }
- }
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"confirm_register"]) {
+        RegisterConfirmVC *confirm = segue.destinationViewController ;
+        confirm.phoneNumber = _fPhone.text;
+    }
+}
 
 
 - (void)didReceiveMemoryWarning

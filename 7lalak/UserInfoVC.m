@@ -8,6 +8,7 @@
 
 #import "UserInfoVC.h"
 #import "LocalizeHelper.h"
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface UserInfoVC ()
 
@@ -15,7 +16,22 @@
 
 @implementation UserInfoVC
 
+//
 
+-(void)set4SFrame{
+    
+    _btnDeactive.frame = CGRectMake(80, 340, 156, 38);
+    
+}
+
+-(void)viewDidLayoutSubviews{
+    //_btnDeactive.layer.cornerRadius =3;
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (IS_4S) {
+        
+        [self set4SFrame];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,13 +52,14 @@
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     
-    NSArray *userData = [[NSArray alloc]initWithContentsOfFile:path];
-    
-    if ([userData count]>0) {
-         _fUserName = [userData objectAtIndex:0];
-         _fPhone = [userData objectAtIndex:1];
-         _fAdsVideoCount = [userData objectAtIndex:2];
-         _fAdsImagesCount = [userData objectAtIndex:3];
+    NSDictionary *userData =[NSDictionary dictionaryWithContentsOfFile:path];
+    NSLog(@"use%@",userData);
+    if (userData != nil) {
+        _fUserName.text = [userData objectForKey:@"USERNAME"];
+         _fPhone.text = [userData objectForKey:@"PHONE"];
+        
+         //_fAdsVideoCount = [userData objectForKey:@""];
+      //  _fAdsImagesCount = [userData objectForKey:@""];
        
     }else{
         NSLog(@"No Registerd User ");
@@ -55,4 +72,6 @@
 }
 
 
+- (IBAction)btnDeactiveAccount:(id)sender {
+}
 @end

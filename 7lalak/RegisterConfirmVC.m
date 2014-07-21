@@ -8,6 +8,9 @@
 
 #import "RegisterConfirmVC.h"
 #import "LocalizeHelper.h"
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "AFNetworking.h"
 
 @interface RegisterConfirmVC ()
 @property (nonatomic,strong) NSString *VCODE;
@@ -36,12 +39,13 @@ bool flagRegisterSuccess=FALSE;
     }
 }
 
+
+
 -(void)checkVCODE:(NSString *)code{
     
     [_btnLogin setHidden:TRUE];
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/authuntication.php"];
     
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/SMS_authentication/process.php";
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-25);
@@ -49,77 +53,53 @@ bool flagRegisterSuccess=FALSE;
     
     [activityIndicator startAnimating];
     
+    NSDictionary *dictParameter =@{
+                                   @"phone_number":_phoneNumber,
+                                   @"key":code,
+                                   @"action":@"login"
+                                   };
     
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:queue
-                           completionHandler:^(NSURLResponse* response,
-                                               NSData* data,
-                                               NSError* error)
-     {
-         
-         if (data) {
-             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-             
-             if (httpResponse.statusCode == 200 /* OK */) {
-                 NSError* error;
-                 
-                 id  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                 if (jsonObject) {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
-                         
-                         
-                         if (jsonObject!=nil) {
-                             //NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
-                             
-                             NSString *serverVCODE = [jsonObject objectForKey:@"VCODE"];
-                             if ([serverVCODE isEqualToString:VCODE]) {
-                                 
-                                 [self presenceUserData:serverVCODE];
-                             }else{
-                                 
-                                 [self showMessage:LocalizedString(@"VCODE_TITLE") message:LocalizedString(@"ERROR_INVALID_VOCODE")];
-                                 [_btnLogin setHidden:FALSE];
-                             }
-                         }else{
-                             [_btnLogin setHidden:FALSE];
-                         }
-                         
-                     });
-                 } else {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                     });
-                 }
-             }
-             
-             else if(httpResponse.statusCode == 408){
-                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
-                                        message:LocalizedString(@"error_internet_timeout")];
-                 [_btnLogin setHidden:FALSE];
-                 
-             }else{
-                 [activityIndicator stopAnimating];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [activityIndicator stopAnimating];
-                     [_btnLogin setHidden:FALSE];
-                     
-                 });
-             }
-         }
-         else {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
-                 [_btnLogin setHidden:FALSE];
-                 [activityIndicator stopAnimating];
-             });
-         }
-     }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    }
+                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                           NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                                           [activityIndicator stopAnimating];
+                                           if (responseObject != nil) {
+                                               if ([[responseObject valueForKey:@"error"]intValue] == 0) {
+                                                   //seccess ;
+                                                   [self presenceUserData:code
+                                                                   APIKey:[responseObject valueForKey:@"api_key"]
+                                                                   UserId:[responseObject valueForKey:@"user_id"]];
+                                                   [activityIndicator stopAnimating];
+                                                   
+                                               }else
+                                                   if ([[responseObject valueForKey:@"error"]intValue] == 1) {
+                                                       
+                                                       [self showMessage:LocalizedString(@"VCODE_TITLE") message:LocalizedString(@"ERROR_INVALID_VOCODE")];
+                                                       [_btnLogin setHidden:FALSE];
+                                                       [activityIndicator stopAnimating];
+
+                                                   }
+                                           }
+                                       }
+                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                           [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
+                                                                  message:LocalizedString(@"error_internet_timeout")];
+                                           [_btnLogin setHidden:FALSE];
+                                           [activityIndicator stopAnimating];
+                                       }];
+    
+    [op start];
+    
+    
     
 }
 
--(void)presenceUserData:(NSString *)vCode{
+-(void)presenceUserData :(NSString *)vCode APIKey:(NSString *)apiKey UserId:(NSString *)userId{
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -139,10 +119,12 @@ bool flagRegisterSuccess=FALSE;
     NSDictionary *user =[NSDictionary dictionaryWithContentsOfFile:path];
     if (user !=nil) {
         //  [user valueForKey:@"VCODE"];
+        [user setValue:userId forKey:@"ID"];
         [user setValue:vCode forKey:@"VCODE"];
-        [user setValue:@"true" forKey:@"active"];
-        [user setValue:@"7" forKey:@"images_score"];// variable not used in app // remotly using
-        [user setValue:@"3" forKey:@"video_score"];// variable not used in app //
+        [user setValue: apiKey forKey:@"API_KEY"];
+        [user setValue:@"true" forKey:@"ACTIVE"];
+        [user setValue:@"7" forKey:@"IMAGE_SCORE"];// variable not used in app // remotly using
+        [user setValue:@"3" forKey:@"VIDEO_SCORE"];// variable not used in app //
         [user writeToFile:path atomically:YES];
         
         NSLog(@"Complete Registeration");
@@ -155,6 +137,7 @@ bool flagRegisterSuccess=FALSE;
         [self showMessage:LocalizedString(@"MESSAGE_FAILD_REGISTER") message:LocalizedString(@"MESSAGE_FAILD_REGISTER_MSG")];
     }
     
+
 }
 
 -(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
