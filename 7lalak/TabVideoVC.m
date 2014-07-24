@@ -18,75 +18,17 @@
 @synthesize moviePlayer;
 @synthesize jsonObject;
 
+-(void)viewDidLayoutSubviews{
+    
+    [_webView setBackgroundColor:[UIColor clearColor]];
+    [_webView setOpaque:NO];
+    _webView.scrollView.scrollEnabled = NO;
 
+}
 - (void)viewDidLoad
 {
-    [self.tableView registerNib:[UINib nibWithNibName:@"VideoCell" bundle:nil]forCellReuseIdentifier:@"VideoCell"];
-    [_tableView setBackgroundColor:[UIColor clearColor]];
-    
-   // NSLog(@"%@",[[jsonObject objectForKey:@"vids"]objectAtIndex:0]);
     [super viewDidLoad];
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
     
-    return 1;//[[jsonObject objectForKey:@"vids"]count];
-}
-
-
-// detecting the play button on the you tube video thumbnail
-
-- (UIButton *)findButtonInView:(UIView *)view {
-    UIButton *button = nil;
-    
-    if ([view isMemberOfClass:[UIButton class]]) {
-        return (UIButton *)view;
-    }
-    
-    if (view.subviews && [view.subviews count] > 0) {
-        for (UIView *subview in view.subviews) {
-            button = [self findButtonInView:subview];
-            if (button) return button;
-        }
-    }
-    
-    return button;
-}
-
-
-- (void)webViewDidFinishLoad:(UIWebView *)_webView {
-    UIButton *button = [self findButtonInView:_webView];
-    [button sendActionsForControlEvents:UIControlEventTouchUpInside];
-}
-
-
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    return 130;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-     VideoCell *cell = (VideoCell *)[tableView dequeueReusableCellWithIdentifier:@"VideoCell" forIndexPath:indexPath];
-    [cell.fWebView setBackgroundColor:[UIColor clearColor]];
-    [cell.fWebView setOpaque:NO];
-    cell.fWebView.scrollView.scrollEnabled = NO;
-
-    cell.backgroundColor = [UIColor clearColor];
-    cell.backgroundView = [UIView new] ;
-    cell.selectedBackgroundView = [UIView new];
     
     NSString *embedHTML = @"\
     <html><head>\
@@ -95,29 +37,24 @@
     background-color: transparent;\
     }\
     </style>\
-    </head><body style=\"margin:0\">\
+    </head><body style=\"margin:0;padding:4\">\
     <embed id=\"yt\" src=\"%@\" type=\"application/x-shockwave-flash\" \
     width=\"%0.0f\" height=\"%0.0f\"></embed>\
     </body></html>";
     
-    NSString *html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:indexPath.row], 243.0, 243.0];
-    [cell.fWebView loadHTMLString:html baseURL:nil];
-    return cell;
-    
+    NSString *html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:0], 307.0, 330.0];
+    [_webView loadHTMLString:html baseURL:nil];
+
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UITableViewCell *cell = [ _tableView cellForRowAtIndexPath:indexPath];
-    
-    UIWebView  *wbView = (UIWebView *)[cell.contentView viewWithTag:1];
-    UIButton *btn = [self findButtonInView:wbView];
-    [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    
+/*
+- (void)webViewDidFinishLoad:(UIWebView *)_webView {
+    UIButton *button = [self findButtonInView:_webView];
+    [button sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
-
-
+*/
 - (void) moviePlayBackDidFinish:(NSNotification*)notification {
+    
     MPMoviePlayerController *player = [notification object];
     [[NSNotificationCenter defaultCenter]
      removeObserver:self

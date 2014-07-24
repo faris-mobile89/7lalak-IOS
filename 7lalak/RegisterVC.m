@@ -19,38 +19,66 @@
 
 @implementation RegisterVC
 
-
+NSString *phone;
+NSString *email;
 - (void)viewDidLoad
 {
+    _lable1.layer.cornerRadius= 10;
     _fUserName.delegate=self;
     _fPhone.delegate=self;
     _fEmail.delegate=self;
     self.title = LocalizedString(@"TITLE_MORE_REGISTER");
     [super viewDidLoad];
+    
 }
 
 
-int phoneLength =10;
+int phoneLength =8;
 
 
 - (IBAction)fbtnRegister:(id)sender {
     
-    if ([_fPhone.text length] > 1 && [_fUserName.text length]>1 && [_fEmail.text length] > 1) {
+    if ([_fUserName.text length]>1 &&[_fPhone.text length] > 1 ) {
         
-        if ([_fPhone.text length]!= phoneLength ){
+        
+        
+        if ([_fPhone.text length] != phoneLength){
             [self showErrorMessage:@"Phone number not valid"];
-        }else
-            if (![self NSStringIsValidEmail:_fEmail.text]) {
+            return;
+        }
+        
+        if (![self validatePhone:_fPhone.text]) {
+            [self showErrorMessage:@"Phone number not valid"];
+            return;
+        }
+        
+        
+       if ([_fEmail.text length] > 0) {
                 
-                [self showErrorMessage:@"Email not valid"];
-                
-            }else{
-                // create init user data
-                [self createUserData];
+                if (![self NSStringIsValidEmail:_fEmail.text]) {
+                    
+                    [self showErrorMessage:@"Email not valid"];
+                    return;
             }
+       }
+        
+        
+        
+        UIAlertView *confirm = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"CONFIRM_REGISTERATION") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"AGREE"), nil];
+        [confirm show];
+        
+       }else{
+       [self showErrorMessage:LocalizedString(@"PHONE_NAME_REQUIRED")];
     }
 }
-
+-(BOOL)validatePhone:(NSString*)number{
+    
+    NSString *provider = [number substringToIndex:1];
+    if ([provider isEqualToString:@"5"]|| [provider isEqualToString:@"6"]|| [provider isEqualToString:@"9"])
+        return TRUE;
+    else
+        return FALSE;
+}
 -(void)showErrorMessage:(NSString *)msg{
     
     UIAlertView *error = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -74,12 +102,17 @@ int phoneLength =10;
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     
-    
+    if ([_fEmail.text length] < 1) {
+        email=@"";
+    }else{
+         email = _fEmail.text;
+    }
+    phone = [[NSString alloc]initWithFormat:@"+965%@",_fPhone.text ];
     NSDictionary *user =@{
                           @"ID": @"null",
                           @"USERNAME":_fUserName.text,
-                          @"EMAIL":_fEmail.text,
-                          @"PHONE":_fPhone.text,
+                          @"EMAIL":email,
+                          @"PHONE":phone,
                           @"ACTIVE":@"false",
                           @"VCODE":@"null",
                           @"API_KEY":@"null",
@@ -97,6 +130,14 @@ int phoneLength =10;
     //    NSLog(@"content:%@",[NSDictionary dictionaryWithContentsOfFile:path]);
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+            //create init user data
+           [self createUserData];
+    }
+}
+
+
 -(void)sendRegisterationRequest{
     
     NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/SMS_authentication/process.php";
@@ -109,8 +150,8 @@ int phoneLength =10;
     
     NSDictionary *dictParameter =@{
                                    @"username": _fUserName.text,
-                                   @"phone_number":_fPhone.text,
-                                   @"email":_fEmail.text,
+                                   @"phone_number":phone,
+                                   @"email":email,
                                    @"action":@"token"
                                    };
     
@@ -133,7 +174,7 @@ int phoneLength =10;
                                                            
                                                            [self performSegueWithIdentifier:@"confirm_register" sender:self];
                                                        }else{
-                                                       UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"" message:@"The number already registered" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
+                                                       UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"" message:@"The phone number is already registered !" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
                                                        [error show];
                                                        }
                                                    }
@@ -144,6 +185,7 @@ int phoneLength =10;
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                            [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
                                            [activityIndicator stopAnimating];
                                        }];
     
@@ -178,7 +220,15 @@ int phoneLength =10;
     if (textField == _fPhone) {
         
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        if (newLength > phoneLength) {
+            [_fPhone resignFirstResponder];
+        }
         return (newLength > phoneLength) ? NO : YES;
+        
+    }else if (textField == _fUserName){
+        
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return (newLength > 40) ? NO : YES;
     }
     else return YES;
 }
@@ -191,10 +241,17 @@ int phoneLength =10;
 {
     if ([segue.identifier isEqualToString:@"confirm_register"]) {
         RegisterConfirmVC *confirm = segue.destinationViewController ;
-        confirm.phoneNumber = _fPhone.text;
+        confirm.phoneNumber = phone;
     }
 }
 
+-(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+    
+}
 
 - (void)didReceiveMemoryWarning
 {

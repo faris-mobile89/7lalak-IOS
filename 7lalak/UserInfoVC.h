@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoVC : UIViewController
+@interface UserInfoVC : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *fUserName;
 @property (weak, nonatomic) IBOutlet UILabel *fPhone;
 @property (weak, nonatomic) IBOutlet UILabel *fAdsVideoCount;

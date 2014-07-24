@@ -21,6 +21,7 @@
 bool flagRegisterSuccess=FALSE;
 - (void)viewDidLoad
 {
+    _label1.layer.cornerRadius= 10;
     //self.title = LocalizedString(@"TITLE_MORE_REGISTER");
     self.textVerificationCode.delegate=self;
     [super viewDidLoad];

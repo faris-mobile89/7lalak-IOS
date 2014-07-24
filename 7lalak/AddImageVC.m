@@ -42,13 +42,15 @@
 @synthesize subCat,catId,selectedMaincatId,selectedSubcatId,jsonObject;
 float hieght;
 
+BOOL flagTextenter;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    flagTextenter =FALSE;
     self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
-
+    _labelSelectCat.layer.cornerRadius =6;
     hieght = SCREEN_HEIGHT;
-    
     if (hieght < 500) {
         _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
     }
@@ -65,7 +67,7 @@ float hieght;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+50);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
@@ -138,21 +140,27 @@ float hieght;
     }
 }
 
-
+#pragma mark uploader-block
 -(void)uploadService{
     
-    //NSLog(@"asdf%@",data);
     NSString * MCID =[[NSString alloc]initWithFormat:@"%@",selectedMaincatId];
     NSString * SCID =[[NSString alloc]initWithFormat:@"%@",selectedSubcatId];
-    userID =@"fsdf";
-    NSDictionary *dictParameter = @{@"addImage": @{@"userID": userID, @"text":_fAdsText.text,@"price":_fAdsPrice.text, @"mainCatId":MCID,@"subCatID":SCID}};
+   // NSLog(@"cat%@%@",MCID,SCID);
+    NSDictionary *dictParameter = @{
+                                    @"tag":@"uploadImageAd",
+                                    @"userID": userID,
+                                    @"UDID":_apiKey,
+                                    @"text":_fAdsText.text,
+                                    @"price":_fAdsPrice.text,
+                                    @"mainCatID":MCID,@"subCatID":SCID
+                                    };
     
     NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/uploader.php";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSLog(@"starting");
+        NSLog(@"uploading...");
         [activityIndicator startAnimating];
         for (int i =0 ; i<[imagesDataToUpload count]; i++) {
             
@@ -160,20 +168,21 @@ float hieght;
             date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
             NSString *imageName = [[NSString alloc]initWithFormat:@"7lalak_IOS%i_%@%@",i,
                                    date,@".jpg"];
-           
+            
             
             [formData appendPartWithFileData:[imagesDataToUpload  objectAtIndex:i]
                                         name:[[NSString alloc]initWithFormat:@"file%i",i] fileName:imageName mimeType:@"image/jpeg"];
             
         }
-        // [formData appendPartWithFileURL:filePath name:@"image" error:nil];
     }
-                                       success:^(AFHTTPRequestOperation *operation, NSString *responseObject) {
-                                           NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                                       success:^(AFHTTPRequestOperation *operation, NSString * responseObject) {
+                                           NSLog(@"Success:***** %@", responseObject);
                                            [activityIndicator stopAnimating];
                                            
-                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:@"Uploader" message:@"Your Ads has been added" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil        , nil];
+                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Your Ads has been added and will be available as soon as posible" delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil , nil];
                                            [successAlert show];
+                                           [self.navigationController popViewControllerAnimated:YES];
+
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -245,8 +254,6 @@ float hieght;
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:10]];
         
-        
-        
          if(hieght<500){
          label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
          label.text = [NSString stringWithFormat:@"  %d", row+1];
@@ -263,7 +270,6 @@ float hieght;
             if ([[subCat objectForKey:@"SubCat"]count]>0) {
                 
                 label.text=  [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"];
-                
             }
         }
         
@@ -452,7 +458,17 @@ float hieght;
     
 }
 
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    // to remove placeholder
+    if (!flagTextenter) {
+        self.fAdsText.text=@"";
+        flagTextenter = TRUE;
+    }
+    return TRUE;
+}
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
     
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
@@ -466,7 +482,7 @@ float hieght;
     if (textField == _fAdsPrice) {
         
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return (newLength > 10) ? NO : YES;
+        return (newLength > 8) ? NO : YES;
     }
     else return YES;
 }
@@ -477,7 +493,6 @@ float hieght;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [_fAdsPrice resignFirstResponder];
-    
     return YES;
 }
 
@@ -485,6 +500,5 @@ float hieght;
 {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

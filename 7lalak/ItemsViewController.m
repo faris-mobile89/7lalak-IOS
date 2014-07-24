@@ -50,7 +50,7 @@ UIImageView *bannerView;
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
-    _numberOfnewPosts = 3;
+    _numberOfnewPosts = 10;
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     
@@ -63,9 +63,9 @@ UIImageView *bannerView;
     tableViewController.refreshControl=self.refreshControl;
     
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
+  
     
-    [self loadFeeds:strUrl];
+    [self loadFeeds];
     
     
 }
@@ -153,11 +153,12 @@ UIImageView *bannerView;
     [self.tableView reloadData];
 }
 
--(void)loadFeeds:(NSString *)urlString{
+-(void)loadFeeds{
     
     
+      NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
     
-    NSURL* url = [NSURL URLWithString:urlString];
+    NSURL* url = [NSURL URLWithString:strUrl];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -192,7 +193,8 @@ UIImageView *bannerView;
                          
                          [self.tableView reloadData];
                          [self loadBanner];
-                        // NSLog(@"jsonObject: %@", jsonObject);
+                       // NSLog(@"jsonObject %@:  %@",catId, jsonObject);
+                         
                          
                          
                      });
@@ -335,10 +337,10 @@ UIImageView *bannerView;
     
     cell.fImage.layer.backgroundColor=[[UIColor clearColor] CGColor];
     cell.fImage.layer.cornerRadius=10;
-    cell.fImage.layer.borderWidth=2.0;
+    cell.fImage.layer.borderWidth=1.5;
     cell.fImage.layer.masksToBounds = YES;
     cell.fImage.clipsToBounds = YES;
-    cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
+    cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"FFFFFF"] CGColor];
     
     
     
@@ -362,12 +364,13 @@ UIImageView *bannerView;
                                                                  objectAtIndex:indexPath.row]objectForKey:@"price"]];
     [cell.fPrice setText:price];
     
-    NSInteger status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
+    NSString * status = [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"];
     
-    if (status == 2) {
-        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
-    }
-    
+    if ([status isEqualToString: @"2"])
+         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+    else
+        cell.imgSold =nil;
+
     return cell;
 }
 

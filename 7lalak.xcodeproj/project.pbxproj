@@ -147,6 +147,8 @@
 		E08F4C7D19624B0A00A6DDFB /* photo-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = E08F4C7C19624B0A00A6DDFB /* photo-frame.png */; };
 		E08F4C8D19626C3F00A6DDFB /* UploadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E08F4C8B19626C3F00A6DDFB /* UploadCell.m */; };
 		E08F4C8E19626C3F00A6DDFB /* UploadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E08F4C8C19626C3F00A6DDFB /* UploadCell.xib */; };
+		E09202F0197E0C8D0060ABE0 /* MyAdsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E09202EF197E0C8D0060ABE0 /* MyAdsVC.m */; };
+		E09202F3197E1CDC0060ABE0 /* MyAdDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E09202F2197E1CDC0060ABE0 /* MyAdDetails.m */; };
 		E09264BE195A4F66000D6BC1 /* OffersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264BD195A4F66000D6BC1 /* OffersVC.m */; };
 		E09264C6195A4FA2000D6BC1 /* ICETutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264C1195A4FA2000D6BC1 /* ICETutorialController.m */; };
 		E09264C7195A4FA2000D6BC1 /* ICETutorialPage.m in Sources */ = {isa = PBXBuildFile; fileRef = E09264C3195A4FA2000D6BC1 /* ICETutorialPage.m */; };
@@ -178,10 +180,10 @@
 		E0E76F9F197B6985004791FB /* ic_home_Ads.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76F9E197B6985004791FB /* ic_home_Ads.png */; };
 		E0E76FA2197B6BAD004791FB /* ic_home_offers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FA0197B6BAD004791FB /* ic_home_offers@2x.png */; };
 		E0E76FA3197B6BAD004791FB /* ic_home_offers.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FA1197B6BAD004791FB /* ic_home_offers.png */; };
-		E0E76FA6197B6CB8004791FB /* ic_home_media@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FA4197B6CB8004791FB /* ic_home_media@2x.png */; };
+		E0E76FA6197B6CB8004791FB /* ic_home_mediax.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FA4197B6CB8004791FB /* ic_home_mediax.png */; };
 		E0E76FA7197B6CB8004791FB /* ic_home_media31.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FA5197B6CB8004791FB /* ic_home_media31.png */; };
 		E0E76FAD197B6E34004791FB /* ic_home_more-m.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FAC197B6E34004791FB /* ic_home_more-m.png */; };
-		E0E76FAF197B6F07004791FB /* ic_home_more2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FAE197B6F07004791FB /* ic_home_more2x.png */; };
+		E0E76FAF197B6F07004791FB /* ic_home_morex.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FAE197B6F07004791FB /* ic_home_morex.png */; };
 		E0E76FB1197B6FB6004791FB /* ic_home_media.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FB0197B6FB6004791FB /* ic_home_media.png */; };
 		E0E76FB3197B7090004791FB /* ic_home_more.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E76FB2197B7090004791FB /* ic_home_more.png */; };
 		E0E84EC2195A52BC00308080 /* background-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EB6195A52BC00308080 /* background-gradient.png */; };
@@ -427,6 +429,10 @@
 		E08F4C8A19626C3F00A6DDFB /* UploadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadCell.h; sourceTree = "<group>"; };
 		E08F4C8B19626C3F00A6DDFB /* UploadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadCell.m; sourceTree = "<group>"; };
 		E08F4C8C19626C3F00A6DDFB /* UploadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadCell.xib; sourceTree = "<group>"; };
+		E09202EE197E0C8D0060ABE0 /* MyAdsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdsVC.h; sourceTree = "<group>"; };
+		E09202EF197E0C8D0060ABE0 /* MyAdsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAdsVC.m; sourceTree = "<group>"; };
+		E09202F1197E1CDC0060ABE0 /* MyAdDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdDetails.h; sourceTree = "<group>"; };
+		E09202F2197E1CDC0060ABE0 /* MyAdDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAdDetails.m; sourceTree = "<group>"; };
 		E09264BC195A4F66000D6BC1 /* OffersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersVC.h; sourceTree = "<group>"; };
 		E09264BD195A4F66000D6BC1 /* OffersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersVC.m; sourceTree = "<group>"; };
 		E09264C0195A4FA2000D6BC1 /* ICETutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICETutorialController.h; sourceTree = "<group>"; };
@@ -483,10 +489,10 @@
 		E0E76F9E197B6985004791FB /* ic_home_Ads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_Ads.png; sourceTree = "<group>"; };
 		E0E76FA0197B6BAD004791FB /* ic_home_offers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_offers@2x.png"; sourceTree = "<group>"; };
 		E0E76FA1197B6BAD004791FB /* ic_home_offers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_offers.png; sourceTree = "<group>"; };
-		E0E76FA4197B6CB8004791FB /* ic_home_media@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_media@2x.png"; sourceTree = "<group>"; };
+		E0E76FA4197B6CB8004791FB /* ic_home_mediax.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_mediax.png; sourceTree = "<group>"; };
 		E0E76FA5197B6CB8004791FB /* ic_home_media31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_media31.png; sourceTree = "<group>"; };
 		E0E76FAC197B6E34004791FB /* ic_home_more-m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_home_more-m.png"; sourceTree = "<group>"; };
-		E0E76FAE197B6F07004791FB /* ic_home_more2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_more2x.png; sourceTree = "<group>"; };
+		E0E76FAE197B6F07004791FB /* ic_home_morex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_morex.png; sourceTree = "<group>"; };
 		E0E76FB0197B6FB6004791FB /* ic_home_media.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_media.png; sourceTree = "<group>"; };
 		E0E76FB2197B7090004791FB /* ic_home_more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_more.png; sourceTree = "<group>"; };
 		E0E84EB6195A52BC00308080 /* background-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-gradient.png"; sourceTree = "<group>"; };
@@ -658,6 +664,7 @@
 				E03E1C29195AA17300DAEB6A /* MoreContainerVC.m */,
 				E03E1C2B195AA1EF00DAEB6A /* MoreMainVC.h */,
 				E03E1C2C195AA1EF00DAEB6A /* MoreMainVC.m */,
+				E09202ED197E0C5B0060ABE0 /* MyAds */,
 				E08B86F6197886CA0064968E /* User Info */,
 				E08B86F5197886AC0064968E /* Favorite */,
 				E010F3041975E44900CE0803 /* Add Ads */,
@@ -713,9 +720,9 @@
 			isa = PBXGroup;
 			children = (
 				E0E76FB2197B7090004791FB /* ic_home_more.png */,
-				E0E76FAE197B6F07004791FB /* ic_home_more2x.png */,
+				E0E76FAE197B6F07004791FB /* ic_home_morex.png */,
 				E0E76FAC197B6E34004791FB /* ic_home_more-m.png */,
-				E0E76FA4197B6CB8004791FB /* ic_home_media@2x.png */,
+				E0E76FA4197B6CB8004791FB /* ic_home_mediax.png */,
 				E0E76FB0197B6FB6004791FB /* ic_home_media.png */,
 				E0E76FA5197B6CB8004791FB /* ic_home_media31.png */,
 				E0E76FA0197B6BAD004791FB /* ic_home_offers@2x.png */,
@@ -960,6 +967,17 @@
 				E068020219686BF00002B692 /* ProductCell.xib */,
 			);
 			name = CustomCell;
+			sourceTree = "<group>";
+		};
+		E09202ED197E0C5B0060ABE0 /* MyAds */ = {
+			isa = PBXGroup;
+			children = (
+				E09202EE197E0C8D0060ABE0 /* MyAdsVC.h */,
+				E09202EF197E0C8D0060ABE0 /* MyAdsVC.m */,
+				E09202F1197E1CDC0060ABE0 /* MyAdDetails.h */,
+				E09202F2197E1CDC0060ABE0 /* MyAdDetails.m */,
+			);
+			name = MyAds;
 			sourceTree = "<group>";
 		};
 		E09264BB195A4F3C000D6BC1 /* Offers */ = {
@@ -1215,7 +1233,7 @@
 				E0680211196876A70002B692 /* Icon-Small-50@2x.png in Resources */,
 				E058B2891958766100D658DB /* ic_logo.png in Resources */,
 				E058B2951958766100D658DB /* img_7lalek.png in Resources */,
-				E0E76FAF197B6F07004791FB /* ic_home_more2x.png in Resources */,
+				E0E76FAF197B6F07004791FB /* ic_home_morex.png in Resources */,
 				E010F2FF1975B12800CE0803 /* Icon-120.png in Resources */,
 				E084C0F61958919B008FA792 /* bg_tabs.png in Resources */,
 				E058B2861958766100D658DB /* ic_defualt_image.png in Resources */,
@@ -1224,7 +1242,7 @@
 				E084C0F219588F7B008FA792 /* bg_header.png in Resources */,
 				E0E84EC5195A52BC00308080 /* button-background@2x.png in Resources */,
 				E058B29E1958766100D658DB /* img_btn_play_pressed.png in Resources */,
-				E0E76FA6197B6CB8004791FB /* ic_home_media@2x.png in Resources */,
+				E0E76FA6197B6CB8004791FB /* ic_home_mediax.png in Resources */,
 				E032F9B51958A71C003ED896 /* ic_video_ads.png in Resources */,
 				E0680213196876A70002B692 /* Icon@2x.png in Resources */,
 				E068020E196876A70002B692 /* Icon-72.png in Resources */,
@@ -1274,6 +1292,7 @@
 				E02455BE197B982100D1C9F0 /* http_stream.cpp in Sources */,
 				E08F4C8D19626C3F00A6DDFB /* UploadCell.m in Sources */,
 				E0A560B8195CF1AE00FD0D70 /* UIColor_hex.m in Sources */,
+				E09202F3197E1CDC0060ABE0 /* MyAdDetails.m in Sources */,
 				E00A360519584C0900A7B45A /* ItemDetailsViewController.m in Sources */,
 				E09264BE195A4F66000D6BC1 /* OffersVC.m in Sources */,
 				E09264C8195A4FA2000D6BC1 /* ICETutorialStyle.m in Sources */,
@@ -1291,6 +1310,7 @@
 				E0D882131958639100557F5B /* TabVideoVC.m in Sources */,
 				E0A560C1195CF26900FD0D70 /* HUD.m in Sources */,
 				E0239748195FF3AC00E0AA28 /* RegisterVC.m in Sources */,
+				E09202F0197E0C8D0060ABE0 /* MyAdsVC.m in Sources */,
 				E0239742195FEEBB00E0AA28 /* UserInfoVC.m in Sources */,
 				E02455A4197B97FD00D1C9F0 /* FSPlaylistItem.m in Sources */,
 				E0A357FD1964A33D0058146B /* HomePageVC.m in Sources */,

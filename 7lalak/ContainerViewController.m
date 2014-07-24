@@ -168,7 +168,7 @@ UIImageView *bannerView;
                          
                          if ([jsonBanner objectForKey:@"url"]!=nil) {
                              
-                          
+                            // NSLog(@"%@",[jsonBanner objectForKey:@"url"]);
 
                              [self.view addSubview:bannerView];
                              [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
@@ -263,7 +263,7 @@ UIImageView *bannerView;
  if ([[segue identifier] isEqualToString:@"table"] ){
      
     SubCatVC *tableVC = [segue destinationViewController];
-     tableVC.catId =[[[jsonObject objectForKey:@"MainCat"] objectAtIndex:selectedIndex]objectForKey:@"id"];
+    tableVC.catId =[[[jsonObject objectForKey:@"MainCat"] objectAtIndex:selectedIndex]objectForKey:@"id"];
  }
 }
 

@@ -22,8 +22,6 @@
     
    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     _fWebView.delegate = self;
-
-    
     _fWebView.scrollView.scrollEnabled = NO;
     
     [self loadWebPage];

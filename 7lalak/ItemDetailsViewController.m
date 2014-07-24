@@ -26,7 +26,8 @@ TabDescriptionVC *tabDescription;
 - (void)viewDidLoad
 {
     //NSLog(@"JSONObject%@",jsonObject);
-    
+    [super viewDidLoad];
+
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
     tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];
@@ -40,14 +41,34 @@ TabDescriptionVC *tabDescription;
     [self addChildViewController:tabDescription];
     [tabDescription didMoveToParentViewController:self];
     
+   
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
         [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
     }
-    [super viewDidLoad];
+    
+    
+    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
+        
+  
+        if ([[jsonObject objectForKey:@"vids"]count] ==0 ) {
+        [_tabsView removeSegmentAtIndex:1 animated:NO];
+    }
+  }
+    
+    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]) {
+        
+        
+        if ([[jsonObject objectForKey:@"imgs"]count] ==0 ) {
+            [_tabsView removeSegmentAtIndex:1 animated:NO];
+        }
+    }
+    
 }
 
 
 - (IBAction)tabsChanged:(id)sender {
+    
+
     [[self.containterView subviews ]makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSInteger index = [self.tabsView selectedSegmentIndex];
@@ -55,12 +76,12 @@ TabDescriptionVC *tabDescription;
         
         if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
             
+            
             [tabVideo willMoveToParentViewController:self];
             [self.containterView addSubview:tabVideo.view];
             [self addChildViewController:tabVideo];
             [tabVideo didMoveToParentViewController:self];
             [tabVideo setTitle:LocalizedString(@"VIDEO")];
-            
             
         }else{
             
@@ -72,7 +93,6 @@ TabDescriptionVC *tabDescription;
         }
         
     }else{
-        
         
         [tabDescription willMoveToParentViewController:self];
         [self.containterView addSubview:tabDescription.view];

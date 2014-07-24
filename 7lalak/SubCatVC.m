@@ -263,7 +263,7 @@ UIImageView *bannerView;
         SubCatVC *tableVC = [segue destinationViewController];
         
         NSString *param = [[NSString alloc]initWithFormat:@"%@%@",
-        [[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"],catId ];
+         catId,[[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"] ];
         
         tableVC.catId = param;
 

@@ -22,6 +22,7 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 
 -(void)initLayer :(NSString *)url :(NSInteger) index{
     
+
     // Init the pages texts, and pictures.
     switch (index) {
         case 1:
@@ -75,10 +76,15 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 
 - (void)viewDidLoad {
     
-    //NSLog(@"images%i",[[jsonObject objectForKey:@"imgs"]count]);
+    [self.view setBackgroundColor:[UIColor blackColor]];
+
     
+// please not that enoh ana ma 3mlt optimizaiotion la had el code , cuz el dedline la project !!!!!
     NSArray *itemLayers ;
     
+    NSArray * images = [jsonObject objectForKey:@"imgs"];
+    
+                      
     switch ([[jsonObject objectForKey:@"imgs"]count]) {
         case 1:
             [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:0] :1];
@@ -90,18 +96,49 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
             itemLayers = @[layer1,layer2];
             break;
         case 3:
+            
+            [self initLayer:[images objectAtIndex:0]:1];
+            [self initLayer:[images objectAtIndex:1] :2];
+            [self initLayer:[images objectAtIndex:2] :3];
             itemLayers = @[layer1,layer2,layer3];
+
             break;
+
         case 4:
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:0]:1];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:1] :2];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:2] :3];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:3] :4];
             itemLayers = @[layer1,layer2,layer3,layer4];
+
             break;
         case 5:
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:0]:1];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:1] :2];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:2] :3];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:3] :4];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:4] :5];
             itemLayers = @[layer1,layer2,layer3,layer4,layer5];
+
             break;
         case 6:
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:0]:1];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:1] :2];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:2] :3];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:3] :4];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:4] :5];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:5] :6];
             itemLayers = @[layer1,layer2,layer3,layer4,layer5,layer6];
+            
             break;
         case 7:
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:0]:1];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:1] :2];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:2] :3];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:3] :4];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:4] :5];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:5] :6];
+            [self initLayer:[[jsonObject objectForKey:@"imgs"]objectAtIndex:6] :7];
             itemLayers = @[layer1,layer2,layer3,layer4,layer5,layer6,layer7];
             break;
             
@@ -120,7 +157,7 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
     
     // Run it.
     [self.viewController startScrolling];
-     self.viewController.view.frame = CGRectMake(0, 0, 320, 410);
+     self.viewController.view.frame = CGRectMake(0, 10, 320, 410);
     [self.view addSubview: self.viewController.view];
     
   

@@ -15,18 +15,37 @@
 #import "ContactUsVC.h"
 #import "BuyTableVC.h"
 #import "LocalizeHelper.h"
+#import "MyAdsVC.h"
+
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface MoreMainVC ()
 
 @end
 Boolean isRegistered=FALSE;
 NSString *userID;
+NSString *apiKey;
+BOOL frameSet=FALSE;
 @implementation MoreMainVC
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self getUserData];
+    [super viewWillAppear:TRUE];
+}
+
+-(void)viewDidLayoutSubviews{
+    [self getUserData];
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (!IS_4S) {
+        [_holderBtns setFrame:CGRectMake(_holderBtns.frame.origin.x, _holderBtns.frame.origin.y+40, _holderBtns.frame.size.width, _holderBtns.frame.size.height)];
+    }
+}
 
 - (void)viewDidLoad
 {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
-    
+
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
@@ -59,12 +78,29 @@ NSString *userID;
     }
     
     NSDictionary *userData =[NSDictionary dictionaryWithContentsOfFile:path];
-
-    if ([userData count]>0 && userData !=nil) {
+    isRegistered =FALSE;
+    if (userData !=nil) {
         
         if ([[userData valueForKey:@"ACTIVE"]isEqualToString:@"true"]) {
             isRegistered = TRUE;
             userID = [userData valueForKey:@"ID"];
+            apiKey = [userData valueForKey:@"API_KEY"];
+           // [_btn7 setHidden:FALSE];
+            NSLog(@"A    %@",userData);
+          
+        }else{
+            
+               NSLog(@"fr%f",_holderBtns.frame.origin.y+40);
+            
+            if (_holderBtns.frame.origin.y < 33.0) {
+                
+                 [_holderBtns setFrame:CGRectMake(_holderBtns.frame.origin.x, _holderBtns.frame.origin.y+40, _holderBtns.frame.size.width, _holderBtns.frame.size.height)];
+            }
+            
+            
+            [_btn7 setHidden:TRUE];
+
+            NSLog(@"B:  %@",userData);
         }
     }
 }
@@ -75,6 +111,14 @@ NSString *userID;
         RegisterVC *userRegister = [self.storyboard instantiateViewControllerWithIdentifier:@"registerVC"];
         [self.navigationController pushViewController: userRegister animated:YES];
 
+}
+
+- (IBAction)btnMyAds:(id)sender {
+    
+    MyAdsVC *myAds = [self.storyboard instantiateViewControllerWithIdentifier:@"MyAdsVC"];
+    myAds.userID=userID;
+    myAds.apiKey=apiKey;
+    [self.navigationController pushViewController:myAds animated:YES];
 }
 
 - (IBAction)btnAdd:(id)sender {
@@ -143,7 +187,10 @@ NSString *userID;
 
 -(void)checkUserAdsScore :(NSString *)choosenType{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/authuntication.php"];
+   NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getUserInfo&user_id=%@",userID];
+    NSLog(@"URl:%@",urlWithParam);
+    
+    NSURL* url = [NSURL URLWithString:urlWithParam];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -173,33 +220,31 @@ NSString *userID;
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         
-                         
+
                          if (jsonObject!=nil) {
+                             //NSLog(@"response%@",jsonObject);
                              
                              if ([choosenType isEqualToString:@"image"]) {
-                                 NSString *AdsImageScore = [[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"];
-                                 int count = [AdsImageScore intValue];
-                                 NSLog(@"Image choosen");
-                                 if ( count < 1 ) {
-                                     NSLog(@"score is 0");
+                                 int AdsImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"]intValue];
+                                 
+                                 if ( AdsImageScore < 1 ) {
                                       [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
                                  }else{
-                                     NSLog(@"video choosen");
                                      AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
                                      imageVC.userID = userID;
+                                     imageVC.apiKey = apiKey;
                                      [self.navigationController pushViewController:imageVC animated:YES];
                                  }
                                  
                              }else if ([choosenType isEqualToString:@"video"]){
-                                 NSString *AdsVideoScore = [[jsonObject objectForKey:@"userInfo"]valueForKey:@"VideosScore"];
-                                 int count = [AdsVideoScore intValue];
-                                 if (count < 1) {
-                                     NSLog(@"video score is 0");
+                                 int AdsVideoScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"videosScore"]intValue];
+                                
+                                 if (AdsVideoScore < 1) {
                                      [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
                                  }else{
                                      AddVideoVC *videoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
                                      videoVC.userID = userID;
+                                     videoVC.apiKey = apiKey;
                                      [self.navigationController pushViewController:videoVC animated:YES];
                                  }
                              }

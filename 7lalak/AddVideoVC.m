@@ -43,17 +43,18 @@
 @synthesize subCat,catId,selectedMaincatId,selectedSubcatId,jsonObject;
 @synthesize videoURL;
 float hieght;
-
+bool flagTextenter;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      self.title = LocalizedString(@"TITLE_MORE_ADD_VIDEO");
-    
+    _labelSelectCat.layer.cornerRadius =6;
     hieght = SCREEN_HEIGHT;
     
     if (hieght < 500) {
         _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
     }
+    flagTextenter =FALSE;
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
     catId =[[NSString alloc]init];
@@ -67,7 +68,7 @@ float hieght;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+50);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
@@ -144,6 +145,8 @@ float hieght;
 
 }
 
+#pragma mark upload block
+
 - (IBAction)uploadButtonAction:(id)sender {
     
     if ([_fAdsPrice.text length] >= 1  && [_fAdsText.text length]> 5 ) {
@@ -157,10 +160,16 @@ float hieght;
     [activityIndicator startAnimating];
     NSString * MCID =[[NSString alloc]initWithFormat:@"%@",selectedMaincatId];
     NSString * SCID =[[NSString alloc]initWithFormat:@"%@",selectedSubcatId];
-    userID =@"fsdf";
-    NSDictionary *dictParameter = @{@"addImage": @{@"userID": userID, @"text":_fAdsText.text,@"price":_fAdsPrice.text, @"mainCatId":MCID,@"subCatID":SCID}};
-    
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/video-uploader.php";
+    NSDictionary *dictParameter = @{
+                                    @"tag":@"uploadVideoAd",
+                                    @"userID": userID,
+                                    @"UDID":_apiKey,
+                                    @"text":_fAdsText.text,
+                                    @"price":_fAdsPrice.text,
+                                    @"mainCatID":MCID,@"subCatID":SCID
+                                    };
+    NSLog(@"dic%@",dictParameter);
+    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/uploader.php";
     
     NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
@@ -176,14 +185,15 @@ float hieght;
         
         NSData *videoData= [NSData dataWithContentsOfURL:videoURL];
 
-    [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/quicktime"];
+    [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
     }
                                        success:^(AFHTTPRequestOperation *operation, NSString *responseObject) {
                                            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                                            [activityIndicator stopAnimating];
                                            
-                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_ADs_Added") delegate:self cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles:nil        , nil];
+                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_ADs_Added") delegate:nil cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles:nil        , nil];
                                            [successAlert show];
+                                           [self.navigationController popViewControllerAnimated:YES];
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -329,13 +339,7 @@ float hieght;
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 
-                 [internetError show];
                  [activityIndicator stopAnimating];
              });
          }
@@ -434,6 +438,14 @@ float hieght;
     }
     return YES;
 }
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    // to remove placeholder
+    if (!flagTextenter) {
+        self.fAdsText.text=@"";
+        flagTextenter = TRUE;
+    }
+    return TRUE;
+}
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
@@ -451,7 +463,7 @@ float hieght;
     if (textField == _fAdsPrice) {
         
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return (newLength > 10) ? NO : YES;
+        return (newLength > 8) ? NO : YES;
     }
     else return YES;
 }

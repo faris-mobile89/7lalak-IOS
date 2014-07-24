@@ -19,15 +19,31 @@
 @synthesize fPrice,fDate,fDescription,fImage,fPhone;
 @synthesize jsonObjects;
 
+-(void)viewDidLayoutSubviews{
+    
+    fImage.layer.cornerRadius=6;
+    //fImage.layer.borderWidth=0.5;
+    fImage.layer.masksToBounds = YES;
+    fImage.clipsToBounds = YES;
+    fDescription.layer.cornerRadius=6;
+    fDescription.layer.borderWidth=0.3;
+    fDescription.clipsToBounds = YES;
+    fDescription.layer.borderColor=[[UIColor darkGrayColor] CGColor];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [fPhone setText:[jsonObject objectForKey:@"phone"]];
-    [fPrice setText:[jsonObject objectForKey:@"price"]];
+
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[jsonObject objectForKey:@"price"]];
+    [fPrice setText:price];
+    
     [fDescription setText:[jsonObject objectForKey:@"description"]];
     [fDate setText:[jsonObject objectForKey:@"created"]];
     
     [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +81,7 @@
 }
 
 - (IBAction)btnCallClick:(id)sender {
+    
     NSString *phNo = fPhone.text;
     NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phNo]];
     
@@ -84,7 +101,7 @@
         messageInstance.body = @"";
         messageInstance.recipients = [NSArray arrayWithObjects:fPhone.text,nil];
         messageInstance.messageComposeDelegate = self;
-        [self presentModalViewController:messageInstance animated:YES];
+        [self presentViewController:messageInstance animated:YES completion:nil];
     }
 }
 
