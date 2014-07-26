@@ -488,7 +488,6 @@ bool flagEditCat= false;
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
     
     [internetError show];
-    
 }
 - (void)didReceiveMemoryWarning
 {

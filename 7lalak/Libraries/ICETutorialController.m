@@ -7,7 +7,7 @@
 //
 
 #import "ICETutorialController.h"
-#import "UIImageView+WebCache.h"
+#import "UIImageView+ProgressView.h"
 #import "UIColor_hex.h"
 
 @interface ICETutorialController ()
@@ -277,7 +277,7 @@
 - (void)setFrontLayerPictureWithPageIndex:(NSInteger)index {
     [self setBackgroundImage:self.frontLayerView withIndex:index];
 }
-
+#pragma mark ======== setImage ===========
 // Handle page image's loading
 - (void)setBackgroundImage:(UIImageView *)imageView withIndex:(NSInteger)index {
     if (index >= [self.pages count]) {
@@ -304,7 +304,11 @@
     
     
     
-    [imageView sd_setImageWithURL:[NSURL URLWithString:[self.pages[index] pictureName]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    //[imageView sd_setImageWithURL:[NSURL URLWithString:[self.pages[index] pictureName]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    
+    NSString *imgUrl = [self.pages[index] pictureName];
+    
+    [imageView setImageWithURL:[NSURL URLWithString:imgUrl] usingProgressView:nil];
 
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.clipsToBounds = YES;

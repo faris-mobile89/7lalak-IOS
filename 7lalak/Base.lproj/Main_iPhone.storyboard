@@ -935,6 +935,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gc0-Vl-U2B">
+                                <rect key="frame" x="10" y="164" width="300" height="171"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon-network-error.png" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-TF-4MK">
+                                        <rect key="frame" x="7" y="23" width="104" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sP-X8-qjJ">
+                                        <rect key="frame" x="132" y="70" width="50" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="refresh-icon.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnRefresh:" destination="aaS-mL-xXO" eventType="touchUpInside" id="Ucw-PQ-00X"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No internet access" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjj-Pf-o1u">
+                                        <rect key="frame" x="94" y="36" width="185" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vS6-rM-A24">
                                 <rect key="frame" x="1" y="529" width="158" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -964,7 +991,7 @@
                                     <segue destination="8YX-ce-x5E" kind="modal" identifier="en_segue" id="ofS-Pz-jgy"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="216097452.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="sdH-ks-uKf">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sdH-ks-uKf">
                                 <rect key="frame" x="1" y="66" width="318" height="461"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -986,8 +1013,12 @@
                     <navigationItem key="navigationItem" title="7lalek" id="K9i-wD-gzP"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
+                        <outlet property="btnEN" destination="tsD-7m-HtE" id="FvB-mO-bgo"/>
                         <outlet property="btn_ar" destination="tsD-7m-HtE" id="8uA-Rw-m2Y"/>
                         <outlet property="btn_en" destination="vS6-rM-A24" id="5Qa-Aa-eFf"/>
+                        <outlet property="buttonAR" destination="vS6-rM-A24" id="ctk-Cm-IQz"/>
+                        <outlet property="errorHolder" destination="Gc0-Vl-U2B" id="uwX-hS-t7o"/>
+                        <outlet property="fImageTopAds" destination="sdH-ks-uKf" id="MOd-LA-dMs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PeY-Xi-Tbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1823,7 +1854,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="216097452.jpg" width="802" height="1275"/>
+        <image name="Icon-network-error.png" width="240" height="190"/>
         <image name="bg tabs1.png" width="1" height="49"/>
         <image name="bg_header.png" width="1" height="44"/>
         <image name="btn_call.png" width="538" height="101"/>
@@ -1832,7 +1863,7 @@
         <image name="btn_whatsapp.png" width="537" height="97"/>
         <image name="ic_defualt_image.png" width="521" height="520"/>
         <image name="ic_home_Ads.png" width="32" height="32"/>
-        <image name="ic_home_media.png" width="24" height="21"/>
+        <image name="ic_home_media.png" width="32" height="32"/>
         <image name="ic_home_more.png" width="16" height="16"/>
         <image name="ic_home_offers.png" width="32" height="32"/>
         <image name="ic_phone.png" width="60" height="60"/>
@@ -1845,6 +1876,7 @@
         <image name="img_btn_play.png" width="120" height="120"/>
         <image name="img_btn_playlist.png" width="48" height="48"/>
         <image name="img_btn_previous_pressed.png" width="72" height="72"/>
+        <image name="refresh-icon.png" width="600" height="479"/>
         <image name="track_info_bg.png" width="38" height="53"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

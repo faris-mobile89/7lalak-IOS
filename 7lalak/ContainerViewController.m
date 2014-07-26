@@ -230,8 +230,6 @@ UIImageView *bannerView;
     cell.fImage.clipsToBounds = YES;
     cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
     
-    
-    
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                   [[[jsonObject objectForKey:@"MainCat"] objectAtIndex:indexPath.row]objectForKey:@"image"]]
                    placeholderImage:[UIImage imageNamed:@"img_7lalek.png"]];
