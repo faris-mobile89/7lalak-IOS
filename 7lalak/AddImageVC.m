@@ -49,7 +49,6 @@ BOOL flagTextenter;
     [super viewDidLoad];
     flagTextenter =FALSE;
     self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
-    _labelSelectCat.layer.cornerRadius =6;
     hieght = SCREEN_HEIGHT;
     if (hieght < 500) {
         _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
@@ -59,7 +58,7 @@ BOOL flagTextenter;
     catId =[[NSString alloc]init];
     selectedMaincatId  = [[NSString alloc]init];
     selectedSubcatId   = [[NSString alloc]init];
-
+    //_labelSelectCat.layer.cornerRadius =6;
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
     _fAdsText.layer.cornerRadius=10;
@@ -253,7 +252,7 @@ BOOL flagTextenter;
     if (!label){
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:10]];
-        
+        label.numberOfLines=3;
          if(hieght<500){
          label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
          label.text = [NSString stringWithFormat:@"  %d", row+1];
@@ -458,6 +457,7 @@ BOOL flagTextenter;
     
 }
 
+#pragma mark Keyboard
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     // to remove placeholder
     if (!flagTextenter) {

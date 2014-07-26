@@ -48,7 +48,7 @@ bool flagTextenter;
 {
     [super viewDidLoad];
      self.title = LocalizedString(@"TITLE_MORE_ADD_VIDEO");
-    _labelSelectCat.layer.cornerRadius =6;
+    
     hieght = SCREEN_HEIGHT;
     
     if (hieght < 500) {
@@ -60,7 +60,7 @@ bool flagTextenter;
     catId =[[NSString alloc]init];
     selectedMaincatId  = [[NSString alloc]init];
     selectedSubcatId   = [[NSString alloc]init];
-    
+    //_labelSelectCat.layer.cornerRadius =6;
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
     _fAdsText.layer.cornerRadius=10;
@@ -230,7 +230,7 @@ bool flagTextenter;
     if (!label){
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:10]];
-        
+         label.numberOfLines=3;
         
         
         if(hieght<500){

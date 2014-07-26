@@ -33,10 +33,8 @@
 
 -(void)viewDidLayoutSubviews{
     
-    _fAdsVideoCount.layer.cornerRadius= 10;
-    _fAdsImagesCount.layer.cornerRadius=10;
     _fUserName.layer.cornerRadius = 5;
-    _fPhone.layer.cornerRadius =10;
+    _fPhone.layer.cornerRadius =5;
     BOOL IS_4S = IS_HEIGHT_4S;
     if (IS_4S) {
         [self set4SFrame];

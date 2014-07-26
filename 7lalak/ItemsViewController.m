@@ -69,9 +69,12 @@ UIImageView *bannerView;
     
     
 }
+#pragma mark ======= load banner =======
+
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=ios&cat=main"];
+    NSString *strUl= [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=IOS&cat=items&cat_id%@",catId ];
+    NSURL* url = [NSURL URLWithString:strUl];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -369,7 +372,7 @@ UIImageView *bannerView;
     if ([status isEqualToString: @"2"])
          [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
     else
-        cell.imgSold =nil;
+        [cell.imgSold setImage:nil];
 
     return cell;
 }

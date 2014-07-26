@@ -33,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [fPhone setText:[jsonObject objectForKey:@"phone"]];
 
     NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[jsonObject objectForKey:@"price"]];
@@ -42,6 +43,14 @@
     [fDate setText:[jsonObject objectForKey:@"created"]];
     
     [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    
+    NSString * status = [jsonObject objectForKey:@"status"];
+    
+    if ([status isEqualToString: @"2"])
+        
+        [_imgSoldFlag setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+    else
+        [_imgSoldFlag setImage:nil];
     
    
 }

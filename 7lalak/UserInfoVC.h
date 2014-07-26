@@ -11,8 +11,9 @@
 @interface UserInfoVC : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *fUserName;
 @property (weak, nonatomic) IBOutlet UILabel *fPhone;
-@property (weak, nonatomic) IBOutlet UILabel *fAdsVideoCount;
-@property (weak, nonatomic) IBOutlet UILabel *fAdsImagesCount;
+@property (weak, nonatomic) IBOutlet UITextField *fAdsImagesCount;
+@property (weak, nonatomic) IBOutlet UITextField *fAdsVideoCount;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnDeactive;
 - (IBAction)btnDeactiveAccount:(id)sender;
 

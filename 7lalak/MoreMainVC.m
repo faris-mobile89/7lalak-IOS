@@ -16,6 +16,7 @@
 #import "BuyTableVC.h"
 #import "LocalizeHelper.h"
 #import "MyAdsVC.h"
+#import "UIColor_hex.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -44,6 +45,7 @@ BOOL frameSet=FALSE;
 
 - (void)viewDidLoad
 {
+    //[self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
@@ -86,11 +88,11 @@ BOOL frameSet=FALSE;
             userID = [userData valueForKey:@"ID"];
             apiKey = [userData valueForKey:@"API_KEY"];
            // [_btn7 setHidden:FALSE];
-            NSLog(@"A    %@",userData);
+           // NSLog(@"A    %@",userData);
           
         }else{
             
-               NSLog(@"fr%f",_holderBtns.frame.origin.y+40);
+             //  NSLog(@"fr%f",_holderBtns.frame.origin.y+40);
             
             if (_holderBtns.frame.origin.y < 33.0) {
                 
@@ -100,7 +102,7 @@ BOOL frameSet=FALSE;
             
             [_btn7 setHidden:TRUE];
 
-            NSLog(@"B:  %@",userData);
+            //NSLog(@"B:  %@",userData);
         }
     }
 }

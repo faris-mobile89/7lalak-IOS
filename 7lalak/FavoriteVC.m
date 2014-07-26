@@ -111,7 +111,7 @@
     if (status == 2) {
         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
     }else
-        cell.imgSold =nil;
+        [cell.imgSold setImage:nil];
     
     return cell;
 }

@@ -14,6 +14,7 @@
 "CANCEL"="Cancel";
 "DONE"="Done";
 "YES"="Yes";
+"DELETE"="Delete";
 "AGREE"="I agree";
 "SEARCH"="Search";
 "SEARCH_RESULT"="Search Result";
@@ -48,8 +49,7 @@
 "SURE"="I'm sure";
 "DEACTIVE_SUCCESS"="Your account is temporarily deactived.";
 "CONFIRM_REGISTERATION"="Confirm registeration?";
-
-
+"DELETE_CONFIRM"="Are you sure to delete ?";
 
 
 

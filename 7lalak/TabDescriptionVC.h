@@ -14,6 +14,7 @@
 @property (weak,nonatomic) id jsonObject;
 
 @property (weak, nonatomic) IBOutlet UIImageView *fImage;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSoldFlag;
 @property (weak, nonatomic) IBOutlet UILabel *fPhone;
 @property (weak, nonatomic) IBOutlet UILabel *fDate;
 @property (weak, nonatomic) IBOutlet UILabel *fPrice;

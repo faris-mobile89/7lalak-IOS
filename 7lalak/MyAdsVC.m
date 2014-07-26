@@ -15,13 +15,13 @@
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface MyAdsVC ()
-
+@property id jData;
 @end
 
 @implementation MyAdsVC
 NSInteger selectedIndex;
 @synthesize jsonObject;
-
+@synthesize jData;
 -(void)viewDidLayoutSubviews{
     
     BOOL IS_4S = IS_HEIGHT_4S;
@@ -37,11 +37,91 @@ NSInteger selectedIndex;
     
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
     [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    //[self getUserAds];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [self getUserAds];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark getUserAds
+
+-(void)getUserAds{
+
+    NSString * urlString =[[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getUserAds&user_id=%@&UDID=%@&device=IOS",_userID,_apiKey ];
+    
+    NSURL* url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    
+    [activityIndicator startAnimating];
+    
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [activityIndicator stopAnimating];
+                         
+                         
+                         if ([[jsonObject valueForKey:@"error"]intValue]==0) {
+                             jData = [jsonObject objectForKey:@"userAds"];
+                            // NSLog(@"jdata%@",jData);
+                             [self.myTable reloadData];
+                             [activityIndicator stopAnimating];
+                         }
+                         
+                     });
+                 } else {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         // NSLog(@"ERROR: %@", error);
+                     });
+                 }
+             }
+             
+             else if(httpResponse.statusCode == 408){
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+                 [activityIndicator stopAnimating];
+
+             }else{
+                 [activityIndicator stopAnimating];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     NSLog(@"ERROR: %@", error);
+                     [activityIndicator stopAnimating];
+                 });
+             }
+         }
+         else {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 // NSLog(@"ERROR: %@", error);
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
+                 [activityIndicator stopAnimating];
+             });
+         }
+     }];
+
 }
 
 
@@ -54,8 +134,7 @@ NSInteger selectedIndex;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return 10;//[jsonObject count];
+    return [jData count];
 }
 
 
@@ -75,32 +154,26 @@ NSInteger selectedIndex;
     cell.fImage.clipsToBounds = YES;
     cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
     
-    /*
-    [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
-                                     [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
     
-    if ([[[jsonObject
-           objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
+    [cell.fImage sd_setImageWithURL:[NSURL URLWithString:[[jData objectAtIndex:indexPath.row]valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    
+    if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"1"]) {
         [cell.fType setImage:[UIImage imageNamed:@"ic_video_ads.png"]];
     }
     
-    [cell.fTitle setText:[[ jsonObject
-                           objectAtIndex:indexPath.row]objectForKey:@"description"]];
+    [cell.fTitle setText:[[jData objectAtIndex:indexPath.row]valueForKey:@"description"]];
     
-    [cell.fDate setText:[[jsonObject
-                          objectAtIndex:indexPath.row]objectForKey:@"created"]];
+    [cell.fDate setText:[[jData objectAtIndex:indexPath.row]valueForKey:@"created"]];
     
-    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[[jsonObject
-                                                                 objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[[jData objectAtIndex:indexPath.row]valueForKey:@"price"]];
+    
     [cell.fPrice setText:price];
     
-    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
-    
+    int status = [[[jData objectAtIndex:indexPath.row]valueForKey:@"status"]intValue];
     if (status == 2) {
         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
-    }
-     */
+    }else [cell.imgSold setImage:nil];
+    
     
     return cell;
 }
@@ -116,6 +189,15 @@ NSInteger selectedIndex;
     selectedIndex = indexPath.row;
     
     MyAdDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"MyAdsDetailsVC"];
+    details.paramDescription = [[jData objectAtIndex:selectedIndex]valueForKey:@"description"];
+    details.paramPrice =  [[jData objectAtIndex:selectedIndex]valueForKey:@"price"];
+    details.paramAvailabilityCode = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
+    details.paramAdId = [[jData objectAtIndex:selectedIndex]valueForKey:@"id"];
+    details.paramMid = [[jData objectAtIndex:selectedIndex]valueForKey:@"mid"];
+    details.paramSid = [[jData objectAtIndex:selectedIndex]valueForKey:@"sid"];
+    details.paramStatus = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
+    details.userID = _userID;
+    details.apiKey = _apiKey;
     [self.navigationController pushViewController: details animated:YES];
 }
 #pragma mark - Navigation
@@ -125,5 +207,10 @@ NSInteger selectedIndex;
     if ([[segue identifier] isEqualToString:@""] ){
     }
 }
-
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+}
 @end

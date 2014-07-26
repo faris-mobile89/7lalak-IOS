@@ -14,10 +14,8 @@
 {
    MPMoviePlayerController *moviePlayer;
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
-@property (weak, nonatomic) IBOutlet UIView *videoHolderView;
 @property (weak,nonatomic) id jsonObject;
 @end
