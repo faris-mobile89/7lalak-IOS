@@ -222,7 +222,7 @@ UIImageView *bannerView;
     
     cell.fImage.layer.backgroundColor=[[UIColor clearColor] CGColor];
     cell.fImage.layer.cornerRadius=41;
-    cell.fImage.layer.borderWidth=2.0;
+    cell.fImage.layer.borderWidth=1.5;
     cell.fImage.layer.masksToBounds = YES;
     cell.fImage.clipsToBounds = YES;
     cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
@@ -261,12 +261,10 @@ UIImageView *bannerView;
     if ([[segue identifier] isEqualToString:@"itemsDetails"] ){
         
         SubCatVC *tableVC = [segue destinationViewController];
-        
         NSString *param = [[NSString alloc]initWithFormat:@"%@%@",
          catId,[[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"] ];
         
         tableVC.catId = param;
-
     }
 }
 

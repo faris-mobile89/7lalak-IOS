@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchVC : UIViewController<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UIPickerView *main_cat;
+@interface SearchVC : UIViewController<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *keyword;
 @property (weak, nonatomic) IBOutlet UITextField *price_from;
 @property (weak, nonatomic) IBOutlet UITextField *price_to;
+@property (strong ,nonatomic) NSString *parentID;
 
 - (IBAction)btnSearch:(id)sender;
 

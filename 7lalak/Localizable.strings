@@ -24,6 +24,7 @@
 "PHONE_NAME_REQUIRED"="Please enter your name and phone number";
 "IMAGE"="Image";
 "DESCRIPTION"="Description";
+"Ad"="Ad";
 "MESSAGE_CHOOSE_ADS"="Please choose Ads type";
 "ONE_VID_ATTACHED"="1 video file attached";
 "REPLACE_VID"="Replace Video";

@@ -9,6 +9,7 @@
 #import "ItemsViewController.h"
 #import "ItemViewCell.h"
 #import "ItemDetailsViewController.h"
+#import "SearchVC.h"
 #import <UIKit/UIColor.h>
 #import "UIColor_Hex.h"
 #import "InternetConnection.h"
@@ -321,9 +322,10 @@ UIImageView *bannerView;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    if ([jsonObject count] > 0 && jsonObject !=nil)
+    if ([jsonObject count] > 0 && jsonObject !=nil){
+        self.title = [[NSString alloc]initWithFormat:@"%i %@",[jsonObject count],LocalizedString(@"Ad")];
         return [jsonObject count];
-    
+    }
     else
         return 0;
 }
@@ -343,7 +345,7 @@ UIImageView *bannerView;
     cell.fImage.layer.borderWidth=1.5;
     cell.fImage.layer.masksToBounds = YES;
     cell.fImage.clipsToBounds = YES;
-    cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"FFFFFF"] CGColor];
+    cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
     
     
     
@@ -400,6 +402,10 @@ UIImageView *bannerView;
         
         ItemDetailsViewController *itemDetailsVC = [segue destinationViewController];
         itemDetailsVC.jsonObject =[jsonObject objectAtIndex:selectedIndex];
+    }else if ([[segue identifier]isEqualToString:@"search_seuge"]){
+        
+        SearchVC *search = [segue destinationViewController];
+        search.parentID = catId;
     }
 }
 

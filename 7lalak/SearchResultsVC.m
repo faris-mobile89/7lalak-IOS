@@ -42,20 +42,26 @@
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [_tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
 
-        NSString *strUrl = [[NSString alloc]
-                            initWithFormat:@"http://185.56.85.28/~c7lalek4/api/search-items.php?tag=search&keyword=%@&mainID=%@&subID=%@&priceFrom=%@&priceTo=%@",_keyword,_mainCatID,_subCatID,_priceFrom,_priceTo];
-    NSLog(@"URL:%@",strUrl);
     
-    NSURL *searchURL = [NSURL URLWithString:strUrl];
-    
-    [self loadSearchData:searchURL];
+
+    [self loadSearchData];
     
 }
 
--(void)loadSearchData:(NSURL *)url{
+-(void)loadSearchData{
+    
+    NSString *strUrl = [[NSString alloc]
+                        initWithFormat:@"http://185.56.85.28/~c7lalek4/api/search-items.php?tag=search&keyword=%@&catID=%@&priceFrom=%@&priceTo=%@",_keyword,_catID,_priceFrom,_priceTo];
+    
+    NSString *encodeURL = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    NSURL *searchURL = [NSURL URLWithString:encodeURL];
+    
+      NSLog(@"URL:%@",searchURL);
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:searchURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
@@ -83,7 +89,7 @@
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                                                  
+                         NSLog(@"response%@",jsonObject);
                     if (jsonObject !=nil){
                              
                         if ([[jsonObject valueForKey:@"error"]intValue]==1) {
