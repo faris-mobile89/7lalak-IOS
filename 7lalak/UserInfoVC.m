@@ -46,6 +46,7 @@
     [super viewDidLoad];
     
     self.title = LocalizedString(@"TITLE_MORE_ACCOUNT_INFO");
+
     deactiveFlag = FALSE;
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

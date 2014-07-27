@@ -7,6 +7,7 @@
 //
 
 #import "MoreContainerVC.h"
+#import "UIColor_hex.h"
 
 @interface MoreContainerVC ()
 
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad
 {
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
 
     
     [super viewDidLoad];

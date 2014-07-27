@@ -235,7 +235,7 @@ bool flagTextenter;
         
         if(hieght<500){
             label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
-            label.text = [NSString stringWithFormat:@"  %d", row+1];
+            //label.text = [NSString stringWithFormat:@"  %ld", row+1];
         }
         
         if (component == 0) {

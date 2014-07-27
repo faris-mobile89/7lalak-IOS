@@ -47,14 +47,17 @@ UIImageView *bannerView;
 {
     [super viewDidLoad];
     jsonObject = [[NSMutableArray alloc]init];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"SEARCH")
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
+    
     _numberOfnewPosts = 10;
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+
     UITableViewController *tableViewController = [[UITableViewController alloc]init];
     tableViewController.tableView = self.tableView;
     
@@ -388,9 +391,8 @@ UIImageView *bannerView;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     selectedIndex = indexPath.row;
+    self.title=@"Ads";
     [self performSegueWithIdentifier:@"itemDetails" sender:self];
-    
-    
 }
 
 
@@ -399,7 +401,6 @@ UIImageView *bannerView;
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([[segue identifier] isEqualToString:@"itemDetails"] ){
-        
         ItemDetailsViewController *itemDetailsVC = [segue destinationViewController];
         itemDetailsVC.jsonObject =[jsonObject objectAtIndex:selectedIndex];
     }else if ([[segue identifier]isEqualToString:@"search_seuge"]){

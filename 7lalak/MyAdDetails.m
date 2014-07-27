@@ -38,6 +38,7 @@ bool flagEditCat= false;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
+
     //_labelStatus.layer.cornerRadius =7;
     //_labelCat.layer.cornerRadius =7;
     _category_picker.transform = CGAffineTransformMakeScale(0.8, 0.6);

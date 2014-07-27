@@ -12,6 +12,7 @@
 #import "FSPlaylistItem.h"
 #import "AJNotificationView.h"
 #import "PlayListPicker1.h"
+#import "UIColor_hex.h"
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface FSPlayerVC ()
@@ -79,8 +80,8 @@
     self.navigationItem.rightBarButtonItem = nil;
     */
     
-    UINavigationController *favNav = [[UINavigationController alloc]
-                                      initWithRootViewController:self];
+  //  UINavigationController *favNav = [[UINavigationController alloc]
+                                     // initWithRootViewController:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -115,7 +116,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(audioStreamStateDidChange:)
                                                  name:FSAudioStreamStateChangeNotification

@@ -7,7 +7,7 @@
 //
 
 #import "ContactUsVC.h"
-#include "UIColor_hex.h"
+#import "UIColor_hex.h"
 #import "LocalizeHelper.h"
 
 @interface ContactUsVC ()

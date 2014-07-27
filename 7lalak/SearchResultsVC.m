@@ -26,14 +26,6 @@
 @implementation SearchResultsVC
 @synthesize jsonObject,selectedIndex;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -41,6 +33,7 @@
     
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [_tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
 
     
 
@@ -193,7 +186,7 @@
     [cell.fPrice setText:[[jsonObject
                            objectAtIndex:indexPath.row]objectForKey:@"price"]];
     
-    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
+    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]intValue];
     
     if (status == 2) {
         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];

@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "ItemDetailsViewController.h"
 #import "LocalizeHelper.h"
-
+#include "UIColor_hex.h"
 
 @interface FavoriteVC (){
     NSInteger selectedIndex;
@@ -29,7 +29,8 @@
 {
     [super viewDidLoad];
     self.title = LocalizedString(@"TITLE_MORE_FAV");
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -106,7 +107,7 @@
                                                                  objectAtIndex:indexPath.row]objectForKey:@"price"]];
     [cell.fPrice setText:price];
     
-    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]integerValue];
+    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]intValue];
     
     if (status == 2) {
         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
@@ -160,7 +161,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        int index = indexPath.row;
+        int index = (int)indexPath.row ;
         [jsonObject removeObjectAtIndex:index];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         

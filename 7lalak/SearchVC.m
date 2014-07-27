@@ -9,6 +9,7 @@
 #import "SearchVC.h"
 #import "SearchResultsVC.h"
 #import "LocalizeHelper.h"
+#include "UIColor_hex.h"
 
 @interface SearchVC ()
 @property NSDictionary *jsonObject;
@@ -28,6 +29,7 @@
 {
     [super viewDidLoad];
     self.title =LocalizedString(@"SEARCH");
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]]; 
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
     catId =[[NSString alloc]init];

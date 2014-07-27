@@ -9,6 +9,7 @@
 #import "TabVideoVC.h"
 #import "VideoCell.h"
 #import "LocalizeHelper.h"
+#import "UIColor_hex.h"
 
 @interface TabVideoVC ()
 
@@ -28,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
     
     NSString *embedHTML = @"\
     <html><head>\

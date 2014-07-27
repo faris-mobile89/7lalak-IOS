@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayListPicker1 : UIViewController<UITableViewDataSource,UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 - (IBAction)cancel:(id)sender;
 
 @end

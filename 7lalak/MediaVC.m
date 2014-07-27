@@ -7,6 +7,7 @@
 //
 
 #import "MediaVC.h"
+#import "UIColor_hex.h"
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface MediaVC ()
@@ -22,6 +23,7 @@
 @end
 
 @implementation MediaVC
+
 @synthesize playButton, pauseButton, nextButton, previousButton, firstButton, secondButton, refreshIndicator;
 
 - (void)viewDidLoad
@@ -31,7 +33,8 @@
     
     _holder.layer.cornerRadius = 18;
     
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+
     
     [self initDefaults];
     

@@ -60,8 +60,10 @@ BOOL appEnabled=TRUE;
     _fImageTopAds.clipsToBounds = YES;
     _fImageTopAds.layer.borderColor=[[UIColor colorWithHexString:@"ffffff"] CGColor];
     
+    
+    
     [super viewDidLoad];
-    [_btnEN setEnabled:FALSE];
+   // [_btnEN setEnabled:FALSE];
     [_buttonAR setEnabled:FALSE];
    
     [self loadAppData];
@@ -80,7 +82,6 @@ BOOL appEnabled=TRUE;
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -103,7 +104,6 @@ BOOL appEnabled=TRUE;
                          [activityIndicator stopAnimating];
                          
                     if (jsonObject !=nil) {
-                             
                         
                         if ([[jsonObject valueForKey:@"error"]intValue]==0) {
                              [activityIndicator stopAnimating];
@@ -165,6 +165,8 @@ BOOL appEnabled=TRUE;
     
 
 }
+
+
 - (IBAction)btnRefresh:(id)sender {
     [_errorHolder setHidden:TRUE];
     [self loadAppData];

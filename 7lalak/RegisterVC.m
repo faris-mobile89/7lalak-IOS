@@ -23,7 +23,7 @@ NSString *phone;
 NSString *email;
 - (void)viewDidLoad
 {
-    _lable1.layer.cornerRadius= 10;
+    _lable1.layer.cornerRadius= 4;
     _fUserName.delegate=self;
     _fPhone.delegate=self;
     _fEmail.delegate=self;
@@ -64,7 +64,7 @@ int phoneLength =8;
         
         
         
-        UIAlertView *confirm = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"CONFIRM_REGISTERATION") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"AGREE"), nil];
+        UIAlertView *confirm = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"CONFIRM_REGISTERATION") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"OK"), nil];
         [confirm show];
         
        }else{
@@ -158,10 +158,8 @@ int phoneLength =8;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    }
-                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                           NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                         //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                                            [activityIndicator stopAnimating];
                                            if (responseObject != nil) {
                                                if ([[responseObject valueForKey:@"error"]intValue] == 0) {
@@ -184,7 +182,7 @@ int phoneLength =8;
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                        //   NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                             [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
                                            [activityIndicator stopAnimating];
                                        }];

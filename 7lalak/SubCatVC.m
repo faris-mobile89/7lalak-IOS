@@ -44,7 +44,8 @@ UIImageView *bannerView;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
     [self.tableView setBackgroundColor: [UIColor clearColor]];
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL* url = [NSURL URLWithString:urlString];

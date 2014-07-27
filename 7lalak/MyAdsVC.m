@@ -37,7 +37,6 @@ NSInteger selectedIndex;
     
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
     [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
-    //[self getUserAds];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self getUserAds];

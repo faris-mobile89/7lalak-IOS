@@ -39,11 +39,15 @@ UIImageView *bannerView;
     bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 48)];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [self loadTableData];
+
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
@@ -59,19 +63,23 @@ UIImageView *bannerView;
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
-    
-    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
 
-   NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    
+}
+-(void)loadTableData{
+    
+    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-
+    
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-
+    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -80,53 +88,52 @@ UIImageView *bannerView;
                            completionHandler:^(NSURLResponse* response,
                                                NSData* data,
                                                NSError* error)
-    {
-
-        if (data) {
-            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-
-            if (httpResponse.statusCode == 200 /* OK */) {
-                NSError* error;
-                
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (jsonObject) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [activityIndicator stopAnimating];
-                        [self.tableView reloadData];
-
-                       //NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
-                        [self loadBanner];
-
-                        
-                    });
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                       // NSLog(@"ERROR: %@", error);
-                    });
-                }
-            }
-            
-            else if(httpResponse.statusCode == 408){
-                [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
-            }else{
-                [activityIndicator stopAnimating];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"ERROR: %@", error);
+                 if (jsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [activityIndicator stopAnimating];
+                         [self.tableView reloadData];
+                         
+                         //NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
+                         [self loadBanner];
+                         
+                         
+                     });
+                 } else {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         // NSLog(@"ERROR: %@", error);
+                     });
+                 }
+             }
+             
+             else if(httpResponse.statusCode == 408){
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+             }else{
+                 [activityIndicator stopAnimating];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
-                });
-            }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-               // NSLog(@"ERROR: %@", error);
-                [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
-                [activityIndicator stopAnimating];
-            });
-        }
-    }];
-    
-}
+                 });
+             }
+         }
+         else {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 // NSLog(@"ERROR: %@", error);
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
+                 [activityIndicator stopAnimating];
+             });
+         }
+     }];
 
+}
 -(void)showErrorInterentMessage:(NSString *)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];

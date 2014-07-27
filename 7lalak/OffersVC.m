@@ -16,19 +16,19 @@
 
 @implementation OffersVC
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [self loadWebPage];
+
+}
 
 - (void)viewDidLoad
 {
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
     _fWebView.delegate = self;
     _fWebView.scrollView.scrollEnabled = NO;
     
-    [self loadWebPage];
+    //[self loadWebPage];
   
     
     [super viewDidLoad];
