@@ -33,6 +33,7 @@
 @implementation FSPlayerVC
 @synthesize PlayListData;
 bool flagIsSelectedPlayList= false;
+bool flagIsPlaying= false;
 /*
  * =======================================
  * View control
@@ -93,14 +94,15 @@ bool flagIsSelectedPlayList= false;
 {
     
     //NSLog(@"back ya man");
-
+/*
     if (_shouldStartPlaying) {
         _shouldStartPlaying = NO;
         [self.audioController play];
         [_playButton setHidden:FALSE];
     }
-    
-    if ([[PlayList sharedPlayList]getItems] != nil) {
+ */
+
+    if ([[PlayList sharedPlayList]getItems] != nil && flagIsPlaying == false) {
         
         NSLog(@"Shared Objects: %@",[[PlayList sharedPlayList]getItems]);
         
@@ -115,11 +117,13 @@ bool flagIsSelectedPlayList= false;
         [item setOriginatingUrl:[[PlayListData objectAtIndex:index]valueForKey:@"url"]];
         [self setSelectedPlaylistItem:item];
         [self play:self];
+        flagIsPlaying = true;
     }
     
    
     
      [_playButton setHidden:FALSE];
+    
     /*
      [item setOriginatingUrl:@"http://download.media.islamway.net/several/anasheed/ILoveGod.mp3"];
      [self setSelectedPlaylistItem:item];
@@ -580,6 +584,7 @@ bool flagIsSelectedPlayList= false;
     
     //PlayListPicker1 *picker= [[PlayListPicker1 alloc]init];
     [self  performSegueWithIdentifier:@"pick" sender:nil];
+    flagIsPlaying =false;
     
 }
 
