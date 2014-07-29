@@ -32,8 +32,11 @@
 
 @implementation FSPlayerVC
 @synthesize PlayListData;
+
 bool flagIsSelectedPlayList= false;
 bool flagIsPlaying= false;
+int playingCurrentIndex=0;
+
 /*
  * =======================================
  * View control
@@ -104,17 +107,18 @@ bool flagIsPlaying= false;
 
     if ([[PlayList sharedPlayList]getItems] != nil && flagIsPlaying == false) {
         
-        NSLog(@"Shared Objects: %@",[[PlayList sharedPlayList]getItems]);
+      //  NSLog(@"Shared Objects: %@",[[PlayList sharedPlayList]getItems]);
         
         flagIsSelectedPlayList = true;
         PlayListData = [[PlayList sharedPlayList]getItems];
-        int index = [[PlayList sharedPlayList]getPickedIndex];
-        NSLog(@"object at %@",[[PlayListData objectAtIndex:index]valueForKey:@"url"]);
+        playingCurrentIndex = [[PlayList sharedPlayList]getPickedIndex];
+        
+      //  NSLog(@"object at %@",[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"url"]);
        
         
         FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
-        [item setTitle:[[PlayListData objectAtIndex:index]valueForKey:@"name"]];
-        [item setOriginatingUrl:[[PlayListData objectAtIndex:index]valueForKey:@"url"]];
+        [item setTitle:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"name"]];
+        [item setOriginatingUrl:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"url"]];
         [self setSelectedPlaylistItem:item];
         [self play:self];
         flagIsPlaying = true;
@@ -595,5 +599,75 @@ bool flagIsPlaying= false;
     [internetError show];
     
 }
+
+
+- (IBAction)btnNext:(id)sender {
+    
+    if ([[PlayList sharedPlayList]getItems]!=nil) {
+        
+
+        
+        
+        NSLog(@"cont %i",playingCurrentIndex);
+        
+        int temp = playingCurrentIndex + 1;
+        
+        if (temp >  [PlayListData count]-1) {
+            
+            [_next setEnabled:FALSE];
+            return;
+            
+        }
+        
+        playingCurrentIndex++;
+        [_back setEnabled:TRUE];
+        FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
+        [item setTitle:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"name"]];
+        [item setOriginatingUrl:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"url"]];
+        [self setSelectedPlaylistItem:item];
+        [self play:self];
+        flagIsPlaying = true;
+        flagIsSelectedPlayList = true;
+
+        
+     
+    }
+
+}
+
+- (IBAction)btnBack:(id)sender {
+    if ([[PlayList sharedPlayList]getItems]!=nil) {
+        
+        
+        
+        if (playingCurrentIndex <  1 ) {
+            [_back setEnabled:FALSE];
+            return;
+        }
+        playingCurrentIndex--;
+        [_next setEnabled:TRUE];
+
+        FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
+        [item setTitle:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"name"]];
+        [item setOriginatingUrl:[[PlayListData objectAtIndex:playingCurrentIndex]valueForKey:@"url"]];
+        [self setSelectedPlaylistItem:item];
+        [self play:self];
+        flagIsPlaying = true;
+        flagIsSelectedPlayList = true;
+        
+    }
+    
+}
+
+- (IBAction)btnNextProgress:(id)sender {
+    
+
+    
+}
+
+- (IBAction)btnBackProgress:(id)sender {
+    
+    }
+
 
 @end

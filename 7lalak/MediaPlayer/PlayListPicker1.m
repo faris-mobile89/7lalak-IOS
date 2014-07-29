@@ -227,22 +227,13 @@ bool showItems=FALSE;
     if (showItems) {
         
         [[PlayList sharedPlayList]setPickedIndex:indexPath.row];
-        
+        showItems = FALSE;
         [self dismissViewControllerAnimated:YES
                                  completion:nil];
         return;
     }
     
     [self loadMediaItem:[[arrData objectAtIndex:indexPath.row]valueForKey:@"id"]];
-}
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    NSLog(@"ready to pass data");
 }
 
 -(void)showErrorInterentMessage: (NSString*)msg{

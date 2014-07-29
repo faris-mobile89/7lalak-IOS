@@ -775,32 +775,24 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xD-wn-mbz">
-                                                <rect key="frame" x="171" y="12" width="30" height="30"/>
+                                                <rect key="frame" x="149" y="12" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" backgroundImage="img_btn_forward.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fh-9a-BSN">
-                                                <rect key="frame" x="137" y="12" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="img_btn_next.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
+                                                <connections>
+                                                    <action selector="btnNext:" destination="QUy-BD-bpt" eventType="touchUpInside" id="18C-gb-4JT"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQh-PU-Bzu">
-                                                <rect key="frame" x="11" y="12" width="30" height="30"/>
+                                                <rect key="frame" x="34" y="12" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" backgroundImage="img_btn_backward.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJJ-G0-pYv">
-                                                <rect key="frame" x="45" y="12" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="img_btn_previous_pressed.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
+                                                <connections>
+                                                    <action selector="btnBack:" destination="QUy-BD-bpt" eventType="touchUpInside" id="taM-T9-AwW"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvc-zI-9qz">
                                                 <rect key="frame" x="79" y="0.0" width="55" height="52"/>
@@ -888,9 +880,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <size key="freeformSize" width="320" height="519"/>
                     <connections>
+                        <outlet property="back" destination="CQh-PU-Bzu" id="maY-Pf-qiZ"/>
                         <outlet property="currentPlaybackTime" destination="3Vg-yA-uHw" id="7an-vJ-fAN"/>
                         <outlet property="holder" destination="LML-4g-Gae" id="g8w-jf-6ej"/>
                         <outlet property="ios5View" destination="juj-6p-Hbe" id="7gX-C6-hkY"/>
+                        <outlet property="next" destination="6xD-wn-mbz" id="O9o-Bz-ENm"/>
                         <outlet property="pauseButton" destination="Wvc-zI-9qz" id="1JN-ca-3qQ"/>
                         <outlet property="playButton" destination="ihE-EK-HKU" id="7zZ-xy-DGU"/>
                         <outlet property="progressSlider" destination="tfB-Hg-5Gl" id="lY4-Ne-AVM"/>
@@ -1549,7 +1543,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhI-1E-gGk">
                                         <rect key="frame" x="13" y="321" width="296" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="My Ads">
@@ -1916,11 +1910,9 @@
         <image name="img_7lalek.png" width="478" height="479"/>
         <image name="img_btn_backward.png" width="72" height="72"/>
         <image name="img_btn_forward.png" width="72" height="72"/>
-        <image name="img_btn_next.png" width="72" height="72"/>
         <image name="img_btn_pause.png" width="120" height="120"/>
         <image name="img_btn_play.png" width="120" height="120"/>
         <image name="img_btn_playlist.png" width="48" height="48"/>
-        <image name="img_btn_previous_pressed.png" width="72" height="72"/>
         <image name="refresh-icon3.png" width="140" height="112"/>
         <image name="track_info_bg.png" width="38" height="53"/>
     </resources>

@@ -130,6 +130,12 @@
  *
  * @param sender The sender of the action.
  */
-- (IBAction)openStationUrl:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *back;
+@property (weak, nonatomic) IBOutlet UIButton *next;
+
+- (IBAction)btnNext:(id)sender;
+- (IBAction)btnNextProgress:(id)sender;
+- (IBAction)btnBackProgress:(id)sender;
+- (IBAction)btnBack:(id)sender;
 
 @end
