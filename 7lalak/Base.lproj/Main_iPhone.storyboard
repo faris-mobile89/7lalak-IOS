@@ -215,7 +215,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2Z-bU-BEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2194" y="2539"/>
+            <point key="canvasLocation" x="2586" y="2507"/>
         </scene>
         <!--My Ad Details-->
         <scene sceneID="9yX-HS-7vE">
@@ -344,7 +344,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tG-dd-e6p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="3283"/>
+            <point key="canvasLocation" x="2964" y="3095"/>
+        </scene>
+        <!--Buy AdsVC-->
+        <scene sceneID="OP2-ho-Cjq">
+            <objects>
+                <viewController storyboardIdentifier="BuyAdsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s98-iZ-D2X" customClass="BuyAdsVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LAa-lR-ZDr"/>
+                        <viewControllerLayoutGuide type="bottom" id="QiJ-ZW-i96"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GNS-n8-V7a">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qvc-WC-dFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2593" y="3741"/>
         </scene>
         <!--My AdsVC-->
         <scene sceneID="mVx-L7-eA6">
@@ -386,7 +404,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="19v-sQ-zYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1613" y="3247"/>
+            <point key="canvasLocation" x="2593" y="3127"/>
         </scene>
         <!--User InfoVC-->
         <scene sceneID="6bT-aE-O2W">

@@ -17,6 +17,7 @@
 #import "LocalizeHelper.h"
 #import "MyAdsVC.h"
 #import "UIColor_hex.h"
+#import "BuyAdsVC.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -171,7 +172,9 @@ BOOL frameSet=FALSE;
     [self getUserData];
     if (isRegistered) {
         
-        BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
+        //BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsVC"];
+        BuyAdsVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"BuyAdsVC"];
+        
         [self.navigationController pushViewController:buy animated:YES];
     }else{
         [self registerView];

@@ -33,7 +33,8 @@
 "ERROR_INVALID_VOCODE"="Invalid Verifcation code ! please try again";
 "ERROR_EMPTY_VCODE"="Verifcation code can't be empty!";
 "MESSAGE_REGISTER_SUCCESS_TITLE"="Registeration Complete";
-"MESSAGE_REGISTER_SUCCESS_MSG"="Congratulation, your account is active now, you have got a free Ads points";
+"MESSAGE_REGISTER_SUCCESS_MSG"=
+"Congratulation, your account is active now, you have got a free Ads points";
 "MESSAGE_FAILD_REGISTER"="Registeration Faild";
 "MESSAGE_FAILD_REGISTER_MSG"="Please try later";
 "TITLE_MORE_ADD_IMAGE"="Add Image Ad";
@@ -52,12 +53,7 @@
 "CONFIRM_REGISTERATION"="Complete registeration?";
 "DELETE_CONFIRM"="Are you sure to delete ?";
 "FOUND_UPDATE"="A new version of 7lalek is available, Upgrade your version by visit app store.";
-
-
-
-
-
-
+"PLEASE_SELECT_PLAYLIST"="Please select playlist";
 
 
 
