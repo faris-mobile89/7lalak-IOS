@@ -13,6 +13,9 @@
 #import "AJNotificationView.h"
 #import "PlayListPicker1.h"
 #import "UIColor_hex.h"
+#import "PlayList.h"
+#import "LocalizeHelper.h"
+
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface FSPlayerVC ()
@@ -24,10 +27,12 @@
 - (void)seekToNewTime;
 - (void)determineStationNameWithMetaData:(NSDictionary *)metaData;
 
+@property (strong,nonatomic) NSMutableArray *PlayListData;
 @end
 
 @implementation FSPlayerVC
-
+@synthesize PlayListData;
+bool flagIsSelectedPlayList= false;
 /*
  * =======================================
  * View control
@@ -87,19 +92,39 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    NSLog(@"back ya man");
-    
+    //NSLog(@"back ya man");
+
     if (_shouldStartPlaying) {
         _shouldStartPlaying = NO;
         [self.audioController play];
         [_playButton setHidden:FALSE];
     }
-    [_playButton setHidden:FALSE];
+    
+    if ([[PlayList sharedPlayList]getItems] != nil) {
+        
+        NSLog(@"Shared Objects: %@",[[PlayList sharedPlayList]getItems]);
+        
+        flagIsSelectedPlayList = true;
+        PlayListData = [[PlayList sharedPlayList]getItems];
+        int index = [[PlayList sharedPlayList]getPickedIndex];
+        NSLog(@"object at %@",[[PlayListData objectAtIndex:index]valueForKey:@"url"]);
+       
+        
+        FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
+        [item setTitle:[[PlayListData objectAtIndex:index]valueForKey:@"name"]];
+        [item setOriginatingUrl:[[PlayListData objectAtIndex:index]valueForKey:@"url"]];
+        [self setSelectedPlaylistItem:item];
+        [self play:self];
+    }
+    
    
-    FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
-    [item setTitle:@"faris"];
-    [item setOriginatingUrl:@"http://download.media.islamway.net/several/anasheed/ILoveGod.mp3"];
-    [self setSelectedPlaylistItem:item];
+    
+     [_playButton setHidden:FALSE];
+    /*
+     [item setOriginatingUrl:@"http://download.media.islamway.net/several/anasheed/ILoveGod.mp3"];
+     [self setSelectedPlaylistItem:item];
+     */
+  
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
@@ -374,7 +399,10 @@
 - (IBAction)play:(id)sender
 {
   
-
+    if (flagIsSelectedPlayList == FALSE) {
+        [self showMessage:LocalizedString(@"PLEASE_SELECT_PLAYLIST")];
+        return;
+    }
     
     if (_paused) {
         /*
@@ -552,7 +580,14 @@
     
     //PlayListPicker1 *picker= [[PlayListPicker1 alloc]init];
     [self  performSegueWithIdentifier:@"pick" sender:nil];
-     
+    
+}
+
+-(void)showMessage: (NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: nil message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
     
 }
 

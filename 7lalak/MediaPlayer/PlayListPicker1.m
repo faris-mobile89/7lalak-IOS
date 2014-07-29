@@ -10,6 +10,7 @@
 #import "FSPlayerVC.h"
 #import "UIColor_hex.h"
 #import "LocalizeHelper.h"
+#import "PlayList.h"
 
 @interface PlayListPicker1 ()
 @property (strong,nonatomic) id arrData;
@@ -18,14 +19,18 @@
 UINavigationBar *bar;
 @implementation PlayListPicker1
 @synthesize arrData;
+
 -(void)viewWillAppear:(BOOL)animated{
     
-     bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     bar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBarHidden = NO;
-  [self.view addSubview:bar];
+    [self.view addSubview:bar];
+    
+    
+    
 }
 bool showItems=FALSE;
 
@@ -76,12 +81,12 @@ bool showItems=FALSE;
                          [activityIndicator stopAnimating];
                          
                          if (jsonObject !=nil) {
-                             NSLog(@"jsin%@",jsonObject);
+                            // NSLog(@"jsin%@",jsonObject);
                              
                              arrData = [jsonObject valueForKey:@"items"];
                
 
-                             NSLog(@"JSON%@",[jsonObject valueForKey:@"items"]);
+                            // NSLog(@"JSON%@",[jsonObject valueForKey:@"items"]);
 
                              [self.tableView reloadData];
                              
@@ -155,8 +160,11 @@ bool showItems=FALSE;
                              
                              arrData = [jsonObject valueForKey:@"items"];
                              
+                             NSMutableArray *ar= arrData;
                              
-                             NSLog(@"JSON%i",[[jsonObject valueForKey:@"items"]count]);
+                             [[PlayList sharedPlayList]setItems:ar];
+                             
+                          //  NSLog(@"JSON%@",[jsonObject valueForKey:@"items"]);
                              showItems = TRUE;
                              [self.tableView reloadData];
                              
@@ -216,6 +224,15 @@ bool showItems=FALSE;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (showItems) {
+        
+        [[PlayList sharedPlayList]setPickedIndex:indexPath.row];
+        
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
+        return;
+    }
+    
     [self loadMediaItem:[[arrData objectAtIndex:indexPath.row]valueForKey:@"id"]];
 }
 #pragma mark - Navigation
@@ -225,6 +242,7 @@ bool showItems=FALSE;
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    NSLog(@"ready to pass data");
 }
 
 -(void)showErrorInterentMessage: (NSString*)msg{
