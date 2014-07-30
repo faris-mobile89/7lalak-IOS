@@ -346,6 +346,34 @@
             </objects>
             <point key="canvasLocation" x="2964" y="3095"/>
         </scene>
+        <!--Buy TableVC-->
+        <scene sceneID="dIn-q5-0Ok">
+            <objects>
+                <tableViewController storyboardIdentifier="buyAdsTableVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NaZ-3C-w44" customClass="BuyTableVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="z9G-Ua-W5U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="k2p-DU-aZx">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k2p-DU-aZx" id="WQZ-8B-EAa">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NaZ-3C-w44" id="23g-5y-hgV"/>
+                            <outlet property="delegate" destination="NaZ-3C-w44" id="j0h-Qt-YmC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1s3-2v-oKb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2212" y="3669"/>
+        </scene>
         <!--Buy AdsVC-->
         <scene sceneID="OP2-ho-Cjq">
             <objects>
@@ -1487,7 +1515,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ly-XL-kVF">
                                         <rect key="frame" x="163" y="11" width="146" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.97254901960784312" green="0.58039215686274503" blue="0.023529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="Favoriate">
@@ -1501,7 +1529,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idl-cu-MSd">
                                         <rect key="frame" x="13" y="11" width="146" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.25098040699958801" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.60392156862745094" green="0.070588235294117646" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="Add">
@@ -1515,7 +1543,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mg0-0Y-Vsi">
                                         <rect key="frame" x="13" y="114" width="146" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.11764705882352941" green="0.50980392156862742" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="Buy Ads">
@@ -1541,9 +1569,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhI-1E-gGk">
-                                        <rect key="frame" x="13" y="321" width="296" height="68"/>
+                                        <rect key="frame" x="13" y="322" width="296" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.93333333333333335" green="0.32941176470588235" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="My Ads">
@@ -1571,7 +1599,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnz-Zc-c7X">
                                         <rect key="frame" x="13" y="218" width="146" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Farah" family="Farah" pointSize="18"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="About Us  ">

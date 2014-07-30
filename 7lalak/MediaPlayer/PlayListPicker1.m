@@ -226,7 +226,8 @@ bool showItems=FALSE;
     
     if (showItems) {
         
-        [[PlayList sharedPlayList]setPickedIndex:indexPath.row];
+        [[PlayList sharedPlayList]setPickedIndex:(int)indexPath.row];
+        
         showItems = FALSE;
         [self dismissViewControllerAnimated:YES
                                  completion:nil];

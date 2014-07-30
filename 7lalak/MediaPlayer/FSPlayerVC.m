@@ -96,7 +96,7 @@ int playingCurrentIndex=0;
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    //NSLog(@"back ya man");
+    //NSLog(@"back");
 /*
     if (_shouldStartPlaying) {
         _shouldStartPlaying = NO;
