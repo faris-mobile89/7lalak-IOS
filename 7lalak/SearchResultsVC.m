@@ -44,7 +44,7 @@
 -(void)loadSearchData{
     
     NSString *strUrl = [[NSString alloc]
-                        initWithFormat:@"http://185.56.85.28/~c7lalek4/api/search-items.php?tag=search&keyword=%@&catID=%@&priceFrom=%@&priceTo=%@",_keyword,_catID,_priceFrom,_priceTo];
+                        initWithFormat:@"http://7lalek.com/api/search-items.php?tag=search&keyword=%@&catID=%@&priceFrom=%@&priceTo=%@",_keyword,_catID,_priceFrom,_priceTo];
     
     NSString *encodeURL = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

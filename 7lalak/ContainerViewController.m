@@ -70,7 +70,7 @@ UIImageView *bannerView;
 }
 -(void)loadTableData{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
+    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -150,7 +150,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=IOS&cat=main"];
+    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=main"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

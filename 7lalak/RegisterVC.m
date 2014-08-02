@@ -140,7 +140,7 @@ int phoneLength =8;
 
 -(void)sendRegisterationRequest{
     
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/SMS_authentication/process.php";
+    NSString *strURL = @"http://7lalek.com/api/SMS_authentication/process.php";
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+10);

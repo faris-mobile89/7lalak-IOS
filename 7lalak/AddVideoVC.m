@@ -169,7 +169,7 @@ bool flagTextenter;
                                     @"mainCatID":MCID,@"subCatID":SCID
                                     };
     NSLog(@"dic%@",dictParameter);
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/uploader.php";
+    NSString *strURL = @"http://7lalek.com/api/uploader.php";
     
     NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
@@ -272,7 +272,7 @@ bool flagTextenter;
 -(void)loadSubCat{
     
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -349,7 +349,7 @@ bool flagTextenter;
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat"];
+    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

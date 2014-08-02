@@ -118,7 +118,7 @@ bool flagEditCat= false;
         newSatus = @"1"; //available
     }
     
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/api.php";
+    NSString *strURL = @"http://7lalek.com/api/api.php";
     
     [activityIndicator startAnimating];
     
@@ -178,7 +178,7 @@ bool flagEditCat= false;
 
 -(void)deleteAction{
     
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/api.php";
+    NSString *strURL = @"http://7lalek.com/api/api.php";
     
     [activityIndicator startAnimating];
     
@@ -274,7 +274,7 @@ bool flagEditCat= false;
 -(void)loadSubCat{
     
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -371,7 +371,7 @@ bool flagEditCat= false;
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getMainCategories.php?tag=getMainCat"];
+    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

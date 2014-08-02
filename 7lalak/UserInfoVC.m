@@ -76,7 +76,7 @@
 
 -(void)getAdsScore{
     
-    NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getUserInfo&user_id=%@",_userId];
+    NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserInfo&user_id=%@",_userId];
     
     NSURL* url = [NSURL URLWithString:urlWithParam];
     
@@ -182,7 +182,7 @@
 -(void)deactiveProcess{
     
     
-    NSString *strURL = @"http://185.56.85.28/~c7lalek4/api/deactive_account.php";
+    NSString *strURL = @"http://7lalek.com/api/deactive_account.php";
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-25);

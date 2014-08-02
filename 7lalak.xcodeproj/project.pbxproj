@@ -397,7 +397,7 @@
 		E071DACF19588A31007E353D /* bg_headercopy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_headercopy.png; sourceTree = "<group>"; };
 		E084C0F119588F7B008FA792 /* bg_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header.png; sourceTree = "<group>"; };
 		E084C0F51958919B008FA792 /* bg_tabs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_tabs.png; sourceTree = "<group>"; };
-		E0890D231955C65F009A9A48 /* hlalek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hlalek.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0890D231955C65F009A9A48 /* 7lalek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 7lalek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0890D261955C65F009A9A48 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E0890D281955C65F009A9A48 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E0890D2A1955C65F009A9A48 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -857,7 +857,7 @@
 		E0890D241955C65F009A9A48 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E0890D231955C65F009A9A48 /* hlalek.app */,
+				E0890D231955C65F009A9A48 /* 7lalek.app */,
 				E0890D4A1955C65F009A9A48 /* hlalekTests.xctest */,
 			);
 			name = Products;
@@ -1104,7 +1104,7 @@
 			);
 			name = hlalek;
 			productName = 7lalak;
-			productReference = E0890D231955C65F009A9A48 /* hlalek.app */;
+			productReference = E0890D231955C65F009A9A48 /* 7lalek.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E0890D491955C65F009A9A48 /* hlalekTests */ = {
@@ -1135,7 +1135,7 @@
 				ORGANIZATIONNAME = "Faris Abu Saleem";
 				TargetAttributes = {
 					E0890D221955C65F009A9A48 = {
-						DevelopmentTeam = CCF8JC7BYH;
+						DevelopmentTeam = 99QHLV5Y84;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1511,8 +1511,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "7lalak/hlalek-Prefix.pch";
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
-				PRODUCT_NAME = hlalek;
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = 7lalek;
+				PROVISIONING_PROFILE = "9265E7C0-6920-4C82-B8F2-47024F57EB42";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1528,8 +1528,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "7lalak/hlalek-Prefix.pch";
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
-				PRODUCT_NAME = hlalek;
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = 7lalek;
+				PROVISIONING_PROFILE = "9265E7C0-6920-4C82-B8F2-47024F57EB42";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

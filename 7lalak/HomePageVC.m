@@ -73,7 +73,7 @@ BOOL appEnabled=TRUE;
 
 -(void)loadAppData{
     
-    NSString * urlString =[[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/appConfig.php?device=IOS"];
+    NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/appConfig.php?device=IOS"];
     
     NSURL* url = [NSURL URLWithString:urlString];
     

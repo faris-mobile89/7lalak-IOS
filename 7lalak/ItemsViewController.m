@@ -77,7 +77,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSString *strUl= [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=IOS&cat=items&cat_id%@",catId ];
+    NSString *strUl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=items&cat_id%@",catId ];
     NSURL* url = [NSURL URLWithString:strUl];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -163,7 +163,7 @@ UIImageView *bannerView;
 -(void)loadFeeds{
     
     
-      NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
+      NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     
@@ -234,7 +234,7 @@ UIImageView *bannerView;
 
 -(void)loadMoreFeed:(int )QueryCount{
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",catId,QueryCount,@"ar"];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",catId,QueryCount,@"ar"];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     

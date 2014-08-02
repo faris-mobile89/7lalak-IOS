@@ -46,7 +46,7 @@ UIImageView *bannerView;
     [self.tableView setBackgroundColor: [UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
 
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
     NSURL* url = [NSURL URLWithString:urlString];
     
@@ -136,7 +136,7 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://185.56.85.28/~c7lalek4/api/getBanner.php?device=IOS&cat=main&lang=en"];
+    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=main&lang=en"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

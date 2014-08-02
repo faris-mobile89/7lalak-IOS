@@ -135,6 +135,7 @@
     [[InAppAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
         if (success) {
             self.products = products;
+            NSLog(@"self pro : %@",products);
             [self.tableView reloadData];
         }
         [self.refreshControl endRefreshing];

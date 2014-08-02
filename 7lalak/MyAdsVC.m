@@ -51,7 +51,7 @@ NSInteger selectedIndex;
 
 -(void)getUserAds{
 
-    NSString * urlString =[[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/api.php?tag=getUserAds&user_id=%@&UDID=%@&device=IOS",_userID,_apiKey ];
+    NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserAds&user_id=%@&UDID=%@&device=IOS",_userID,_apiKey ];
     
     NSURL* url = [NSURL URLWithString:urlString];
     

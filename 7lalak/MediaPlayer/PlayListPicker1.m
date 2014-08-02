@@ -48,7 +48,7 @@ bool showItems=FALSE;
 
 -(void)loadMedia{
     
-    NSString * urlString =[[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/media.php?tag=getAlbums&device=IOS"];
+    NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/media.php?tag=getAlbums&device=IOS"];
     
     NSURL* url = [NSURL URLWithString:urlString];
     
@@ -124,7 +124,7 @@ bool showItems=FALSE;
 
 -(void)loadMediaItem :(NSString *)albumID{
     
-    NSString * urlString =[[NSString alloc]initWithFormat:@"http://185.56.85.28/~c7lalek4/api/media.php?tag=gatPlayList&albumID=%@&device=IOS",albumID];
+    NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/media.php?tag=gatPlayList&albumID=%@&device=IOS",albumID];
     
     NSURL* url = [NSURL URLWithString:urlString];
     
