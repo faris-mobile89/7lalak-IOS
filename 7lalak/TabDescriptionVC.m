@@ -29,6 +29,25 @@
     fDescription.layer.borderWidth=0.3;
     fDescription.clipsToBounds = YES;
     fDescription.layer.borderColor=[[UIColor darkGrayColor] CGColor];
+    
+    //=========== Custom Fav Button ==========//
+    _btnFav1.layer.cornerRadius=6;
+    _btnFav1.layer.borderWidth=1;
+    _btnFav1.clipsToBounds = YES;
+    _btnFav1.layer.borderColor=[[UIColor blueColor] CGColor];
+
+    //=========== Custom Call Button ==========//
+    _btnCall.layer.cornerRadius=6;
+    _btnCall.layer.borderWidth=1;
+    _btnCall.clipsToBounds = YES;
+    _btnCall.layer.borderColor=[[UIColor blueColor] CGColor];
+    
+    //=========== Custom Message Button ==========//
+    _btnMessage.layer.cornerRadius=6;
+    _btnMessage.layer.borderWidth=1;
+    _btnMessage.clipsToBounds = YES;
+    _btnMessage.layer.borderColor=[[UIColor blueColor] CGColor];
+    //=========================================//
 }
 - (void)viewDidLoad
 {
@@ -64,6 +83,8 @@
 - (IBAction)btnFavClick:(id)sender {
     
     _btnFav1.hidden = TRUE;
+    _iconFav.hidden = TRUE;
+    
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];

@@ -45,7 +45,7 @@ BOOL frameSet=FALSE;
 
 - (void)viewDidLoad
 {
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"FFFFFF"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];

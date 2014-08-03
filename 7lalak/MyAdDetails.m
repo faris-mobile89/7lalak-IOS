@@ -235,13 +235,13 @@ bool flagEditCat= false;
        // [label setFont:[UIFont  boldSystemFontOfSize:10]];
         
     
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14];
         label.numberOfLines=3;
         //[label setBackgroundColor:[UIColor colorWithHexString:@"339999"]];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"sakhdklfhsdfgjsdgfjkg %@ > ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@ > ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }

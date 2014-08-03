@@ -94,9 +94,9 @@
     
     if ([[[jsonObject
            objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
-        [cell.fType setImage:[UIImage imageNamed:@"ic_video_ads.png"]];
+        [cell.fType setImage:[UIImage imageNamed:@"ic_new_video-file.png"]];
     }else{
-        [cell.fType setImage:[UIImage imageNamed:@"ic_image_ads.png"]];
+        [cell.fType setImage:[UIImage imageNamed:@"ic_new_image-file.png"]];
     }
     
     [cell.fTitle setText:[[ jsonObject

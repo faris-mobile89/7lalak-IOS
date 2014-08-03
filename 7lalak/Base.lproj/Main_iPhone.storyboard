@@ -170,10 +170,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
                             </textView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIQ-a7-in3">
-                                <rect key="frame" x="39" y="122" width="242" height="18"/>
+                                <rect key="frame" x="39" y="121" width="242" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -314,12 +314,10 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVT-L2-bkE">
-                                        <rect key="frame" x="230" y="227" width="42" height="26"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVT-L2-bkE">
+                                        <rect key="frame" x="240" y="230" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Edit">
+                                        <state key="normal" image="ic_edit.png">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1406,10 +1404,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ejs-EJ-pHH">
                                 <rect key="frame" x="165" y="40" width="145" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="btn_call.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                <state key="normal" title="Call">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="btn_call.png"/>
                                 <connections>
                                     <action selector="btnCallClick:" destination="Nwd-NZ-Qab" eventType="touchUpInside" id="Lj1-pv-MRx"/>
                                 </connections>
@@ -1417,32 +1415,22 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="su8-IM-NHv">
                                 <rect key="frame" x="165" y="76" width="145" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="btn_message.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
+                                <state key="normal" title="Message">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="btn_message.png"/>
                                 <connections>
                                     <action selector="btnMessageClick:" destination="Nwd-NZ-Qab" eventType="touchUpInside" id="JDQ-7Y-ef0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHe-W3-oCL">
-                                <rect key="frame" x="165" y="113" width="145" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="btn_whatsapp.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" image="btn_whatsapp.png"/>
-                                <connections>
-                                    <action selector="btnWhatsappClick:" destination="Nwd-NZ-Qab" eventType="touchUpInside" id="zPh-qg-MMJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUn-4d-VCG">
-                                <rect key="frame" x="164" y="150" width="147" height="34"/>
+                                <rect key="frame" x="165" y="118" width="147" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="btn_favo.png">
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="13"/>
+                                <state key="normal" title="Favorite">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="btn_favo.png"/>
                                 <connections>
                                     <action selector="btnFavClick:" destination="Nwd-NZ-Qab" eventType="touchUpInside" id="cBM-B1-esl"/>
                                 </connections>
@@ -1478,18 +1466,33 @@
                                 <textInputTraits key="textInputTraits"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_new_favorite.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZYd-Ys-k0c">
+                                <rect key="frame" x="172" y="121" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_new_message.png" translatesAutoresizingMaskIntoConstraints="NO" id="XCG-5M-SjY">
+                                <rect key="frame" x="173" y="83" width="28" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_new_call.png" translatesAutoresizingMaskIntoConstraints="NO" id="paJ-OH-CEA">
+                                <rect key="frame" x="172" y="42" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="370"/>
                     <connections>
+                        <outlet property="btnCall" destination="Ejs-EJ-pHH" id="E5K-KM-1R6"/>
                         <outlet property="btnFav1" destination="iUn-4d-VCG" id="sNn-Pl-8BD"/>
+                        <outlet property="btnMessage" destination="su8-IM-NHv" id="zju-K1-92r"/>
                         <outlet property="fDate" destination="krE-Vr-iFg" id="1iZ-S9-Vyt"/>
                         <outlet property="fDescription" destination="S9G-cY-Hb5" id="Wxj-rO-6CF"/>
                         <outlet property="fImage" destination="XSw-WZ-ESF" id="rAM-kV-pb1"/>
                         <outlet property="fPhone" destination="M9U-8k-VFZ" id="n3B-nE-h4V"/>
                         <outlet property="fPrice" destination="YWq-4T-106" id="mC3-yN-0rL"/>
+                        <outlet property="iconFav" destination="ZYd-Ys-k0c" id="mtu-hx-7kh"/>
                         <outlet property="imgSoldFlag" destination="gnB-CT-rk1" id="wvK-YH-nMm"/>
                     </connections>
                 </viewController>
@@ -1614,7 +1617,7 @@
                                 </subviews>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="egh-9X-66X"/>
@@ -1751,10 +1754,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aau-Ai-HSO">
-                                <rect key="frame" x="40" y="122" width="241" height="18"/>
+                                <rect key="frame" x="40" y="121" width="241" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1925,15 +1928,15 @@
         <image name="Icon-network-error.png" width="240" height="190"/>
         <image name="bg tabs1.png" width="1" height="49"/>
         <image name="bg_header.png" width="1" height="44"/>
-        <image name="btn_call.png" width="538" height="101"/>
-        <image name="btn_favo.png" width="543" height="99"/>
-        <image name="btn_message.png" width="540" height="97"/>
-        <image name="btn_whatsapp.png" width="537" height="97"/>
         <image name="ic_defualt_image.png" width="521" height="520"/>
+        <image name="ic_edit.png" width="48" height="48"/>
         <image name="ic_home_Ads.png" width="32" height="32"/>
         <image name="ic_home_media-small.png" width="24" height="21"/>
         <image name="ic_home_more-m.png" width="24" height="24"/>
         <image name="ic_home_offers.png" width="32" height="32"/>
+        <image name="ic_new_call.png" width="48" height="48"/>
+        <image name="ic_new_favorite.png" width="48" height="48"/>
+        <image name="ic_new_message.png" width="48" height="48"/>
         <image name="ic_phone.png" width="60" height="60"/>
         <image name="ic_sold_flag.png" width="219" height="219"/>
         <image name="img_7lalek.png" width="478" height="479"/>

@@ -67,21 +67,25 @@
     
            // NSLog(@"Product not purchased");
             
-            self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 240, 80)];
-            self.packageLable.text = @"You can buy more Advertising";
+            self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 10, 80)];
+            self.packageLable.text = @"";
             self.packageLable.numberOfLines = 0;
             self.packageLable.textColor = [UIColor darkGrayColor];
             self.packageLable.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:self.packageLable];
             
-            self.productDescription = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, (self.view.frame.size.width - 40), self.view.frame.size.height)];
+            self.productDescription = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, (self.view.frame.size.width - 40), self.view.frame.size.height)];
             NSString *fruitDescription = [[InAppAPHelper sharedInstance] descriptionForProduct:self.product];
             self.productDescription.text = fruitDescription;
             self.productDescription.editable = NO;
             self.productDescription.textColor = [UIColor darkGrayColor];
             self.productDescription.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:self.productDescription];
-            
+    
+           UIImageView *imageCoins = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 128, 128)];
+           [imageCoins setImage:[UIImage imageNamed:@"ic_coins.png"]];
+           [self.view addSubview:imageCoins];
+    
             self.button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             self.button.frame = CGRectMake(40, (self.view.frame.size.height - 70), 240, 50);
             self.button.layer.cornerRadius = 5.0;

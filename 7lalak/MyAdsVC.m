@@ -157,7 +157,7 @@ NSInteger selectedIndex;
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:[[jData objectAtIndex:indexPath.row]valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
     
     if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"1"]) {
-        [cell.fType setImage:[UIImage imageNamed:@"ic_video_ads.png"]];
+        [cell.fType setImage:[UIImage imageNamed:@"ic_new_video-file.png"]];
     }
     
     [cell.fTitle setText:[[jData objectAtIndex:indexPath.row]valueForKey:@"description"]];
