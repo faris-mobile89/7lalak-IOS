@@ -209,6 +209,9 @@
 		E0F1ED79195FD9E10088AFD1 /* FavoriteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F1ED78195FD9E10088AFD1 /* FavoriteVC.m */; };
 		E0F1ED7B195FDCCA0088AFD1 /* Fav.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0F1ED7A195FDCCA0088AFD1 /* Fav.plist */; };
 		E0F660081957B9CA00A73EB7 /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F660071957B9CA00A73EB7 /* ItemsViewController.m */; };
+		E0F669BF19912AA500C3C8EC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F669BC19912AA500C3C8EC /* NSData+Base64.m */; };
+		E0F669C019912AA500C3C8EC /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F669BE19912AA500C3C8EC /* VerificationController.m */; };
+		E0F669C219912AC700C3C8EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F669C119912AC700C3C8EC /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -529,6 +532,11 @@
 		E0F1ED7A195FDCCA0088AFD1 /* Fav.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Fav.plist; sourceTree = "<group>"; };
 		E0F660061957B9CA00A73EB7 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
 		E0F660071957B9CA00A73EB7 /* ItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsViewController.m; sourceTree = "<group>"; };
+		E0F669BB19912AA500C3C8EC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		E0F669BC19912AA500C3C8EC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		E0F669BD19912AA500C3C8EC /* VerificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationController.h; sourceTree = "<group>"; };
+		E0F669BE19912AA500C3C8EC /* VerificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationController.m; sourceTree = "<group>"; };
+		E0F669C119912AC700C3C8EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +544,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0F669C219912AC700C3C8EC /* Security.framework in Frameworks */,
 				E08AA1DF1974FE61002F5835 /* AudioToolbox.framework in Frameworks */,
 				E0E84ED0195A7A7B00308080 /* MediaPlayer.framework in Frameworks */,
 				E0890D291955C65F009A9A48 /* CoreGraphics.framework in Frameworks */,
@@ -890,6 +899,7 @@
 		E0890D251955C65F009A9A48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E0F669C119912AC700C3C8EC /* Security.framework */,
 				E08AA1DE1974FE61002F5835 /* AudioToolbox.framework */,
 				E08AA1DC1974FBE2002F5835 /* AVFoundation.framework */,
 				E01417E01966C3AA000EF66E /* StoreKit.framework */,
@@ -1083,6 +1093,7 @@
 		E0F321931966EC830079A442 /* BuyAds */ = {
 			isa = PBXGroup;
 			children = (
+				E0F669BA19912AA500C3C8EC /* VerificationController */,
 				E09C487619685CD4008C7C20 /* BuyTableVC.h */,
 				E09C487719685CD4008C7C20 /* BuyTableVC.m */,
 				E09C487219685CD4008C7C20 /* AdsDetailViewController.h */,
@@ -1109,6 +1120,17 @@
 				E0227F111960672700E16FDD /* VideoCell.xib */,
 			);
 			name = CustomCell;
+			sourceTree = "<group>";
+		};
+		E0F669BA19912AA500C3C8EC /* VerificationController */ = {
+			isa = PBXGroup;
+			children = (
+				E0F669BB19912AA500C3C8EC /* NSData+Base64.h */,
+				E0F669BC19912AA500C3C8EC /* NSData+Base64.m */,
+				E0F669BD19912AA500C3C8EC /* VerificationController.h */,
+				E0F669BE19912AA500C3C8EC /* VerificationController.m */,
+			);
+			path = VerificationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1315,6 +1337,7 @@
 				E066B8161961BC0A0065F675 /* UIProgressView+AFNetworking.m in Sources */,
 				E0480D6F195D18C200EAA25A /* UIView+WebCacheOperation.m in Sources */,
 				E097DC431971ACBA004E65F8 /* SearchResultsVC.m in Sources */,
+				E0F669C019912AA500C3C8EC /* VerificationController.m in Sources */,
 				E066B82D1961BCA10065F675 /* AFHTTPRequestOperationManager.m in Sources */,
 				E03E1C2D195AA1EF00DAEB6A /* MoreMainVC.m in Sources */,
 				E066B8331961BCA10065F675 /* AFURLResponseSerialization.m in Sources */,
@@ -1389,6 +1412,7 @@
 				E0480D6E195D18C200EAA25A /* UIImageView+WebCache.m in Sources */,
 				E0480D65195D18C200EAA25A /* SDWebImageDownloader.m in Sources */,
 				E02455A1197B97FD00D1C9F0 /* FSCheckContentTypeRequest.m in Sources */,
+				E0F669BF19912AA500C3C8EC /* NSData+Base64.m in Sources */,
 				E02455A0197B97FD00D1C9F0 /* FSAudioStream.mm in Sources */,
 				E0D882101958637E00557F5B /* TabImagesVC.m in Sources */,
 				E08F4C7B196241F500A6DDFB /* AddImageVC.m in Sources */,

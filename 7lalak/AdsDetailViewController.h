@@ -1,10 +1,11 @@
 //
-//  FruitDetailViewController.h
-//  BuyFruit
+//  RegisterVC.h
+//  7lalak
 //
-//  Created by Michael Beyer on 19.09.13.
-//  Copyright (c) 2013 Michael Beyer. All rights reserved.
+//  Created by Faris IOS on 6/29/14.
+//  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
+
 
 @import UIKit;
 @import StoreKit;
