@@ -21,14 +21,14 @@
 {
     self = [super init];
     if (self) {
+        
         self.view.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-
-{
+- (void)viewWillAppear:(BOOL)animated{
+    
     self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
     CGRect frame = self.view.frame;
     frame.size.height -= 100;
@@ -43,9 +43,9 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.translucent = NO;
+    
     /*
     if (self.product != nil) {
-        
         // Check if chosen product has been bought yet
         if ([[NSUserDefaults standardUserDefaults] boolForKey:self.product.productIdentifier]){
             NSLog(@"Product purchased");
@@ -63,10 +63,8 @@
             [self.view addSubview:self.packageLable];
         }
     }
-     */
+     */ // NSLog(@"Product not purchased");
     
-           // NSLog(@"Product not purchased");
-            
             self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 10, 80)];
             self.packageLable.text = @"";
             self.packageLable.numberOfLines = 0;

@@ -29,12 +29,24 @@
 {
     [super viewDidLoad];
     self.title =LocalizedString(@"SEARCH");
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]]; 
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"FFFFFF"]];
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
     catId =[[NSString alloc]init];
     _selectedMaincatId  = [[NSString alloc]init];
     _selectedSubcatId   = [[NSString alloc]init];
+    
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           nil];
+    
+    _price_to.inputAccessoryView = numberToolbar;
+    _price_from.inputAccessoryView = numberToolbar;
     
     _price_to.delegate=self;
     _price_from.delegate=self;
@@ -49,11 +61,13 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [_keyword resignFirstResponder];
-    [_price_from resignFirstResponder];
-    [_price_to resignFirstResponder];
-    //[self.view endEditing:YES];
     
     return YES;
+}
+-(void)doneButton:(id)sender{
+    
+    [_price_from resignFirstResponder];
+    [_price_to resignFirstResponder];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

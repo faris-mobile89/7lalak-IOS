@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *fAdsPrice;
 @property (strong,nonatomic) NSString *userID;
 @property (strong,nonatomic) NSString *apiKey;
+@property (weak, nonatomic) IBOutlet UIButton *upload_btn;
 @property (strong, nonatomic) IBOutlet UIPickerView *pickerCategories;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;

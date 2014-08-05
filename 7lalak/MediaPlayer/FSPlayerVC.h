@@ -130,6 +130,7 @@
  *
  * @param sender The sender of the action.
  */
+@property (weak, nonatomic) IBOutlet UILabel *fTitle;
 @property (weak, nonatomic) IBOutlet UIButton *back;
 @property (weak, nonatomic) IBOutlet UIButton *next;
 

@@ -61,7 +61,7 @@
 }
 -(void)submit{
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/contact-us.php?text=%@",_contactForm.text];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=contact_us&user_id=%@&text=%@",_userID,_contactForm.text];
     
     NSURL* url = [NSURL URLWithString:urlString];
     

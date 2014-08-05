@@ -12,5 +12,6 @@
 - (IBAction)btnSend:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITextView *contactForm;
+@property (strong,nonatomic) NSString *userID;
 
 @end

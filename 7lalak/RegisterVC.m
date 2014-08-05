@@ -28,19 +28,26 @@ NSString *email;
     _fPhone.delegate=self;
     _fEmail.delegate=self;
     self.title = LocalizedString(@"TITLE_MORE_REGISTER");
+    
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           nil];
+    _fPhone.inputAccessoryView = numberToolbar;
+    
     [super viewDidLoad];
     
 }
 
-
 int phoneLength =8;
-
 
 - (IBAction)fbtnRegister:(id)sender {
     
     if ([_fUserName.text length]>1 &&[_fPhone.text length] > 1 ) {
-        
-        
         
         if ([_fPhone.text length] != phoneLength){
             [self showErrorMessage:@"Phone number not valid"];
@@ -52,7 +59,6 @@ int phoneLength =8;
             return;
         }
         
-        
        if ([_fEmail.text length] > 0) {
                 
                 if (![self NSStringIsValidEmail:_fEmail.text]) {
@@ -61,8 +67,6 @@ int phoneLength =8;
                     return;
             }
        }
-        
-        
         
         UIAlertView *confirm = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"CONFIRM_REGISTERATION") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"OK"), nil];
         [confirm show];
@@ -213,6 +217,11 @@ int phoneLength =8;
     return YES;
 }
 
+-(void)doneButton:(id)sender{
+    
+    [_fPhone resignFirstResponder];
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if (textField == _fPhone) {
@@ -231,8 +240,6 @@ int phoneLength =8;
     else return YES;
 }
 
-
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -246,7 +253,6 @@ int phoneLength =8;
 -(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
-    
     [internetError show];
     
 }

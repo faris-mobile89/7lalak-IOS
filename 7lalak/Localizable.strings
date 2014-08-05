@@ -29,6 +29,8 @@
 "ONE_VID_ATTACHED"="1 video file attached";
 "REPLACE_VID"="Replace Video";
 "MESSAGE_ADs_Added"="Your Ads has been added successfuly and will be available as soon as posible";
+"ERROR_SELECT_VIDEO"="Please attache video file";
+"ERROR_UPLOAD"="Error on upload , please try again";
 "VCODE_TITLE"="Verifcation Code";
 "ERROR_INVALID_VOCODE"="Invalid Verifcation code ! please try again";
 "ERROR_EMPTY_VCODE"="Verifcation code can't be empty!";
@@ -54,7 +56,7 @@
 "DELETE_CONFIRM"="Are you sure to delete ?";
 "FOUND_UPDATE"="A new version of 7lalek is available, Upgrade your version by visit app store.";
 "PLEASE_SELECT_PLAYLIST"="Please select playlist";
-
+"ADs_TEXT_REQUIRED"="Plase enter at least 4 words in description field";
 
 
 

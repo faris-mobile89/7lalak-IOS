@@ -183,6 +183,13 @@ BOOL frameSet=FALSE;
 - (IBAction)btnContact:(id)sender {
     
     ContactUsVC *contactUs = [self.storyboard instantiateViewControllerWithIdentifier:@"contactUsVC"];
+    if (userID != nil) {
+        
+        contactUs.userID = userID;
+    }else{
+        contactUs.userID =@"0000";
+    }
+    
     [self.navigationController pushViewController:contactUs animated:YES];
 }
 

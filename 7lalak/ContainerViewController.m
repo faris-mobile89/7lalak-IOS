@@ -41,8 +41,10 @@ UIImageView *bannerView;
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    [self loadTableData];
-
+    if (jsonObject ==nil) {
+        
+        [self loadTableData];
+    }
 }
 
 - (void)viewDidLoad

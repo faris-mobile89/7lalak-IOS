@@ -475,7 +475,7 @@ int playingCurrentIndex=0;
     _selectedPlaylistItem = selectedPlaylistItem;
     
     self.navigationItem.title = self.selectedPlaylistItem.title;
-    
+    _fTitle.text = self.selectedPlaylistItem.title;
     self.audioController.url = self.selectedPlaylistItem.nsURL;
 }
 
@@ -488,7 +488,6 @@ int playingCurrentIndex=0;
 {
     if (!_audioController) {
         _audioController = [[FSAudioController alloc] init];
-        
     }
     return _audioController;
 }

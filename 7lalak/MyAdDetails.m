@@ -63,6 +63,16 @@ bool flagEditCat= false;
     _description.text= _paramDescription;
     _price.text = _paramPrice;
     
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           nil];
+    _price.inputAccessoryView = numberToolbar;
+    
     if ([_paramStatus isEqualToString:@"2"]) {
         
         [_availability setSelectedSegmentIndex:0];
@@ -473,6 +483,10 @@ bool flagEditCat= false;
         return (newLength > 8) ? NO : YES;
     }
     else return YES;
+}
+-(void)doneButton:(id)sender{
+    
+    [_price resignFirstResponder];
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     

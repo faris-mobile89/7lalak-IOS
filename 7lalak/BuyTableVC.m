@@ -34,22 +34,22 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
+    
     self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
+    colors = [[NSArray alloc]initWithObjects:@"#EB9532",@"#EE543A",@"#D8335B",@"#973163",@"#422E39", nil];
     
-     colors = [[NSArray alloc]initWithObjects:@"#EB9532",@"#EE543A",@"#D8335B",@"#973163",@"#422E39", nil];
-    
-
     [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:nil]forCellReuseIdentifier:@"Cell"];
-    
+    [self.tableView setSectionIndexBackgroundColor:[UIColor clearColor]];
     [self reload];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
-    [super viewWillAppear:animated];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
     [self.refreshControl beginRefreshing];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

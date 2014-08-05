@@ -68,7 +68,7 @@ bool flagTextenter;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+50);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+40);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
@@ -77,12 +77,23 @@ bool flagTextenter;
     imagesData = [[NSMutableArray alloc]init];
     imagesDataToUpload = [[NSMutableArray alloc]init];
     
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           nil];
+    
+    _fAdsPrice.inputAccessoryView = numberToolbar;
+    
     [self loadMainCat];
 }
 
 - (IBAction)addVideoButton:(id)sender {
     
-    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Pick from gallery",@"Open camera", nil];
+    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:@"Pick from gallery",@"Open camera", nil];
     [chooser show];
 }
 
@@ -148,10 +159,24 @@ bool flagTextenter;
 #pragma mark upload block
 
 - (IBAction)uploadButtonAction:(id)sender {
-    
-    if ([_fAdsPrice.text length] >= 1  && [_fAdsText.text length]> 5 ) {
+  
+    if ([_fAdsText.text length] < 13 ) {
+        [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_TEXT_REQUIRED")];
+        return;
+    }else{
+        
+        if ([_fAdsPrice.text length] < 1)
+            _fAdsPrice.text=@"0";
+        
+        if (videoURL == nil) {
+
+            [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
+            return;
+        }
         NSLog(@"starting Upload");
+        [_upload_btn setEnabled:FALSE];
         [self uploadService];
+        
     }
 }
 
@@ -183,22 +208,37 @@ bool flagTextenter;
         NSLog(@"starting Upload ...");
         
         
-        NSData *videoData= [NSData dataWithContentsOfURL:videoURL];
+        if (videoURL != nil) {
+            NSData *videoData= [NSData dataWithContentsOfURL:videoURL];
+             [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
+        }else{
+            [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
+            return;
+        }
 
-    [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
+   
     }
-                                       success:^(AFHTTPRequestOperation *operation, NSString *responseObject) {
+                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                                           
                                            [activityIndicator stopAnimating];
+                                           [_upload_btn setEnabled:TRUE];
                                            
-                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_ADs_Added") delegate:nil cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles:nil        , nil];
-                                           [successAlert show];
-                                           [self.navigationController popViewControllerAnimated:YES];
-                                           
+                                           if ([[responseObject valueForKey:@"error"]intValue] == 0) {
+                                               
+                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Added")];
+                                               
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                           }else{
+                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                           }
                                        }
+                                  
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [activityIndicator stopAnimating];
+                                           [_upload_btn setEnabled:TRUE];
+                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
                                        }];
     
     [op start];
@@ -458,6 +498,11 @@ bool flagTextenter;
     return YES;
 }
 
+-(void)doneButton:(id)sender{
+    
+    [_fAdsPrice resignFirstResponder];
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     if (textField == _fAdsPrice) {
@@ -466,6 +511,14 @@ bool flagTextenter;
         return (newLength > 8) ? NO : YES;
     }
     else return YES;
+}
+
+-(void)showMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    
+    [internetError show];
+    
 }
 
 - (void)didReceiveMemoryWarning

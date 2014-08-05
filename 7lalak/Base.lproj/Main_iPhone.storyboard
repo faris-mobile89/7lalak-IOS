@@ -191,6 +191,7 @@
                         <outlet property="labelSelectCat" destination="nIQ-a7-in3" id="roa-5c-0mL"/>
                         <outlet property="pickerCategories" destination="r3A-b9-6PY" id="oRH-Yy-BfS"/>
                         <outlet property="takePhotoBtn" destination="JS9-dg-Oga" id="wvl-zO-C4l"/>
+                        <outlet property="upload_btn" destination="JS9-dg-Oga" id="4vj-nd-wTY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Yf-TuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -530,7 +531,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="g3V-fl-UeJ"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -860,6 +861,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="262" translatesAutoresizingMaskIntoConstraints="NO" id="Eu5-My-JMW">
+                                        <rect key="frame" x="10" y="10" width="262" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJe-QS-vt6">
                                         <rect key="frame" x="277" y="13" width="33" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -909,6 +917,7 @@
                     <connections>
                         <outlet property="back" destination="CQh-PU-Bzu" id="maY-Pf-qiZ"/>
                         <outlet property="currentPlaybackTime" destination="3Vg-yA-uHw" id="7an-vJ-fAN"/>
+                        <outlet property="fTitle" destination="Eu5-My-JMW" id="KWU-XZ-vhQ"/>
                         <outlet property="holder" destination="LML-4g-Gae" id="g8w-jf-6ej"/>
                         <outlet property="ios5View" destination="juj-6p-Hbe" id="7gX-C6-hkY"/>
                         <outlet property="next" destination="6xD-wn-mbz" id="O9o-Bz-ENm"/>
@@ -1775,6 +1784,7 @@
                         <outlet property="labelSelectCat" destination="Aau-Ai-HSO" id="m7J-39-oat"/>
                         <outlet property="pickerCategories" destination="Pdy-lB-0t7" id="lqW-ig-ntL"/>
                         <outlet property="textVideoindicator" destination="iTm-dm-yZ7" id="tmt-pB-jY0"/>
+                        <outlet property="upload_btn" destination="qAL-8A-IyS" id="Uxm-Dw-ani"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwZ-vZ-CPl" userLabel="First Responder" sceneMemberID="firstResponder"/>

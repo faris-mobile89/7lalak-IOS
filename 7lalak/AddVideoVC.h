@@ -19,6 +19,7 @@ UIImagePickerControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITe
 @property (strong,nonatomic) NSString *userID;
 @property (strong,nonatomic) NSString *apiKey;
 @property (strong, nonatomic) IBOutlet UIPickerView *pickerCategories;
+@property (weak, nonatomic) IBOutlet UIButton *upload_btn;
 
 @property (weak, nonatomic) IBOutlet UILabel *textVideoindicator;
 @property (weak, nonatomic) IBOutlet UIImageView *imageVideoIndicator;

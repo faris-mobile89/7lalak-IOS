@@ -82,15 +82,19 @@ BOOL flagTextenter;
     
     [_collectionView registerNib:[UINib nibWithNibName:@"UploadCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     [self loadMainCat];
+    
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           nil];
+    _fAdsPrice.inputAccessoryView = numberToolbar;
 }
 
-- (IBAction)uploadButtonAction:(id)sender {
-    
-    if ([_fAdsPrice.text length] >= 1  && [_fAdsText.text length]> 5 ) {
-        NSLog(@"starting Upload");
-        [self uploadService];
-    }
-}
+
 
 -(IBAction) getPhoto:(id) sender {
     
@@ -139,7 +143,25 @@ BOOL flagTextenter;
     }
 }
 
+- (IBAction)uploadButtonAction:(id)sender {
+    
+    if ([_fAdsText.text length] < 13 ) {
+        [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_TEXT_REQUIRED")];
+        return;
+    }else{
+        
+        if ([_fAdsPrice.text length] < 1)
+            _fAdsPrice.text=@"0";
+        
+        NSLog(@"starting Upload");
+        [_upload_btn setEnabled:FALSE];
+        [self uploadService];
+        
+    }
+}
+
 #pragma mark uploader-block
+
 -(void)uploadService{
     
     NSString * MCID =[[NSString alloc]initWithFormat:@"%@",selectedMaincatId];
@@ -174,19 +196,28 @@ BOOL flagTextenter;
             
         }
     }
-                                       success:^(AFHTTPRequestOperation *operation, NSString * responseObject) {
+                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            NSLog(@"Success:***** %@", responseObject);
-                                           [activityIndicator stopAnimating];
                                            
-                                           UIAlertView *successAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Your Ads has been added and will be available as soon as posible" delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil , nil];
-                                           [successAlert show];
-                                           [self.navigationController popViewControllerAnimated:YES];
+                                           [activityIndicator stopAnimating];
+                                           [_upload_btn setEnabled:TRUE];
+                                           
+                                           if ([[responseObject valueForKey:@"error"]intValue] == 0) {
+                                               
+                                            [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Added")];
 
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                           }else{
+                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                           }
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [activityIndicator stopAnimating];
+                                           [_upload_btn setEnabled:TRUE];
+                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+
                                        }];
     
     [op start];
@@ -494,6 +525,17 @@ BOOL flagTextenter;
     
     [_fAdsPrice resignFirstResponder];
     return YES;
+}
+-(void)doneButton:(id)sender{
+    [_fAdsPrice resignFirstResponder];
+}
+
+-(void)showMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    
+    [internetError show];
+    
 }
 
 - (void)didReceiveMemoryWarning
