@@ -14,6 +14,7 @@
 #import "UIColor_hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "LocalizeHelper.h"
+#include "HUD.h"
 
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
 #define SCREEN_HEIGHT [[UIScreen mainScreen ] bounds].size.height>=568.0f?480:300;
@@ -24,10 +25,10 @@
     NSMutableArray *imagesDataToUpload;
     NSMutableArray *pickerJsonData;
     NSMutableArray *mainCat;
+    UIPickerView *pickerCategoriesInput;
     UIActivityIndicatorView *activityIndicator;
-    
-    
 }
+
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
 @property NSString *catId;
@@ -44,16 +45,18 @@
 @synthesize videoURL;
 float hieght;
 bool flagTextenter;
+int selectedIndexMain;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      self.title = LocalizedString(@"TITLE_MORE_ADD_VIDEO");
     
     hieght = SCREEN_HEIGHT;
+    pickerCategoriesInput = [[UIPickerView alloc]init];
+    pickerCategoriesInput.delegate=self;
+    pickerCategoriesInput.dataSource=self;
+    _categoryField.inputView=pickerCategoriesInput;
     
-    if (hieght < 500) {
-        _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
-    }
     flagTextenter =FALSE;
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
@@ -67,11 +70,7 @@ bool flagTextenter;
     _fAdsText.layer.borderWidth=0.5;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
-    activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+40);
-    [self.view addSubview: activityIndicator];
     
-    [activityIndicator startAnimating];
     pickerJsonData = [[NSMutableArray alloc]init];
     
     imagesData = [[NSMutableArray alloc]init];
@@ -87,6 +86,12 @@ bool flagTextenter;
                            nil];
     
     _fAdsPrice.inputAccessoryView = numberToolbar;
+    _categoryField.inputAccessoryView = numberToolbar;
+    
+    activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, 130);
+    [self.view addSubview: activityIndicator];
+    
     
     [self loadMainCat];
 }
@@ -160,29 +165,38 @@ bool flagTextenter;
 
 - (IBAction)uploadButtonAction:(id)sender {
   
+    
+    if ([_categoryField.text length] < 3 ) {
+        
+        [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_CAT_REQUIRED")];
+        return;
+    }
+    
     if ([_fAdsText.text length] < 13 ) {
         [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_TEXT_REQUIRED")];
         return;
-    }else{
+    }
+
         
-        if ([_fAdsPrice.text length] < 1)
+     if ([_fAdsPrice.text length] < 1)
             _fAdsPrice.text=@"0";
         
-        if (videoURL == nil) {
-
-            [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
-            return;
-        }
+    
+    if (videoURL == nil) {
+        
+        [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
+        return;
+    }
+    
         NSLog(@"starting Upload");
         [_upload_btn setEnabled:FALSE];
         [self uploadService];
         
-    }
 }
 
 -(void)uploadService{
     
-    [activityIndicator startAnimating];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"UPLOADING")];
     NSString * MCID =[[NSString alloc]initWithFormat:@"%@",selectedMaincatId];
     NSString * SCID =[[NSString alloc]initWithFormat:@"%@",selectedSubcatId];
     NSDictionary *dictParameter = @{
@@ -221,7 +235,7 @@ bool flagTextenter;
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                                            
-                                           [activityIndicator stopAnimating];
+                                           [HUD hideUIBlockingIndicator];
                                            [_upload_btn setEnabled:TRUE];
                                            
                                            if ([[responseObject valueForKey:@"error"]intValue] == 0) {
@@ -236,7 +250,7 @@ bool flagTextenter;
                                   
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                                           [activityIndicator stopAnimating];
+                                           [HUD hideUIBlockingIndicator];
                                            [_upload_btn setEnabled:TRUE];
                                            [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
                                        }];
@@ -269,14 +283,10 @@ bool flagTextenter;
     UILabel* label = (UILabel*)view;
     if (!label){
         label = [[UILabel alloc] init];
-        [label setFont:[UIFont  boldSystemFontOfSize:10]];
+        [label setFont:[UIFont  boldSystemFontOfSize:15]];
          label.numberOfLines=3;
         
-        
-        if(hieght<500){
-            label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
-            //label.text = [NSString stringWithFormat:@"  %ld", row+1];
-        }
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
@@ -292,20 +302,24 @@ bool flagTextenter;
                 
             }
         }
-        
     }
     return label;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
     if (component==0){
         
+        selectedIndexMain = row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
-        [self loadSubCat];
         selectedMaincatId = catId;
+        _categoryField.text=@"";
+        [self loadSubCat];
+        
     }else if (component == 1){
+        
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        _categoryField.text = catName;
     }
 }
 
@@ -313,13 +327,10 @@ bool flagTextenter;
     
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
-    
+    [activityIndicator startAnimating];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
-    [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -340,18 +351,16 @@ bool flagTextenter;
                  if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         [_pickerCategories reloadComponent:1];
+                         [pickerCategoriesInput reloadComponent:1];
                          
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
-                         
-                         
                          //NSLog(@"subCat: %@", subCat);
-                         
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          //[self handleError:error];
+                         [activityIndicator stopAnimating];
                          NSLog(@"ERROR: %@", error);
                      });
                  }
@@ -360,6 +369,7 @@ bool flagTextenter;
              else if(httpResponse.statusCode == 408){
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
+                 [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
                  
@@ -389,6 +399,7 @@ bool flagTextenter;
 
 -(void)loadMainCat{
     
+    
     NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -415,21 +426,20 @@ bool flagTextenter;
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
+                         [pickerCategoriesInput reloadComponent:0];
                          [activityIndicator stopAnimating];
-                         [_pickerCategories reloadComponent:0];
-                         
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
+                         selectedIndexMain =0;
                          [self loadSubCat];
                          
                          // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
-                         
-                         
                          
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          NSLog(@"ERROR: %@", error);
+                         [activityIndicator stopAnimating];
                      });
                  }
              }
@@ -437,6 +447,7 @@ bool flagTextenter;
              else if(httpResponse.statusCode == 408){
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
+                 [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
                  
@@ -501,6 +512,8 @@ bool flagTextenter;
 -(void)doneButton:(id)sender{
     
     [_fAdsPrice resignFirstResponder];
+    [_categoryField resignFirstResponder];
+
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -513,12 +526,20 @@ bool flagTextenter;
     else return YES;
 }
 
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    
+    if (menuController){
+        [UIMenuController sharedMenuController].menuVisible= NO;
+    }
+        return NO;
+}
+
 -(void)showMessage:(NSString *)title message:(NSString*)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
-    
     [internetError show];
-    
 }
 
 - (void)didReceiveMemoryWarning

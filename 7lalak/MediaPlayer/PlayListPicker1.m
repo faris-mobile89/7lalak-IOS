@@ -23,7 +23,7 @@ UINavigationBar *bar;
 -(void)viewWillAppear:(BOOL)animated{
     
     bar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     bar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBarHidden = NO;

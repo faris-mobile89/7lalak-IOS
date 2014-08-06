@@ -22,12 +22,12 @@
 NSInteger selectedIndex;
 @synthesize jsonObject;
 @synthesize jData;
+
 -(void)viewDidLayoutSubviews{
     
     BOOL IS_4S = IS_HEIGHT_4S;
     if (IS_4S) {
-
-        self.myTable.frame =CGRectMake(0, 0, 320, 390);
+        self.myTable.frame =CGRectMake(0, 0, 320, 388);
     }
 }
 
@@ -37,32 +37,29 @@ NSInteger selectedIndex;
     
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
     [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self getUserAds];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 #pragma mark getUserAds
 
 -(void)getUserAds{
-
+    
     NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserAds&user_id=%@&UDID=%@&device=IOS",_userID,_apiKey ];
     
     NSURL* url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -212,4 +209,9 @@ NSInteger selectedIndex;
     
     [internetError show];
 }
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 @end

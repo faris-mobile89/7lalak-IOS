@@ -29,7 +29,7 @@ typedef NS_OPTIONS(NSUInteger, ScrollingState) {
 typedef void (^ButtonBlock)(UIButton *button);
 
 @protocol ICETutorialControllerDelegate;
-@interface ICETutorialController : UIViewController <UIScrollViewDelegate>
+@interface ICETutorialController : UIViewController <UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) BOOL autoScrollEnabled;
 @property (nonatomic, weak) id<ICETutorialControllerDelegate> delegate;
@@ -57,6 +57,4 @@ typedef void (^ButtonBlock)(UIButton *button);
 @optional
 - (void)tutorialController:(ICETutorialController *)tutorialController scrollingFromPageIndex:(NSUInteger)fromIndex toPageIndex:(NSUInteger)toIndex;
 - (void)tutorialControllerDidReachLastPage:(ICETutorialController *)tutorialController;
-- (void)tutorialController:(ICETutorialController *)tutorialController didClickOnLeftButton:(UIButton *)sender;
-- (void)tutorialController:(ICETutorialController *)tutorialController didClickOnRightButton:(UIButton *)sender;
 @end

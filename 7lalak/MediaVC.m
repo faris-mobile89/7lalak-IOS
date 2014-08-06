@@ -33,7 +33,7 @@
     
     _holder.layer.cornerRadius = 18;
     
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     
     [self initDefaults];

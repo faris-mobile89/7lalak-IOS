@@ -65,7 +65,7 @@ UIImageView *bannerView;
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
     
@@ -76,12 +76,11 @@ UIImageView *bannerView;
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -190,8 +189,6 @@ UIImageView *bannerView;
        
          }
      }];
-    
-
 }
 
 
@@ -253,8 +250,6 @@ UIImageView *bannerView;
 
     return 95;
 }
-
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 

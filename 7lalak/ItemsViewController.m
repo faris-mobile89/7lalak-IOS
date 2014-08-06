@@ -56,12 +56,10 @@ UIImageView *bannerView;
     _numberOfnewPosts = 10;
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     UITableViewController *tableViewController = [[UITableViewController alloc]init];
     tableViewController.tableView = self.tableView;
-    
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(insertNewObject:) forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl=self.refreshControl;
@@ -169,10 +167,10 @@ UIImageView *bannerView;
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    [self.view addSubview: activityIndicator];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+         activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-30);
     
+    [self.view addSubview: activityIndicator];
     [activityIndicator startAnimating];
     
     
@@ -326,7 +324,7 @@ UIImageView *bannerView;
 {
     
     if ([jsonObject count] > 0 && jsonObject !=nil){
-        self.title = [[NSString alloc]initWithFormat:@"%i %@",[jsonObject count],LocalizedString(@"Ad")];
+        self.title = [[NSString alloc]initWithFormat:@"%i %@",[jsonObject count] ,LocalizedString(@"Ad")];
         return [jsonObject count];
     }
     else

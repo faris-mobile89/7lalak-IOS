@@ -8,6 +8,7 @@
 
 #import "TabDescriptionVC.h"
 #import "UIImageView+WebCache.h"
+#import "UIColor_hex.h"
 
 
 @interface TabDescriptionVC ()
@@ -22,9 +23,12 @@
 -(void)viewDidLayoutSubviews{
     
     fImage.layer.cornerRadius=6;
-    //fImage.layer.borderWidth=0.5;
+    fImage.layer.borderWidth=1.5;
     fImage.layer.masksToBounds = YES;
     fImage.clipsToBounds = YES;
+    fImage.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
+
+    
     fDescription.layer.cornerRadius=6;
     fDescription.layer.borderWidth=0.3;
     fDescription.clipsToBounds = YES;
@@ -78,7 +82,6 @@
 {
     [super didReceiveMemoryWarning];
 }
-
 
 - (IBAction)btnFavClick:(id)sender {
     

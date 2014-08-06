@@ -171,10 +171,9 @@ BOOL frameSet=FALSE;
     [self getUserData];
     if (isRegistered) {
         
-        BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsTableVC"];
-        //BuyAdsVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"BuyAdsVC"];
-        
+        BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsView"];
         [self.navigationController pushViewController:buy animated:YES];
+        
     }else{
         [self registerView];
     }

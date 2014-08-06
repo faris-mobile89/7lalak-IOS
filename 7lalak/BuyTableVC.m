@@ -11,6 +11,7 @@
 #import "ProductCell.h"
 #import "LocalizeHelper.h"
 #import "UIColor_hex.h"
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface BuyTableVC ()
 
@@ -22,7 +23,19 @@
 
 @implementation BuyTableVC
 @synthesize colors;
+
+UIActivityIndicatorView *activityIndicator;
+
 #pragma mark - User Interface set up
+
+-(void)viewDidLayoutSubviews{
+    
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (IS_4S) {
+        
+        self.tableView.frame =CGRectMake(0, 0, 320, 388);
+    }
+}
 
 - (id)init
 {
@@ -34,7 +47,7 @@
                                                                                  target:self
                                                                                  action:@selector(restoreTapped:)];
         
-        self.priceFormatter = [[NSNumberFormatter alloc] init];
+         self.priceFormatter = [[NSNumberFormatter alloc] init];
         [self.priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
         [self.priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     }
@@ -49,14 +62,22 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:nil]forCellReuseIdentifier:@"Cell"];
     [self.tableView setSectionIndexBackgroundColor:[UIColor clearColor]];
+    
+    activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    
     [self reload];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
-    
+    /*
+    UITableViewController *tableViewController = [[UITableViewController alloc]init];
+    tableViewController.tableView = self.tableView;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-    [self.refreshControl beginRefreshing];
-    
+    tableViewController.refreshControl=self.refreshControl;
+    */
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -68,13 +89,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [self.products count];
 }
 
@@ -82,8 +101,7 @@
 {
     
      ProductCell *cell = (ProductCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    
+    cell.selectedBackgroundView = [UIView new];
     SKProduct *product = self.products[indexPath.row];
     cell.produtName.text = product.localizedTitle;
     cell.productPrice.text =[[NSString alloc]initWithFormat:@"%@$",[product.price stringValue]];
@@ -96,7 +114,7 @@
         buyButton.frame = CGRectMake(0, 0, 50, 18);
         [buyButton setBackgroundColor:[UIColor colorWithHexString:@"#2ECC71"]];
         buyButton.layer.cornerRadius=8;
-        [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+        [buyButton setTitle:LocalizedString(@"BUY") forState:UIControlStateNormal];
         [buyButton setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
         [buyButton.titleLabel setFont:[UIFont systemFontOfSize:10]];
         buyButton.tag = indexPath.row;
@@ -118,11 +136,11 @@
     SKProduct *product = self.products[indexPath.row];
     
     // Creates the DetailViewController
-    self.fruitDetailViewController = [[AdsDetailViewController alloc]init];
-    self.fruitDetailViewController.product = product;
+    self.adsDetailViewController = [[AdsDetailViewController alloc]init];
+    self.adsDetailViewController.product = product;
     
     // Pushes the DetailViewController
-    [self.navigationController pushViewController:self.fruitDetailViewController animated:YES];
+    [self.navigationController pushViewController:self.adsDetailViewController animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -135,14 +153,20 @@
 /*
  When the reload is called (whether it be the first manual call, or when the user pulls to refresh), it calls the FruitIAPHelper’s requestProductsWithCompletionHandler method we wrote earlier to return the In-App Purchase product info from iTunes Connect. When this completes, the block will be called. All it does is store the list of products in the instance variable, reload the table view to display them, and tells the refresh control to stop animating.
  */
+
 - (void)reload
 {
+    
+    [activityIndicator startAnimating];
+
     self.products = nil;
     [self.tableView reloadData];
     [[InAppAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
         if (success) {
             self.products = products;
-            NSLog(@"self pro : %@",products);
+            
+            NSLog(@"(%lu) products found ",(unsigned long)[products count]);
+            [activityIndicator stopAnimating];
             [self.tableView reloadData];
         }
         [self.refreshControl endRefreshing];

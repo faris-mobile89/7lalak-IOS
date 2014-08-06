@@ -44,7 +44,7 @@ UIImageView *bannerView;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
     [self.tableView setBackgroundColor: [UIColor clearColor]];
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     
@@ -52,8 +52,8 @@ UIImageView *bannerView;
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-30);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
@@ -172,10 +172,7 @@ UIImageView *bannerView;
              
          }
      }];
-    
-    
 }
-
 
 -(Boolean)testInternetConcecction{
     
@@ -242,7 +239,6 @@ UIImageView *bannerView;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     return 95;
 }
 
@@ -250,10 +246,7 @@ UIImageView *bannerView;
     
     selectedIndex = indexPath.row;
     [self performSegueWithIdentifier:@"itemsDetails" sender:self];
-    
-    
 }
-
 
 #pragma mark - Navigation
 
@@ -269,11 +262,9 @@ UIImageView *bannerView;
     }
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

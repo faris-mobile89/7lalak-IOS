@@ -47,14 +47,12 @@ BOOL appEnabled=TRUE;
 - (void)viewDidLoad
 {
     
- 
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     _fImageTopAds.layer.cornerRadius=4;
     _fImageTopAds.layer.borderWidth=1.0;
@@ -62,7 +60,11 @@ BOOL appEnabled=TRUE;
     _fImageTopAds.clipsToBounds = YES;
     _fImageTopAds.layer.borderColor=[[UIColor colorWithHexString:@"ffffff"] CGColor];
     
-    
+    _errorHolder.layer.cornerRadius=4;
+    _errorHolder.layer.borderWidth=1.0;
+    _errorHolder.layer.masksToBounds = YES;
+    _errorHolder.clipsToBounds = YES;
+    _errorHolder.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
     
     [super viewDidLoad];
    // [_btnEN setEnabled:FALSE];
@@ -79,7 +81,7 @@ BOOL appEnabled=TRUE;
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     

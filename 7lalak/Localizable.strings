@@ -25,6 +25,9 @@
 "IMAGE"="Image";
 "DESCRIPTION"="Description";
 "Ad"="Ad";
+"BUY"="Buy";
+"LOADING"="Loading...";
+"UPLOADING"="Uploading...";
 "MESSAGE_CHOOSE_ADS"="Please choose Ads type";
 "ONE_VID_ATTACHED"="1 video file attached";
 "REPLACE_VID"="Replace Video";
@@ -56,7 +59,7 @@
 "DELETE_CONFIRM"="Are you sure to delete ?";
 "FOUND_UPDATE"="A new version of 7lalek is available, Upgrade your version by visit app store.";
 "PLEASE_SELECT_PLAYLIST"="Please select playlist";
-"ADs_TEXT_REQUIRED"="Plase enter at least 4 words in description field";
-
+"ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
+"ADs_CAT_REQUIRED"="Please select category";
 
 

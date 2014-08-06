@@ -10,8 +10,9 @@
 @import UIKit;
 #import "AdsDetailViewController.h"
 
-@interface BuyTableVC : UITableViewController
-
-@property (nonatomic, strong) AdsDetailViewController *fruitDetailViewController;
+@interface BuyTableVC : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) AdsDetailViewController *adsDetailViewController;
 
 @end

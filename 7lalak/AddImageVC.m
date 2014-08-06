@@ -24,8 +24,7 @@
     NSMutableArray *pickerJsonData;
     NSMutableArray *mainCat;
     UIActivityIndicatorView *activityIndicator;
-    
-   
+    UIPickerView *pickerCategoriesInput;
 }
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
@@ -41,6 +40,7 @@
 @synthesize userID;
 @synthesize subCat,catId,selectedMaincatId,selectedSubcatId,jsonObject;
 float hieght;
+int selectedIndexMain;
 
 BOOL flagTextenter;
 
@@ -50,31 +50,33 @@ BOOL flagTextenter;
     flagTextenter =FALSE;
     self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
     hieght = SCREEN_HEIGHT;
-    if (hieght < 500) {
-        _pickerCategories.transform = CGAffineTransformMakeScale(.5, 0.5);
-    }
+    
+    pickerCategoriesInput = [[UIPickerView alloc]init];
+    pickerCategoriesInput.delegate=self;
+    pickerCategoriesInput.dataSource=self;
+    _categoryField.inputView=pickerCategoriesInput;
+    
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
     catId =[[NSString alloc]init];
     selectedMaincatId  = [[NSString alloc]init];
     selectedSubcatId   = [[NSString alloc]init];
-    //_labelSelectCat.layer.cornerRadius =6;
+    
     _fAdsPrice.delegate=self;
     _fAdsText.delegate=self;
     _fAdsText.layer.cornerRadius=10;
     _fAdsText.layer.borderWidth=0.5;
     _fAdsText.clipsToBounds = YES;
+    
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+50);
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, 130);
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
     
     pickerJsonData = [[NSMutableArray alloc]init];
     
-    
-    _pickerCategories.frame = CGRectMake(0, 0, 300, 162.0);
     imagesData = [[NSMutableArray alloc]init];
     imagesDataToUpload = [[NSMutableArray alloc]init];
     
@@ -92,6 +94,8 @@ BOOL flagTextenter;
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
     _fAdsPrice.inputAccessoryView = numberToolbar;
+    _categoryField.inputAccessoryView = numberToolbar;
+
 }
 
 
@@ -145,19 +149,26 @@ BOOL flagTextenter;
 
 - (IBAction)uploadButtonAction:(id)sender {
     
+    
+    if ([_categoryField.text length] < 3 ) {
+        
+        [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_CAT_REQUIRED")];
+        return;
+    }
+    
     if ([_fAdsText.text length] < 13 ) {
         [self showMessage:LocalizedString(@"") message:LocalizedString(@"ADs_TEXT_REQUIRED")];
         return;
-    }else{
-        
-        if ([_fAdsPrice.text length] < 1)
-            _fAdsPrice.text=@"0";
-        
-        NSLog(@"starting Upload");
-        [_upload_btn setEnabled:FALSE];
-        [self uploadService];
-        
     }
+    
+    if ([_fAdsPrice.text length] < 1)
+        _fAdsPrice.text=@"0";
+    
+    NSLog(@"starting Upload");
+    [_upload_btn setEnabled:FALSE];
+    [self uploadService];
+    
+
 }
 
 #pragma mark uploader-block
@@ -189,7 +200,6 @@ BOOL flagTextenter;
             date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
             NSString *imageName = [[NSString alloc]initWithFormat:@"7lalak_IOS%i_%@%@",i,
                                    date,@".jpg"];
-            
             
             [formData appendPartWithFileData:[imagesDataToUpload  objectAtIndex:i]
                                         name:[[NSString alloc]initWithFormat:@"file%i",i] fileName:imageName mimeType:@"image/jpeg"];
@@ -282,12 +292,9 @@ BOOL flagTextenter;
     UILabel* label = (UILabel*)view;
     if (!label){
         label = [[UILabel alloc] init];
-        [label setFont:[UIFont  boldSystemFontOfSize:10]];
+        [label setFont:[UIFont  boldSystemFontOfSize:15]];
         label.numberOfLines=3;
-         if(hieght<500){
-         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
-         label.text = [NSString stringWithFormat:@"  %ld", row+1];
-         }
+         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
@@ -295,28 +302,31 @@ BOOL flagTextenter;
                 label.text= lableText;
             }
         }
-        
+
         else if (component==1){
             if ([[subCat objectForKey:@"SubCat"]count]>0) {
-                
                 label.text=  [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"];
             }
         }
-        
     }
     return label;
 }
 
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
     if (component==0){
         
+        selectedIndexMain = row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
-        [self loadSubCat];
         selectedMaincatId = catId;
+        _categoryField.text=@"";
+        [self loadSubCat];
+        
     }else if (component == 1){
+        
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        _categoryField.text = catName;
     }
 }
 
@@ -352,7 +362,7 @@ BOOL flagTextenter;
                  if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         [_pickerCategories reloadComponent:1];
+                         [pickerCategoriesInput reloadComponent:1];
                          
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
@@ -434,10 +444,11 @@ BOOL flagTextenter;
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         [_pickerCategories reloadComponent:0];
+                         [pickerCategoriesInput reloadComponent:0];
                          
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
+                         selectedIndexMain = 0;
                          [self loadSubCat];
                          
                          // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
@@ -527,7 +538,9 @@ BOOL flagTextenter;
     return YES;
 }
 -(void)doneButton:(id)sender{
+    
     [_fAdsPrice resignFirstResponder];
+    [_categoryField resignFirstResponder];
 }
 
 -(void)showMessage:(NSString *)title message:(NSString*)msg{

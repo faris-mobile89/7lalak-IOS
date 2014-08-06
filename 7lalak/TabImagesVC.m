@@ -150,6 +150,8 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
     [[ICETutorialStyle sharedInstance] setSubTitleColor:[UIColor whiteColor]];
     [[ICETutorialStyle sharedInstance] setSubTitleOffset:200];
     
+    
+    
     // Init tutorial.
     self.viewController = [[ICETutorialController alloc] initWithPages:itemLayers
                                                               delegate:self];
@@ -159,6 +161,7 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
     [self.viewController startScrolling];
      self.viewController.view.frame = CGRectMake(0, 10, 320, 410);
     [self.view addSubview: self.viewController.view];
+
     
   
     

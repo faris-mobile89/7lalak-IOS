@@ -9,6 +9,7 @@
 #import "ICETutorialController.h"
 #import "UIImageView+ProgressView.h"
 #import "UIColor_hex.h"
+#import "FNImageViewZoomVC.h"
 
 @interface ICETutorialController ()
 @property (nonatomic, strong, readonly) UIImageView *frontLayerView;
@@ -16,7 +17,6 @@
 @property (nonatomic, strong, readonly) UIImageView *gradientView;
 @property (nonatomic, strong, readonly) UIScrollView *scrollView;
 @property (nonatomic, strong, readonly) UIPageControl *pageControl;
-
 @property (nonatomic, assign) ScrollingState currentState;
 @property (nonatomic, strong) NSArray *pages;
 @property (nonatomic, assign) NSInteger currentPageIndex;
@@ -25,6 +25,10 @@
 @end
 
 @implementation ICETutorialController
+
+UIImage *image;
+UIImageView *img;
+UIPinchGestureRecognizer *twoFingerPinch;
 
 - (instancetype)initWithPages:(NSArray *)pages {
     self = [self init];
@@ -35,10 +39,19 @@
         _backLayerView = [[UIImageView alloc] init];
         _gradientView = [[UIImageView alloc] init];
         _scrollView = [[UIScrollView alloc] init];
-        
         _pageControl = [[UIPageControl alloc] init];
+       
     }
     return self;
+}
+
+-(void)twoFingerPinch:(UIPinchGestureRecognizer *)recognizer{
+    
+        NSLog(@"Pinch scale: %f", recognizer.scale);
+    if (recognizer.scale >1.0f && recognizer.scale < 2.5f) {
+        CGAffineTransform transform = CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
+        self.frontLayerView.transform = transform;
+    }
 }
 
 - (instancetype)initWithPages:(NSArray *)pages
@@ -50,9 +63,24 @@
     return self;
 }
 
+
+- (IBAction)zoomImage:(id)sender {
+    
+}
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
+    
+    twoFingerPinch = [[UIPinchGestureRecognizer alloc]
+                      initWithTarget:self
+                      action:@selector(twoFingerPinch:)];
+    
+
+    _scrollView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [_scrollView addGestureRecognizer:tap];
     
     [self setupView];
     
@@ -61,6 +89,23 @@
     
     // Preset the origin state.
     [self setOriginLayersState];
+ 
+	// Do any additional setup after loading the view, typically from a nib.
+    
+  
+}
+- (void)handleTap:(UITapGestureRecognizer *)recognizer{
+    
+    int index = self.pageControl.currentPage;
+    NSString *imgUrl = [self.pages[index] pictureName];
+    
+    NSLog(@"C%@",imgUrl);
+    
+    FNImageViewZoomVC *zoomImageView = [[FNImageViewZoomVC alloc]init];
+    
+    [self presentViewController:zoomImageView animated:NO completion:nil];
+    //[imageView setImageWithURL:[NSURL URLWithString:imgUrl] usingProgressView:nil];
+
 }
 
 - (void)setupView {
@@ -77,6 +122,7 @@
     // Decoration.
     //[self.gradientView setImage:[UIImage imageNamed:@"background-gradient.png"]];
     // ScrollView configuration.
+    
     [self.scrollView setFrame:self.view.bounds];
     [self.scrollView setDelegate:self];
     [self.scrollView setPagingEnabled:YES];
@@ -102,7 +148,9 @@
 }
 
 #pragma mark - Constraints management.
+
 - (void)addAllConstraints {
+    
     [self.frontLayerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 	[self.backLayerView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     
@@ -133,7 +181,6 @@
 
 - (IBAction)didClickOnPageControl:(UIPageControl *)sender {
     [self stopScrolling];
-   
     // Make the scrollView animation.
     [self scrollToNextPageIndex:sender.currentPage];
 }
@@ -203,6 +250,7 @@
 
     // Set the PageControl on the right page.
     [self.pageControl setCurrentPage:nextPageIndex];
+    
 }
 
 #pragma mark - Scrolling management
@@ -277,9 +325,11 @@
 - (void)setFrontLayerPictureWithPageIndex:(NSInteger)index {
     [self setBackgroundImage:self.frontLayerView withIndex:index];
 }
+
 #pragma mark ======== setImage ===========
 // Handle page image's loading
 - (void)setBackgroundImage:(UIImageView *)imageView withIndex:(NSInteger)index {
+    
     if (index >= [self.pages count]) {
         [imageView setImage:nil];
         return;
@@ -291,7 +341,7 @@
      Customiztion by Faris.it.cs@gmail.com
      */
     //NSLog(@"Image URL%@",[self.pages[index] pictureName]);
-    
+    /*
     UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     animatedImageView.animationImages = [NSArray arrayWithObjects:
                                          [UIImage imageNamed:@"image1.gif"],
@@ -303,17 +353,17 @@
     [animatedImageView startAnimating];
     
     
-    
+    */
     //[imageView sd_setImageWithURL:[NSURL URLWithString:[self.pages[index] pictureName]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
     
     NSString *imgUrl = [self.pages[index] pictureName];
     
     [imageView setImageWithURL:[NSURL URLWithString:imgUrl] usingProgressView:nil];
-
+    //[img setTag:index];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.clipsToBounds = YES;
-    
 }
+
 //to scale images without changing aspect ratio
 -(UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)newSize {
     
@@ -350,7 +400,6 @@
     return smallImage;
     
 }
-
 // Setup lapyer's alpha.
 - (void)setOriginLayerAlpha {
     [self.frontLayerView setAlpha:1];

@@ -149,7 +149,7 @@ int playingCurrentIndex=0;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(audioStreamStateDidChange:)
                                                  name:FSAudioStreamStateChangeNotification
@@ -659,8 +659,6 @@ int playingCurrentIndex=0;
 }
 
 - (IBAction)btnNextProgress:(id)sender {
-    
-
     
 }
 

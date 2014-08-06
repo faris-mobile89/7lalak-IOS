@@ -14,16 +14,15 @@
 	UIButton * takePhotoBtn;
     NSString *userID;
 }
+@property (weak, nonatomic) IBOutlet UITextField *categoryField;
 @property (strong, nonatomic) IBOutlet UITextView *fAdsText;
 @property (strong, nonatomic) IBOutlet UITextField *fAdsPrice;
 @property (strong,nonatomic) NSString *userID;
 @property (strong,nonatomic) NSString *apiKey;
 @property (weak, nonatomic) IBOutlet UIButton *upload_btn;
-@property (strong, nonatomic) IBOutlet UIPickerView *pickerCategories;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
-@property (weak, nonatomic) IBOutlet UILabel *labelSelectCat;
 - (IBAction)uploadButtonAction:(id)sender;
 
 

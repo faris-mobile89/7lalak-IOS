@@ -13,6 +13,7 @@
 #import "ItemDetailsViewController.h"
 #import "LocalizeHelper.h"
 #include "UIColor_hex.h"
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface FavoriteVC (){
     NSInteger selectedIndex;
@@ -24,12 +25,19 @@
 @implementation FavoriteVC
 @synthesize jsonObject;
 
+-(void)viewDidLayoutSubviews{
+    
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (IS_4S) {
+        self.tableView.frame =CGRectMake(0, 0, 320, 388);
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = LocalizedString(@"TITLE_MORE_FAV");
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"004557"]];
+    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     

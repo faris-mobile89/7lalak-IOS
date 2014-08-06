@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoriteVC : UITableViewController
+@interface FavoriteVC : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) id jsonObject;
 @end

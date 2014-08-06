@@ -212,6 +212,7 @@
 		E0F669BF19912AA500C3C8EC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F669BC19912AA500C3C8EC /* NSData+Base64.m */; };
 		E0F669C019912AA500C3C8EC /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F669BE19912AA500C3C8EC /* VerificationController.m */; };
 		E0F669C219912AC700C3C8EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F669C119912AC700C3C8EC /* Security.framework */; };
+		E0F669C51991D4BB00C3C8EC /* FNImageViewZoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F669C41991D4BB00C3C8EC /* FNImageViewZoomVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -537,6 +538,8 @@
 		E0F669BD19912AA500C3C8EC /* VerificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationController.h; sourceTree = "<group>"; };
 		E0F669BE19912AA500C3C8EC /* VerificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationController.m; sourceTree = "<group>"; };
 		E0F669C119912AC700C3C8EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		E0F669C31991D4BB00C3C8EC /* FNImageViewZoomVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNImageViewZoomVC.h; sourceTree = "<group>"; };
+		E0F669C41991D4BB00C3C8EC /* FNImageViewZoomVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNImageViewZoomVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -601,10 +604,10 @@
 				E0890D621955C8FE009A9A48 /* SubCatVC.m */,
 				E0F660061957B9CA00A73EB7 /* ItemsViewController.h */,
 				E0F660071957B9CA00A73EB7 /* ItemsViewController.m */,
-				E0D8820B1958634A00557F5B /* TabDescriptionVC.h */,
-				E0D8820C1958634A00557F5B /* TabDescriptionVC.m */,
 				E00A360319584C0900A7B45A /* ItemDetailsViewController.h */,
 				E00A360419584C0900A7B45A /* ItemDetailsViewController.m */,
+				E0D8820B1958634A00557F5B /* TabDescriptionVC.h */,
+				E0D8820C1958634A00557F5B /* TabDescriptionVC.m */,
 				E0D8820E1958637E00557F5B /* TabImagesVC.h */,
 				E0D8820F1958637E00557F5B /* TabImagesVC.m */,
 				E0D882111958639100557F5B /* TabVideoVC.h */,
@@ -1051,6 +1054,8 @@
 				E09264C5195A4FA2000D6BC1 /* ICETutorialStyle.m */,
 				E09C486E196843C5008C7C20 /* LocalizeHelper.h */,
 				E09C486F196843C5008C7C20 /* LocalizeHelper.m */,
+				E0F669C31991D4BB00C3C8EC /* FNImageViewZoomVC.h */,
+				E0F669C41991D4BB00C3C8EC /* FNImageViewZoomVC.m */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1432,6 +1437,7 @@
 				E0480D63195D18C200EAA25A /* SDWebImageCompat.m in Sources */,
 				E066B8181961BC0A0065F675 /* UIWebView+AFNetworking.m in Sources */,
 				E0480D6D195D18C200EAA25A /* UIImageView+HighlightedWebCache.m in Sources */,
+				E0F669C51991D4BB00C3C8EC /* FNImageViewZoomVC.m in Sources */,
 				E0480D61195D18C200EAA25A /* NSData+ImageContentType.m in Sources */,
 				E02455A2197B97FD00D1C9F0 /* FSParsePlaylistRequest.m in Sources */,
 				E0A560C0195CF26900FD0D70 /* FarisJSONParser.m in Sources */,
