@@ -77,7 +77,6 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 - (void)viewDidLoad {
     
     [self.view setBackgroundColor:[UIColor blackColor]];
-
     
 // please not that enoh ana ma 3mlt optimizaiotion la had el code , cuz el dedline la project !!!!!
     NSArray *itemLayers ;
@@ -156,25 +155,21 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
     self.viewController = [[ICETutorialController alloc] initWithPages:itemLayers
                                                               delegate:self];
     
-    
     // Run it.
     [self.viewController startScrolling];
      self.viewController.view.frame = CGRectMake(0, 10, 320, 410);
     [self.view addSubview: self.viewController.view];
 
-    
-  
-    
-
     [super viewDidLoad];
-   }
 
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -189,9 +184,6 @@ ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

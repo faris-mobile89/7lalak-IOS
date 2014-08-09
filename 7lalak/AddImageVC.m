@@ -545,7 +545,7 @@ BOOL flagTextenter;
 
 -(void)showMessage:(NSString *)title message:(NSString*)msg{
     
-    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
     
     [internetError show];
     

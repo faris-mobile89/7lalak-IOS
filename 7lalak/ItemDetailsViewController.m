@@ -22,12 +22,9 @@ TabDescriptionVC *tabDescription;
 @implementation ItemDetailsViewController
 @synthesize jsonObject;
 
-
-- (void)viewDidLoad
-{
-    //NSLog(@"JSONObject%@",jsonObject);
-    [super viewDidLoad];
-
+-(void)viewDidLayoutSubviews{
+    NSLog(@"Back");
+    
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
     tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];
@@ -41,7 +38,6 @@ TabDescriptionVC *tabDescription;
     [self addChildViewController:tabDescription];
     [tabDescription didMoveToParentViewController:self];
     
-   
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
         [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
     }
@@ -49,11 +45,11 @@ TabDescriptionVC *tabDescription;
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
         
-  
+        
         if ([[jsonObject objectForKey:@"vids"]count] ==0 ) {
-        [_tabsView removeSegmentAtIndex:1 animated:NO];
+            [_tabsView removeSegmentAtIndex:1 animated:NO];
+        }
     }
-  }
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]) {
         
@@ -62,9 +58,22 @@ TabDescriptionVC *tabDescription;
             [_tabsView removeSegmentAtIndex:1 animated:NO];
         }
     }
+
+}
+- (void)viewDidLoad
+{
+    //NSLog(@"JSONObject%@",jsonObject);
+    [super viewDidLoad];
     
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+
+    [super viewDidAppear:NO];
+    NSLog(@"viewWillAppear");
+    
+    
+}
 
 - (IBAction)tabsChanged:(id)sender {
     

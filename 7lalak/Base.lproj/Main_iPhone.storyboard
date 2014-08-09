@@ -1292,6 +1292,9 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="370"/>
+                    <connections>
+                        <segue destination="VWj-pl-0hR" kind="modal" identifier="zoom" id="kjV-3T-Mj5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9d-Fz-Ww9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1337,27 +1340,16 @@
                         <viewControllerLayoutGuide type="bottom" id="XAq-ks-wYI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mqc-HC-66m" customClass="FN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="333"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCA-wU-2SY">
-                                <rect key="frame" x="124" y="170" width="72" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.26274509800000001" green="0.74901960779999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="370"/>
+                    <size key="freeformSize" width="320" height="333"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cPJ-rb-ZYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4679" y="-81"/>
+            <point key="canvasLocation" x="4681" y="-63"/>
         </scene>
         <!--Tab DescriptionVC-->
         <scene sceneID="gi8-5u-sG2">
@@ -1904,6 +1896,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfJ-Ar-zW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3449" y="2451"/>
+        </scene>
+        <!--ZoomVC-->
+        <scene sceneID="Gg2-cw-gtK">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Etb-Mi-ZvT" customClass="ZoomVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pLy-0b-Owv"/>
+                        <viewControllerLayoutGuide type="bottom" id="aUo-gh-hdE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vFu-8i-hqa" customClass="FN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="333"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="333"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bzf-Tv-tca" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4681" y="345"/>
         </scene>
     </scenes>
     <resources>

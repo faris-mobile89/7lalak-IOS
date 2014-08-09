@@ -10,6 +10,7 @@
 #import "UIImageView+ProgressView.h"
 #import "UIColor_hex.h"
 #import "FNImageViewZoomVC.h"
+#import "ZoomVC.h"
 
 @interface ICETutorialController ()
 @property (nonatomic, strong, readonly) UIImageView *frontLayerView;
@@ -94,17 +95,20 @@ UIPinchGestureRecognizer *twoFingerPinch;
     
   
 }
+
 - (void)handleTap:(UITapGestureRecognizer *)recognizer{
     
-    int index = self.pageControl.currentPage;
+    int index = (int)self.pageControl.currentPage;
     NSString *imgUrl = [self.pages[index] pictureName];
     
     NSLog(@"C%@",imgUrl);
     
     FNImageViewZoomVC *zoomImageView = [[FNImageViewZoomVC alloc]init];
+    zoomImageView.imageURl = [NSURL URLWithString:imgUrl];
+    
+    //ZoomVC *zoom = [[ZoomVC alloc]init];
     
     [self presentViewController:zoomImageView animated:NO completion:nil];
-    //[imageView setImageWithURL:[NSURL URLWithString:imgUrl] usingProgressView:nil];
 
 }
 

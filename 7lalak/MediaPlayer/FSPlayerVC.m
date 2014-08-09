@@ -96,14 +96,15 @@ int playingCurrentIndex=0;
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    //NSLog(@"back");
+//NSLog(@"back");
+
 /*
     if (_shouldStartPlaying) {
         _shouldStartPlaying = NO;
         [self.audioController play];
         [_playButton setHidden:FALSE];
     }
- */
+*/
 
     if ([[PlayList sharedPlayList]getItems] != nil && flagIsPlaying == false) {
         

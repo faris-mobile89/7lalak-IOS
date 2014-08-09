@@ -35,8 +35,8 @@ UIImageView *bannerView;
 
 -(void)viewDidLayoutSubviews{
     
-    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-44);
-    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 48)];
+    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-54);
+    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 54)];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -223,12 +223,13 @@ bool showItems=FALSE;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     if (showItems) {
         
         [[PlayList sharedPlayList]setPickedIndex:(int)indexPath.row];
         
         showItems = FALSE;
+        
         [self dismissViewControllerAnimated:YES
                                  completion:nil];
         return;

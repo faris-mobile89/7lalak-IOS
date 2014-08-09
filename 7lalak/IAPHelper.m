@@ -233,7 +233,7 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //  NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+         //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          //   NSLog(@"Error: %@ ***** %@", operation.responseString, error);

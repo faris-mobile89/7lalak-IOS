@@ -209,7 +209,7 @@ BOOL frameSet=FALSE;
     [self.view addSubview: activityIndicator];
     
     [activityIndicator startAnimating];
-    
+    [_btnAdd setEnabled:FALSE];
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -225,7 +225,8 @@ BOOL frameSet=FALSE;
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 [_btnAdd setEnabled:TRUE];
+
                  id  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
@@ -262,20 +263,24 @@ BOOL frameSet=FALSE;
                      });
                  } else {
                      [activityIndicator stopAnimating];
+                     [_btnAdd setEnabled:TRUE];
                  }
              }
              
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
                                         message:LocalizedString(@"error_internet_timeout")];
+                 [_btnAdd setEnabled:TRUE];
                  
              }else{
                  [activityIndicator stopAnimating];
+                 [_btnAdd setEnabled:TRUE];
              }
          }
          else {
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
+                 [_btnAdd setEnabled:TRUE];
                  [activityIndicator stopAnimating];
              });
          }

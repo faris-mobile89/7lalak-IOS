@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FNImageViewZoomVC : UIViewController
-
+@property (strong,nonatomic) NSURL *imageURl;
 @end
