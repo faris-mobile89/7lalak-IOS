@@ -106,9 +106,11 @@ UIPinchGestureRecognizer *twoFingerPinch;
     FNImageViewZoomVC *zoomImageView = [[FNImageViewZoomVC alloc]init];
     zoomImageView.imageURl = [NSURL URLWithString:imgUrl];
     
+    FNImageViewZoomVC *zImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImgZoom"];
+
     //ZoomVC *zoom = [[ZoomVC alloc]init];
     
-    [self presentViewController:zoomImageView animated:NO completion:nil];
+    [self presentViewController:zImage animated:NO completion:nil];
 
 }
 

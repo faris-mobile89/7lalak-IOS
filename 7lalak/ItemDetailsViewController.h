@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FGalleryViewController.h"
+@interface ItemDetailsViewController : UIViewController<FGalleryViewControllerDelegate>{
+    NSArray *networkCaptions;
+    NSArray *networkImages;
+    FGalleryViewController *networkGallery;
+}
 
-@interface ItemDetailsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *containterView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tabsView;
 @property (weak,nonatomic) id jsonObject;

@@ -13,16 +13,13 @@
 
 @implementation TabImagesVC
 @synthesize jsonObject;
+
 ICETutorialPage *layer1,*layer2,*layer3,*layer4,*layer5,*layer6,*layer7;
-
-
 
 #pragma mark - View lifecycle
 
-
 -(void)initLayer :(NSString *)url :(NSInteger) index{
     
-
     // Init the pages texts, and pictures.
     switch (index) {
         case 1:

@@ -1293,12 +1293,12 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="370"/>
                     <connections>
-                        <segue destination="VWj-pl-0hR" kind="modal" identifier="zoom" id="kjV-3T-Mj5"/>
+                        <segue destination="VWj-pl-0hR" kind="push" identifier="zoom" id="kjV-3T-Mj5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9d-Fz-Ww9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4270" y="-92"/>
+            <point key="canvasLocation" x="4270" y="-81"/>
         </scene>
         <!--Tab VideoVC-->
         <scene sceneID="hD8-nO-hXD">

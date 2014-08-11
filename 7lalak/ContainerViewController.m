@@ -42,7 +42,6 @@ UIImageView *bannerView;
 -(void)viewDidAppear:(BOOL)animated{
     
     if (jsonObject ==nil) {
-        
         [self loadTableData];
     }
 }
@@ -50,23 +49,19 @@ UIImageView *bannerView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithTitle:LocalizedString(@"HOME_TITLE")
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(home:)];
-    
-    self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
     
 }
