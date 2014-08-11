@@ -11,6 +11,7 @@
 #import "FirstViewController.h"
 #import "UIImageView+ProgressView.h"
 #import "UIColor_hex.h"
+#import "Localization.h"
 
 @interface HomePageVC ()
 
@@ -19,24 +20,19 @@
 BOOL appEnabled=TRUE;
 
 @implementation HomePageVC
+
 /*
--(id)init{
-    
-    NSString *tempValue =@"ar";
-    
-    NSString *currentLanguage = @"en";
-    
-    if ([tempValue rangeOfString:NSLocalizedString(@"English", nil)].location != NSNotFound) {
-        currentLanguage = @"en";
-    } else if ([tempValue rangeOfString:NSLocalizedString(@"Arabic", nil)].location != NSNotFound) {
-        currentLanguage = @"ar";
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ar", nil] forKey:@"AppleLanguages"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    return nil;
-}
+ To get the bundle for the current language:
+ 
+ NSString *path = [[NSBundle mainBundle] pathForResource:currentLanguage ofType:@"lproj"];
+ if (path) {
+ NSBundle *localeBundle = [NSBundle bundleWithPath:path];
+ }
+ 
+ //localized images
+ UIImage *img = [UIImage imageNamed:NSLocalizedString(@"TestImage",@"")];
  */
+
 -(BOOL)prefersStatusBarHidden{
     
     return YES;
@@ -170,6 +166,30 @@ BOOL appEnabled=TRUE;
 
 }
 
+
+- (IBAction)arClick:(id)sender {
+    
+    NSLog(@"ar");
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ar", nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    LocalizationSetLanguage(@"ar");
+    [[Localization sharedInstance] setPreferred:@"ar" fallback:@"en"];
+
+    
+}
+
+- (IBAction)enClick:(id)sender {
+    
+    NSLog(@"en");
+
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"en", nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    LocalizationSetLanguage(@"en");
+    [[Localization sharedInstance] setPreferred:@"en" fallback:@"ar"];
+
+    
+}
 
 - (IBAction)btnRefresh:(id)sender {
     [_errorHolder setHidden:TRUE];

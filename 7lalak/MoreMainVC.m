@@ -27,15 +27,22 @@ Boolean isRegistered=FALSE;
 NSString *userID;
 NSString *apiKey;
 BOOL frameSet=FALSE;
+
 @implementation MoreMainVC
 
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     [self getUserData];
-    [super viewWillAppear:TRUE];
+
 }
 
 -(void)viewDidLayoutSubviews{
+    
+    //[_btn1 setTitle:LocalizedString(@"BTN_ADD") forState:UIControlStateNormal];
+    
+    NSLog(@"prefered language: %@",[[Localization sharedInstance]getPreferredLanguage]);
+    
     [self getUserData];
     BOOL IS_4S = IS_HEIGHT_4S;
     if (!IS_4S) {

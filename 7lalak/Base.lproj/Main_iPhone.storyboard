@@ -1003,6 +1003,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="arClick:" destination="aaS-mL-xXO" eventType="touchUpInside" id="19t-bj-r33"/>
                                     <segue destination="8YX-ce-x5E" kind="modal" identifier="ar_segue" id="lal-0g-fjC"/>
                                 </connections>
                             </button>
@@ -1015,6 +1016,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="enClick:" destination="aaS-mL-xXO" eventType="touchUpInside" id="uuj-D8-rNx"/>
                                     <segue destination="8YX-ce-x5E" kind="modal" identifier="en_segue" id="ofS-Pz-jgy"/>
                                 </connections>
                             </button>
@@ -1041,8 +1043,6 @@
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="btnEN" destination="tsD-7m-HtE" id="FvB-mO-bgo"/>
-                        <outlet property="btn_ar" destination="tsD-7m-HtE" id="8uA-Rw-m2Y"/>
-                        <outlet property="btn_en" destination="vS6-rM-A24" id="5Qa-Aa-eFf"/>
                         <outlet property="buttonAR" destination="vS6-rM-A24" id="ctk-Cm-IQz"/>
                         <outlet property="errorHolder" destination="Gc0-Vl-U2B" id="uwX-hS-t7o"/>
                         <outlet property="fImageTopAds" destination="sdH-ks-uKf" id="MOd-LA-dMs"/>

@@ -1,0 +1,66 @@
+/* 
+  Strings.strings
+  7lalak
+
+  Created by Faris IOS on 7/16/14.
+  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
+*/
+
+"HOME_TITLE"="Home";
+"BTN_ADD"="ADD ENGLISH";
+"error_internet_offiline"="The Internet connection appears to be offline";
+"error_internet_timeout"="Connection Time Out";
+"NETWORK_ERROR"="Network Error";
+"OK"="Ok";
+"CANCEL"="Cancel";
+"DONE"="Done";
+"YES"="Yes";
+"DELETE"="Delete";
+"AGREE"="I agree";
+"SEARCH"="Search";
+"SEARCH_RESULT"="Search Result";
+"ERROR_NO_RESULT"="No results found !";
+"VIDEO"="Video";
+"IMAGES"="Photos";
+"PHONE_NAME_REQUIRED"="Please enter your name and phone number";
+"IMAGE"="Image";
+"DESCRIPTION"="Description";
+"Ad"="Ad";
+"BUY"="Buy";
+"LOADING"="Loading...";
+"UPLOADING"="Uploading...";
+"MESSAGE_CHOOSE_ADS"="Please choose Ads type";
+"ONE_VID_ATTACHED"="1 video file attached";
+"REPLACE_VID"="Replace Video";
+"MESSAGE_ADs_Added"="Your Ads has been added successfuly and will be available as soon as posible";
+"ERROR_SELECT_VIDEO"="Please attache video file";
+"ERROR_UPLOAD"="Error on upload , please try again";
+"VCODE_TITLE"="Verifcation Code";
+"ERROR_INVALID_VOCODE"="Invalid Verifcation code ! please try again";
+"ERROR_EMPTY_VCODE"="Verifcation code can't be empty!";
+"MESSAGE_REGISTER_SUCCESS_TITLE"="Registeration Complete";
+"MESSAGE_REGISTER_SUCCESS_MSG"=
+"Congratulation, your account is active now, you have got a free Ads points";
+"MESSAGE_FAILD_REGISTER"="Registeration Faild";
+"MESSAGE_FAILD_REGISTER_MSG"="Please try later";
+"TITLE_MORE_ADD_IMAGE"="Add Image Ad";
+"TITLE_MORE_ADD_VIDEO"="Add Video Ad";
+"TITLE_MORE_BUY_Ads"="Buy Ads";
+"TITLE_MORE_FAV"="Favoriate";
+"TITLE_MORE_ACCOUNT_INFO"="Account Info";
+"TITLE_MORE_ABOUT_Us"="About Us";
+"TITLE_MORE_CONTACT_Us"="Contact Us";
+"TITLE_MORE_REGISTER"="Registeration";
+"TITLE_MORE_MY_Ads"="My Ads";
+"ERROR_NO_ADs_SCORE"="You dont have suffeicent scroe, please buy Ads score to complete this action.";
+"DEACTIVE_MESSAGE"="Are you sure to dactive your account?";
+"SURE"="I'm sure";
+"DEACTIVE_SUCCESS"="Your account is temporarily deactived.";
+"CONFIRM_REGISTERATION"="Complete registeration?";
+"DELETE_CONFIRM"="Are you sure to delete ?";
+"FOUND_UPDATE"="A new version of 7lalek is available, Upgrade your version by visit app store.";
+"PLEASE_SELECT_PLAYLIST"="Please select playlist";
+"ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
+"ADs_CAT_REQUIRED"="Please select category";
+
+

@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonAR;
 @property (weak, nonatomic) IBOutlet UIButton *btnEN;
 @property (weak, nonatomic) IBOutlet UIView *errorHolder;
+- (IBAction)arClick:(id)sender;
+- (IBAction)enClick:(id)sender;
 
 - (IBAction)btnRefresh:(id)sender;
 

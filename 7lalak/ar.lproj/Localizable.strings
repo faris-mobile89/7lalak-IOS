@@ -6,7 +6,8 @@
   Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 */
 
-"HOME_TITLE"="Home";
+"HOME_TITLE"="الرئيسيه";
+"BTN_ADD"="ADD ARABIC";
 "error_internet_offiline"="The Internet connection appears to be offline";
 "error_internet_timeout"="Connection Time Out";
 "NETWORK_ERROR"="Network Error";
@@ -21,7 +22,7 @@
 "ERROR_NO_RESULT"="No results found !";
 "VIDEO"="Video";
 "IMAGES"="Photos";
-"PHONE_NAME_REQUIRED"="Please enter your name and phone number";
+"PHONE_NAME_REQUIRED"="enter your number & phone";
 "IMAGE"="Image";
 "DESCRIPTION"="Description";
 "Ad"="Ad";

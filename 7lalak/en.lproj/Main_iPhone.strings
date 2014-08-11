@@ -24,7 +24,7 @@
 "9z5-fR-SNe.text" = "Title";
 
 /* Class = "IBUITabBarItem"; title = "More"; ObjectID = "Arq-bH-MYh"; */
-"Arq-bH-MYh.title" = "المزيد";
+"Arq-bH-MYh.title" = "More";
 
 /* Class = "IBUIButton"; normalTitle = "Verify"; ObjectID = "BI7-Ey-a7t"; */
 "BI7-Ey-a7t.normalTitle" = "Verify";
@@ -177,7 +177,7 @@
 "x9G-Ai-75t.placeholder" = "Keywords";
 
 /* Class = "IBUIButton"; normalTitle = "My Ads"; ObjectID = "xhI-1E-gGk"; */
-"xhI-1E-gGk.normalTitle" = "اعلاناتي";
+"xhI-1E-gGk.normalTitle" = "My Ads";
 
 /* Class = "IBUISegmentedControl"; zJi-ao-Apb.segmentTitles[0] = "Sold"; ObjectID = "zJi-ao-Apb"; */
 "zJi-ao-Apb.segmentTitles[0]" = "Sold";

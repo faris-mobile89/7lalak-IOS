@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Localization.h"
 
 @interface MoreMainVC : UIViewController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *btnAdd;
