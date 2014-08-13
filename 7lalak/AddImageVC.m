@@ -43,7 +43,7 @@ float hieght;
 int selectedIndexMain;
 
 BOOL flagTextenter;
-
+bool isUserPikedImage = false;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -323,7 +323,7 @@ BOOL flagTextenter;
         [self loadSubCat];
         
     }else if (component == 1){
-        
+        isUserPikedImage = true;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
         _categoryField.text = catName;
@@ -538,6 +538,11 @@ BOOL flagTextenter;
     return YES;
 }
 -(void)doneButton:(id)sender{
+    
+    if (!isUserPikedImage) {
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        _categoryField.text = catName;
+    }
     
     [_fAdsPrice resignFirstResponder];
     [_categoryField resignFirstResponder];

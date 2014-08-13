@@ -92,6 +92,9 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="518"/>
+                    <connections>
+                        <outlet property="tabMore" destination="Arq-bH-MYh" id="7JJ-VD-x99"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KZf-yN-0qZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -110,7 +113,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price (KWD)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eqd-cV-kKR">
-                                <rect key="frame" x="38" y="62" width="242" height="30"/>
+                                <rect key="frame" x="38" y="61" width="242" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
@@ -762,6 +765,7 @@
                     <size key="freeformSize" width="320" height="518"/>
                     <connections>
                         <outlet property="fWebView" destination="TZ5-4H-yRS" id="UUC-F3-hkM"/>
+                        <outlet property="tabOffers" destination="Ll7-FC-s3U" id="uhh-RO-0kh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oui-Hf-UtZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -777,11 +781,11 @@
                         <viewControllerLayoutGuide type="bottom" id="5Dd-0g-VCq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tFj-Ul-Kce">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" verticalHuggingPriority="247" horizontalCompressionResistancePriority="751" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="juj-6p-Hbe">
-                                <rect key="frame" x="0.0" y="445" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="445" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="track_info_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ese-6R-zAH">
@@ -1105,10 +1109,10 @@
             </objects>
             <point key="canvasLocation" x="-1091" y="170"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="Vex-rW-GRa">
             <objects>
-                <tabBarController id="8YX-ce-x5E" sceneMemberID="viewController">
+                <tabBarController id="8YX-ce-x5E" customClass="TabBarViewController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="320" height="481"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" horizontalHuggingPriority="231" verticalHuggingPriority="244" barStyle="black" translucent="NO" backgroundImage="bg tabs1.png" itemPositioning="centered" itemSpacing="20" id="JQR-rB-NYL">
@@ -1721,7 +1725,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price (KWD)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wqh-YW-vAD">
-                                <rect key="frame" x="38" y="182" width="242" height="30"/>
+                                <rect key="frame" x="39" y="61" width="242" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done"/>
@@ -1751,7 +1755,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Description" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="L6X-Nv-2jc">
-                                <rect key="frame" x="39" y="58" width="241" height="116"/>
+                                <rect key="frame" x="39" y="98" width="241" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1769,7 +1773,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dzj-0F-0B6">
-                                <rect key="frame" x="39" y="20" width="242" height="30"/>
+                                <rect key="frame" x="39" y="24" width="242" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1987,9 +1991,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="lal-0g-fjC"/>
         <segue reference="EH6-vT-1a4"/>
-        <segue reference="MFU-yA-akt"/>
+        <segue reference="lal-0g-fjC"/>
+        <segue reference="M8t-EP-wfW"/>
         <segue reference="hQQ-yp-goo"/>
     </inferredMetricsTieBreakers>
 </document>

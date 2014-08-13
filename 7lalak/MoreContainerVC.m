@@ -8,6 +8,7 @@
 
 #import "MoreContainerVC.h"
 #import "UIColor_hex.h"
+#import "LocalizeHelper.h"
 
 @interface MoreContainerVC ()
 
@@ -19,9 +20,8 @@
 - (void)viewDidLoad
 {
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-
-    
     [super viewDidLoad];
+    
 }
 -(BOOL)prefersStatusBarHidden{
     return YES;
@@ -31,6 +31,5 @@
 {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

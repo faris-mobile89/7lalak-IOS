@@ -19,7 +19,10 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     [self loadWebPage];
-
+    
+    
+   // UIApplication * app = [[UIApplication alloc]init];
+    //[_tabOffers setBadgeValue:[[NSString alloc]initWithFormat:@"%i",app.applicationIconBadgeNumber]];
 }
 
 - (void)viewDidLoad

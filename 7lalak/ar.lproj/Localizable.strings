@@ -62,5 +62,45 @@
 "PLEASE_SELECT_PLAYLIST"="Please select playlist";
 "ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
 "ADs_CAT_REQUIRED"="Please select category";
+//=========================new Strings=================//
+"PICK_GALLERY"="Pick from gallery";
+"Open_camera"="Open camera";
+//=================Storyboard UI ===================//
+"TAB_OFFERS"="العروض";
+"TAB_SECTIONS"="الاقسام";
+"TAB_MEDIA"="الصوتيات";
+"TAB_MORE"="المزيد";
+//===More Page ====//
+"BTN_Add"="اضافه اعلان";
+"BTN_FAV"="المفضله";
+"BTN_BUY"="شراء اعلانات";
+"BTN_INFO"="معومات الحساب";
+"BTN_ABOUT"="من نحن";
+"BTN_CONTACT"="اتصل بنا";
+"BTN_MY_Ad"="اعلاناتي";
+//=== More -> Add === //
+"holder_cat"="القسم";
+"holder_price"="السعر (دينار كويتي)";
+"holder_description"="الوصف";
+"btn_Add_Image"="اضف صوره";
+"btn_Add_Video"="اضف فيديو";
+"btn_Upload"="نشر الاعلان";
+//=== More -> Add  === //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

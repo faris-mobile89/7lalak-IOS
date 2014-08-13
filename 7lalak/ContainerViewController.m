@@ -59,7 +59,7 @@ UIImageView *bannerView;
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(home:)];
-        self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
@@ -98,9 +98,8 @@ UIImageView *bannerView;
                          [activityIndicator stopAnimating];
                          [self.tableView reloadData];
                          
-                         //NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
+                        // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
                          [self loadBanner];
-                         
                          
                      });
                  } else {

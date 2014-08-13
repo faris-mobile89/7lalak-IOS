@@ -136,7 +136,9 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=main&lang=en"];
+    NSString *uRlString= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=mainCat&cat_id=%@",catId ];
+    
+    NSURL* url = [NSURL URLWithString:uRlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -160,8 +162,9 @@ UIImageView *bannerView;
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
                          if ([jsonBanner objectForKey:@"url"]!=nil) {
+                            //   NSLog(@"%@",[jsonBanner objectForKey:@"url"]);
                              
-                             [self.view addSubview:bannerView];
+                           [self.view addSubview:bannerView];
                              [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
                              
                          }
@@ -254,10 +257,10 @@ UIImageView *bannerView;
     
     if ([[segue identifier] isEqualToString:@"itemsDetails"] ){
         
-        SubCatVC *tableVC = [segue destinationViewController];
+        ItemsViewController *tableVC = [segue destinationViewController];
         NSString *param = [[NSString alloc]initWithFormat:@"%@%@",
          catId,[[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"] ];
-        
+        tableVC.subCatId = [[[jsonObject objectForKey:@"SubCat"] objectAtIndex:selectedIndex]objectForKey:@"id"];
         tableVC.catId = param;
     }
 }

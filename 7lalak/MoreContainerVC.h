@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MoreContainerVC : UIViewController
+@property (weak, nonatomic) IBOutlet UITabBarItem *tabMore;
 
 @end

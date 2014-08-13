@@ -46,6 +46,18 @@
 float hieght;
 bool flagTextenter;
 int selectedIndexMain;
+bool isUserPiked = false;
+
+-(void)viewDidLayoutSubviews{
+    
+    //== Localization UI =====//
+    [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
+    [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
+    [_fAdsText setText:LocalizedString(@"holder_description")];
+    [_buttonaddVideo setTitle:LocalizedString(@"btn_Add_Video") forState:UIControlStateNormal];
+    [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -80,7 +92,7 @@ int selectedIndexMain;
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
     numberToolbar.items = [NSArray arrayWithObjects:
                            
-                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"DONE") style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
                            
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
@@ -98,7 +110,7 @@ int selectedIndexMain;
 
 - (IBAction)addVideoButton:(id)sender {
     
-    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:@"Pick from gallery",@"Open camera", nil];
+    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"PICK_GALLERY"),LocalizedString(@"Open_camera"), nil];
     [chooser show];
 }
 
@@ -316,8 +328,10 @@ int selectedIndexMain;
         [self loadSubCat];
         
     }else if (component == 1){
+        isUserPiked = true;
         
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
+        
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
         _categoryField.text = catName;
     }
@@ -367,22 +381,13 @@ int selectedIndexMain;
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
                  [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
                  
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
                      NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
@@ -445,35 +450,19 @@ int selectedIndexMain;
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
                  [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+                
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 
-                 [internetError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
              });
          }
@@ -511,6 +500,11 @@ int selectedIndexMain;
 
 -(void)doneButton:(id)sender{
     
+    if (!isUserPiked) {
+    NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+    _categoryField.text = catName;
+    }
+    
     [_fAdsPrice resignFirstResponder];
     [_categoryField resignFirstResponder];
 
@@ -539,6 +533,12 @@ int selectedIndexMain;
 -(void)showMessage:(NSString *)title message:(NSString*)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    [internetError show];
+}
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
     [internetError show];
 }
 

@@ -75,7 +75,8 @@ UIImageView *bannerView;
 
 -(void)loadBanner{
     
-    NSString *strUl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=items&cat_id%@",catId ];
+    NSString *strUl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getBanner.php?device=IOS&cat=sub&cat_id=%@",_subCatId ];
+    
     NSURL* url = [NSURL URLWithString:strUl];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -100,7 +101,8 @@ UIImageView *bannerView;
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
                          if ([jsonBanner objectForKey:@"url"]!=nil) {
-                             
+                             //   NSLog(@"%@",[jsonBanner objectForKey:@"url"]);
+
                              [self.view addSubview:bannerView];
                              [bannerView sd_setImageWithURL:[NSURL URLWithString:[jsonBanner objectForKey:@"url"]]];
                              

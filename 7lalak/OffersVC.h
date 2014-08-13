@@ -8,5 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @interface OffersVC : UIViewController<UIWebViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITabBarItem *tabOffers;
+
 @property (weak, nonatomic) IBOutlet UIWebView *fWebView;
 @end

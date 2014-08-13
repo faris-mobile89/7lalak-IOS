@@ -15,6 +15,7 @@
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) NSString *catId;
+@property (strong,nonatomic) NSString *subCatId;
 @property (nonatomic) int numberOfnewPosts;
 @property (nonatomic) UIRefreshControl *refreshControl;
 @property (readwrite)	CFURLRef		soundFileURLRef;

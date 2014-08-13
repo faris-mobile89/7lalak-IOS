@@ -176,6 +176,7 @@
 	
 	NSString *badge = [apsInfo objectForKey:@"badge"];
 	NSLog(@"Received Push Badge: %@", badge);
+    
 	application.applicationIconBadgeNumber = [[apsInfo objectForKey:@"badge"] integerValue];
 	
 #endif

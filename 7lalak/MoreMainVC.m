@@ -40,7 +40,14 @@ BOOL frameSet=FALSE;
 
 -(void)viewDidLayoutSubviews{
     
-    //[_btn1 setTitle:LocalizedString(@"BTN_ADD") forState:UIControlStateNormal];
+    [_btn1 setTitle:LocalizedString(@"BTN_FAV") forState:UIControlStateNormal];
+    [_btn2 setTitle:LocalizedString(@"BTN_Add") forState:UIControlStateNormal];
+    [_btn3 setTitle:LocalizedString(@"BTN_INFO") forState:UIControlStateNormal];
+    [_btn4 setTitle:LocalizedString(@"BTN_BUY") forState:UIControlStateNormal];
+    [_btn5 setTitle:LocalizedString(@"BTN_CONTACT") forState:UIControlStateNormal];
+    [_btn6 setTitle:LocalizedString(@"BTN_ABOUT") forState:UIControlStateNormal];
+    [_btn7 setTitle:LocalizedString(@"BTN_MY_Ad") forState:UIControlStateNormal];
+
     
     NSLog(@"prefered language: %@",[[Localization sharedInstance]getPreferredLanguage]);
     

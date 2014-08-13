@@ -62,5 +62,32 @@
 "PLEASE_SELECT_PLAYLIST"="Please select playlist";
 "ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
 "ADs_CAT_REQUIRED"="Please select category";
+//=================Storyboard UI ===================//
+"TAB_OFFERS"="Offers";
+"TAB_SECTIONS"="Sections";
+"TAB_MEDIA"="Media";
+"TAB_MORE"="More";
+//===More Page ====//
+"BTN_Add"="Add";
+"BTN_FAV"="Favoriate";
+"BTN_BUY"="Buy Ads";
+"BTN_INFO"="Account Info";
+"BTN_ABOUT"="About Us";
+"BTN_CONTACT"="Contact Us";
+"BTN_MY_Ad"="My Ads";
+//=== More -> Add === //
+"holder_cat"="Cateogry";
+"holder_price"="Price (KWD)";
+"holder_description"="Description";
+"btn_Add_Image"="Add Image";
+"btn_Add_Video"="Add Video";
+"btn_Upload"="Upload";
+//=== More -> Add  === //
+
+
+
+
+
+
 
 
