@@ -17,6 +17,7 @@
 #import "LocalizeHelper.h"
 #import "MyAdsVC.h"
 #import "UIColor_hex.h"
+#import "AboutUsVC.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -200,6 +201,10 @@ BOOL frameSet=FALSE;
 }
 
 - (IBAction)btnAboutUS:(id)sender {
+    
+    AboutUsVC *about = [self.storyboard instantiateViewControllerWithIdentifier:@"about_us"];
+    
+    [self.navigationController pushViewController:about animated:YES];
 }
 
 -(void)checkUserAdsScore :(NSString *)choosenType{

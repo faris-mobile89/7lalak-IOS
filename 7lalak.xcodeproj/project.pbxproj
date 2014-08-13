@@ -196,6 +196,8 @@
 		E0A560C8195CF57200FD0D70 /* JSONLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A560C7195CF57200FD0D70 /* JSONLoader.m */; };
 		E0A560CB195CF6C200FD0D70 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A560CA195CF6C200FD0D70 /* MBProgressHUD.m */; };
 		E0A852E91984DFD200AA9593 /* refresh-icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A852E51984DFD200AA9593 /* refresh-icon3.png */; };
+		E0B0CC35199B7C39007F2C81 /* about_us.html in Resources */ = {isa = PBXBuildFile; fileRef = E0B0CC34199B7C39007F2C81 /* about_us.html */; };
+		E0B0CC38199B7D59007F2C81 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B0CC37199B7D59007F2C81 /* AboutUsVC.m */; };
 		E0BEDB7B1998ED0600F45E80 /* UIColor_hex.m in Sources */ = {isa = PBXBuildFile; fileRef = E0BEDB7A1998ED0600F45E80 /* UIColor_hex.m */; };
 		E0D81D1E1975106800A6F998 /* tap.aif in Resources */ = {isa = PBXBuildFile; fileRef = E0D81D1D1975106800A6F998 /* tap.aif */; };
 		E0D8820D1958634A00557F5B /* TabDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D8820C1958634A00557F5B /* TabDescriptionVC.m */; };
@@ -539,6 +541,9 @@
 		E0A560C9195CF6C200FD0D70 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E0A560CA195CF6C200FD0D70 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		E0A852E51984DFD200AA9593 /* refresh-icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-icon3.png"; sourceTree = "<group>"; };
+		E0B0CC34199B7C39007F2C81 /* about_us.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about_us.html; path = ../../about_us.html; sourceTree = "<group>"; };
+		E0B0CC36199B7D59007F2C81 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
+		E0B0CC37199B7D59007F2C81 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		E0BEDB791998ED0600F45E80 /* UIColor_hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColor_hex.h; sourceTree = "<group>"; };
 		E0BEDB7A1998ED0600F45E80 /* UIColor_hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColor_hex.m; sourceTree = "<group>"; };
 		E0D81D1D1975106800A6F998 /* tap.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = tap.aif; path = ../tap.aif; sourceTree = "<group>"; };
@@ -761,6 +766,8 @@
 				E010F3031975E41C00CE0803 /* Register Controller */,
 				E08B86F7197886F60064968E /* Contact Us */,
 				E08F4C8919626C2A00A6DDFB /* CustomCell */,
+				E0B0CC36199B7D59007F2C81 /* AboutUsVC.h */,
+				E0B0CC37199B7D59007F2C81 /* AboutUsVC.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1165,6 +1172,7 @@
 		E0E84EB5195A52BC00308080 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0CC34199B7C39007F2C81 /* about_us.html */,
 				E0D81D1D1975106800A6F998 /* tap.aif */,
 				E0E84EB6195A52BC00308080 /* background-gradient.png */,
 				E0E84EB7195A52BC00308080 /* background-gradient@2x.png */,
@@ -1387,6 +1395,7 @@
 				E0D81D1E1975106800A6F998 /* tap.aif in Resources */,
 				E0680210196876A70002B692 /* Icon-Small-50.png in Resources */,
 				E03BB3251998DC8A00F2191A /* photo-gallery-trashcan.png in Resources */,
+				E0B0CC35199B7C39007F2C81 /* about_us.html in Resources */,
 				E068020419686BF00002B692 /* ProductCell.xib in Resources */,
 				E08F4C8E19626C3F00A6DDFB /* UploadCell.xib in Resources */,
 				E023973F195FEE8600E0AA28 /* UserInfoData.plist in Resources */,
@@ -1529,6 +1538,7 @@
 				E0890D401955C65F009A9A48 /* FirstViewController.m in Sources */,
 				E0480D67195D18C200EAA25A /* SDWebImageManager.m in Sources */,
 				E0480D6C195D18C200EAA25A /* UIImage+WebP.m in Sources */,
+				E0B0CC38199B7D59007F2C81 /* AboutUsVC.m in Sources */,
 				E0890D631955C8FE009A9A48 /* SubCatVC.m in Sources */,
 				E016E2DE19579E2A007EE60B /* Home1ViewCell.m in Sources */,
 				E02455BF197B982100D1C9F0 /* id3_parser.cpp in Sources */,
@@ -1712,7 +1722,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = 7lalek;
 				PROVISIONING_PROFILE = "6AB83814-A6AD-47A4-ABB6-0A3A3D187FC9";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1730,7 +1740,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = 7lalek;
 				PROVISIONING_PROFILE = "6AB83814-A6AD-47A4-ABB6-0A3A3D187FC9";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
