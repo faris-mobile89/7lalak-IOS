@@ -16,12 +16,10 @@
 
 @implementation ContactUsVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
+-(void)viewDidLayoutSubviews{
+    
+    [_label_form setText:LocalizedString(@"label_form")];
+    [_btn_send setTitle:LocalizedString(@"btn_send_text") forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad
@@ -51,7 +49,7 @@
     
     if ([_contactForm.text length] < 10) {
         
-        UIAlertView *formError = [[UIAlertView alloc] initWithTitle: nil message:@"please write at least 4 words !" delegate: self cancelButtonTitle: @"Done" otherButtonTitles: nil];
+        UIAlertView *formError = [[UIAlertView alloc] initWithTitle: nil message:LocalizedString(@"error_form_contact_1") delegate: nil cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles: nil];
         
         [formError show];
         
@@ -59,15 +57,17 @@
         [self submit];
     }
 }
+
 -(void)submit{
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=contact_us&user_id=%@&text=%@",_userID,_contactForm.text];
-    
-    NSURL* url = [NSURL URLWithString:urlString];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=contact_us&user_id=%@&text=%@",_userID,_contactForm.text];
+
+    NSString *encodeURL = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:encodeURL];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     
@@ -90,50 +90,48 @@
                  NSError* error;
                  
                  id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
                          
+                         [self showMessage:LocalizedString(@"Thanks_contactUs_title") message:LocalizedString(@"Thanks_contactUs_msg")];
+                        _contactForm.text=@"";
+                         [activityIndicator stopAnimating];
+
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         NSLog(@"ERROR: %@", error);
+                         [activityIndicator stopAnimating];
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
-                     [activityIndicator stopAnimating];
-                 });
-             }
+                 }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
+                  [activityIndicator stopAnimating];
              });
          }
      }];
     
 
+}
+-(void)showMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    [internetError show];
+}
+
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 - (void)didReceiveMemoryWarning
 {

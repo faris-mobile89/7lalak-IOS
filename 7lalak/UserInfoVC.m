@@ -39,6 +39,10 @@
     if (IS_4S) {
         [self set4SFrame];
     }
+    [_lable_adsScore setText:LocalizedString(@"label_adsScore")];
+    [_lable_adImageScore setText:LocalizedString(@"label_adsImageScore")];
+    [_lablel_adVidScore setText:LocalizedString(@"label_adsVideoScore")];
+    [_btnDeactive setTitle:LocalizedString(@"btn_deactive") forState:UIControlStateNormal];
     [super viewDidLayoutSubviews];
 }
 - (void)viewDidLoad

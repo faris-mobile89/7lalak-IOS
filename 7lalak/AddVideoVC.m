@@ -12,8 +12,8 @@
 #import "AFNetworking.h"
 #import "UploadCell.h"
 #import "UIColor_hex.h"
-#import <MobileCoreServices/UTCoreTypes.h>
 #import "LocalizeHelper.h"
+#import "Localization.h"
 #include "HUD.h"
 
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
@@ -165,10 +165,6 @@ bool isUserPiked = false;
     _textVideoindicator.text=LocalizedString(@"ONE_VID_ATTACHED");
     [_imageVideoIndicator setImage:[UIImage imageNamed:@"ic_video_file.png"]];
     [_buttonaddVideo setTitle:LocalizedString(@"REPLACE_VID") forState:UIControlStateNormal];
-    
-    //[imagesDataToUpload addObject:imageToUpload];
-    
-    //[imagesData addObject:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
     
 
 }
@@ -339,8 +335,8 @@ bool isUserPiked = false;
 
 -(void)loadSubCat{
     
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
     [activityIndicator startAnimating];
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -404,14 +400,13 @@ bool isUserPiked = false;
 
 -(void)loadMainCat{
     
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&lang=%@",[[Localization sharedInstance]getPreferredLanguage]];
     
-    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
+    NSURL* url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    
     [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -421,7 +416,6 @@ bool isUserPiked = false;
                                                NSData* data,
                                                NSError* error)
      {
-         
          if (data) {
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              
@@ -464,6 +458,7 @@ bool isUserPiked = false;
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
+                 
              });
          }
      }];
@@ -507,7 +502,6 @@ bool isUserPiked = false;
     
     [_fAdsPrice resignFirstResponder];
     [_categoryField resignFirstResponder];
-
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -535,6 +529,7 @@ bool isUserPiked = false;
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
     [internetError show];
 }
+
 -(void)showErrorInterentMessage:(NSString *)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];

@@ -62,11 +62,15 @@
 "PLEASE_SELECT_PLAYLIST"="Please select playlist";
 "ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
 "ADs_CAT_REQUIRED"="Please select category";
+//=========================new Strings=================//
+"PICK_GALLERY"="Pick from gallery";
+"Open_camera"="Open camera";
 //=================Storyboard UI ===================//
 "TAB_OFFERS"="Offers";
 "TAB_SECTIONS"="Sections";
 "TAB_MEDIA"="Media";
 "TAB_MORE"="More";
+"NEW"="new";
 //===More Page ====//
 "BTN_Add"="Add";
 "BTN_FAV"="Favoriate";
@@ -82,9 +86,17 @@
 "btn_Add_Image"="Add Image";
 "btn_Add_Video"="Add Video";
 "btn_Upload"="Upload";
-//=== More -> Add  === //
-
-
+//=== More -> info  === //
+"label_adsScore"="Ads Score";
+"label_adsVideoScore"="Ads video score";
+"label_adsImageScore"="Ads image score";
+"btn_deactive"="Deactive Account";
+//=== More -> more  === //
+"error_form_contact_1"="please write at least 4 words !";
+"Thanks_contactUs_title"="Thank you for contacting us";
+"Thanks_contactUs_msg"="We have received your enquiry and will respond to you within 24 hours. We will email you with a confirmation that we have received your enquiry";
+"label_form"="Write your enquiry";
+"btn_send_text"="Send";
 
 
 

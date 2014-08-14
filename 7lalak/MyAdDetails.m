@@ -12,6 +12,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "AFNetworking.h"
+#import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -284,8 +285,9 @@ bool flagEditCat= false;
 -(void)loadSubCat{
     
     
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
+    [activityIndicator startAnimating];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -381,16 +383,14 @@ bool flagEditCat= false;
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&lang=%@",[[Localization sharedInstance]getPreferredLanguage]];
     
+    NSURL* url = [NSURL URLWithString:urlString];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
     
     [activityIndicator startAnimating];
     
-    
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    
     [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:queue
                            completionHandler:^(NSURLResponse* response,
@@ -413,11 +413,7 @@ bool flagEditCat= false;
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
                          [self loadSubCat];
-                         
                          // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
-                         
-                         
-                         
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{

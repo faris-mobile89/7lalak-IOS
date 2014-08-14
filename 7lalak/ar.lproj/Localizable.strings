@@ -13,6 +13,7 @@
 "NETWORK_ERROR"="Network Error";
 "OK"="Ok";
 "CANCEL"="Cancel";
+"CANCEL"="الغاء";
 "DONE"="Done";
 "YES"="Yes";
 "DELETE"="Delete";
@@ -63,13 +64,14 @@
 "ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
 "ADs_CAT_REQUIRED"="Please select category";
 //=========================new Strings=================//
-"PICK_GALLERY"="Pick from gallery";
-"Open_camera"="Open camera";
+"PICK_GALLERY"="اضافه من الاستيديو";
+"Open_camera"="التقاط صوره من الكاميرا";
 //=================Storyboard UI ===================//
 "TAB_OFFERS"="العروض";
 "TAB_SECTIONS"="الاقسام";
 "TAB_MEDIA"="الصوتيات";
 "TAB_MORE"="المزيد";
+"NEW"="new";
 //===More Page ====//
 "BTN_Add"="اضافه اعلان";
 "BTN_FAV"="المفضله";
@@ -85,22 +87,17 @@
 "btn_Add_Image"="اضف صوره";
 "btn_Add_Video"="اضف فيديو";
 "btn_Upload"="نشر الاعلان";
-//=== More -> Add  === //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//=== More -> info  === //
+"label_adsScore"="رصيد الاعلانات";
+"label_adsImageScore"="عدد اعلانات الصور";
+"label_adsVideoScore"="عدد اعلانات الفيديو";
+"btn_deactive"="ايقاف الحساب";
+//=== More -> more  === //
+"error_form_contact_1"="please write at least 4 words !";
+"Thanks_contactUs_title"="Thank you for contacting us";
+"Thanks_contactUs_msg"="We have received your enquiry and will respond to you within 24 hours. We will email you with a confirmation that we have received your enquiry";
+"label_form"="اكتب استفسارك هنا ";
+"btn_send_text"="ارسال";
 
 
 

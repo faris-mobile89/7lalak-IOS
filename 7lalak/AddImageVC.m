@@ -13,6 +13,7 @@
 #import "UploadCell.h"
 #import "UIColor_hex.h"
 #import "LocalizeHelper.h"
+#import "Localization.h"
 
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
 #define SCREEN_HEIGHT [[UIScreen mainScreen ] bounds].size.height>=568.0f?480:300;
@@ -44,6 +45,17 @@ int selectedIndexMain;
 
 BOOL flagTextenter;
 bool isUserPikedImage = false;
+
+-(void)viewDidLayoutSubviews{
+    
+    //== Localization UI =====//
+    [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
+    [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
+    [_fAdsText setText:LocalizedString(@"holder_description")];
+    [choosePhotoBtn setTitle:LocalizedString(@"btn_Add_Image") forState:UIControlStateNormal];
+    [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -102,7 +114,7 @@ bool isUserPikedImage = false;
 
 -(IBAction) getPhoto:(id) sender {
     
-    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"Pick from gallery",@"Open camera", nil];
+    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"PICK_GALLERY"),LocalizedString(@"Open_camera"), nil];
     [chooser show];
 	
 }
@@ -164,7 +176,7 @@ bool isUserPikedImage = false;
     if ([_fAdsPrice.text length] < 1)
         _fAdsPrice.text=@"0";
     
-    NSLog(@"starting Upload");
+    //NSLog(@"starting Upload");
     [_upload_btn setEnabled:FALSE];
     [self uploadService];
     
@@ -223,7 +235,7 @@ bool isUserPikedImage = false;
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                           //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [activityIndicator stopAnimating];
                                            [_upload_btn setEnabled:TRUE];
                                            [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
@@ -333,9 +345,9 @@ bool isUserPikedImage = false;
 
 -(void)loadSubCat{
  
- 
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
+    [activityIndicator startAnimating];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -367,7 +379,6 @@ bool isUserPikedImage = false;
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          
-                         
                          //NSLog(@"subCat: %@", subCat);
                          
                      });
@@ -380,34 +391,18 @@ bool isUserPikedImage = false;
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
              }else{
                  [activityIndicator stopAnimating];
                  
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  
-                 [internetError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
              });
          }
@@ -417,8 +412,9 @@ bool isUserPikedImage = false;
 
 -(void)loadMainCat{
     
-    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat"];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&lang=%@",[[Localization sharedInstance]getPreferredLanguage]];
     
+    NSURL* url = [NSURL URLWithString:urlString];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
 
     
@@ -462,36 +458,19 @@ bool isUserPikedImage = false;
                      });
                  }
              }
-             
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
              }else{
                  [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
                      NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
-             // request failed - error contains info about the failure
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 
-                 [internetError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
              });
          }
@@ -528,6 +507,7 @@ bool isUserPikedImage = false;
     }
     else return YES;
 }
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
     return YES;
@@ -536,6 +516,12 @@ bool isUserPikedImage = false;
     
     [_fAdsPrice resignFirstResponder];
     return YES;
+}
+-(void)showErrorInterentMessage:(NSString *)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
 }
 -(void)doneButton:(id)sender{
     

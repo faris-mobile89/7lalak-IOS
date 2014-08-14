@@ -48,9 +48,7 @@ BOOL frameSet=FALSE;
     [_btn6 setTitle:LocalizedString(@"BTN_ABOUT") forState:UIControlStateNormal];
     [_btn7 setTitle:LocalizedString(@"BTN_MY_Ad") forState:UIControlStateNormal];
 
-    
-    NSLog(@"prefered language: %@",[[Localization sharedInstance]getPreferredLanguage]);
-    
+        
     [self getUserData];
     BOOL IS_4S = IS_HEIGHT_4S;
     if (!IS_4S) {

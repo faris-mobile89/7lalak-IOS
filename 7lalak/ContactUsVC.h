@@ -13,5 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *contactForm;
 @property (strong,nonatomic) NSString *userID;
+@property (weak, nonatomic) IBOutlet UILabel *label_form;
+@property (weak, nonatomic) IBOutlet UIButton *btn_send;
 
 @end

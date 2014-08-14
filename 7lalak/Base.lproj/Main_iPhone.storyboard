@@ -544,6 +544,9 @@
                         <outlet property="fAdsVideoCount" destination="zsh-T5-GZO" id="dKW-Qk-L0J"/>
                         <outlet property="fPhone" destination="GN3-H5-pMX" id="qxG-Ih-DPn"/>
                         <outlet property="fUserName" destination="DI8-NT-ocz" id="QfC-2Z-n3C"/>
+                        <outlet property="lable_adImageScore" destination="L1J-FE-Oub" id="vKB-Y9-pHP"/>
+                        <outlet property="lable_adsScore" destination="kbb-jp-qgT" id="mDk-A2-DyD"/>
+                        <outlet property="lablel_adVidScore" destination="dZ5-uZ-HgB" id="pYi-Zj-W69"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ze4-5j-XcG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -707,20 +710,28 @@
                                     <action selector="fbtnRegister:" destination="28e-oi-Rwh" eventType="touchUpInside" id="mqf-8H-6bs"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xnL-Xa-4Qg">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xnL-Xa-4Qg">
                                 <rect key="frame" x="40" y="85" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" keyboardAppearance="alert" returnKeyType="done"/>
                             </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Write your enquiry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feM-7w-3Pg">
+                                <rect key="frame" x="40" y="56" width="240" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="518"/>
                     <connections>
+                        <outlet property="btn_send" destination="jGw-kx-MF0" id="Ll2-5q-nLS"/>
                         <outlet property="contactForm" destination="xnL-Xa-4Qg" id="Qds-pD-XLj"/>
+                        <outlet property="label_form" destination="feM-7w-3Pg" id="QX7-Vk-SBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7p4-T8-BNv" userLabel="First Responder" sceneMemberID="firstResponder"/>

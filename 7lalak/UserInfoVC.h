@@ -16,5 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnDeactive;
 - (IBAction)btnDeactiveAccount:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *lable_adsScore;
+@property (weak, nonatomic) IBOutlet UILabel *lablel_adVidScore;
+@property (weak, nonatomic) IBOutlet UILabel *lable_adImageScore;
 
 @end

@@ -18,11 +18,24 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    [self loadWebPage];
     
+    NSString *string = [_fWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('html')[0].innerHTML"];
+    BOOL isEmpty = [string length] < 50;
     
-   // UIApplication * app = [[UIApplication alloc]init];
-    //[_tabOffers setBadgeValue:[[NSString alloc]initWithFormat:@"%i",app.applicationIconBadgeNumber]];
+    if (isEmpty) {
+         [self loadWebPage];
+    }
+    
+    int BadgeValue = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    
+    if (BadgeValue < 1) {
+        
+        [_tabOffers setBadgeValue:LocalizedString(@"NEW")];
+        
+    }else{
+        
+        [_tabOffers setBadgeValue:[[NSString alloc]initWithFormat:@"%i",BadgeValue ]];
+    }
 }
 
 - (void)viewDidLoad
@@ -30,9 +43,6 @@
     
     _fWebView.delegate = self;
     _fWebView.scrollView.scrollEnabled = NO;
-    
-    //[self loadWebPage];
-  
     
     [super viewDidLoad];
 }
