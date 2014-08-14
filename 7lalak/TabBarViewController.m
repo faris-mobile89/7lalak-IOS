@@ -20,7 +20,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"ya hla bl tab");
     
     // Assign tab bar item with titles
     UITabBar *tabBar = self.tabBar;

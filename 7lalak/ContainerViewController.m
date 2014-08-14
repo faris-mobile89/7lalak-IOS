@@ -19,7 +19,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HomePageVC.h"
 #import "LocalizeHelper.h"
-
+#import "Localization.h"
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 
@@ -29,6 +29,8 @@
 
 @implementation ContainerViewController
 @synthesize jsonObject,selectedIndex;
+
+NSString*lang;
 
 UIImageView *bannerView;
 
@@ -44,6 +46,7 @@ UIImageView *bannerView;
     if (jsonObject ==nil) {
         [self loadTableData];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -63,11 +66,14 @@ UIImageView *bannerView;
     self.tableView.backgroundView = [UIView new] ;
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
     
 }
 -(void)loadTableData{
     
-    NSURL* url = [NSURL URLWithString:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&device=IOS&lan=ar"];
+    NSString *feedsURl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&device=IOS&lang=%@",lang];
+    NSURL* url = [NSURL URLWithString:feedsURl];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     

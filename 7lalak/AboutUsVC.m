@@ -16,8 +16,9 @@
 
 @implementation AboutUsVC
 
--(void)viewWillAppear:(BOOL)animated{
-    
+
+- (void)viewDidLoad
+{
     [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING") withTimeout:2];
     NSBundle *bundle=[NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:@"about_us" ofType: @"html"];
@@ -25,10 +26,6 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:fileUrl];
     
     [_webView loadRequest:request];
-}
-
-- (void)viewDidLoad
-{
     [super viewDidLoad];
 }
 

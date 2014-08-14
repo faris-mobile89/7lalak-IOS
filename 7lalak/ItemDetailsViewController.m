@@ -24,9 +24,9 @@ TabDescriptionVC *tabDescription;
 @implementation ItemDetailsViewController
 @synthesize jsonObject;
 
+
 -(void)viewDidLayoutSubviews{
     
-   // networkCaptions = [[NSArray alloc] initWithObjects:@"Happy New Year!",@"Frosty Web",nil];
   
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
@@ -75,9 +75,14 @@ TabDescriptionVC *tabDescription;
 }
 - (void)viewDidLoad
 {
-    //NSLog(@"JSONObject%@",jsonObject);
-    [super viewDidLoad];
     
+    // increment number of views to current Ad
+    
+    [self numberOfviews];
+    
+    [super viewDidLoad];
+    //NSLog(@"JSONObject%@",jsonObject);
+
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -107,14 +112,14 @@ TabDescriptionVC *tabDescription;
             
             /* OLD DESIGN
             // sub view display
-             
             [tabImage willMoveToParentViewController:self];
             [self.containterView addSubview:tabImage.view];
             [self addChildViewController:tabImage];
             [tabImage didMoveToParentViewController:self];
             [tabImage setTitle:LocalizedString(@"IMAGES")];
              */
-           [tabImage setTitle:LocalizedString(@"IMAGES")];
+
+            [tabImage setTitle:LocalizedString(@"IMAGES")];
 
             
             networkGallery = [[FGalleryViewController alloc] initWithPhotoSource:self];
@@ -153,7 +158,7 @@ TabDescriptionVC *tabDescription;
     NSString *caption;
     
     if( gallery == networkGallery ) {
-        caption = @"";//[networkCaptions objectAtIndex:index];
+        caption = @"";
     }
 	return caption;
 }
@@ -162,6 +167,44 @@ TabDescriptionVC *tabDescription;
     return [networkImages objectAtIndex:index];
 }
 
+#pragma statistics traking
+
+-(void)numberOfviews {
+    
+    NSString *strUl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?device=IOS&tag=numberOfViews&Ad_id=%@",[jsonObject objectForKey:@"id"]];
+    
+    NSURL* url = [NSURL URLWithString:strUl];
+    
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:queue
+                           completionHandler:^(NSURLResponse* response,
+                                               NSData* data,
+                                               NSError* error)
+     {
+         
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             
+             if (httpResponse.statusCode == 200 /* OK */) {
+                 NSError* error;
+                 
+                 id jsonBanner = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonBanner) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                     });
+                 }
+             }
+             
+         }
+     }];
+    
+
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

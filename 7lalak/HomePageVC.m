@@ -169,7 +169,7 @@ BOOL appEnabled=TRUE;
 
 - (IBAction)arClick:(id)sender {
     
-    NSLog(@"ar");
+   // NSLog(@"ar");
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ar", nil] forKey:@"AppleLanguages"];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -181,7 +181,7 @@ BOOL appEnabled=TRUE;
 
 - (IBAction)enClick:(id)sender {
     
-    NSLog(@"en");
+   // NSLog(@"en");
 
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"en", nil] forKey:@"AppleLanguages"];
     [[NSUserDefaults standardUserDefaults]synchronize];

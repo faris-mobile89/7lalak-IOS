@@ -1504,6 +1504,23 @@
                                 <rect key="frame" x="172" y="42" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="300" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SA1-ot-tMF">
+                                <rect key="frame" x="221" y="167" width="56" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="view" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fp-nA-ssY">
+                                <rect key="frame" x="177" y="167" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="FkU-wW-ZSD">
+                                <rect key="frame" x="278" y="160" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -1520,6 +1537,7 @@
                         <outlet property="fPrice" destination="YWq-4T-106" id="mC3-yN-0rL"/>
                         <outlet property="iconFav" destination="ZYd-Ys-k0c" id="mtu-hx-7kh"/>
                         <outlet property="imgSoldFlag" destination="gnB-CT-rk1" id="wvK-YH-nMm"/>
+                        <outlet property="numberOfViews" destination="SA1-ot-tMF" id="eJp-AX-Fqp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qos-4u-VGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1965,6 +1983,7 @@
         <image name="Icon-network-error.png" width="240" height="190"/>
         <image name="bg tabs1.png" width="1" height="49"/>
         <image name="bg_header.png" width="1" height="44"/>
+        <image name="eye.png" width="32" height="32"/>
         <image name="ic_defualt_image.png" width="521" height="520"/>
         <image name="ic_edit.png" width="48" height="48"/>
         <image name="ic_home_Ads.png" width="32" height="32"/>

@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 #import "LocalizeHelper.h"
+#import "Localization.h"
 
 
 @interface SubCatVC ()
@@ -46,7 +47,7 @@ UIImageView *bannerView;
     [self.tableView setBackgroundColor: [UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
-    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@",catId];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
     NSURL* url = [NSURL URLWithString:urlString];
     

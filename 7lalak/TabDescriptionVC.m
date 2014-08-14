@@ -27,7 +27,6 @@
     fImage.layer.masksToBounds = YES;
     fImage.clipsToBounds = YES;
     fImage.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
-
     
     fDescription.layer.cornerRadius=6;
     fDescription.layer.borderWidth=0.3;
@@ -64,7 +63,7 @@
     
     [fDescription setText:[jsonObject objectForKey:@"description"]];
     [fDate setText:[jsonObject objectForKey:@"created"]];
-    
+    [_numberOfViews setText:[jsonObject objectForKey:@"views"]];
     [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
     
     NSString * status = [jsonObject objectForKey:@"status"];
@@ -74,8 +73,6 @@
         [_imgSoldFlag setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
     else
         [_imgSoldFlag setImage:nil];
-    
-   
 }
 
 - (void)didReceiveMemoryWarning
