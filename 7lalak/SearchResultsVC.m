@@ -169,7 +169,7 @@
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                      [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                   placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+                   placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
     
     if ([[[jsonObject
            objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {

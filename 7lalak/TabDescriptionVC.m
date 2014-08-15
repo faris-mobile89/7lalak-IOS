@@ -36,7 +36,7 @@
     //=========== Custom Fav Button ==========//
     _btnFav1.layer.cornerRadius=6;
     _btnFav1.layer.borderWidth=1;
-    _btnFav1.clipsToBounds = YES;
+    //_btnFav1.clipsToBounds = YES;
     _btnFav1.layer.borderColor=[[UIColor blueColor] CGColor];
 
     //=========== Custom Call Button ==========//
@@ -64,7 +64,7 @@
     [fDescription setText:[jsonObject objectForKey:@"description"]];
     [fDate setText:[jsonObject objectForKey:@"created"]];
     [_numberOfViews setText:[jsonObject objectForKey:@"views"]];
-    [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
     
     NSString * status = [jsonObject objectForKey:@"status"];
     
@@ -81,9 +81,6 @@
 }
 
 - (IBAction)btnFavClick:(id)sender {
-    
-    _btnFav1.hidden = TRUE;
-    _iconFav.hidden = TRUE;
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -107,6 +104,11 @@
     
     [jsonObjects addObject:jsonObject];
     [jsonObjects writeToFile:path atomically:YES];
+    
+    
+    [_btnFav1 setEnabled:FALSE];
+    [_btnFav1 setBackgroundColor:[UIColor orangeColor]];
+    _btnFav1.layer.borderColor=[[UIColor grayColor] CGColor];
     
 }
 

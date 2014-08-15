@@ -151,7 +151,7 @@ NSInteger selectedIndex;
     cell.fImage.layer.borderColor=[[UIColor colorWithHexString:@"ba4325"] CGColor];
     
     
-    [cell.fImage sd_setImageWithURL:[NSURL URLWithString:[[jData objectAtIndex:indexPath.row]valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    [cell.fImage sd_setImageWithURL:[NSURL URLWithString:[[jData objectAtIndex:indexPath.row]valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
     
     if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"1"]) {
         [cell.fType setImage:[UIImage imageNamed:@"ic_new_video-file.png"]];

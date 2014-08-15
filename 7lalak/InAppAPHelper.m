@@ -43,7 +43,7 @@ static NSString *kIdentifier7  = @"com.7lalek.hlalek.product7";
     /*if ([product.productIdentifier isEqualToString:kIdentifier1]) {
         return @"image_apple";
     }*/
-    return @"ic_defualt_image.png";
+    return @"Icon-60.png";
 }
 
 - (NSString *)descriptionForProduct:(SKProduct *)product

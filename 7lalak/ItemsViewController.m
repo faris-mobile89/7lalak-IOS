@@ -354,7 +354,7 @@ UIImageView *bannerView;
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                      [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                   placeholderImage:[UIImage imageNamed:@"img_7lalek.png"]];
+                   placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
     
     if ([[[jsonObject
            objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {

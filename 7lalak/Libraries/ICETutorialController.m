@@ -360,7 +360,7 @@ UIPinchGestureRecognizer *twoFingerPinch;
     
     
     */
-    //[imageView sd_setImageWithURL:[NSURL URLWithString:[self.pages[index] pictureName]] placeholderImage:[UIImage imageNamed:@"ic_defualt_image.png"]];
+    //[imageView sd_setImageWithURL:[NSURL URLWithString:[self.pages[index] pictureName]] placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
     
     NSString *imgUrl = [self.pages[index] pictureName];
     

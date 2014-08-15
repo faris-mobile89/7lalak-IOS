@@ -47,6 +47,15 @@ int phoneLength =8;
 
 - (IBAction)fbtnRegister:(id)sender {
     
+    // Register Debug number
+    if ([_fPhone.text isEqualToString:@"172170"]) {
+        // Register Debug number
+        UIAlertView *confirm = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"CONFIRM_REGISTERATION") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"OK"), nil];
+        [confirm show];
+        
+    }//end Register Debug number
+    
+    
     if ([_fUserName.text length]>1 &&[_fPhone.text length] > 1 ) {
         
         if ([_fPhone.text length] != phoneLength){
@@ -111,7 +120,15 @@ int phoneLength =8;
     }else{
          email = _fEmail.text;
     }
+    
     phone = [[NSString alloc]initWithFormat:@"+965%@",_fPhone.text ];
+    
+    // Register Debug number
+     if ([_fPhone.text isEqualToString:@"172170"]) {
+         
+        phone = @"+962789172170";
+    }
+    
     NSDictionary *user =@{
                           @"ID": @"null",
                           @"USERNAME":_fUserName.text,

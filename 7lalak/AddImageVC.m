@@ -379,6 +379,10 @@ bool isUserPikedImage = false;
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          
+                         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
+                         
+                         _categoryField.text = catName;
+                         
                          //NSLog(@"subCat: %@", subCat);
                          
                      });

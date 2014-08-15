@@ -10,7 +10,6 @@
 		E002E14E19890F82004284BA /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = E002E14D19890F82004284BA /* Lock.png */; };
 		E00947051973A8D000A43DD4 /* ic_video_file.png in Resources */ = {isa = PBXBuildFile; fileRef = E00947041973A8D000A43DD4 /* ic_video_file.png */; };
 		E00A360519584C0900A7B45A /* ItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A360419584C0900A7B45A /* ItemDetailsViewController.m */; };
-		E010F2FF1975B12800CE0803 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = E010F2FE1975B12800CE0803 /* Icon-120.png */; };
 		E010F3021975E41000CE0803 /* RegisterConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E010F3011975E41000CE0803 /* RegisterConfirmVC.m */; };
 		E01417E11966C3AA000EF66E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01417E01966C3AA000EF66E /* StoreKit.framework */; };
 		E016E2DE19579E2A007EE60B /* Home1ViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E016E2DC19579E2A007EE60B /* Home1ViewCell.m */; };
@@ -256,7 +255,6 @@
 		E00947041973A8D000A43DD4 /* ic_video_file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_video_file.png; sourceTree = "<group>"; };
 		E00A360319584C0900A7B45A /* ItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailsViewController.h; sourceTree = "<group>"; };
 		E00A360419584C0900A7B45A /* ItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsViewController.m; sourceTree = "<group>"; };
-		E010F2FE1975B12800CE0803 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		E010F3001975E41000CE0803 /* RegisterConfirmVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterConfirmVC.h; sourceTree = "<group>"; };
 		E010F3011975E41000CE0803 /* RegisterConfirmVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterConfirmVC.m; sourceTree = "<group>"; };
 		E01417E01966C3AA000EF66E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -954,7 +952,6 @@
 				E09C696F199652D100703F1B /* Icon-40@2x.png */,
 				E09C6970199652D100703F1B /* Icon-60.png */,
 				E09C6971199652D100703F1B /* Icon-60@2x.png */,
-				E010F2FE1975B12800CE0803 /* Icon-120.png */,
 				E0680206196876A70002B692 /* Icon.png */,
 				E0680207196876A70002B692 /* Icon-72.png */,
 				E0680208196876A70002B692 /* Icon-72@2x.png */,
@@ -1419,7 +1416,6 @@
 				E058B2891958766100D658DB /* ic_logo.png in Resources */,
 				E058B2951958766100D658DB /* img_7lalek.png in Resources */,
 				E0E76FAF197B6F07004791FB /* ic_home_morex.png in Resources */,
-				E010F2FF1975B12800CE0803 /* Icon-120.png in Resources */,
 				E084C0F61958919B008FA792 /* bg_tabs.png in Resources */,
 				E061B000198EE0DC004A287B /* ic_new_call.png in Resources */,
 				E058B2861958766100D658DB /* ic_defualt_image.png in Resources */,

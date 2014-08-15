@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="325" height="95"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_defualt_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="YeG-vf-3Ai">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="YeG-vf-3Ai">
                         <rect key="frame" x="2" y="7" width="87" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
@@ -42,8 +42,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Icon-60.png" width="60" height="60"/>
         <image name="bg_row.png" width="5" height="151"/>
-        <image name="ic_defualt_image.png" width="521" height="520"/>
         <image name="ic_new_arrow.png" width="32" height="32"/>
     </resources>
 </document>
