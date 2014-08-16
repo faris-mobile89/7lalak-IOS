@@ -115,6 +115,8 @@
          else {
              dispatch_async(dispatch_get_main_queue(), ^{
                   [activityIndicator stopAnimating];
+                 
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
              });
          }
      }];

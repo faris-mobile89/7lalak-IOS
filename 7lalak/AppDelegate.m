@@ -140,7 +140,7 @@
                                
                            }];
 	
-	NSLog(@"Register URL: %@", url);
+	//NSLog(@"Register URL: %@", url);
 	
 #endif
 }
@@ -166,7 +166,7 @@
     
 	NSLog(@"remote notification: %@",[userInfo description]);
 	NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
-	
+	/*
 	NSString *alert = [apsInfo objectForKey:@"alert"];
 	NSLog(@"Received Push Alert: %@", alert);
 	
@@ -176,13 +176,11 @@
 	
 	NSString *badge = [apsInfo objectForKey:@"badge"];
 	NSLog(@"Received Push Badge: %@", badge);
-    
+    */
 	application.applicationIconBadgeNumber = [[apsInfo objectForKey:@"badge"] integerValue];
 	
 #endif
 }
-
-
 
 /*
  * --------------------------------------------------------------------------------------------------------------

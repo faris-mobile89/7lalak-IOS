@@ -54,6 +54,7 @@
     [button sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 */
+
 - (void) moviePlayBackDidFinish:(NSNotification*)notification {
     
     MPMoviePlayerController *player = [notification object];

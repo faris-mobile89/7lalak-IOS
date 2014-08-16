@@ -87,10 +87,15 @@
 "btn_Add_Video"="Add Video";
 "btn_Upload"="Upload";
 //=== More -> info  === //
-"label_adsScore"="Ads Score";
-"label_adsVideoScore"="Ads video score";
-"label_adsImageScore"="Ads image score";
+"label_adsScore"="Free Ads Score";
+"label_adsVideoScore"="Video Score";
+"label_adsImageScore"="Image Score";
 "btn_deactive"="Deactive Account";
+
+"label_paid_adsScore"="Paid Ads Score";
+"label_paid_adsVideoScore"="Video Score";
+"label_paid_adsImageScore"="Image Score";
+"btn_paid_deactive"="Deactive Account";
 //=== More -> more  === //
 "error_form_contact_1"="please write at least 4 words !";
 "Thanks_contactUs_title"="Thank you for contacting us";

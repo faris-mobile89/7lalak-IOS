@@ -253,10 +253,13 @@ BOOL frameSet=FALSE;
                              //NSLog(@"response%@",jsonObject);
                              
                              if ([choosenType isEqualToString:@"image"]) {
-                                 int AdsImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"]intValue];
                                  
-                                 if ( AdsImageScore < 1 ) {
-                                      [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
+                                 int adsImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"]intValue];
+                                 
+                                 int adsPaidImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidImagesScore"]intValue];
+                                 
+                                 if ( adsImageScore < 1  && adsPaidImageScore < 1) {
+                                      [self showMessage:@""message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
                                  }else{
                                      AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
                                      imageVC.userID = userID;
@@ -265,9 +268,12 @@ BOOL frameSet=FALSE;
                                  }
                                  
                              }else if ([choosenType isEqualToString:@"video"]){
-                                 int AdsVideoScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"videosScore"]intValue];
-                                
-                                 if (AdsVideoScore < 1) {
+                                 
+                                 int adsVideoScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"videosScore"]intValue];
+                                 
+                                int adsPaidVideosScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidVideosScore"]intValue];
+                                 
+                                 if (adsVideoScore < 1 && adsPaidVideosScore < 1) {
                                      [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
                                  }else{
                                      AddVideoVC *videoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];

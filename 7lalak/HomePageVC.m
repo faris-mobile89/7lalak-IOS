@@ -125,7 +125,7 @@ BOOL appEnabled=TRUE;
                               }
                             
                              NSString *homeImgURl =[jsonObject valueForKey:@"home_img"];
-                             NSLog(@"Hoe%@",homeImgURl);
+                             //NSLog(@"Hoe%@",homeImgURl);
                             
                             [_fImageTopAds setImageWithURL:[NSURL URLWithString:homeImgURl] usingProgressView:nil];
                              }
@@ -149,7 +149,7 @@ BOOL appEnabled=TRUE;
              }else{
                  [activityIndicator stopAnimating];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     NSLog(@"ERROR: %@", error);
+                    // NSLog(@"ERROR: %@", error);
                      [_errorHolder setHidden:FALSE];
                      [activityIndicator stopAnimating];
                  });

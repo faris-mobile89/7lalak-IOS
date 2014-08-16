@@ -11,6 +11,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "AFNetworking.h"
+#import "HUD.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -50,7 +51,6 @@
     [super viewDidLoad];
     
     self.title = LocalizedString(@"TITLE_MORE_ACCOUNT_INFO");
-        
     deactiveFlag = FALSE;
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -83,16 +83,8 @@
     NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserInfo&user_id=%@",_userId];
     
     NSURL* url = [NSURL URLWithString:urlWithParam];
-    
+    [HUD showUIBlockingIndicatorWithText:@"Loading"];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-10);
-    [self.view addSubview: activityIndicator];
-    
-    [activityIndicator startAnimating];
-    
-    
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest
@@ -107,11 +99,9 @@
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
                  id  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
                          
                          if (jsonObject!=nil) {
                              
@@ -120,29 +110,32 @@
                              
                              int AdsVideoScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"videosScore"]intValue];
                              _fAdsVideoCount.text = [[NSString alloc]initWithFormat:@"%i",AdsVideoScore];
-                             [activityIndicator stopAnimating];
-                             
-                             
+                             _fAdsPaid_video.text= [[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidVideosScore"];
+                             _fAdsPaid_image.text= [[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidImagesScore"];
+                             [HUD hideUIBlockingIndicator];
+
                          }
                      });
                  } else {
-                     [activityIndicator stopAnimating];
+                     [HUD hideUIBlockingIndicator];
                  }
              }
              
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
                                         message:LocalizedString(@"error_internet_timeout")];
-                 [activityIndicator stopAnimating];
+                 [HUD hideUIBlockingIndicator];
+
 
              }else{
-                 [activityIndicator stopAnimating];
+                 [HUD hideUIBlockingIndicator];
+
              }
          }
          else {
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
-                 [activityIndicator stopAnimating];
+                 [HUD hideUIBlockingIndicator];
              });
          }
      }];

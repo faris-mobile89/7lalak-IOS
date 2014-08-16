@@ -19,5 +19,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lable_adsScore;
 @property (weak, nonatomic) IBOutlet UILabel *lablel_adVidScore;
 @property (weak, nonatomic) IBOutlet UILabel *lable_adImageScore;
+@property (weak, nonatomic) IBOutlet UILabel *label_paid_ads_title;
+@property (weak, nonatomic) IBOutlet UILabel *label_paid_video;
+@property (weak, nonatomic) IBOutlet UILabel *label_paid_image;
+@property (weak, nonatomic) IBOutlet UITextField *fAdsPaid_video;
+@property (weak, nonatomic) IBOutlet UITextField *fAdsPaid_image;
 
 @end

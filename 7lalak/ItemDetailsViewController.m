@@ -28,6 +28,10 @@ TabDescriptionVC *tabDescription;
 -(void)viewDidLayoutSubviews{
     
   
+}
+- (void)viewDidLoad
+{
+    
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
     tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];
@@ -72,10 +76,6 @@ TabDescriptionVC *tabDescription;
         }
     }
 
-}
-- (void)viewDidLoad
-{
-    
     // increment number of views to current Ad
     
     [self numberOfviews];
