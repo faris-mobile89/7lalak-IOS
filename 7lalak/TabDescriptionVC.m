@@ -10,6 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "UIColor_hex.h"
 
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+
 
 @interface TabDescriptionVC ()
 @property (strong,nonatomic) NSMutableArray *jsonObjects;
@@ -21,6 +23,11 @@
 @synthesize jsonObjects;
 
 -(void)viewDidLayoutSubviews{
+    
+    BOOL IS_4S = IS_HEIGHT_4S;
+    if (!IS_4S) {
+        [fDescription setFrame:CGRectMake(fDescription.frame.origin.x, fDescription.frame.origin.y,fDescription.frame.size.width, fDescription.frame.size.height+70)];
+    }
     
     fImage.layer.cornerRadius=6;
     fImage.layer.borderWidth=1.5;

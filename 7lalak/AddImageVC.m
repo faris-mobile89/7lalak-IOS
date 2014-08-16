@@ -45,13 +45,13 @@ int selectedIndexMain;
 
 BOOL flagTextenter;
 bool isUserPikedImage = false;
+bool isFirstLoadSubCatImages = true;
 
 -(void)viewDidLayoutSubviews{
     
     //== Localization UI =====//
     [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
     [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
-    [_fAdsText setText:LocalizedString(@"holder_description")];
     [choosePhotoBtn setTitle:LocalizedString(@"btn_Add_Image") forState:UIControlStateNormal];
     [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
 }
@@ -61,8 +61,8 @@ bool isUserPikedImage = false;
     [super viewDidLoad];
     flagTextenter =FALSE;
     self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
+    [_fAdsText setText:LocalizedString(@"holder_description")];
     hieght = SCREEN_HEIGHT;
-    
     pickerCategoriesInput = [[UIPickerView alloc]init];
     pickerCategoriesInput.delegate=self;
     pickerCategoriesInput.dataSource=self;
@@ -379,9 +379,11 @@ bool isUserPikedImage = false;
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          
-                         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
-                         
-                         _categoryField.text = catName;
+                         if (!isFirstLoadSubCatImages) {
+                             NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
+                             _categoryField.text = catName;
+                         }
+                         isFirstLoadSubCatImages = false;
                          
                          //NSLog(@"subCat: %@", subCat);
                          
@@ -411,7 +413,6 @@ bool isUserPikedImage = false;
              });
          }
      }];
-    
 }
 
 -(void)loadMainCat{

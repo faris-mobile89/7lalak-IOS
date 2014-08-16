@@ -47,13 +47,13 @@ float hieght;
 bool flagTextenter;
 int selectedIndexMain;
 bool isUserPiked = false;
+bool isFirstLoadSubCat = true;
 
 -(void)viewDidLayoutSubviews{
     
     //== Localization UI =====//
     [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
     [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
-    [_fAdsText setText:LocalizedString(@"holder_description")];
     [_buttonaddVideo setTitle:LocalizedString(@"btn_Add_Video") forState:UIControlStateNormal];
     [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
 }
@@ -62,7 +62,7 @@ bool isUserPiked = false;
 {
     [super viewDidLoad];
      self.title = LocalizedString(@"TITLE_MORE_ADD_VIDEO");
-    
+    [_fAdsText setText:LocalizedString(@"holder_description")];
     hieght = SCREEN_HEIGHT;
     pickerCategoriesInput = [[UIPickerView alloc]init];
     pickerCategoriesInput.delegate=self;
@@ -366,10 +366,13 @@ bool isUserPiked = false;
                          if ([subCat count]>0)
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          
-                         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
-                         
-                         _categoryField.text = catName;
-                         
+                         if (!isFirstLoadSubCat) {
+                             
+                             NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
+                             _categoryField.text = catName;
+                             
+                         }
+                         isFirstLoadSubCat = false;
                          //NSLog(@"subCat: %@", subCat);
                      });
                  } else {

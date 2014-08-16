@@ -125,6 +125,7 @@ BOOL appEnabled=TRUE;
                               }
                             
                              NSString *homeImgURl =[jsonObject valueForKey:@"home_img"];
+                             NSLog(@"Hoe%@",homeImgURl);
                             
                             [_fImageTopAds setImageWithURL:[NSURL URLWithString:homeImgURl] usingProgressView:nil];
                              }
@@ -135,13 +136,14 @@ BOOL appEnabled=TRUE;
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          // NSLog(@"ERROR: %@", error);
+                          [activityIndicator stopAnimating];
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
                  [_errorHolder setHidden:FALSE];
-                 //[self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
                  [activityIndicator stopAnimating];
                  
              }else{

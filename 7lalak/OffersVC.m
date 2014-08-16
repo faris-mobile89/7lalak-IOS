@@ -50,7 +50,7 @@ UIActivityIndicatorView *activityIndicator;
 
 -(void)loadWebPage{
     
-    NSString *urlAddress = @"http://7lalek.com/api/widgets/offers/index.html";
+    NSString *urlAddress = @"http://7lalek.com/api/offers/show.php";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 
     if ([self connectedToInternet]) {
