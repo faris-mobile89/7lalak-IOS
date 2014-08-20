@@ -119,7 +119,6 @@ bool isFirstLoadSubCat = true;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
-    
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
@@ -228,7 +227,7 @@ bool isFirstLoadSubCat = true;
                                     @"price":_fAdsPrice.text,
                                     @"mainCatID":MCID,@"subCatID":SCID
                                     };
-    NSLog(@"dic%@",dictParameter);
+    //NSLog(@"dic%@",dictParameter);
     NSString *strURL = @"http://7lalek.com/api/uploader.php";
     
     NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];

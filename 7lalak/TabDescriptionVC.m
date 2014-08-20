@@ -58,13 +58,9 @@
     _btnMessage.clipsToBounds = YES;
     _btnMessage.layer.borderColor=[[UIColor blueColor] CGColor];
     //=========================================//
-}
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
     
     [fPhone setText:[jsonObject objectForKey:@"phone"]];
-
+    
     NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[jsonObject objectForKey:@"price"]];
     [fPrice setText:price];
     
@@ -81,11 +77,13 @@
     else
         [_imgSoldFlag setImage:nil];
 }
-
-- (void)didReceiveMemoryWarning
+- (void)viewDidLoad
 {
-    [super didReceiveMemoryWarning];
+    [super viewDidLoad];
+    
 }
+
+
 
 - (IBAction)btnFavClick:(id)sender {
     
@@ -146,7 +144,7 @@
 
 - (IBAction)btnWhatsappClick:(id)sender {
     
-    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=Hello%20World!"];
+    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=hi%20faris!"];
     if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
         [[UIApplication sharedApplication] openURL: whatsappURL];
     }
@@ -157,4 +155,9 @@
                  didFinishWithResult:(MessageComposeResult)result {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 @end

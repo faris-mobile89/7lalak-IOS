@@ -88,6 +88,7 @@
 "btn_Add_Image"="اضف صوره";
 "btn_Add_Video"="اضف فيديو";
 "btn_Upload"="نشر الاعلان";
+"FLAG_LESS_25MB"="Please choose video less than 2MB";
 //=== More -> info  === //
 "label_adsScore"="رصيد الاعلانات";
 "label_adsImageScore"="عدد اعلانات الصور";

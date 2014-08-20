@@ -27,10 +27,6 @@ TabDescriptionVC *tabDescription;
 
 -(void)viewDidLayoutSubviews{
     
-  
-}
-- (void)viewDidLoad
-{
     
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
@@ -75,10 +71,15 @@ TabDescriptionVC *tabDescription;
             [_tabsView removeSegmentAtIndex:1 animated:NO];
         }
     }
-
+    
     // increment number of views to current Ad
     
     [self numberOfviews];
+
+  
+}
+- (void)viewDidLoad
+{
     
     [super viewDidLoad];
     //NSLog(@"JSONObject%@",jsonObject);
@@ -90,7 +91,7 @@ TabDescriptionVC *tabDescription;
     [super viewDidAppear:NO];
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"])
-    [_tabsView setSelectedSegmentIndex:0];
+       [_tabsView setSelectedSegmentIndex:0];
 }
 
 - (IBAction)tabsChanged:(id)sender {

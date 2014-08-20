@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "LocalizeHelper.h"
 #import "MyAdDetails.h"
+#import "MyAdVideoDetails.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -176,14 +177,16 @@ NSInteger selectedIndex;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     return 95;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     selectedIndex = indexPath.row;
     
+ if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"2"]) {
+     
     MyAdDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"MyAdsDetailsVC"];
     details.paramDescription = [[jData objectAtIndex:selectedIndex]valueForKey:@"description"];
     details.paramPrice =  [[jData objectAtIndex:selectedIndex]valueForKey:@"price"];
@@ -194,12 +197,34 @@ NSInteger selectedIndex;
     details.paramStatus = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
     details.userID = _userID;
     details.apiKey = _apiKey;
-    
-    if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"2"]) {
-        details.jsonImages = [[jData objectAtIndex:selectedIndex]valueForKey:@"imgs"];
-    }
-    
-   [self.navigationController pushViewController: details animated:YES];
+    details.jsonImages = [[jData objectAtIndex:selectedIndex]valueForKey:@"imgs"];
+    [self.navigationController pushViewController: details animated:YES];
+     
+ }else if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"1"]){
+     
+     MyAdVideoDetails *details = [self.storyboard instantiateViewControllerWithIdentifier:@"MyAdsVideoDetailsVC"];
+     details.paramDescription = [[jData objectAtIndex:selectedIndex]valueForKey:@"description"];
+     details.paramPrice =  [[jData objectAtIndex:selectedIndex]valueForKey:@"price"];
+     details.paramAvailabilityCode = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
+     details.paramAdId = [[jData objectAtIndex:selectedIndex]valueForKey:@"id"];
+     details.paramMid = [[jData objectAtIndex:selectedIndex]valueForKey:@"mid"];
+     details.paramSid = [[jData objectAtIndex:selectedIndex]valueForKey:@"sid"];
+     details.paramStatus = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
+     details.userID = _userID;
+     details.apiKey = _apiKey;
+     
+     if ([[[jData objectAtIndex:selectedIndex]valueForKey:@"vids"]count]) {
+         details.isUploadVideo = true;
+         details.videoURL = [[[jData objectAtIndex:selectedIndex]valueForKey:@"vids"]objectAtIndex:0];
+        // NSLog(@"fe video");
+     }else{
+         details.isUploadVideo = false;
+        // NSLog(@"No video ");
+     }
+     
+     [self.navigationController pushViewController: details animated:YES];
+ }
+  
 }
 
 #pragma mark - Navigation

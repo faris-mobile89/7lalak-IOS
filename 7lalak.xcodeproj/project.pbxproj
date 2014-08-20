@@ -226,6 +226,7 @@
 		E0E84EC7195A52BC00308080 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EBB195A52BC00308080 /* Default.png */; };
 		E0E84EC8195A52BC00308080 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E84EBC195A52BC00308080 /* Default@2x.png */; };
 		E0E84ED0195A7A7B00308080 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E84ECF195A7A7B00308080 /* MediaPlayer.framework */; };
+		E0EFF79E19A4DD1F000245A0 /* MyAdVideoDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EFF79D19A4DD1F000245A0 /* MyAdVideoDetails.m */; };
 		E0F09D1E195A070100BAF4F6 /* btn_favo.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F09D1B195A070100BAF4F6 /* btn_favo.png */; };
 		E0F09D1F195A070100BAF4F6 /* btn_message.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F09D1C195A070100BAF4F6 /* btn_message.png */; };
 		E0F09D20195A070100BAF4F6 /* btn_whatsapp.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F09D1D195A070100BAF4F6 /* btn_whatsapp.png */; };
@@ -582,6 +583,8 @@
 		E0E84EBB195A52BC00308080 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E0E84EBC195A52BC00308080 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E0E84ECF195A7A7B00308080 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		E0EFF79C19A4DD1F000245A0 /* MyAdVideoDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdVideoDetails.h; sourceTree = "<group>"; };
+		E0EFF79D19A4DD1F000245A0 /* MyAdVideoDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAdVideoDetails.m; sourceTree = "<group>"; };
 		E0F09D1B195A070100BAF4F6 /* btn_favo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_favo.png; sourceTree = "<group>"; };
 		E0F09D1C195A070100BAF4F6 /* btn_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_message.png; sourceTree = "<group>"; };
 		E0F09D1D195A070100BAF4F6 /* btn_whatsapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_whatsapp.png; sourceTree = "<group>"; };
@@ -1112,6 +1115,8 @@
 				E09202F2197E1CDC0060ABE0 /* MyAdDetails.m */,
 				E0901C7C19A3886C005BD485 /* AddMoreImagesVC.h */,
 				E0901C7D19A3886C005BD485 /* AddMoreImagesVC.m */,
+				E0EFF79C19A4DD1F000245A0 /* MyAdVideoDetails.h */,
+				E0EFF79D19A4DD1F000245A0 /* MyAdVideoDetails.m */,
 			);
 			name = MyAds;
 			sourceTree = "<group>";
@@ -1538,6 +1543,7 @@
 				E0A560BF195CF26900FD0D70 /* Connection.m in Sources */,
 				E068020319686BF00002B692 /* ProductCell.m in Sources */,
 				E066B82C1961BCA10065F675 /* AFHTTPRequestOperation.m in Sources */,
+				E0EFF79E19A4DD1F000245A0 /* MyAdVideoDetails.m in Sources */,
 				E066B8321961BCA10065F675 /* AFURLRequestSerialization.m in Sources */,
 				E010F3021975E41000CE0803 /* RegisterConfirmVC.m in Sources */,
 				E0A560C4195CF2B600FD0D70 /* InternetConnection.m in Sources */,

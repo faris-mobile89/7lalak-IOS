@@ -1,12 +1,12 @@
 //
-//  MyAdDetails.m
+//  MyAdVideoDetails.m
 //  7lalak
 //
-//  Created by Faris IOS on 7/22/14.
+//  Created by Faris IOS on 8/20/14.
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
 //
 
-#import "MyAdDetails.h"
+#import "MyAdVideoDetails.h"
 #import "UIColor_hex.h"
 #import "LocalizeHelper.h"
 #import "AFHTTPRequestOperation.h"
@@ -21,53 +21,45 @@
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
-@interface MyAdDetails (){
-NSMutableArray *imagesData;
+@interface MyAdVideoDetails (){
+    NSMutableArray *imagesData;
     UIPickerView *pickerCategoriesInput;
     NSMutableArray *imagesArray;
+    NSURL *localVideoURL;
 }
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
 @property NSString *catId;
 @property (strong) NSString *selectedMaincatId;
 @property (strong) NSString *selectedSubcatId;
+@property bool flagEditCat;
+@property bool isUserPikedImage;
+@property bool isFirstLoad;
+@property bool isAttachedNewVideo;
+@property int selectedIndexMain;
+@property int selectedIndexSub;
+@property bool flagDelete;
 @end
 
-@implementation MyAdDetails
+@implementation MyAdVideoDetails
 
-@synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId,jsonImages;
-@synthesize attachedNewImages;
-
-bool flagEditCat= false;
-bool isUserPikedImage = false;
-bool isFirstLoad = true;
-int selectedIndexMain;
-int selectedIndexSub;
-
--(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
-
-   // NSLog(@"picked imagesArray = %@",imagesArray);
-    
-    [_lablel_add_image setText:[[NSString alloc]initWithFormat:@"%i new images",[data count]]];
-    [_lablel_add_image setTextColor:[UIColor orangeColor]];
-    
-    attachedNewImages = data;
-    return data;
-}
-
+@synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId,flagDelete,isAttachedNewVideo;
+@synthesize flagEditCat,isUserPikedImage,isFirstLoad,selectedIndexSub,selectedIndexMain;
+@synthesize videoURL,isUploadVideo;
 
 -(void)viewDidLayoutSubviews{
-    
-    [_btnAddImage setBackgroundImage:[UIImage imageNamed:@"add-image-disable"] forState:UIControlStateDisabled];
+
     [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
     selectedMaincatId = [[NSString alloc]init];
     selectedSubcatId = [[NSString alloc]init];
-
+    
     _description.layer.cornerRadius= 10;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     selectedSubcatId =_paramSid; selectedMaincatId=_paramSid;
+    
+  
     
     [super viewDidLayoutSubviews];
 }
@@ -76,22 +68,23 @@ int selectedIndexSub;
 {
     [super viewDidLoad];
     
+    
+    if (!isUploadVideo) {
+        [_iconVideoFlag setHidden:YES];
+        [_labelStatus setText:LocalizedString(@"FLAG_LESS_25MB")];
+    }else{
+        [_labelStatus setHidden:TRUE];
+    }
+    [_saveBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    
+    flagEditCat= false;
+    isUserPikedImage =false;
+    isFirstLoad = true;
+    flagDelete = false;
+    isAttachedNewVideo = false;
+    
     _price.delegate = self;
     _description.delegate=self;
-    
-//=============== LOAD ONLINE IMAGES ==================//
-     imagesArray = [[NSMutableArray alloc]init];
-    
-     if (jsonImages != nil && [jsonImages count]) {
-        for (NSInteger i =0 ; i< [jsonImages count]; i++) {
-            [imagesArray addObject:[jsonImages objectAtIndex:i]];
-        }
-        if ([imagesArray count] > 0) {
-            [_collectionView reloadData];
-        }
-    }
-    //NSLog(@"FimagesArray = %@",imagesArray);
-//=====================================================//
     
     _description.text= _paramDescription;
     _price.text = _paramPrice;
@@ -101,10 +94,7 @@ int selectedIndexSub;
     pickerCategoriesInput.dataSource=self;
     _categoryField.inputView=pickerCategoriesInput;
     
-     imagesData = [[NSMutableArray alloc]init];
-    attachedNewImages = [[NSMutableArray alloc]init];
-    [_collectionView setBackgroundColor:[UIColor clearColor]];
-    [_collectionView registerNib:[UINib nibWithNibName:@"UploadCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    imagesData = [[NSMutableArray alloc]init];
     
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
@@ -128,23 +118,66 @@ int selectedIndexSub;
     [self loadMainCat];
 }
 
+#pragma mark Video Picker
+
+
+- (IBAction)replaceVideoClick:(id)sender {
+    
+    UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"PICK_GALLERY"),LocalizedString(@"Open_camera"), nil];
+    [chooser show];
+}
+
+
+
+
+- (NSURL*)grabFileURL:(NSString *)fileName {
+    
+    // find Documents directory
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    
+    // append a file name to it
+    documentsURL = [documentsURL URLByAppendingPathComponent:fileName];
+    
+    return documentsURL;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSURL *chosenMovie = [info objectForKey:UIImagePickerControllerMediaURL];
+    NSURL *fileURL = [self grabFileURL:@"video_7lalek.mov"];
+    NSData *movieData = [NSData dataWithContentsOfURL:chosenMovie];
+    [movieData writeToURL:fileURL atomically:YES];
+    
+    UISaveVideoAtPathToSavedPhotosAlbum([chosenMovie path], nil, nil, nil);
+
+    localVideoURL = fileURL;
+
+    
+    if (movieData.length/1024.0f/1024.0f > 2.0f ) {
+        [_saveBtn setEnabled:FALSE];
+         [_labelStatus setHidden:FALSE];
+        _labelStatus.text=@"Attaced video is greater than 2MB";
+        return;
+    }else{
+        [ _saveBtn setEnabled:TRUE];
+         [_labelStatus setHidden:FALSE];
+    }
+    
+    _labelStatus.text=LocalizedString(@"ONE_VID_ATTACHED");
+    isAttachedNewVideo = true;
+    [_iconVideoFlag setHidden:NO];
+}
+
 
 - (IBAction)deleteBtn:(id)sender {
     
+    flagDelete = true;
     UIAlertView *deleteConfirm = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"DELETE_CONFIRM") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"DELETE"), nil];
     [deleteConfirm show];
     
     
     
-}
-- (IBAction)btnAddImageClick:(id)sender {
-    
-    AddMoreImagesVC *addMore = [self.storyboard instantiateViewControllerWithIdentifier:@"addMoreImages"];
-    addMore.numberOfAllowedImage =  7 - [imagesArray count];
-    addMore.delegate = self;
-    addMore.imagesData = attachedNewImages;
-    [self.navigationController pushViewController:addMore animated:YES];
-
 }
 
 
@@ -153,18 +186,18 @@ int selectedIndexSub;
     NSString*paramSelectedMaincatId,*paramSelectedSubcatId;
     
     if (flagEditCat) {
-    
-    if (selectedSubcatId != _paramSid) {
-        //send new cat
-        NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
-        paramSelectedMaincatId = selectedMaincatId;
-        paramSelectedSubcatId = selectedSubcatId;
-        if (selectedMaincatId == nil || selectedSubcatId == nil) {
-            NSLog(@"please select category");
-            return;
+        
+        if (selectedSubcatId != _paramSid) {
+            //send new cat
+            NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
+            paramSelectedMaincatId = selectedMaincatId;
+            paramSelectedSubcatId = selectedSubcatId;
+            if (selectedMaincatId == nil || selectedSubcatId == nil) {
+                NSLog(@"please select category");
+                return;
+            }
         }
-     }
-    
+        
     }else{
         paramSelectedSubcatId = @"00"; paramSelectedMaincatId=@"00";
         NSLog(@"no categ selected");
@@ -173,7 +206,7 @@ int selectedIndexSub;
     
     NSString *newSatus;
     if (_availability.selectedSegmentIndex == 0 ) {
-       newSatus  = @"2"; //sold
+        newSatus  = @"2"; //sold
     }else if (_availability.selectedSegmentIndex == 1 ){
         newSatus = @"1"; //available
     }
@@ -182,56 +215,39 @@ int selectedIndexSub;
     
     [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
-    //++================= HANDLE NEW & OLD IMAGES TO UPLOAD (CONVERT TO JSON) ===================//
-    
-    NSError *error = [[NSError alloc]init];
-    NSString *jsonStringWithOldImages ;
-    if ([imagesArray count]) {
-        
-        NSData *oldImagesJSON = [NSJSONSerialization dataWithJSONObject:imagesArray options:NSJSONWritingPrettyPrinted error:&error];
-        
-        jsonStringWithOldImages = [[NSString alloc]initWithData:oldImagesJSON encoding:NSUTF8StringEncoding];
-        
-        // NSLog(@"new Imaes JSNON %@",jsonStringWithOldImages);
-    }else{
-          jsonStringWithOldImages =@"";
-    }
-   
-    
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++//
     
     NSDictionary *dictParameter =@{
-                                   @"tag":@"editImageAd",
+                                   @"tag":@"editVideoAd",
                                    @"Ad_id":_paramAdId,
                                    @"text":_description.text,
                                    @"price":_price.text,
                                    @"status":newSatus,
                                    @"mid":paramSelectedMaincatId,
                                    @"sid":paramSelectedSubcatId,
-                                   @"jsonImages":jsonStringWithOldImages,
                                    @"user_id":_userID,
                                    @"UDID":_apiKey
                                    };
+    
+   
+    NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+    date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
+    NSString *videoName = [[NSString alloc]initWithFormat:@"7lalak_IOS_Video_%@%@",
+                           date,@".mov"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSLog(@"uploading...");
         
-     
-        for (int i =0 ; i<[attachedNewImages count]; i++) {
-            
-            NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-            date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
-            NSString *imageName = [[NSString alloc]initWithFormat:@"7lalak_IOS%i_%@%@",i,
-                                   date,@".jpg"];
-            
-            NSData *imageData = UIImageJPEGRepresentation(attachedNewImages[i], 0.0);
-            [formData appendPartWithFileData:imageData
-                                        name:[[NSString alloc]initWithFormat:@"file%i",i] fileName:imageName mimeType:@"image/jpeg"];
-            
+        if (localVideoURL != nil && isAttachedNewVideo) {
+            NSData *videoData= [NSData dataWithContentsOfURL:localVideoURL];
+            [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
+        }else{
+            [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
+            return;
         }
-      }
+    }
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            NSLog(@"Success:***** %@", responseObject);
                                            [HUD hideUIBlockingIndicator];
@@ -253,8 +269,8 @@ int selectedIndexSub;
                                        }];
     
     [op start];
-
-
+    
+    
     
 }
 
@@ -290,7 +306,7 @@ int selectedIndexSub;
                                        }];
     
     [op start];
-
+    
 }
 
 #pragma mark picker
@@ -315,9 +331,9 @@ int selectedIndexSub;
     UILabel* label = (UILabel*)view;
     if (!label){
         label = [[UILabel alloc] init];
-       // [label setFont:[UIFont  boldSystemFontOfSize:10]];
+        // [label setFont:[UIFont  boldSystemFontOfSize:10]];
         
-    
+        
         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
         label.numberOfLines=3;
         //[label setBackgroundColor:[UIColor colorWithHexString:@"339999"]];
@@ -391,22 +407,22 @@ int selectedIndexSub;
                              return;
                          selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          [pickerCategoriesInput reloadComponent:1];
-
+                         
                          if (isFirstLoad) {
-
-                        // search by cat name => return cat name from JSON
-                         for (NSInteger i = 0 ; i < [[subCat objectForKey:@"SubCat"]count]; i++) {
                              
-                             if ([_paramSid intValue] ==  [[[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"id"]intValue] ) {
-                                
-                                 _categoryField.text = [[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"name"];
-                                 isFirstLoad = false;
-                                 break;
+                             // search by cat name => return cat name from JSON
+                             for (NSInteger i = 0 ; i < [[subCat objectForKey:@"SubCat"]count]; i++) {
+                                 
+                                 if ([_paramSid intValue] ==  [[[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"id"]intValue] ) {
+                                     
+                                     _categoryField.text = [[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"name"];
+                                     isFirstLoad = false;
+                                     break;
+                                 }
                              }
-                           }
-                        }//end first load
-                       
-                        // NSLog(@"subCat: %@", subCat);
+                         }//end first load
+                         
+                         // NSLog(@"subCat: %@", subCat);
                          
                      });
                  } else {
@@ -422,7 +438,7 @@ int selectedIndexSub;
              }
          }
          else {
-                 [HUD hideUIBlockingIndicator];
+             [HUD hideUIBlockingIndicator];
          }
      }];
     
@@ -447,7 +463,7 @@ int selectedIndexSub;
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                
+                 
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
@@ -470,17 +486,17 @@ int selectedIndexSub;
              else if(httpResponse.statusCode == 408){
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
-
+                 
              }
          }
          else {
-            // show offiline msg
+             // show offiline msg
          }
      }];
     
 }
 
-#pragma mark images slider view 
+#pragma mark images slider view
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -495,7 +511,7 @@ int selectedIndexSub;
     
     UploadCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     NSURL *u = [NSURL URLWithString:imagesArray[indexPath.row]];
-
+    
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame.png"]];
     UIProgressView * p = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
     
@@ -503,22 +519,6 @@ int selectedIndexSub;
     
     [cell.deleteBtn addTarget:self action:@selector(deleteItem:event:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
-}
-
--(IBAction)deleteItem:(id)sender event:(id)event{
-    
-    
-    UIView * senderButton = (UIView*)sender;
-    
-    NSIndexPath *indexPath = [_collectionView indexPathForCell:(UICollectionViewCell *)[[senderButton superview]superview]];
-    [imagesArray removeObjectAtIndex:indexPath.row];
-    [ _collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
-    [_collectionView reloadData];
-    
-    if ([imagesArray count]<7) {
-       [_btnAddImage setEnabled:TRUE];
-    }else{
-        [_btnAddImage setEnabled:FALSE];}
 }
 
 
@@ -547,7 +547,7 @@ int selectedIndexSub;
 -(void)doneButton:(id)sender{
     
     if (flagEditCat) {
-
+        
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:selectedIndexSub]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
         _categoryField.text = catName;
         NSLog(@"edit cat");
@@ -560,10 +560,29 @@ int selectedIndexSub;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    if (buttonIndex == 1) {
+    
+    if (flagDelete && buttonIndex == 1) {
         
         [self deleteAction];
+        flagDelete = false;
+        return;
     }
+    
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+    picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
+    
+    if (buttonIndex == 1) {
+        //picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        [self.navigationController presentViewController:picker animated:YES completion:nil];
+        
+    }else if (buttonIndex == 2){
+ 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self.navigationController presentViewController:picker animated:YES completion:nil];
+        
+    }
+    
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
