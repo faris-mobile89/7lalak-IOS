@@ -83,6 +83,8 @@ bool isFirstLoadSubCat = true;
     _fAdsText.clipsToBounds = YES;
     _fAdsText.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     
+    [_upload_btn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+
     pickerJsonData = [[NSMutableArray alloc]init];
     
     imagesData = [[NSMutableArray alloc]init];
@@ -158,15 +160,24 @@ bool isFirstLoadSubCat = true;
     UISaveVideoAtPathToSavedPhotosAlbum([chosenMovie path], nil, nil, nil);
     
     // and dismiss the picker
-    NSLog(@"Picked Video Url:%@",fileURL);
+   // NSLog(@"Picked Video Url:%@",fileURL);
     videoURL = fileURL;
 
+    //NSLog(@"video file size %@",[NSByteCountFormatter stringFromByteCount:movieData.length countStyle:NSByteCountFormatterCountStyleFile]);
+   // NSLog(@"video file size %f",movieData.length/1024.0f/1024.0f);
+    
+    if (movieData.length/1024.0f/1024.0f > 2.0f ) {
+        [_upload_btn setEnabled:FALSE];
+        _textVideoindicator.text=@"Attaced video is greater than 2MB";
+        return;
+    }else{
+        [_upload_btn setEnabled:TRUE];
+    }
     
     _textVideoindicator.text=LocalizedString(@"ONE_VID_ATTACHED");
     [_imageVideoIndicator setImage:[UIImage imageNamed:@"ic_video_file.png"]];
     [_buttonaddVideo setTitle:LocalizedString(@"REPLACE_VID") forState:UIControlStateNormal];
     
-
 }
 
 #pragma mark upload block
@@ -317,7 +328,7 @@ bool isFirstLoadSubCat = true;
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component==0){
         
-        selectedIndexMain = row;
+        selectedIndexMain = (int)row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         selectedMaincatId = catId;
         _categoryField.text=@"";

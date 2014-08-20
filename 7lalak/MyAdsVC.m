@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "LocalizeHelper.h"
 #import "MyAdDetails.h"
+
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface MyAdsVC ()
@@ -38,7 +39,6 @@ NSInteger selectedIndex;
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
     [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self getUserAds];
@@ -194,8 +194,14 @@ NSInteger selectedIndex;
     details.paramStatus = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
     details.userID = _userID;
     details.apiKey = _apiKey;
-    [self.navigationController pushViewController: details animated:YES];
+    
+    if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"2"]) {
+        details.jsonImages = [[jData objectAtIndex:selectedIndex]valueForKey:@"imgs"];
+    }
+    
+   [self.navigationController pushViewController: details animated:YES];
 }
+
 #pragma mark - Navigation
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -203,12 +209,14 @@ NSInteger selectedIndex;
     if ([[segue identifier] isEqualToString:@""] ){
     }
 }
+
 -(void)showErrorInterentMessage:(NSString *)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: LocalizedString(@"NETWORK_ERROR") message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
     
     [internetError show];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

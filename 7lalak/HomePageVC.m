@@ -209,9 +209,7 @@ BOOL appEnabled=TRUE;
 -(void)showMessage: (NSString*)msg{
     
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: nil message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
-    
     [internetError show];
-    
 }
 
 -(void)showOffilneMessage: (NSString*)msg{

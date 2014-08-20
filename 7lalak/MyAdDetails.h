@@ -7,30 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddMoreImagesVC.h"
 
-@interface MyAdDetails : UIViewController<UITextFieldDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
+@interface MyAdDetails : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIAlertViewDelegate,AddMoreImagesDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *description;
+- (IBAction)btnAddImageClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
 @property (weak, nonatomic) IBOutlet UITextField *price;
+@property (weak, nonatomic) IBOutlet UILabel *lablel_add_image;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *availability;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *labelStatus;
-@property (weak, nonatomic) IBOutlet UILabel *labelCat;
-
+@property (weak, nonatomic) IBOutlet UILabel *labelCatName;
 @property (strong ,nonatomic) NSString * paramDescription;
 @property (strong ,nonatomic) NSString * paramPrice;
 @property (strong ,nonatomic) NSString * paramAvailabilityCode;
 @property  (strong,nonatomic) NSString * paramAdId;
 @property (strong ,nonatomic) NSString * paramStatus;
-@property (weak, nonatomic) IBOutlet UIButton *btnEditCat;
-
-@property (weak, nonatomic) IBOutlet UILabel *labelCatName;
 @property  (strong,nonatomic) NSString * paramMid;
 @property  (strong,nonatomic) NSString * paramSid;
 @property (strong ,nonatomic) NSString * userID;
 @property (strong ,nonatomic) NSString * apiKey;
-
-@property (weak, nonatomic) IBOutlet UIPickerView *category_picker;
-
-- (IBAction)btnEditCatClick:(id)sender;
+@property (strong,nonatomic) NSArray * arrImages;
+@property (strong,nonatomic) id jsonImages;
+@property (strong,nonatomic) NSMutableArray *attachedNewImages;
 - (IBAction)deleteBtn:(id)sender;
 - (IBAction)saveBtn:(id)sender;
 

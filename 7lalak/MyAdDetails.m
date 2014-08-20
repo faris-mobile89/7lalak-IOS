@@ -13,10 +13,17 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFNetworking.h"
 #import "Localization.h"
+#import "UploadCell.h"
+#import "UIImageView+ProgressView.h"
+#import "HUD.h"
+#import "AddMoreImagesVC.h"
+
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
-@interface MyAdDetails ()
+@interface MyAdDetails (){
+NSMutableArray *imagesData;
+}
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
 @property NSString *catId;
@@ -26,31 +33,39 @@
 @end
 
 @implementation MyAdDetails
-@synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId;
-UIActivityIndicatorView *activityIndicator;
+
+@synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId,jsonImages;
+@synthesize attachedNewImages;
+NSMutableArray *imagesArray;
 bool flagEditCat= false;
+
+
+-(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
+
+    NSLog(@"imagesArray = %@",imagesArray);
+    
+    [_lablel_add_image setText:[[NSString alloc]initWithFormat:@"%i new images",[data count]]];
+    [_lablel_add_image setTextColor:[UIColor orangeColor]];
+    
+    attachedNewImages = data;
+    return data;
+}
+
 
 -(void)viewDidLayoutSubviews{
     
+    [_btnAddImage setBackgroundImage:[UIImage imageNamed:@"add-image-disable"] forState:UIControlStateDisabled];
+ 
     selectedMaincatId = [[NSString alloc]init];
     selectedSubcatId = [[NSString alloc]init];
-    
+
     _description.layer.cornerRadius= 10;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
-
-    //_labelStatus.layer.cornerRadius =7;
-    //_labelCat.layer.cornerRadius =7;
-    _category_picker.transform = CGAffineTransformMakeScale(0.8, 0.6);
     selectedSubcatId =00; selectedMaincatId=00;
-    BOOL IS_4S = IS_HEIGHT_4S;
-    if (!IS_4S) {
-        
-    }
     
     [super viewDidLayoutSubviews];
-    
 }
 
 - (void)viewDidLoad
@@ -60,9 +75,26 @@ bool flagEditCat= false;
     _price.delegate = self;
     _description.delegate=self;
     
-    [_category_picker setHidden:TRUE];
+//=============== LOAD ONLINE IMAGES ==================//
+     imagesArray = [[NSMutableArray alloc]init];
+    
+     if (jsonImages != nil && [jsonImages count]) {
+        for (NSInteger i =0 ; i< [jsonImages count]; i++) {
+            [imagesArray addObject:[jsonImages objectAtIndex:i]];
+        }
+        if ([imagesArray count] > 0) {
+            [_collectionView reloadData];
+        }
+    }
+    //NSLog(@"FimagesArray = %@",imagesArray);
+//=====================================================//
+    
     _description.text= _paramDescription;
     _price.text = _paramPrice;
+     imagesData = [[NSMutableArray alloc]init];
+    attachedNewImages = [[NSMutableArray alloc]init];
+    [_collectionView setBackgroundColor:[UIColor clearColor]];
+    [_collectionView registerNib:[UINib nibWithNibName:@"UploadCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
@@ -82,10 +114,7 @@ bool flagEditCat= false;
         [_availability setSelectedSegmentIndex:1];
     }
     
-    activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)+50);
-    [self.view addSubview: activityIndicator];
-    [self loadMainCat];
+    //[self loadMainCat];
 }
 
 
@@ -94,16 +123,26 @@ bool flagEditCat= false;
     UIAlertView *deleteConfirm = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"DELETE_CONFIRM") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"DELETE"), nil];
     [deleteConfirm show];
     
+    
+    
 }
+- (IBAction)btnAddImageClick:(id)sender {
+    
+    AddMoreImagesVC *addMore = [self.storyboard instantiateViewControllerWithIdentifier:@"addMoreImages"];
+    addMore.numberOfAllowedImage =  7 - [imagesArray count];
+    addMore.delegate = self;
+    addMore.imagesData = attachedNewImages;
+    [self.navigationController pushViewController:addMore animated:YES];
+
+}
+
 
 - (IBAction)saveBtn:(id)sender {
     
     NSString*paramSelectedMaincatId,*paramSelectedSubcatId;
-
     
     if (flagEditCat) {
     
-        
     if (selectedSubcatId != _paramSid) {
         //send new cat
         NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
@@ -121,7 +160,6 @@ bool flagEditCat= false;
         
     }
     
-    
     NSString *newSatus;
     if (_availability.selectedSegmentIndex == 0 ) {
        newSatus  = @"2"; //sold
@@ -129,12 +167,27 @@ bool flagEditCat= false;
         newSatus = @"1"; //available
     }
     
+//++================= HANDLE NEW & OLD IMAGES TO UPLOAD ===================//
+    NSError *error = [[NSError alloc]init];
+    
+    NSData *oldImagesJSON = [NSJSONSerialization dataWithJSONObject:imagesArray options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSString *jsonStringWithOldImages = [[NSString alloc]initWithData:oldImagesJSON encoding:NSUTF8StringEncoding];
+    
+    //NSLog(@"new Imaes JSNON %@",jsonStringWithOldImages);
+    
+    return;
+    
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++//
+    
+    
+    
     NSString *strURL = @"http://7lalek.com/api/api.php";
     
-    [activityIndicator startAnimating];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
     NSDictionary *dictParameter =@{
-                                   @"tag":@"editAd",
+                                   @"tag":@"editImageAd",
                                    @"Ad_id":_paramAdId,
                                    @"text":_description.text,
                                    @"price":_price.text,
@@ -150,7 +203,7 @@ bool flagEditCat= false;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                           [activityIndicator stopAnimating];
+                                           [HUD hideUIBlockingIndicator];
                                            if (responseObject != nil) {
                                                
                                                if ([[responseObject valueForKey:@"error"]intValue]==0) {
@@ -159,8 +212,8 @@ bool flagEditCat= false;
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                                           [activityIndicator stopAnimating];
+                                        NSLog(@"Error: %@ ***** %@", operation.responseString, error);                                          [HUD hideUIBlockingIndicator];
+
                                        }];
     
     [op start];
@@ -168,30 +221,11 @@ bool flagEditCat= false;
     
 }
 
-- (IBAction)btnEditCatClick:(id)sender {
-   
-    [_category_picker setHidden:FALSE];
-    [_labelCatName setHidden:TRUE];
-    [_btnEditCat setHidden:TRUE];
-    flagEditCat = true;
-    [self loadMainCat];
-  
-    
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-
-    if (buttonIndex ==1) {
-        
-        [self deleteAction];
-    }
-}
-
 -(void)deleteAction{
     
     NSString *strURL = @"http://7lalek.com/api/api.php";
     
-    [activityIndicator startAnimating];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
     NSDictionary *dictParameter =@{
                                    @"tag":@"deleteAd",
@@ -205,7 +239,7 @@ bool flagEditCat= false;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                           [activityIndicator stopAnimating];
+                                           [HUD hideUIBlockingIndicator];
                                            if (responseObject != nil) {
                                                
                                                if ([[responseObject valueForKey:@"error"]intValue]==0) {
@@ -215,12 +249,13 @@ bool flagEditCat= false;
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                                           [activityIndicator stopAnimating];
+                                           [HUD hideUIBlockingIndicator];
                                        }];
     
     [op start];
 
 }
+
 #pragma mark picker
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -281,19 +316,15 @@ bool flagEditCat= false;
     }
 }
 
-
 -(void)loadSubCat{
     
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
-    [activityIndicator startAnimating];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
-    [activityIndicator startAnimating];
-    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -309,17 +340,15 @@ bool flagEditCat= false;
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 [HUD hideUIBlockingIndicator];
                  subCat = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
                          
                          if ([subCat count] < 1 )
                              return;
                          
                          selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
-                         [_category_picker reloadComponent:1];
                          
                          ;
                           // search by cat name => return cat name from JSON
@@ -337,44 +366,24 @@ bool flagEditCat= false;
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
+                         [HUD hideUIBlockingIndicator];
                          NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
+                 [HUD hideUIBlockingIndicator];
+
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
-                 [_btnEditCat setHidden:FALSE];
              }else{
-                 [activityIndicator stopAnimating];
-                 [_btnEditCat setHidden:FALSE];
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
-                     [activityIndicator stopAnimating];
-                 });
+                 [HUD hideUIBlockingIndicator];
+                 
              }
          }
          else {
-             // request failed - error contains info about the failure
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [_btnEditCat setHidden:FALSE];
-                 [internetError show];
-                 [activityIndicator stopAnimating];
-             });
+                 [HUD hideUIBlockingIndicator];
          }
      }];
     
@@ -387,7 +396,7 @@ bool flagEditCat= false;
     NSURL* url = [NSURL URLWithString:urlString];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    [activityIndicator startAnimating];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     [NSURLConnection sendAsynchronousRequest:urlRequest
@@ -402,12 +411,12 @@ bool flagEditCat= false;
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 [HUD hideUIBlockingIndicator];
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
-                         [_category_picker reloadComponent:0];
+                         
+                        // [_category_picker reloadComponent:0];
                          
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
@@ -417,6 +426,7 @@ bool flagEditCat= false;
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          NSLog(@"ERROR: %@", error);
+                         [HUD hideUIBlockingIndicator];
                      });
                  }
              }
@@ -424,37 +434,59 @@ bool flagEditCat= false;
              else if(httpResponse.statusCode == 408){
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
+                 [HUD hideUIBlockingIndicator];
+
              }else{
-                 [activityIndicator stopAnimating];
-                 
-                 // status code indicates error, or didn't receive type of data requested
-                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                   
-                                   (int)(httpResponse.statusCode),
-                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                      code:-1000
-                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self handleError:error];  // execute on main thread!
-                     NSLog(@"ERROR: %@", error);
-                     [activityIndicator stopAnimating];
-                 });
+                 [HUD hideUIBlockingIndicator];
              }
          }
          else {
-             // request failed - error contains info about the failure
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self handleError:error]; // execute on main thread!
-                 NSLog(@"ERROR: %@", error);
-                 UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: @"Network Error" message:@"The Internet connection appears to be offline" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 
-                 [internetError show];
-                 [activityIndicator stopAnimating];
-             });
+             [HUD hideUIBlockingIndicator];
+            // show offiline msg
          }
      }];
     
+}
+
+#pragma mark images slider view 
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if ([imagesArray count]) {
+        return [imagesArray count];
+    }
+    return 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identifier = @"Cell";
+    
+    UploadCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    NSURL *u = [NSURL URLWithString:imagesArray[indexPath.row]];
+
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame.png"]];
+    UIProgressView * p = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
+    
+    [cell.imageView setImageWithURL:u usingProgressView:p];
+    
+    [cell.deleteBtn addTarget:self action:@selector(deleteItem:event:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+-(IBAction)deleteItem:(id)sender event:(id)event{
+    
+    
+    UIView * senderButton = (UIView*)sender;
+    
+    NSIndexPath *indexPath = [_collectionView indexPathForCell:(UICollectionViewCell *)[[senderButton superview]superview]];
+    [imagesArray removeObjectAtIndex:indexPath.row];
+    [ _collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+    [_collectionView reloadData];
+    
+    if ([imagesArray count]<7) {
+       [_btnAddImage setEnabled:TRUE];
+    }else{
+        [_btnAddImage setEnabled:FALSE];}
 }
 
 
@@ -504,4 +536,5 @@ bool flagEditCat= false;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 @end

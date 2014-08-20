@@ -13,6 +13,4 @@
 @property (weak, nonatomic) IBOutlet UITableView *myTable;
 @property (strong ,nonatomic) NSString * userID;
 @property (strong ,nonatomic) NSString * apiKey;
-
-
 @end

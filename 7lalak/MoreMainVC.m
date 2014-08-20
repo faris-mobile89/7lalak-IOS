@@ -215,7 +215,7 @@ BOOL frameSet=FALSE;
 -(void)checkUserAdsScore :(NSString *)choosenType{
     
    NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserInfo&user_id=%@",userID];
-    NSLog(@"URl:%@",urlWithParam);
+   // NSLog(@"URl:%@",urlWithParam);
     
     NSURL* url = [NSURL URLWithString:urlWithParam];
     
