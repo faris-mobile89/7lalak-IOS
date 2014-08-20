@@ -302,13 +302,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEA-zz-t13">
-                                        <rect key="frame" x="31" y="230" width="195" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A7m-Fg-crk">
                                         <rect key="frame" x="30" y="253" width="242" height="89"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -327,7 +320,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Tc-Fm-4Ce">
                                         <rect key="frame" x="30" y="188" width="242" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2W-ah-LMX">
@@ -355,9 +348,9 @@
                     <connections>
                         <outlet property="availability" destination="zJi-ao-Apb" id="b7Z-br-bxh"/>
                         <outlet property="btnAddImage" destination="Y2W-ah-LMX" id="ifP-Zh-oHW"/>
+                        <outlet property="categoryField" destination="0Tc-Fm-4Ce" id="FCe-Im-bj9"/>
                         <outlet property="collectionView" destination="A7m-Fg-crk" id="JtN-Cj-Zsy"/>
                         <outlet property="description" destination="Yfi-HM-Nc7" id="hmt-gA-RsV"/>
-                        <outlet property="labelCatName" destination="qEA-zz-t13" id="tuB-nf-iTB"/>
                         <outlet property="labelStatus" destination="Goy-Vg-eA0" id="GlT-TO-dBa"/>
                         <outlet property="lablel_add_image" destination="cpg-ya-1YT" id="0h8-Kx-ci4"/>
                         <outlet property="price" destination="u7c-aD-uQL" id="UiZ-Hd-Fx6"/>

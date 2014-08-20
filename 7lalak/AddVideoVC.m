@@ -49,6 +49,7 @@ int selectedIndexMain;
 bool isUserPiked = false;
 bool isFirstLoadSubCat = true;
 
+
 -(void)viewDidLayoutSubviews{
     
     //== Localization UI =====//
@@ -117,6 +118,7 @@ bool isFirstLoadSubCat = true;
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
     
     UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
@@ -239,8 +241,7 @@ bool isFirstLoadSubCat = true;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSLog(@"starting Upload ...");
-        
-        
+
         if (videoURL != nil) {
             NSData *videoData= [NSData dataWithContentsOfURL:videoURL];
              [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
@@ -248,8 +249,6 @@ bool isFirstLoadSubCat = true;
             [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
             return;
         }
-
-   
     }
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                            NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);

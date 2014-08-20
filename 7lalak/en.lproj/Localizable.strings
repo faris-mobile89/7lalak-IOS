@@ -29,6 +29,7 @@
 "BUY"="Buy";
 "LOADING"="Loading...";
 "UPLOADING"="Uploading...";
+"DELETING"="Deleting...";
 "MESSAGE_CHOOSE_ADS"="Please choose Ads type";
 "ONE_VID_ATTACHED"="1 video file attached";
 "REPLACE_VID"="Replace Video";

@@ -44,7 +44,7 @@ float hieght;
 int selectedIndexMain;
 
 BOOL flagTextenter;
-bool isUserPikedImage = false;
+bool isUserPikedImage3 = false;
 bool isFirstLoadSubCatImages = true;
 
 -(void)viewDidLayoutSubviews{
@@ -63,6 +63,7 @@ bool isFirstLoadSubCatImages = true;
     self.title = LocalizedString(@"TITLE_MORE_ADD_IMAGE");
     [_fAdsText setText:LocalizedString(@"holder_description")];
     hieght = SCREEN_HEIGHT;
+    
     pickerCategoriesInput = [[UIPickerView alloc]init];
     pickerCategoriesInput.delegate=self;
     pickerCategoriesInput.dataSource=self;
@@ -332,7 +333,7 @@ bool isFirstLoadSubCatImages = true;
         [self loadSubCat];
         
     }else if (component == 1){
-        isUserPikedImage = true;
+        isUserPikedImage3 = true;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
         _categoryField.text = catName;
@@ -527,7 +528,7 @@ bool isFirstLoadSubCatImages = true;
 }
 -(void)doneButton:(id)sender{
     
-    if (!isUserPikedImage) {
+    if (!isUserPikedImage3) {
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
         _categoryField.text = catName;
     }

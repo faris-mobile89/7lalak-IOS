@@ -134,7 +134,7 @@
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *urlR, NSData *returnData, NSError *e) {
-                               NSLog(@"Return Data: %@", [[NSString alloc]initWithData:returnData encoding:NSStringEncodingConversionExternalRepresentation] );
+                              // NSLog(@"Return Data: %@", [[NSString alloc]initWithData:returnData encoding:NSStringEncodingConversionExternalRepresentation] );
                                
                                
                                

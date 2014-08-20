@@ -30,6 +30,7 @@
 "BUY"="Buy";
 "LOADING"="Loading...";
 "UPLOADING"="Uploading...";
+"DELETING"="Deleting...";
 "MESSAGE_CHOOSE_ADS"="Please choose Ads type";
 "ONE_VID_ATTACHED"="1 video file attached";
 "REPLACE_VID"="Replace Video";
@@ -98,6 +99,3 @@
 "Thanks_contactUs_msg"="We have received your enquiry and will respond to you within 24 hours. We will email you with a confirmation that we have received your enquiry";
 "label_form"="اكتب استفسارك هنا ";
 "btn_send_text"="ارسال";
-
-
-

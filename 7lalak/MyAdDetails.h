@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
 @property (weak, nonatomic) IBOutlet UITextField *price;
 @property (weak, nonatomic) IBOutlet UILabel *lablel_add_image;
+@property (weak, nonatomic) IBOutlet UITextField *categoryField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *availability;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *labelStatus;

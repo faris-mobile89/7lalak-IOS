@@ -23,22 +23,25 @@
 
 @interface MyAdDetails (){
 NSMutableArray *imagesData;
+    UIPickerView *pickerCategoriesInput;
+    NSMutableArray *imagesArray;
 }
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
 @property NSString *catId;
 @property (strong) NSString *selectedMaincatId;
 @property (strong) NSString *selectedSubcatId;
-
 @end
 
 @implementation MyAdDetails
 
 @synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId,jsonImages;
 @synthesize attachedNewImages;
-NSMutableArray *imagesArray;
-bool flagEditCat= false;
 
+bool flagEditCat= false;
+bool isUserPikedImage = false;
+bool isFirstLoad = true;
+int selectedIndexMain;
 
 -(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
 
@@ -55,7 +58,7 @@ bool flagEditCat= false;
 -(void)viewDidLayoutSubviews{
     
     [_btnAddImage setBackgroundImage:[UIImage imageNamed:@"add-image-disable"] forState:UIControlStateDisabled];
- 
+    [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
     selectedMaincatId = [[NSString alloc]init];
     selectedSubcatId = [[NSString alloc]init];
 
@@ -91,6 +94,12 @@ bool flagEditCat= false;
     
     _description.text= _paramDescription;
     _price.text = _paramPrice;
+    
+    pickerCategoriesInput = [[UIPickerView alloc]init];
+    pickerCategoriesInput.delegate=self;
+    pickerCategoriesInput.dataSource=self;
+    _categoryField.inputView=pickerCategoriesInput;
+    
      imagesData = [[NSMutableArray alloc]init];
     attachedNewImages = [[NSMutableArray alloc]init];
     [_collectionView setBackgroundColor:[UIColor clearColor]];
@@ -105,6 +114,7 @@ bool flagEditCat= false;
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
     _price.inputAccessoryView = numberToolbar;
+    _categoryField.inputAccessoryView = numberToolbar;
     
     if ([_paramStatus isEqualToString:@"2"]) {
         
@@ -114,12 +124,13 @@ bool flagEditCat= false;
         [_availability setSelectedSegmentIndex:1];
     }
     
-    //[self loadMainCat];
+    [self loadMainCat];
 }
 
 
 - (IBAction)deleteBtn:(id)sender {
     
+    NSLog(@"delete ..");
     UIAlertView *deleteConfirm = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"DELETE_CONFIRM") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"DELETE"), nil];
     [deleteConfirm show];
     
@@ -167,22 +178,7 @@ bool flagEditCat= false;
         newSatus = @"1"; //available
     }
     
-//++================= HANDLE NEW & OLD IMAGES TO UPLOAD ===================//
-    NSError *error = [[NSError alloc]init];
-    
-    NSData *oldImagesJSON = [NSJSONSerialization dataWithJSONObject:imagesArray options:NSJSONWritingPrettyPrinted error:&error];
-    
-    NSString *jsonStringWithOldImages = [[NSString alloc]initWithData:oldImagesJSON encoding:NSUTF8StringEncoding];
-    
-    //NSLog(@"new Imaes JSNON %@",jsonStringWithOldImages);
-    
-    return;
-    
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++//
-    
-    
-    
-    NSString *strURL = @"http://7lalek.com/api/api.php";
+    NSString *strURL = @"http://7lalek.com/api/uploader.php";
     
     [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
@@ -198,25 +194,59 @@ bool flagEditCat= false;
                                    @"UDID":_apiKey
                                    };
     
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter
+    AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSLog(@"uploading...");
+        
+        for (int i =0 ; i<[attachedNewImages count]; i++) {
+            
+            NSString *date = [[NSString alloc]initWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+            date =  [date stringByReplacingOccurrencesOfString:@"." withString:@""];
+            NSString *imageName = [[NSString alloc]initWithFormat:@"7lalak_IOS%i_%@%@",i,
+                                   date,@".jpg"];
+            
+            NSData *imageData = UIImageJPEGRepresentation(attachedNewImages[i], 0.0);
+            [formData appendPartWithFileData:imageData
+                                        name:[[NSString alloc]initWithFormat:@"file%i",i] fileName:imageName mimeType:@"image/jpeg"];
+            
+        }
+        
+        //++================= HANDLE NEW & OLD IMAGES TO UPLOAD (CONVERT TO JSON) ===================//
+        
+        NSError *error = [[NSError alloc]init];
+        
+        NSData *oldImagesJSON = [NSJSONSerialization dataWithJSONObject:imagesArray options:NSJSONWritingPrettyPrinted error:&error];
+        
+        NSString *jsonStringWithOldImages = [[NSString alloc]initWithData:oldImagesJSON encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"new Imaes JSNON %@",jsonStringWithOldImages);
+        
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++//
+     
+    }
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                           NSLog(@"Success:***** %@", responseObject);
                                            [HUD hideUIBlockingIndicator];
-                                           if (responseObject != nil) {
+                                           if ([[responseObject valueForKey:@"error"]intValue] == 0) {
                                                
-                                               if ([[responseObject valueForKey:@"error"]intValue]==0) {
-                                                   [self.navigationController popViewControllerAnimated:YES];
-                                               }
+                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Added")];
+                                               
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                           }else{
+                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
                                            }
+                                           
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                        NSLog(@"Error: %@ ***** %@", operation.responseString, error);                                          [HUD hideUIBlockingIndicator];
-
+                                           //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                           [HUD hideUIBlockingIndicator];
+                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                           
                                        }];
     
     [op start];
+
 
     
 }
@@ -225,7 +255,7 @@ bool flagEditCat= false;
     
     NSString *strURL = @"http://7lalek.com/api/api.php";
     
-    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"DELETING")];
     
     NSDictionary *dictParameter =@{
                                    @"tag":@"deleteAd",
@@ -281,13 +311,13 @@ bool flagEditCat= false;
        // [label setFont:[UIFont  boldSystemFontOfSize:10]];
         
     
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
         label.numberOfLines=3;
         //[label setBackgroundColor:[UIColor colorWithHexString:@"339999"]];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"%@ > ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >   ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }
@@ -307,21 +337,23 @@ bool flagEditCat= false;
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
     if (component==0){
-        
+        selectedIndexMain = row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
     }else if (component == 1){
+        
+        isUserPikedImage = true;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
-    }
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        _categoryField.text = catName;    }
 }
 
 -(void)loadSubCat{
     
-    
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
-    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
+    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING") withTimeout:3];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
@@ -337,49 +369,45 @@ bool flagEditCat= false;
          
          if (data) {
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-             
+             [HUD hideUIBlockingIndicator];
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 [HUD hideUIBlockingIndicator];
                  subCat = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
                          if ([subCat count] < 1 )
                              return;
-                         
                          selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
-                         
-                         ;
-                          // search by cat name => return cat name from JSON
+                         [pickerCategoriesInput reloadComponent:1];
+
+                         if (isFirstLoad) {
+
+                        // search by cat name => return cat name from JSON
                          for (NSInteger i = 0 ; i < [[subCat objectForKey:@"SubCat"]count]; i++) {
                              
                              if ([_paramSid intValue] ==  [[[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"id"]intValue] ) {
-                                 
-                                 _labelCatName.text = [[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"name"];
+                                
+                                 _categoryField.text = [[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"name"];
+                                 isFirstLoad = false;
                                  break;
                              }
-                         }
+                           }
+                        }//end first load
                        
                         // NSLog(@"subCat: %@", subCat);
                          
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [HUD hideUIBlockingIndicator];
                          NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 [HUD hideUIBlockingIndicator];
-
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
-             }else{
-                 [HUD hideUIBlockingIndicator];
-                 
              }
          }
          else {
@@ -396,8 +424,6 @@ bool flagEditCat= false;
     NSURL* url = [NSURL URLWithString:urlString];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
-    [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
-    
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:queue
@@ -408,25 +434,24 @@ bool flagEditCat= false;
          
          if (data) {
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-             
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 [HUD hideUIBlockingIndicator];
+                
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          
-                        // [_category_picker reloadComponent:0];
+                         [pickerCategoriesInput reloadComponent:0];
                          
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
+                         selectedIndexMain = 0;
                          [self loadSubCat];
                          // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          NSLog(@"ERROR: %@", error);
-                         [HUD hideUIBlockingIndicator];
                      });
                  }
              }
@@ -434,14 +459,10 @@ bool flagEditCat= false;
              else if(httpResponse.statusCode == 408){
                  UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
                  [someError show];
-                 [HUD hideUIBlockingIndicator];
 
-             }else{
-                 [HUD hideUIBlockingIndicator];
              }
          }
          else {
-             [HUD hideUIBlockingIndicator];
             // show offiline msg
          }
      }];
@@ -511,10 +532,26 @@ bool flagEditCat= false;
     }
     else return YES;
 }
+
 -(void)doneButton:(id)sender{
     
+    if (!isUserPikedImage) {
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        _categoryField.text = catName;
+    }
+    
     [_price resignFirstResponder];
+    [_categoryField resignFirstResponder];
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        
+        [self deleteAction];
+    }
+}
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     
     return YES;
@@ -530,6 +567,13 @@ bool flagEditCat= false;
     UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
     
     [internetError show];
+}
+-(void)showMessage:(NSString *)title message:(NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
+    
+    [internetError show];
+    
 }
 - (void)didReceiveMemoryWarning
 {
