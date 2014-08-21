@@ -29,13 +29,12 @@ NSMutableArray *imagesData;
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
 @property NSString *catId;
-@property (strong) NSString *selectedMaincatId;
-@property (strong) NSString *selectedSubcatId;
+
 @end
 
 @implementation MyAdDetails
 
-@synthesize jsonObject,subCat,catId,selectedMaincatId,selectedSubcatId,jsonImages;
+@synthesize jsonObject,subCat,catId,jsonImages;
 @synthesize attachedNewImages;
 
 bool flagEditCat= false;
@@ -44,10 +43,14 @@ bool isFirstLoad = true;
 int selectedIndexMain;
 int selectedIndexSub;
 
+ NSString *selectedMaincatId;
+ NSString *selectedSubcatId;
+
 -(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
 
    // NSLog(@"picked imagesArray = %@",imagesArray);
-    
+    NSLog(@"Return selected= %@,%@",selectedMaincatId,selectedSubcatId);
+
     [_lablel_add_image setText:[[NSString alloc]initWithFormat:@"%i new images",[data count]]];
     [_lablel_add_image setTextColor:[UIColor orangeColor]];
     
@@ -60,14 +63,11 @@ int selectedIndexSub;
     
     [_btnAddImage setBackgroundImage:[UIImage imageNamed:@"add-image-disable"] forState:UIControlStateDisabled];
     [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
-    selectedMaincatId = [[NSString alloc]init];
-    selectedSubcatId = [[NSString alloc]init];
-
     _description.layer.cornerRadius= 10;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
-    selectedSubcatId =_paramSid; selectedMaincatId=_paramSid;
+  
     
     [super viewDidLayoutSubviews];
 }
@@ -75,6 +75,10 @@ int selectedIndexSub;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+      selectedMaincatId = [[NSString alloc]init];
+      selectedSubcatId = [[NSString alloc]init];
+      selectedSubcatId =_paramSid; selectedMaincatId=_paramMid;
     
     _price.delegate = self;
     _description.delegate=self;
@@ -154,16 +158,14 @@ int selectedIndexSub;
     
     if (flagEditCat) {
     
-    if (selectedSubcatId != _paramSid) {
-        //send new cat
+ 
         NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
         paramSelectedMaincatId = selectedMaincatId;
         paramSelectedSubcatId = selectedSubcatId;
         if (selectedMaincatId == nil || selectedSubcatId == nil) {
             NSLog(@"please select category");
             return;
-        }
-     }
+           }
     
     }else{
         paramSelectedSubcatId = @"00"; paramSelectedMaincatId=@"00";
@@ -350,13 +352,18 @@ int selectedIndexSub;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
+        NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
     }else if (component == 1){
         
         isUserPikedImage = true;
         selectedIndexSub = row;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
+        
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
+        
         _categoryField.text = catName;
+        
+         NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
     }
 }
 
