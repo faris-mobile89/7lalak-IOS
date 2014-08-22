@@ -51,14 +51,10 @@
 
     [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
     
-    
     _description.layer.cornerRadius= 10;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
-   
-    
-  
     
     [super viewDidLayoutSubviews];
 }
@@ -177,9 +173,7 @@
     flagDelete = true;
     UIAlertView *deleteConfirm = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"DELETE_CONFIRM") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL") otherButtonTitles:LocalizedString(@"DELETE"), nil];
     [deleteConfirm show];
-    
-    
-    
+
 }
 
 
@@ -363,7 +357,7 @@
     flagEditCat = true;
     
     if (component==0){
-        selectedIndexMain = row;
+        selectedIndexMain = (int)row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
@@ -371,7 +365,7 @@
     }else if (component == 1){
         
         isUserPikedImage = true;
-        selectedIndexSub = row;
+        selectedIndexSub = (int)row;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
         
         NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];

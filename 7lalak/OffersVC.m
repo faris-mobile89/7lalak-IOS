@@ -50,7 +50,7 @@ UIActivityIndicatorView *activityIndicator;
 
 -(void)loadWebPage{
     
-    NSString *urlAddress = @"http://7lalek.com/api/offers/show.php";
+    NSString *urlAddress = @"http://7lalek.com/api/offers/home.php";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 
     if ([self connectedToInternet]) {
@@ -65,18 +65,19 @@ UIActivityIndicatorView *activityIndicator;
         //Create a URL object.
         NSURL *url = [NSURL URLWithString:urlAddress];
         
+        // disable cache
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
         //URL Requst Object
         [self.fWebView loadHTMLString:@"" baseURL:nil];
-        NSURLRequest* requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
+        NSURLRequest* requestObj = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:60.0];
         [self performSelector:@selector(hideHUD) withObject:nil afterDelay:9];
         //Load the request in the UIWebView.
         [self.fWebView loadRequest:requestObj];
 	}
 	else {
         [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
-
 	}
-
 }
 
 -(void)showErrorInterentMessage:(NSString *)msg{
