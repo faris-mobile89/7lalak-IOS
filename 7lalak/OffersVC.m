@@ -10,6 +10,8 @@
 #import "InternetConnection.h"
 #import "LocalizeHelper.h"
 
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+
 @interface OffersVC ()
 
 @end
@@ -46,11 +48,22 @@
     
     [super viewDidLoad];
 }
+
 UIActivityIndicatorView *activityIndicator;
 
 -(void)loadWebPage{
+    NSString *urlAddress;
+    BOOL IS_4S = IS_HEIGHT_4S;
     
-    NSString *urlAddress = @"http://7lalek.com/api/offers/home.php";
+    if (IS_4S) {
+        urlAddress = @"http://7lalek.com/api/offers/iphone-4/home.php";
+        NSLog(@"iphone-4");
+    }
+    else{
+        urlAddress = @"http://7lalek.com/api/offers/iphone-5/home.php";
+        NSLog(@"iphone-5");
+    }
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 
     if ([self connectedToInternet]) {
