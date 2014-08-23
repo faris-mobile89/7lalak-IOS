@@ -28,6 +28,8 @@ TabDescriptionVC *tabDescription;
 -(void)viewDidLayoutSubviews{
     
     
+if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
+    
     tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
     tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
     tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];
@@ -75,6 +77,7 @@ TabDescriptionVC *tabDescription;
     // increment number of views to current Ad
     
     [self numberOfviews];
+}
 
   
 }
@@ -83,6 +86,57 @@ TabDescriptionVC *tabDescription;
     
     [super viewDidLoad];
     //NSLog(@"JSONObject%@",jsonObject);
+    
+    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]){
+        
+        tabImage = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesContainer"];
+        tabVideo = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoContainer"];
+        tabDescription = [self.storyboard instantiateViewControllerWithIdentifier:@"DescriptionContainer"];
+        
+        tabDescription.jsonObject=jsonObject;
+        tabImage.jsonObject=jsonObject;
+        tabVideo.jsonObject=jsonObject;
+        
+        
+        [tabDescription willMoveToParentViewController:self];
+        [self.containterView addSubview:tabDescription.view];
+        [self addChildViewController:tabDescription];
+        [tabDescription didMoveToParentViewController:self];
+        
+        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
+            [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
+        }
+        
+        
+        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
+            
+            
+            if ([[jsonObject objectForKey:@"vids"]count] ==0 ) {
+                [_tabsView removeSegmentAtIndex:1 animated:NO];
+            }
+        }
+        
+        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]) {
+            
+            
+            NSMutableArray *dic =[[NSMutableArray alloc]init];
+            
+            for (NSInteger i =0 ; i< [[jsonObject objectForKey:@"imgs"]count]; i++) {
+                [dic addObject:[[jsonObject objectForKey:@"imgs"]objectAtIndex:i ] ];
+            }
+            
+            networkImages = [dic copy];
+            
+            
+            if ([[jsonObject objectForKey:@"imgs"]count] ==0 ) {
+                [_tabsView removeSegmentAtIndex:1 animated:NO];
+            }
+        }
+        
+        // increment number of views to current Ad
+        
+        [self numberOfviews];
+    }
 
 }
 

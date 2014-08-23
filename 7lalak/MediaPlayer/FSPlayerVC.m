@@ -46,7 +46,8 @@ int playingCurrentIndex=0;
 -(void)set4SFrame{
     
     _ios5View.frame = CGRectMake(0, 365, 320, 88);
-    
+    //_ios5View.frame = CGRectMake(0, 320, 320, 88);
+
 }
 
 -(void)viewDidLayoutSubviews{
@@ -54,8 +55,7 @@ int playingCurrentIndex=0;
     BOOL IS_4S = IS_HEIGHT_4S;
     _holder.layer.cornerRadius = 18;
     if (IS_4S) {
-        
-        [self set4SFrame];
+        _ios5View.frame = CGRectMake(0, 365, 320, 88);
     }
 }
 

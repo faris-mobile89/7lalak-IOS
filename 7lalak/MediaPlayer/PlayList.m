@@ -12,6 +12,7 @@
 static PlayList *sharedAlbumItems = nil; // static instance variable
 static int pickedIndex;
 static NSMutableArray *playListItems;
+static bool isPlay =false;
 
 +(PlayList*)sharedPlayList{
     
@@ -21,10 +22,8 @@ static NSMutableArray *playListItems;
     return sharedAlbumItems;
 }
 
-
 - (id)init {
     if ( (self = [super init]) ) {
-        // your custom initialization
     }
     return self;
 }
@@ -38,9 +37,13 @@ static NSMutableArray *playListItems;
 }
 
 -(int)getPickedIndex{
+    isPlay = true;
     return pickedIndex;
 }
 
+-(bool)isPlaying{
+    return  isPlay;
+}
 -(void)setPickedIndex:(int)index{
     pickedIndex = index;
 }

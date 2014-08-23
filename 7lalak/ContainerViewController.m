@@ -23,8 +23,11 @@
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 
-@interface ContainerViewController ()
+@interface ContainerViewController (){
+    NSString *lang;
+}
 @property NSInteger selectedIndex;
+
 @end
 
 @implementation ContainerViewController
@@ -65,11 +68,19 @@ UIImageView *bannerView;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+
+    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:langBundle]forCellReuseIdentifier:@"HomeCell"];
+    
     lang = [[NSString alloc]init];
     lang = [[Localization sharedInstance]getPreferredLanguage];
     
 }
+
 -(void)loadTableData{
     
     NSString *feedsURl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&device=IOS&lang=%@",lang];

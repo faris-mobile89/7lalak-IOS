@@ -210,6 +210,9 @@
     
     [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING")];
     
+    if (videoURL ==nil) {
+         videoURL = @"";
+    }
     
     NSDictionary *dictParameter =@{
                                    @"tag":@"editVideoAd",
@@ -219,6 +222,7 @@
                                    @"status":newSatus,
                                    @"mid":paramSelectedMaincatId,
                                    @"sid":paramSelectedSubcatId,
+                                   @"oldVideoURL":videoURL,
                                    @"user_id":_userID,
                                    @"UDID":_apiKey
                                    };
@@ -238,7 +242,7 @@
         if (localVideoURL != nil && isAttachedNewVideo) {
             NSData *videoData= [NSData dataWithContentsOfURL:localVideoURL];
             [formData appendPartWithFileData:videoData name:@"7lalak_video_file" fileName:videoName mimeType:@"video/MPEG"];
-        }else{
+        }else if( videoURL == nil){
             [self showMessage:@"" message:LocalizedString(@"ERROR_SELECT_VIDEO")];
             return;
         }

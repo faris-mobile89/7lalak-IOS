@@ -7,8 +7,6 @@
 //
 
 #import "MoreMainVC.h"
-#import "AddVideoVC.h"
-#import "AddImageVC.h"
 #import "FavoriteVC.h"
 #import "UserInfoVC.h"
 #import "RegisterVC.h"
@@ -18,6 +16,7 @@
 #import "MyAdsVC.h"
 #import "UIColor_hex.h"
 #import "AboutUsVC.h"
+#import "FSPlayerVC.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -138,28 +137,11 @@ BOOL frameSet=FALSE;
 
 - (IBAction)btnAdd:(id)sender {
     
-    [self getUserData];
-    
-    if (isRegistered) {
-        
-        UIAlertView *chooser = [[UIAlertView alloc]initWithTitle:nil message:LocalizedString(@"MESSAGE_CHOOSE_ADS") delegate:self cancelButtonTitle:LocalizedString(@"CANCEL")
-                                               otherButtonTitles:LocalizedString(@"IMAGE"),
-                                LocalizedString(@"VIDEO"), nil];
-        [chooser show];
-        
-    }else{
-        [self registerView];
-    }
+    FSPlayerVC *media = [self.storyboard instantiateViewControllerWithIdentifier:@"player4s"];
+   //[self.navigationController pushViewController:media animated:YES];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    if (buttonIndex == 1) {
-        [self checkUserAdsScore:@"image"];
-    }else if (buttonIndex == 2){
-        [self checkUserAdsScore:@"video"];
-    }
-}
+
 
 - (IBAction)btnFav:(id)sender {
     
@@ -212,104 +194,6 @@ BOOL frameSet=FALSE;
     [self.navigationController pushViewController:about animated:YES];
 }
 
--(void)checkUserAdsScore :(NSString *)choosenType{
-    
-   NSString *urlWithParam = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getUserInfo&user_id=%@",userID];
-   // NSLog(@"URl:%@",urlWithParam);
-    
-    NSURL* url = [NSURL URLWithString:urlWithParam];
-    
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, (self.view.frame.size.height / 2.0)-50);
-    [self.view addSubview: activityIndicator];
-    
-    [activityIndicator startAnimating];
-    [_btnAdd setEnabled:FALSE];
-    
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                       queue:queue
-                           completionHandler:^(NSURLResponse* response,
-                                               NSData* data,
-                                               NSError* error)
-     {
-         
-         if (data) {
-             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-             
-             if (httpResponse.statusCode == 200 /* OK */) {
-                 NSError* error;
-                 [_btnAdd setEnabled:TRUE];
-
-                 id  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                 if (jsonObject) {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         [activityIndicator stopAnimating];
-
-                         if (jsonObject!=nil) {
-                             //NSLog(@"response%@",jsonObject);
-                             
-                             if ([choosenType isEqualToString:@"image"]) {
-                                 
-                                 int adsImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"imagesScore"]intValue];
-                                 
-                                 int adsPaidImageScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidImagesScore"]intValue];
-                                 
-                                 if ( adsImageScore < 1  && adsPaidImageScore < 1) {
-                                      [self showMessage:@""message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
-                                 }else{
-                                     AddImageVC *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addImages"];
-                                     imageVC.userID = userID;
-                                     imageVC.apiKey = apiKey;
-                                     [self.navigationController pushViewController:imageVC animated:YES];
-                                 }
-                                 
-                             }else if ([choosenType isEqualToString:@"video"]){
-                                 
-                                 int adsVideoScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"videosScore"]intValue];
-                                 
-                                int adsPaidVideosScore = [[[jsonObject objectForKey:@"userInfo"]valueForKey:@"paidVideosScore"]intValue];
-                                 
-                                 if (adsVideoScore < 1 && adsPaidVideosScore < 1) {
-                                     [self showMessage:@"" message:LocalizedString(@"ERROR_NO_ADs_SCORE")];
-                                 }else{
-                                     AddVideoVC *videoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"addVideoView"];
-                                     videoVC.userID = userID;
-                                     videoVC.apiKey = apiKey;
-                                     [self.navigationController pushViewController:videoVC animated:YES];
-                                 }
-                             }
-                         }
-                     });
-                 } else {
-                     [activityIndicator stopAnimating];
-                     [_btnAdd setEnabled:TRUE];
-                 }
-             }
-             
-             else if(httpResponse.statusCode == 408){
-                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
-                                        message:LocalizedString(@"error_internet_timeout")];
-                 [_btnAdd setEnabled:TRUE];
-                 
-             }else{
-                 [activityIndicator stopAnimating];
-                 [_btnAdd setEnabled:TRUE];
-             }
-         }
-         else {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR") message : LocalizedString(@"error_internet_offiline")];
-                 [_btnAdd setEnabled:TRUE];
-                 [activityIndicator stopAnimating];
-             });
-         }
-     }];
-    
-}
 
 -(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
     

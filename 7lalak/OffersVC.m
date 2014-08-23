@@ -9,6 +9,7 @@
 #import "OffersVC.h"
 #import "InternetConnection.h"
 #import "LocalizeHelper.h"
+#import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
@@ -32,7 +33,7 @@
     
     if (BadgeValue < 1) {
         
-        [_tabOffers setBadgeValue:LocalizedString(@"NEW")];
+        //[_tabOffers setBadgeValue:LocalizedString(@"NEW")];
         
     }else{
         
@@ -52,17 +53,25 @@
 UIActivityIndicatorView *activityIndicator;
 
 -(void)loadWebPage{
+    
+    NSString * lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    
     NSString *urlAddress;
     BOOL IS_4S = IS_HEIGHT_4S;
+   
     
     if (IS_4S) {
-        urlAddress = @"http://7lalek.com/api/offers/iphone-4/home.php";
-        NSLog(@"iphone-4");
+        urlAddress = [[NSString alloc]initWithFormat:
+                      @"http://7lalek.com/api/offers/iphone-4/home.php?lang=%@",lang];
     }
     else{
-        urlAddress = @"http://7lalek.com/api/offers/iphone-5/home.php";
-        NSLog(@"iphone-5");
+         urlAddress = [[NSString alloc]initWithFormat:
+                  @"http://7lalek.com/api/offers/iphone-5/home.php?lang=%@",lang];
     }
+    
+    
+    //NSLog(@"%@",urlAddress);
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
 

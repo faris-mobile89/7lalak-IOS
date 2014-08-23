@@ -21,7 +21,9 @@
 #import "Localization.h"
 
 
-@interface SubCatVC ()
+@interface SubCatVC (){
+    NSString *lang;
+}
 @property NSInteger selectedIndex;
 @property (nonatomic,copy) id jsonObject;
 @end
@@ -43,7 +45,12 @@ UIImageView *bannerView;
 {
     [super viewDidLoad];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:nil]forCellReuseIdentifier:@"HomeCell"];
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:langBundle]forCellReuseIdentifier:@"HomeCell"];
     [self.tableView setBackgroundColor: [UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 

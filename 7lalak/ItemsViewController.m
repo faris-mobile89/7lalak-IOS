@@ -19,12 +19,15 @@
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 #import "LocalizeHelper.h"
+#import "Localization.h"
 
 
-@interface ItemsViewController ()
+@interface ItemsViewController (){
+
+    NSString * lang;
+}
 @property NSInteger selectedIndex;
 @property (nonatomic,strong) NSMutableArray * jsonObject;
-
 @end
 
 @implementation ItemsViewController
@@ -46,6 +49,9 @@ UIImageView *bannerView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
     jsonObject = [[NSMutableArray alloc]init];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"SEARCH")
@@ -54,7 +60,13 @@ UIImageView *bannerView;
                                                                              action:@selector(searchTapped:)];
     
     _numberOfnewPosts = 10;
-    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
@@ -163,7 +175,7 @@ UIImageView *bannerView;
 -(void)loadFeeds{
     
     
-      NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,@"en"];
+      NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&lang=%@",catId,0,lang];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     
@@ -234,7 +246,7 @@ UIImageView *bannerView;
 
 -(void)loadMoreFeed:(int )QueryCount{
     
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",catId,QueryCount,@"ar"];
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?tag=getMoreItemsFromCategory&cat_id=%@&from=%i&device=IOS&lang=%@",catId,QueryCount,lang];
     
     NSURL* url = [NSURL URLWithString:strUrl];
     

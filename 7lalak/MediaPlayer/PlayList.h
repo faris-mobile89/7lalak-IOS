@@ -14,4 +14,5 @@
 -(void)setItems:(NSMutableArray *)items;
 -(int)getPickedIndex;
 -(void)setPickedIndex:(int)index;
+-(bool)isPlaying;
 @end

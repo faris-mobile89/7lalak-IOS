@@ -19,18 +19,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="YeG-vf-3Ai">
-                        <rect key="frame" x="2" y="7" width="87" height="82"/>
+                        <rect key="frame" x="228" y="7" width="87" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="177" translatesAutoresizingMaskIntoConstraints="NO" id="gma-RD-8Xm">
-                        <rect key="frame" x="103" y="17" width="177" height="63"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="177" translatesAutoresizingMaskIntoConstraints="NO" id="gma-RD-8Xm">
+                        <rect key="frame" x="49" y="17" width="177" height="63"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Damascus" family="Damascus" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_new_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-bp-eI1">
-                        <rect key="frame" x="292" y="32" width="27" height="26"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_new_arrow_ar.png" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-bp-eI1">
+                        <rect key="frame" x="12" y="32" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>
@@ -44,6 +44,6 @@
     <resources>
         <image name="Icon-60.png" width="60" height="60"/>
         <image name="bg_row.png" width="5" height="151"/>
-        <image name="ic_new_arrow.png" width="32" height="32"/>
+        <image name="ic_new_arrow_ar.png" width="32" height="32"/>
     </resources>
 </document>

@@ -15,8 +15,6 @@
 
 @implementation TabBarViewController
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,12 +26,11 @@
     UITabBarItem *tabBarItem3 = [tabBar.items objectAtIndex:2];
     UITabBarItem *tabBarItem4 = [tabBar.items objectAtIndex:3];
     
-
     [tabBarItem1 setTitle:LocalizedString(@"TAB_OFFERS")];
     [tabBarItem2 setTitle:LocalizedString(@"TAB_SECTIONS")];
-    [tabBarItem3 setTitle:LocalizedString(@"TAB_MEDIA")];
+    [tabBarItem3 setTitle:LocalizedString(@"TAB_ADD")];
     [tabBarItem4 setTitle:LocalizedString(@"TAB_MORE")];
-   
+
 }
 
 - (void)didReceiveMemoryWarning
