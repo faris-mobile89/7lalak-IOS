@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *price_from;
 @property (weak, nonatomic) IBOutlet UITextField *price_to;
 @property (strong ,nonatomic) NSString *parentID;
+@property (weak, nonatomic) IBOutlet UIButton *btnSearch;
 
 - (IBAction)btnSearch:(id)sender;
 

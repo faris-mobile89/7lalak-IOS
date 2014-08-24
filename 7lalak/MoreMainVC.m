@@ -40,7 +40,7 @@ BOOL frameSet=FALSE;
 -(void)viewDidLayoutSubviews{
     
     [_btn1 setTitle:LocalizedString(@"BTN_FAV") forState:UIControlStateNormal];
-    [_btn2 setTitle:LocalizedString(@"BTN_Add") forState:UIControlStateNormal];
+    [_btn2 setTitle:LocalizedString(@"HOME_TITLE") forState:UIControlStateNormal];
     [_btn3 setTitle:LocalizedString(@"BTN_INFO") forState:UIControlStateNormal];
     [_btn4 setTitle:LocalizedString(@"BTN_BUY") forState:UIControlStateNormal];
     [_btn5 setTitle:LocalizedString(@"BTN_CONTACT") forState:UIControlStateNormal];
@@ -64,7 +64,7 @@ BOOL frameSet=FALSE;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.navigationController.navigationBar.translucent = NO;
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     [super viewDidLoad];
 }
@@ -135,10 +135,12 @@ BOOL frameSet=FALSE;
     [self.navigationController pushViewController:myAds animated:YES];
 }
 
+// replaced to home page
 - (IBAction)btnAdd:(id)sender {
     
-    FSPlayerVC *media = [self.storyboard instantiateViewControllerWithIdentifier:@"player4s"];
-   //[self.navigationController pushViewController:media animated:YES];
+    UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"navi"];
+    [self presentViewController:home animated:YES completion:nil];
+ 
 }
 
 

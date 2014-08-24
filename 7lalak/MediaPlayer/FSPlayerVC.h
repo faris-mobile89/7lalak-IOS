@@ -135,8 +135,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *next;
 
 - (IBAction)btnNext:(id)sender;
-- (IBAction)btnNextProgress:(id)sender;
-- (IBAction)btnBackProgress:(id)sender;
 - (IBAction)btnBack:(id)sender;
 
 @end

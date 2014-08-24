@@ -16,8 +16,11 @@
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 #import "LocalizeHelper.h"
+#import "Localization.h"
 
-@interface SearchResultsVC ()
+@interface SearchResultsVC (){
+    NSString*lang;
+}
 @property NSInteger selectedIndex;
 @property (nonatomic,strong) NSMutableArray * jsonObject;
 
@@ -32,7 +35,13 @@
     [super viewDidLoad];
     
     [_tableView setBackgroundColor:[UIColor clearColor]];
-    [_tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+    
+    [_tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
     
@@ -52,7 +61,7 @@
     
     NSURL *searchURL = [NSURL URLWithString:encodeURL];
     
-      NSLog(@"URL:%@",searchURL);
+      //NSLog(@"URL:%@",searchURL);
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:searchURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -82,7 +91,7 @@
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
-                         NSLog(@"response%@",jsonObject);
+                         //NSLog(@"response%@",jsonObject);
                     if (jsonObject !=nil){
                              
                         if ([[jsonObject valueForKey:@"error"]intValue]==1) {
@@ -186,11 +195,17 @@
     [cell.fPrice setText:[[jsonObject
                            objectAtIndex:indexPath.row]objectForKey:@"price"]];
     
-    int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]intValue];
+    NSString * status = [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"];
     
-    if (status == 2) {
-        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
-    }
+    if ([status isEqualToString: @"2"]){
+        if ([lang isEqualToString:@"ar"]) {
+            
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag_ar.png"]];
+        }else{
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        }
+    }else
+        [cell.imgSold setImage:nil];
     
     return cell;
 }

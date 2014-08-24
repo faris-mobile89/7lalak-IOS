@@ -34,16 +34,25 @@
 
 -(void)viewDidLayoutSubviews{
     
-    _fUserName.layer.cornerRadius = 5;
-    _fPhone.layer.cornerRadius =5;
+    _fUserName.layer.cornerRadius = 4;
+    _fPhone.layer.cornerRadius =4;
+    
     BOOL IS_4S = IS_HEIGHT_4S;
     if (IS_4S) {
         [self set4SFrame];
     }
+    
+    // free
     [_lable_adsScore setText:LocalizedString(@"label_adsScore")];
     [_lable_adImageScore setText:LocalizedString(@"label_adsImageScore")];
     [_lablel_adVidScore setText:LocalizedString(@"label_adsVideoScore")];
+    // paid
+    [_label_paid_ads_title setText:LocalizedString(@"label_paid_adsScore")];
+    [_label_paid_image setText:LocalizedString(@"label_adsImageScore")];
+    [_label_paid_video setText:LocalizedString(@"label_adsVideoScore")];
+    //deactive
     [_btnDeactive setTitle:LocalizedString(@"btn_deactive") forState:UIControlStateNormal];
+    
     [super viewDidLayoutSubviews];
 }
 - (void)viewDidLoad

@@ -28,10 +28,13 @@
 
 
 
+
 - (void)viewDidLoad
 {
     
-    
+    [_addImage setTitle:LocalizedString(@"Add_Image_Ad") forState:UIControlStateNormal];
+    [_addVideo setTitle:LocalizedString(@"Add_Video_Ad") forState:UIControlStateNormal];
+
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     

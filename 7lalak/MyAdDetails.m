@@ -49,9 +49,9 @@ int selectedIndexSub;
 -(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
 
    // NSLog(@"picked imagesArray = %@",imagesArray);
-    NSLog(@"Return selected= %@,%@",selectedMaincatId,selectedSubcatId);
+//NSLog(@"Return selected= %@,%@",selectedMaincatId,selectedSubcatId);
 
-    [_lablel_add_image setText:[[NSString alloc]initWithFormat:@"%i new images",[data count]]];
+    [_lablel_add_image setText:[[NSString alloc]initWithFormat:@"%i %@",[data count],LocalizedString(@"NEW_IMAGE_ADDED")]];
     [_lablel_add_image setTextColor:[UIColor orangeColor]];
     
     attachedNewImages = data;
@@ -67,8 +67,17 @@ int selectedIndexSub;
     _description.layer.borderWidth=0.5;
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
-  
     
+    //== Localization UI =====//
+    [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
+    [_price setPlaceholder:LocalizedString(@"holder_price")];
+    [_labelStatus setText:LocalizedString(@"AD_Status")];
+    [_lablel_add_image setText:LocalizedString(@"btn_Add_Image")];
+    [_btnDelete setTitle:LocalizedString(@"Delete") forState:UIControlStateNormal];
+    [_btn_saveChanges setTitle:LocalizedString(@"SAVE_CHANGES") forState:UIControlStateNormal];
+    [_availability setTitle:LocalizedString(@"SOLD") forSegmentAtIndex:0];
+    [_availability setTitle:LocalizedString(@"Available") forSegmentAtIndex:1];
+
     [super viewDidLayoutSubviews];
 }
 
@@ -159,17 +168,17 @@ int selectedIndexSub;
     if (flagEditCat) {
     
  
-        NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
+        //NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
         paramSelectedMaincatId = selectedMaincatId;
         paramSelectedSubcatId = selectedSubcatId;
         if (selectedMaincatId == nil || selectedSubcatId == nil) {
-            NSLog(@"please select category");
+           // NSLog(@"please select category");
             return;
            }
     
     }else{
         paramSelectedSubcatId = @"00"; paramSelectedMaincatId=@"00";
-        NSLog(@"no categ selected");
+        //NSLog(@"no categ selected");
         
     }
     
@@ -218,7 +227,7 @@ int selectedIndexSub;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     AFHTTPRequestOperation *op = [manager POST:strURL parameters:dictParameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSLog(@"uploading...");
+       // NSLog(@"uploading...");
         
      
         for (int i =0 ; i<[attachedNewImages count]; i++) {
@@ -235,22 +244,22 @@ int selectedIndexSub;
         }
       }
                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                           NSLog(@"Success:***** %@", responseObject);
+                                          // NSLog(@"Success:***** %@", responseObject);
                                            [HUD hideUIBlockingIndicator];
                                            if ([[responseObject valueForKey:@"error"]intValue] == 0) {
                                                
-                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Added")];
+                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Updated")];
                                                
                                                [self.navigationController popViewControllerAnimated:YES];
                                            }else{
-                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPDATED")];
                                            }
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [HUD hideUIBlockingIndicator];
-                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPDATED")];
                                            
                                        }];
     
@@ -326,7 +335,7 @@ int selectedIndexSub;
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >   ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@     ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }
@@ -352,7 +361,7 @@ int selectedIndexSub;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
-        NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
+       // NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
     }else if (component == 1){
         
         isUserPikedImage = true;
@@ -363,7 +372,7 @@ int selectedIndexSub;
         
         _categoryField.text = catName;
         
-         NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
+        // NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
     }
 }
 
@@ -418,14 +427,13 @@ int selectedIndexSub;
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         NSLog(@"ERROR: %@", error);
+                        // NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
              }
          }
          else {
@@ -469,14 +477,13 @@ int selectedIndexSub;
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         NSLog(@"ERROR: %@", error);
+                      //   NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
 
              }
          }
@@ -585,9 +592,17 @@ int selectedIndexSub;
     return YES;
 }
 
+-(void)showErrorInterentMessage: (NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: nil message:msg delegate: nil cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+    
+}
+
 -(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{
     
-    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: self cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: title message:msg delegate: nil cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
     
     [internetError show];
 }

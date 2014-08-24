@@ -10,6 +10,8 @@
 #import "AddMoreImagesVC.h"
 
 @interface MyAdDetails : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,AddMoreImagesDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *btnDelete;
+@property (weak, nonatomic) IBOutlet UIButton *btn_saveChanges;
 @property (weak, nonatomic) IBOutlet UITextView *description;
 - (IBAction)btnAddImageClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddImage;
@@ -19,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *availability;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *labelStatus;
-@property (weak, nonatomic) IBOutlet UILabel *labelCatName;
 @property (strong ,nonatomic) NSString * paramDescription;
 @property (strong ,nonatomic) NSString * paramPrice;
 @property (strong ,nonatomic) NSString * paramAvailabilityCode;

@@ -304,11 +304,11 @@ bool isFirstLoadSubCatImages = true;
         label = [[UILabel alloc] init];
         [label setFont:[UIFont  boldSystemFontOfSize:15]];
         label.numberOfLines=3;
-         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+         label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }

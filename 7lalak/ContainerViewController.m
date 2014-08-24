@@ -65,6 +65,9 @@ UIImageView *bannerView;
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(home:)];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
+    
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new] ;
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
@@ -156,7 +159,6 @@ UIImageView *bannerView;
 -(void)home:(id)sender{
     
     UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"navi"];
-    
     [self presentViewController:home animated:YES completion:nil];
 }
 

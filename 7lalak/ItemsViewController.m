@@ -58,6 +58,7 @@ UIImageView *bannerView;
                                                                               style:UIBarButtonItemStyleBordered
                                                                              target:self
                                                                              action:@selector(searchTapped:)];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     _numberOfnewPosts = 10;
     
@@ -338,7 +339,7 @@ UIImageView *bannerView;
 {
     
     if ([jsonObject count] > 0 && jsonObject !=nil){
-        self.title = [[NSString alloc]initWithFormat:@"%i %@",[jsonObject count] ,LocalizedString(@"Ad")];
+        self.title = [[NSString alloc]initWithFormat:@"%lu %@",(unsigned long)[jsonObject count] ,LocalizedString(@"Ad")];
         return [jsonObject count];
     }
     else
@@ -388,9 +389,14 @@ UIImageView *bannerView;
     
     NSString * status = [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"];
     
-    if ([status isEqualToString: @"2"])
-         [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
-    else
+    if ([status isEqualToString: @"2"]){
+        if ([lang isEqualToString:@"ar"]) {
+            
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag_ar.png"]];
+        }else{
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        }
+    }else
         [cell.imgSold setImage:nil];
 
     return cell;
@@ -404,7 +410,7 @@ UIImageView *bannerView;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     selectedIndex = indexPath.row;
-    self.title=@"Ads";
+    self.title=LocalizedString(@"Ad");
     [self performSegueWithIdentifier:@"itemDetails" sender:self];
 }
 

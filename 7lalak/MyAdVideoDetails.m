@@ -56,6 +56,15 @@
     _description.clipsToBounds = YES;
     _description.layer.borderColor=[[UIColor darkGrayColor] CGColor];
     
+        //== Localization UI =====//
+        [_categoryField setPlaceholder:LocalizedString(@"holder_cat")];
+        [_price setPlaceholder:LocalizedString(@"holder_price")];
+        //[_labelStatus setText:LocalizedString(@"AD_Status")];
+        [_saveBtn setTitle:LocalizedString(@"SAVE_CHANGES") forState:UIControlStateNormal];
+        [_replaceVideo setTitle:LocalizedString(@"Replace_VIDEO") forState:UIControlStateNormal];
+        [_btnDelete setTitle:LocalizedString(@"Delete") forState:UIControlStateNormal];
+        [_availability setTitle:LocalizedString(@"SOLD") forSegmentAtIndex:0];
+        [_availability setTitle:LocalizedString(@"Available") forSegmentAtIndex:1];
     [super viewDidLayoutSubviews];
 }
 
@@ -98,7 +107,7 @@
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
     numberToolbar.items = [NSArray arrayWithObjects:
                            
-                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"DONE") style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
                            
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
@@ -155,7 +164,7 @@
     if (movieData.length/1024.0f/1024.0f > 2.0f ) {
         [_saveBtn setEnabled:FALSE];
          [_labelStatus setHidden:FALSE];
-        _labelStatus.text=@"Attaced video is greater than 2MB";
+        _labelStatus.text=LocalizedString(@"FLAG_LESS_25MB");
         return;
     }else{
         [ _saveBtn setEnabled:TRUE];
@@ -184,11 +193,11 @@
     if (flagEditCat) {
         
             //send new cat
-            NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
+           // NSLog(@"selected= %@,%@",selectedMaincatId,selectedSubcatId);
             paramSelectedMaincatId = selectedMaincatId;
             paramSelectedSubcatId = selectedSubcatId;
             if (selectedMaincatId == nil || selectedSubcatId == nil) {
-                NSLog(@"please select category");
+               // NSLog(@"please select category");
                 return;
             }
         
@@ -252,18 +261,18 @@
                                            [HUD hideUIBlockingIndicator];
                                            if ([[responseObject valueForKey:@"error"]intValue] == 0) {
                                                
-                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Added")];
+                                               [self showMessage:@"" message:LocalizedString(@"MESSAGE_ADs_Updated")];
                                                
                                                [self.navigationController popViewControllerAnimated:YES];
                                            }else{
-                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                               [self showMessage:@"" message:LocalizedString(@"ERROR_UPDATED")];
                                            }
                                            
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                            NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [HUD hideUIBlockingIndicator];
-                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPLOAD")];
+                                           [self showMessage:@"" message:LocalizedString(@"ERROR_UPDATED")];
                                            
                                        }];
     
@@ -300,7 +309,7 @@
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                          // NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [HUD hideUIBlockingIndicator];
                                        }];
     
@@ -339,7 +348,7 @@
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >   ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@     ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }
@@ -365,7 +374,7 @@
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
-        NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
+        //NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
     }else if (component == 1){
         
         isUserPikedImage = true;
@@ -376,7 +385,7 @@
         
         _categoryField.text = catName;
         
-        NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
+       // NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
     }
 }
 
@@ -431,14 +440,14 @@
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         NSLog(@"ERROR: %@", error);
+                       //  NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+
              }
          }
          else {
@@ -482,14 +491,14 @@
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         NSLog(@"ERROR: %@", error);
+                        // NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 UIAlertView *someError = [[UIAlertView alloc] initWithTitle: @"Network Error" message: @"Connection Time Out" delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-                 [someError show];
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
+
                  
              }
          }
@@ -599,6 +608,14 @@
     
     [_price resignFirstResponder];
     return YES;
+}
+
+-(void)showErrorInterentMessage: (NSString*)msg{
+    
+    UIAlertView *internetError = [[UIAlertView alloc] initWithTitle: nil message:msg delegate: nil cancelButtonTitle: LocalizedString(@"Ok") otherButtonTitles: nil];
+    
+    [internetError show];
+    
 }
 
 -(void)showErrorInterentMessage:(NSString *)title message:(NSString*)msg{

@@ -33,7 +33,7 @@ NSString *email;
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
     numberToolbar.items = [NSArray arrayWithObjects:
                            
-                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"DONE") style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
                            
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
@@ -59,12 +59,12 @@ int phoneLength =8;
     if ([_fUserName.text length]>1 &&[_fPhone.text length] > 1 ) {
         
         if ([_fPhone.text length] != phoneLength){
-            [self showErrorMessage:@"Phone number not valid"];
+            [self showErrorMessage:LocalizedString(@"Num_Not_Valid")];
             return;
         }
         
         if (![self validatePhone:_fPhone.text]) {
-            [self showErrorMessage:@"Phone number not valid"];
+            [self showErrorMessage:LocalizedString(@"Num_Not_Valid")];
             return;
         }
         
@@ -72,7 +72,7 @@ int phoneLength =8;
                 
                 if (![self NSStringIsValidEmail:_fEmail.text]) {
                     
-                    [self showErrorMessage:@"Email not valid"];
+                    [self showErrorMessage:LocalizedString(@"Email_not_Valid")];
                     return;
             }
        }
@@ -193,7 +193,7 @@ int phoneLength =8;
                                                            
                                                            [self performSegueWithIdentifier:@"confirm_register" sender:self];
                                                        }else{
-                                                       UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"" message:@"The phone number is already registered !" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
+                                                       UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"" message:LocalizedString(@"Number_already_Registered") delegate:self cancelButtonTitle:LocalizedString(@"DONE") otherButtonTitles:nil, nil];
                                                        [error show];
                                                        }
                                                    }

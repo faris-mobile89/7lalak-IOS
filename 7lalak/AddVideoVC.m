@@ -57,6 +57,7 @@ bool isFirstLoadSubCat = true;
     [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
     [_buttonaddVideo setTitle:LocalizedString(@"btn_Add_Video") forState:UIControlStateNormal];
     [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
+    _textVideoindicator.text=LocalizedString(@"FLAG_LESS_25MB");
 }
 
 - (void)viewDidLoad
@@ -169,7 +170,7 @@ bool isFirstLoadSubCat = true;
     
     if (movieData.length/1024.0f/1024.0f > 2.0f ) {
         [_upload_btn setEnabled:FALSE];
-        _textVideoindicator.text=@"Attaced video is greater than 2MB";
+        _textVideoindicator.text=LocalizedString(@"FLAG_LESS_25MB");
         return;
     }else{
         [_upload_btn setEnabled:TRUE];
@@ -303,11 +304,11 @@ bool isFirstLoadSubCat = true;
         [label setFont:[UIFont  boldSystemFontOfSize:15]];
          label.numberOfLines=3;
         
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
         
         if (component == 0) {
             if ([[jsonObject objectForKey:@"MainCat"]count]>0) {
-                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  >",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
+                NSString *lableText= [[NSString alloc]initWithFormat:@"%@  ",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"name"]];
                 label.text= lableText;
             }
         }

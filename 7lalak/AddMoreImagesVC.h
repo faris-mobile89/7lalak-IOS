@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIButton *add_image;
+@property (weak, nonatomic) IBOutlet UIButton *btnDone;
 @property (assign) id<AddMoreImagesDelegate> delegate;
 @property int numberOfAllowedImage;
 @property (strong, nonatomic)  NSMutableArray *imagesData;

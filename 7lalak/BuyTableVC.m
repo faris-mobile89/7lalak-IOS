@@ -11,9 +11,13 @@
 #import "ProductCell.h"
 #import "LocalizeHelper.h"
 #import "UIColor_hex.h"
+#import "Localization.h"
+
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
-@interface BuyTableVC ()
+@interface BuyTableVC (){
+    NSString *lang;
+}
 
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) NSArray *colors;
@@ -41,11 +45,12 @@ UIActivityIndicatorView *activityIndicator;
 {
     self = [super init];
     if (self) {
-        
+        /*
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Restore"
                                                                                   style:UIBarButtonItemStyleBordered
                                                                                  target:self
                                                                                  action:@selector(restoreTapped:)];
+         */
         
          self.priceFormatter = [[NSNumberFormatter alloc] init];
         [self.priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -60,7 +65,12 @@ UIActivityIndicatorView *activityIndicator;
     self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
     colors = [[NSArray alloc]initWithObjects:@"#EB9532",@"#EE543A",@"#D8335B",@"#973163",@"#422E39", nil];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:nil]forCellReuseIdentifier:@"Cell"];
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:langBundle]forCellReuseIdentifier:@"Cell"];
     [self.tableView setSectionIndexBackgroundColor:[UIColor clearColor]];
     
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -108,20 +118,15 @@ UIActivityIndicatorView *activityIndicator;
     
     [self.priceFormatter setLocale:product.priceLocale];
     cell.detailTextLabel.text = [self.priceFormatter stringFromNumber:product.price];
-    
-    
-        UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        buyButton.frame = CGRectMake(0, 0, 50, 18);
-        [buyButton setBackgroundColor:[UIColor colorWithHexString:@"#2ECC71"]];
-        buyButton.layer.cornerRadius=8;
-        [buyButton setTitle:LocalizedString(@"BUY") forState:UIControlStateNormal];
-        [buyButton setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
-        [buyButton.titleLabel setFont:[UIFont systemFontOfSize:10]];
-        buyButton.tag = indexPath.row;
-        [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.accessoryView = buyButton;
-    
+
+        [cell.buyButton1 setBackgroundColor:[UIColor colorWithHexString:@"#2ECC71"]];
+        cell.buyButton1.layer.cornerRadius=8;
+        [cell.buyButton1 setTitle:LocalizedString(@"BUY") forState:UIControlStateNormal];
+        [cell.buyButton1 setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
+        [cell.buyButton1.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        cell.buyButton1.tag = indexPath.row;
+       [cell.buyButton1 addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
     if (indexPath.row % 2 == 0 )
         [cell setBackgroundColor:[UIColor colorWithHexString:@"#913D88"]];
     else
@@ -165,7 +170,7 @@ UIActivityIndicatorView *activityIndicator;
         if (success) {
             self.products = products;
             
-            NSLog(@"(%lu) products found ",(unsigned long)[products count]);
+            //NSLog(@"(%lu) products found ",(unsigned long)[products count]);
             [activityIndicator stopAnimating];
             [self.tableView reloadData];
         }

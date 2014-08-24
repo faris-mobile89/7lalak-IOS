@@ -47,6 +47,7 @@ BOOL appEnabled=TRUE;
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
@@ -63,7 +64,7 @@ BOOL appEnabled=TRUE;
     _errorHolder.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
     
     [super viewDidLoad];
-   // [_btnEN setEnabled:FALSE];
+    [_btnEN setEnabled:FALSE];
     [_buttonAR setEnabled:FALSE];
    
     [self loadAppData];

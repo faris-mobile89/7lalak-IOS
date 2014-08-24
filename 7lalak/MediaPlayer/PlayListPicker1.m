@@ -37,6 +37,7 @@ bool showItems=FALSE;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_done setTitle:LocalizedString(@"CLOSE") forState:UIControlStateNormal];
     [self loadMedia];
 }
 

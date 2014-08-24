@@ -1,103 +1,292 @@
-/* 
-  Strings.strings
-  7lalak
 
-  Created by Faris IOS on 7/16/14.
-  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
-*/
+/*
+ 
+ Strings.strings
+ 
+ 7lalak
+ 
+ Created by Faris IOS on 7/16/14.
+ 
+ Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
+ 
+ */
 
-"HOME_TITLE"="الرئيسيه";
+"HOME_TITLE"="الرئيسية";
+
 "BTN_ADD"="ADD ARABIC";
-"error_internet_offiline"="The Internet connection appears to be offline";
-"error_internet_timeout"="Connection Time Out";
-"NETWORK_ERROR"="Network Error";
-"OK"="Ok";
-"CANCEL"="Cancel";
-"CANCEL"="الغاء";
-"DONE"="Done";
-"YES"="Yes";
-"DELETE"="Delete";
-"AGREE"="I agree";
-"SEARCH"="Search";
-"SEARCH_RESULT"="Search Result";
-"ERROR_NO_RESULT"="No results found !";
-"VIDEO"="Video";
-"IMAGES"="Photos";
-"PHONE_NAME_REQUIRED"="enter your number & phone";
-"IMAGE"="Image";
-"DESCRIPTION"="Description";
-"Ad"="Ad";
-"BUY"="Buy";
-"LOADING"="Loading...";
-"UPLOADING"="Uploading...";
-"DELETING"="Deleting...";
-"MESSAGE_CHOOSE_ADS"="Please choose Ads type";
-"ONE_VID_ATTACHED"="1 video file attached";
-"REPLACE_VID"="Replace Video";
-"MESSAGE_ADs_Added"="Your Ads has been added successfuly and will be available as soon as posible";
-"ERROR_SELECT_VIDEO"="Please attache video file";
-"ERROR_UPLOAD"="Error on upload , please try again";
-"VCODE_TITLE"="Verifcation Code";
-"ERROR_INVALID_VOCODE"="Invalid Verifcation code ! please try again";
-"ERROR_EMPTY_VCODE"="Verifcation code can't be empty!";
-"MESSAGE_REGISTER_SUCCESS_TITLE"="Registeration Complete";
-"MESSAGE_REGISTER_SUCCESS_MSG"=
-"Congratulation, your account is active now, you have got a free Ads points";
-"MESSAGE_FAILD_REGISTER"="Registeration Faild";
-"MESSAGE_FAILD_REGISTER_MSG"="Please try later";
-"TITLE_MORE_ADD_IMAGE"="Add Image Ad";
-"TITLE_MORE_ADD_VIDEO"="Add Video Ad";
-"TITLE_MORE_BUY_Ads"="Buy Ads";
-"TITLE_MORE_FAV"="Favoriate";
-"TITLE_MORE_ACCOUNT_INFO"="Account Info";
-"TITLE_MORE_ABOUT_Us"="About Us";
-"TITLE_MORE_CONTACT_Us"="Contact Us";
-"TITLE_MORE_REGISTER"="Registeration";
-"TITLE_MORE_MY_Ads"="My Ads";
-"ERROR_NO_ADs_SCORE"="You dont have suffeicent scroe, please buy Ads score to complete this action.";
-"DEACTIVE_MESSAGE"="Are you sure to dactive your account?";
-"SURE"="I'm sure";
-"DEACTIVE_SUCCESS"="Your account is temporarily deactived.";
-"CONFIRM_REGISTERATION"="Complete registeration?";
-"DELETE_CONFIRM"="Are you sure to delete ?";
-"FOUND_UPDATE"="A new version of 7lalek is available, Upgrade your version by visit app store.";
-"PLEASE_SELECT_PLAYLIST"="Please select playlist";
-"ADs_TEXT_REQUIRED"="Please enter at least 4 words in description field";
-"ADs_CAT_REQUIRED"="Please select category";
+
+"error_internet_offiline"="لا يوجد إتصال بالانترنت";
+
+"error_internet_timeout"="إنتهى وقت الاتصال";
+
+"NETWORK_ERROR"="خطأ بالانترنت";
+
+"BACK"="رجوع";
+
+"OK"="موافق";
+
+"CANCEL"="إلغاء";
+
+"DONE"="تم";
+
+"YES"="نعم";
+
+"DELETE"="حذف";
+
+"AGREE"="أوافق";
+
+"SEARCH"="البحث";
+
+"SEARCH_RESULT"="نتائج البحث";
+
+"ERROR_NO_RESULT"="لا يوجد نتائج !";
+
+"VIDEO"="الفيديو";
+
+"IMAGES"="الصور";
+
+"PHONE_NAME_REQUIRED"="يرجى إدخال الاسم ورقم الهاتف";
+
+"IMAGE"="صورة";
+
+"DESCRIPTION"="تفاصيل الاعلان";
+
+"Ad"="إعلانات";
+
+"BUY"="شراء";
+
+"LOADING"="جاري التحميل ...";
+
+"UPLOADING"="جاري الإضافه ...";
+
+"DELETING"="جاري الحذف ...";
+
+"MESSAGE_CHOOSE_ADS"="يرجى إختيار نوع الاعلان";
+
+"ONE_VID_ATTACHED"="ملف فيديو مضاف";
+
+"REPLACE_VID"="تبديل الفيديو";
+
+"MESSAGE_ADs_Added"="تم إضافه الاعلان بنجاح , سيتم مراجعة الاعلان خلال 24 ساعة";
+
+"ERROR_SELECT_VIDEO"="يرجى إضافة ملف فيديو";
+
+"ERROR_UPLOAD"="خطأ في الإضافة ! يرجى إعادة المحاولة";
+
+"VCODE_TITLE"="رمز التحقق";
+
+"ERROR_INVALID_VOCODE"="رمز التحقق غير صحيح ! يرجى إعادة المحاولة";
+
+"ERROR_EMPTY_VCODE"="حقل رمز التحقق لا يمكن أن يكون فارغ";
+
+"MESSAGE_REGISTER_SUCCESS_TITLE"="إكتمال التسجيل";
+
+"MESSAGE_REGISTER_SUCCESS_MSG"="تهانينا  !  لقد تم التسجيل بنحاج";
+
+"MESSAGE_FAILD_REGISTER"="فشل بالتسجيل";
+
+"MESSAGE_FAILD_REGISTER_MSG"="يرجى المحاولة لاحقاً";
+
+"TITLE_MORE_ADD_IMAGE"="إضافة اعلان صورة";
+
+"TITLE_MORE_ADD_VIDEO"="إضافة اعلان فيديو";
+
+"TITLE_MORE_BUY_Ads"="شراء إعلانات";
+
+"TITLE_MORE_FAV"="المفضلة";
+
+"TITLE_MORE_ACCOUNT_INFO"="معلومات الحساب";
+
+"TITLE_MORE_ABOUT_Us"="سياسة الخصوصية";
+
+"TITLE_MORE_CONTACT_Us"="اتصل بنا";
+
+"TITLE_MORE_REGISTER"="التسجيل";
+
+"TITLE_MORE_MY_Ads"="إعلاناتي";
+
+"ERROR_NO_ADs_SCORE"="لا يوجد لديك رصيد كافي لاتمام هذة العملية ! يرجى شراء رصيد اعلانات ";
+
+"DEACTIVE_MESSAGE"="هل  تريد تعطيل حسابك ؟";
+
+"SURE"="نعم , أوافق";
+
+"DEACTIVE_SUCCESS"="لقد تم تعطيل حسابك مؤقتا , يمكنك الرجوع الى الحساب في اي وقت ";
+
+"CONFIRM_REGISTERATION"="إكمال التسجيل";
+
+"DELETE_CONFIRM"="هل انت متأكد للحذف ؟";
+
+"FOUND_UPDATE"="يتوفر نسخة جديدة من تطبيق حلالك , يرجى تحديث النسخة الحالية من خلال التوجة الى المتجر";
+
+"PLEASE_SELECT_PLAYLIST"="يرجى اختيار قائمة التسجيل";
+
+"ADs_TEXT_REQUIRED"="يرجى ادخال على الاقل سطر في حقل وصف الاعلان";
+
+"ADs_CAT_REQUIRED"="يرجى اختيار الاقسم";
+
 //=========================new Strings=================//
-"PICK_GALLERY"="اضافه من الاستيديو";
+
+"PICK_GALLERY"="إضافه من الاستيديو";
+
 "Open_camera"="التقاط صوره من الكاميرا";
+
 //=================Storyboard UI ===================//
+
 "TAB_OFFERS"="العروض";
-"TAB_SECTIONS"="الاقسام";
+
+"TAB_SECTIONS"="الأقسام";
+
 "TAB_MEDIA"="الصوتيات";
+
 "TAB_MORE"="المزيد";
-"NEW"="new";
-"TAB_ADD"="Add Ad";
+
+"NEW"="جديد";
+
+"TAB_ADD"="إضافة اعلان";
+
 //===More Page ====//
-"BTN_Add"="اضافه اعلان";
-"BTN_FAV"="المفضله";
-"BTN_BUY"="شراء اعلانات";
-"BTN_INFO"="معومات الحساب";
-"BTN_ABOUT"="من نحن";
-"BTN_CONTACT"="اتصل بنا";
-"BTN_MY_Ad"="اعلاناتي";
+
+"BTN_Add"="إضافة اعلان";
+
+"BTN_FAV"="المفضلة";
+
+"BTN_BUY"="شراء إعلانات";
+
+"BTN_INFO"="معلومات الحساب";
+
+"BTN_ABOUT"="سياسة الخصوصية";
+
+"BTN_CONTACT"="إتصل بنا";
+
+"BTN_MY_Ad"="إعلاناتي";
+
 //=== More -> Add === //
+
 "holder_cat"="القسم";
+
 "holder_price"="السعر (دينار كويتي)";
+
 "holder_description"="الوصف";
-"btn_Add_Image"="اضف صوره";
-"btn_Add_Video"="اضف فيديو";
+
+"btn_Add_Image"="أضف صوره";
+
+"btn_Add_Video"="أضف فيديو";
+
 "btn_Upload"="نشر الاعلان";
-"FLAG_LESS_25MB"="Please choose video less than 2MB";
+
+"FLAG_LESS_25MB"="يرجى إضافة ملف فيديو لا يزيد حجمة عن 2 ميجا بايت";
+
 //=== More -> info  === //
-"label_adsScore"="رصيد الاعلانات";
+
+"label_adsScore"="رصيد الإعلانات المجانية";
+
 "label_adsImageScore"="عدد اعلانات الصور";
+
 "label_adsVideoScore"="عدد اعلانات الفيديو";
-"btn_deactive"="ايقاف الحساب";
+
+"label_paid_adsScore"="رصيد الإعلانات المدفوعة";
+
+"btn_deactive"="إيقاف الحساب";
+
 //=== More -> more  === //
-"error_form_contact_1"="please write at least 4 words !";
-"Thanks_contactUs_title"="Thank you for contacting us";
-"Thanks_contactUs_msg"="We have received your enquiry and will respond to you within 24 hours. We will email you with a confirmation that we have received your enquiry";
-"label_form"="اكتب استفسارك هنا ";
-"btn_send_text"="ارسال";
+
+"error_form_contact_1"="يرجى إضافة سطر واحد على الاقل ";
+
+"Thanks_contactUs_title"="شكرا لإرسال ملاحظاتكم";
+
+"Thanks_contactUs_msg"="لقد استملنا ملاحظاتكم, سيتم الرد على الملاحظات خلال 24 ساعة من قبل فريق عمل حلالك وايضا سيتم الرد عن طريق البريد الإلكتروني";
+
+"label_form"="اكتب إستفسارك أو ملاحظتك هنا";
+
+"btn_send_text"="إرسال";
+
+//====== Sections Strings ========//
+
+"Add_To_Fav"="إضافة للمفضلة";
+
+"Call_Button"="إتصال";
+
+"Message_BTN"="إرسال رسالة";
+
+"KWD"="د.ك";
+
+"ALERT"="تنبية";
+
+"CALL_Unavailable"="لا يوجد لديك خاصية الاتصال";
+
+"VIEWS"="مشاهدة";
+
+"SEE_ALL"="عرض الكل";
+
+"CLOSE"="إغلاق";
+
+//=== Add Ads  === //
+
+"Add_Image_Ad"="إضافة اعلان صورة";
+
+"Add_Video_Ad"="إضافة إعلان فيديو";
+
+//===== Account Create ===;= //
+
+"Num_Not_Valid"="رقم الهاتف غير صحيح !";
+
+"Email_not_Valid"="البريد الإلكتروني غير صحيح !";
+
+"Number_already_Registered"="عذرا ً , لقد أدخلت رقم هاتف مسجل لدينا من قبل ! ";
+
+//=== InApp purchase ====//
+
+"BuyThisPackage"="شراء هذه الحزمة";
+
+//====== Player =====//
+
+"Player_retrieveURL"="جاري جلب البيانات ...";
+
+"Buffering"="جاري التشغيل ...";
+
+"Seeking"="تقدم ...";
+
+"Error1"="خطأ في فتح الملف الصوتي ";
+
+"Error2"="لا يمكن قراءة الملف الصوتي";
+
+"Error3"="خطأ بالشبكة : لا يمكن تشغيل الملف الصوتي";
+
+"Error4"="صيغة غير مدعومة";
+
+"Error5"="خطأ بالشبكة : لا يوجد حزم بيانات كافية لتشغيل الملف الصوتي";
+
+"UnkownError"="خطأ غير معرف";
+
+//========Search ========//
+
+"Enter_Keyword"="يرجى إدخال كلمة مفتاحية للبحث";
+
+//===== Edit Ads =======//
+
+"NEW_IMAGE_ADDED"="صورة جديدة";
+
+"AD_Status"="حالة الإعلان";
+
+"SAVE_CHANGES"="حفظ التعديلات";
+
+"Replace_VIDEO"="فيديو جديد";
+
+"Add_image_label"="إضافة صورة جديدة";
+
+"Delete"="حذف";
+//======= Missing ========//
+"search"="ابحث";
+"price_from"="السعر من";
+"price_to"="السعر الى";
+"Key_Words"="كلمات مفتاحيه";
+"DETAILS"="تفاصيل الاعلان";
+"SOLD"="مباع";
+"Available"="متاح";
+"MESSAGE_ADs_Updated"="تم تحديث الفيديو بنجاح";
+"ERROR_UPDATED"="خطا في التحديث ! يرجى المحاولة لاحقاً";
+
+
+
+

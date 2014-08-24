@@ -11,5 +11,6 @@
 @interface ProductCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *produtName;
 @property (weak, nonatomic) IBOutlet UILabel *productPrice;
+@property (weak, nonatomic) IBOutlet UIButton *buyButton1;
 
 @end

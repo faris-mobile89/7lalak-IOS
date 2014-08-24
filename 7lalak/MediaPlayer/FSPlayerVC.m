@@ -56,6 +56,10 @@ int playingCurrentIndex=0;
     _holder.layer.cornerRadius = 18;
     if (IS_4S) {
         _ios5View.frame = CGRectMake(0, 365, 320, 88);
+
+    }else{
+        _ios5View.frame = CGRectMake(0, 450, 320, 88);
+
     }
 }
 
@@ -65,6 +69,10 @@ int playingCurrentIndex=0;
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return true;
 }
 
 #pragma mark - View lifecycle
@@ -239,7 +247,7 @@ int playingCurrentIndex=0;
         case kFsAudioStreamRetrievingURL:
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             
-            [self showStatus:@"Retrieving URL..."];
+            [self showStatus:LocalizedString(@"Player_retrieveURL")];
             
             self.statusLabel.text = @"";
             
@@ -261,7 +269,7 @@ int playingCurrentIndex=0;
             break;
             
         case kFsAudioStreamBuffering:
-            [self showStatus:@"Buffering..."];
+            [self showStatus:LocalizedString(@"Buffering")];
 
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             self.progressSlider.enabled = NO;
@@ -271,7 +279,7 @@ int playingCurrentIndex=0;
             break;
             
         case kFsAudioStreamSeeking:
-            [self showStatus:@"Seeking..."];
+            [self showStatus:LocalizedString(@"Seeking")];
             
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             self.progressSlider.enabled = NO;
@@ -349,22 +357,22 @@ int playingCurrentIndex=0;
     
     switch (errorCode) {
         case kFsAudioStreamErrorOpen:
-            errorDescription = @"Cannot open the audio stream";
+            errorDescription = LocalizedString(@"Error1");
             break;
         case kFsAudioStreamErrorStreamParse:
-            errorDescription = @"Cannot read the audio stream";
+            errorDescription = LocalizedString(@"Error2");
             break;
         case kFsAudioStreamErrorNetwork:
-            errorDescription = @"Network failed: cannot play the audio stream";
+            errorDescription = LocalizedString(@"Error3");
             break;
         case kFsAudioStreamErrorUnsupportedFormat:
-            errorDescription = @"Unsupported format";
+            errorDescription = LocalizedString(@"Error4");
             break;
         case kFsAudioStreamErrorStreamBouncing:
-            errorDescription = @"Network failed: cannot get enough data to play";
+            errorDescription = LocalizedString(@"Error5");
             break;
         default:
-            errorDescription = @"Unknown error occurred";
+            errorDescription = LocalizedString(@"UnkownError");
             break;
     }
     
@@ -608,7 +616,7 @@ int playingCurrentIndex=0;
 
         
         
-        NSLog(@"cont %i",playingCurrentIndex);
+        //NSLog(@"cont %i",playingCurrentIndex);
         
         int temp = playingCurrentIndex + 1;
         
@@ -658,14 +666,6 @@ int playingCurrentIndex=0;
     }
     
 }
-
-- (IBAction)btnNextProgress:(id)sender {
-    
-}
-
-- (IBAction)btnBackProgress:(id)sender {
-    
-    }
 
 
 @end

@@ -13,10 +13,15 @@
 #import "LocalizeHelper.h"
 #import "MyAdDetails.h"
 #import "MyAdVideoDetails.h"
+#import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
-@interface MyAdsVC ()
+@interface MyAdsVC (){
+
+    NSString *lang;
+
+}
 @property id jData;
 @end
 
@@ -38,9 +43,15 @@ NSInteger selectedIndex;
     [super viewDidLoad];
     
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
-    [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
+    
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:path];
+    [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [self getUserAds];
 }
@@ -168,9 +179,12 @@ NSInteger selectedIndex;
     
     int status = [[[jData objectAtIndex:indexPath.row]valueForKey:@"status"]intValue];
     if (status == 2) {
-        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        if ([lang isEqualToString:@"ar"]) {
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag_ar.png"]];
+        }else{
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        }
     }else [cell.imgSold setImage:nil];
-    
     
     return cell;
 }

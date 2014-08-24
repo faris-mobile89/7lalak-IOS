@@ -13,11 +13,14 @@
 #import "ItemDetailsViewController.h"
 #import "LocalizeHelper.h"
 #include "UIColor_hex.h"
+#import "Localization.h"
+
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 @interface FavoriteVC (){
     NSInteger selectedIndex;
     NSString *filePath;
+    NSString *lang;
 }
 
 @end
@@ -38,10 +41,15 @@
     [super viewDidLoad];
     self.title = LocalizedString(@"TITLE_MORE_FAV");
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-
-    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:nil]forCellReuseIdentifier:@"ItemCell"];
     
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
+    NSString *Mypath = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
+    NSBundle *langBundle = [NSBundle bundleWithPath:Mypath];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -120,7 +128,11 @@
     int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]intValue];
     
     if (status == 2) {
-        [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        if ([lang isEqualToString:@"ar"]) {
+            [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag_ar.png"]];
+        }else{
+           [cell.imgSold setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        }
     }else
         [cell.imgSold setImage:nil];
     
@@ -160,8 +172,8 @@
         //NSLog(@"edit on");
     }else {
       //  NSLog(@"Done");
-        NSMutableArray * newArray =jsonObject;
-        [newArray writeToFile:filePath atomically:YES];
+        //NSMutableArray * newArray =jsonObject;
+       // [newArray writeToFile:filePath atomically:YES];
     }
 }
 
@@ -174,7 +186,8 @@
         int index = (int)indexPath.row ;
         [jsonObject removeObjectAtIndex:index];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+        NSMutableArray * newArray =jsonObject;
+        [newArray writeToFile:filePath atomically:YES];
     }
 }
 

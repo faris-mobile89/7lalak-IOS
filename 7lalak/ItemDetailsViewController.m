@@ -37,15 +37,18 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
     tabDescription.jsonObject=jsonObject;
     tabImage.jsonObject=jsonObject;
     tabVideo.jsonObject=jsonObject;
-    
+
     
     [tabDescription willMoveToParentViewController:self];
     [self.containterView addSubview:tabDescription.view];
     [self addChildViewController:tabDescription];
     [tabDescription didMoveToParentViewController:self];
+     [_tabsView setTitle:LocalizedString(@"DETAILS") forSegmentAtIndex:0];
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
         [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
+    }else{
+        [_tabsView setTitle:LocalizedString(@"IMAGES") forSegmentAtIndex:1];
     }
     
     
@@ -86,6 +89,8 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
     
     [super viewDidLoad];
     //NSLog(@"JSONObject%@",jsonObject);
+    [_tabsView setTitle:LocalizedString(@"DETAILS") forSegmentAtIndex:0];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]){
         
@@ -105,6 +110,8 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
         
         if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
             [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
+        }else{
+            [_tabsView setTitle:LocalizedString(@"IMAGES") forSegmentAtIndex:1];
         }
         
         

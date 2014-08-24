@@ -7,6 +7,7 @@
 //
 
 #import "FGalleryViewController.h"
+#import "LocalizeHelper.h"
 
 #define kThumbnailSize 75
 #define kThumbnailSpacing 4
@@ -473,13 +474,13 @@
 - (void)setUseThumbnailView:(BOOL)useThumbnailView
 {
     
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Back", @"") style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"BACK", @"") style: UIBarButtonItemStyleBordered target: nil action: nil];
     [[self navigationItem] setBackBarButtonItem: newBackButton];
     
     _useThumbnailView = useThumbnailView;
     if( self.navigationController ) {
         if (_useThumbnailView) {
-            UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"See all", @"") style:UIBarButtonItemStylePlain target:self action:@selector(handleSeeAllTouch:)];
+            UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"SEE_ALL") style:UIBarButtonItemStylePlain target:self action:@selector(handleSeeAllTouch:)];
             [self.navigationItem setRightBarButtonItem:btn animated:YES];
         }
         else {
@@ -796,7 +797,7 @@
     _isThumbViewShowing = YES;
     
     [self arrangeThumbs];
-    [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(@"Close", @"")];
+    [self.navigationItem.rightBarButtonItem setTitle:LocalizedString(@"CLOSE")];
     
     if (animation) {
         // do curl animation
@@ -815,7 +816,7 @@
 - (void)hideThumbnailViewWithAnimation:(BOOL)animation
 {
     _isThumbViewShowing = NO;
-    [self.navigationItem.rightBarButtonItem setTitle:NSLocalizedString(@"See all", @"")];
+    [self.navigationItem.rightBarButtonItem setTitle:LocalizedString(@"SEE_ALL")];
     
     if (animation) {
         // do curl animation

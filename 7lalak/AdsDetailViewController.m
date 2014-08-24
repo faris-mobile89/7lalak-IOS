@@ -91,7 +91,7 @@
             // [self.button setBackgroundColor:[UIColor lightGrayColor]];
             [self.button setBackgroundColor:[UIColor colorWithHexString:@"0096d2"]];
             [self.button setTintColor:[UIColor whiteColor]];
-            NSString *title = [[NSString alloc]initWithFormat:@"%@ - %@%@",@"Buy this package",_product.price,@"$"];
+            NSString *title = [[NSString alloc]initWithFormat:@"%@ - %@%@",LocalizedString(@"BuyThisPackage"),_product.price,@"$"];
             [self.button setTitle: title forState:UIControlStateNormal];
             [self.view addSubview:self.button];
 }
@@ -108,7 +108,7 @@
     [self.view addSubview:self.packageImageView];
     
     self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, (self.view.frame.size.height - 70), 240, 50)];
-    self.packageLable.text = @"hlalek";
+    self.packageLable.text = @"7lalek";
     self.packageLable.numberOfLines = 0;
     self.packageLable.textColor = [UIColor darkGrayColor];
     self.packageLable.textAlignment = NSTextAlignmentCenter;

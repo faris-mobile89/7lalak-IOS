@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "UIColor_hex.h"
+#import "LocalizeHelper.h"
 
 @interface FirstViewController ()
 
@@ -23,6 +24,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"BACK") style:UIBarButtonItemStyleBordered target:nil action:nil];
 
     
 }

@@ -87,7 +87,7 @@ bool flagRegisterSuccess=FALSE;
                                            }
                                        }
                                        failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                           NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                                          // NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                                            [self showErrorInterentMessage:LocalizedString(@"NETWORK_ERROR")
                                                                   message:LocalizedString(@"error_internet_timeout")];
                                            [_btnLogin setHidden:FALSE];
@@ -128,8 +128,8 @@ bool flagRegisterSuccess=FALSE;
         [user setValue:@"3" forKey:@"VIDEO_SCORE"];// variable not used in app //
         [user writeToFile:path atomically:YES];
         
-        NSLog(@"Complete Registeration");
-        NSLog(@"FULL USER DATA : %@",[NSDictionary dictionaryWithContentsOfFile:path]);
+       // NSLog(@"Complete Registeration");
+        //NSLog(@"FULL USER DATA : %@",[NSDictionary dictionaryWithContentsOfFile:path]);
         
         [self showMessage:LocalizedString(@"MESSAGE_REGISTER_SUCCESS_TITLE")message:LocalizedString(@"MESSAGE_REGISTER_SUCCESS_MSG")];
         [_btnLogin setHidden:TRUE];

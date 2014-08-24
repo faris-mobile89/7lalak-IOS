@@ -11,6 +11,7 @@
 "error_internet_offiline"="The Internet connection appears to be offline";
 "error_internet_timeout"="Connection Time Out";
 "NETWORK_ERROR"="Network Error";
+"BACK"="Back";
 "OK"="Ok";
 "CANCEL"="Cancel";
 "DONE"="Done";
@@ -73,12 +74,13 @@
 "TAB_MEDIA"="Media";
 "TAB_MORE"="More";
 "NEW"="new";
+"TAB_ADD"="Add Ad";
 //===More Page ====//
 "BTN_Add"="Add";
 "BTN_FAV"="Favoriate";
 "BTN_BUY"="Buy Ads";
 "BTN_INFO"="Account Info";
-"BTN_ABOUT"="About Us";
+"BTN_ABOUT"="Privacy Policy";
 "BTN_CONTACT"="Contact Us";
 "BTN_MY_Ad"="My Ads";
 //=== More -> Add === //
@@ -94,7 +96,6 @@
 "label_adsVideoScore"="Video Score";
 "label_adsImageScore"="Image Score";
 "btn_deactive"="Deactive Account";
-
 "label_paid_adsScore"="Paid Ads Score";
 "label_paid_adsVideoScore"="Video Score";
 "label_paid_adsImageScore"="Image Score";
@@ -105,6 +106,63 @@
 "Thanks_contactUs_msg"="We have received your enquiry and will respond to you within 24 hours. We will email you with a confirmation that we have received your enquiry";
 "label_form"="Write your enquiry";
 "btn_send_text"="Send";
+//====== Sections Strings ========//
+"Add_To_Fav"="Favorite";
+"Call_Button"="Call";
+"Message_BTN"="Message";
+"KWD"="KWD";
+"ALERT"="Alert";
+"CALL_Unavailable"="Call facility is not available!!!";
+"VIEWS"="View";
+"SEE_ALL"="See All";
+"CLOSE"="Close";
+//=== Add Ads  === //
+"Add_Image_Ad"="Add Image Ad";
+"Add_Video_Ad"="Add Video Ad";
+//===== Account Create ===;= //
+"Num_Not_Valid"="Phone number is not valid !";
+"Email_not_Valid"="Email is not valid !";
+"Number_already_Registered"="The phone number is already registered !";
+//=== InApp purchase ====//
+"BuyThisPackage"="Buy this package";
+//====== Player =====//
+"Player_retrieveURL"="Retrieving URL...";
+"Buffering"="Buffering...";
+"Seeking"="Seeking...";
+"Error1"="Cannot open the audio stream";
+"Error2"="Cannot read the audio stream";
+"Error3"="Network failed: cannot play the audio stream";
+"Error4"="Unsupported format";
+"Error5"="Network failed: cannot get enough data to play";
+"UnkownError"="Unknown error occurred";
+//========Search ========//
+"Enter_Keyword"="Please enter keyword to search!";
+//===== Edit Ads =======//
+"NEW_IMAGE_ADDED"="new images";
+"AD_Status"="Ad status";
+"SAVE_CHANGES"="Save Changes";
+"Replace_VIDEO"="New Video";
+"Add_image_label"="Add new image";
+"Delete"="Delete";
+//======= Missing ========//
+"search"="Search";
+"price_from"="Price from";
+"price_to"="Price to";
+"Key_Words"="Keyword";
+"DETAILS"="Ad Details";
+"SOLD"="Sold";
+"Available"="Available";
+"MESSAGE_ADs_Updated"="Ad updated successfuly";
+"ERROR_UPDATED"="Error updating! please try later";
+
+
+
+
+
+
+
+
+
 
 
 

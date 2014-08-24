@@ -9,11 +9,15 @@
 #import "TabDescriptionVC.h"
 #import "UIImageView+WebCache.h"
 #import "UIColor_hex.h"
+#import "LocalizeHelper.h"
+#import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
 
-@interface TabDescriptionVC ()
+@interface TabDescriptionVC (){
+    NSString *lang;
+}
 @property (strong,nonatomic) NSMutableArray *jsonObjects;
 @end
 
@@ -28,6 +32,10 @@
     if (!IS_4S) {
         [fDescription setFrame:CGRectMake(fDescription.frame.origin.x, fDescription.frame.origin.y,fDescription.frame.size.width, fDescription.frame.size.height+70)];
     }
+    [_label_views setText:LocalizedString(@"VIEWS")];
+    
+    lang = [[NSString alloc]init];
+    lang = [[Localization sharedInstance]getPreferredLanguage];
     
     fImage.layer.cornerRadius=6;
     fImage.layer.borderWidth=1.5;
@@ -45,23 +53,27 @@
     _btnFav1.layer.borderWidth=1;
     //_btnFav1.clipsToBounds = YES;
     _btnFav1.layer.borderColor=[[UIColor blueColor] CGColor];
-
+    [_btnFav1 setTitle:LocalizedString(@"Add_To_Fav") forState:UIControlStateNormal];
+    
     //=========== Custom Call Button ==========//
     _btnCall.layer.cornerRadius=6;
     _btnCall.layer.borderWidth=1;
     _btnCall.clipsToBounds = YES;
     _btnCall.layer.borderColor=[[UIColor blueColor] CGColor];
+    [_btnCall setTitle:LocalizedString(@"Call_Button") forState:UIControlStateNormal];
     
     //=========== Custom Message Button ==========//
     _btnMessage.layer.cornerRadius=6;
     _btnMessage.layer.borderWidth=1;
     _btnMessage.clipsToBounds = YES;
     _btnMessage.layer.borderColor=[[UIColor blueColor] CGColor];
+    [_btnMessage setTitle:LocalizedString(@"Message_BTN") forState:UIControlStateNormal];
     //=========================================//
     
     [fPhone setText:[jsonObject objectForKey:@"phone"]];
     
-    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[jsonObject objectForKey:@"price"]];
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ %@",[jsonObject objectForKey:@"price"],LocalizedString(@"KWD")];
+    
     [fPrice setText:price];
     
     [fDescription setText:[jsonObject objectForKey:@"description"]];
@@ -71,19 +83,22 @@
     
     NSString * status = [jsonObject objectForKey:@"status"];
     
-    if ([status isEqualToString: @"2"])
-        
-        [_imgSoldFlag setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
-    else
+    if ([status isEqualToString: @"2"]){
+        if ([lang isEqualToString:@"ar"]) {
+            
+            [_imgSoldFlag setImage:[UIImage imageNamed:@"ic_sold_flag_ar.png"]];
+        }else{
+            [_imgSoldFlag setImage:[UIImage imageNamed:@"ic_sold_flag.png"]];
+        }
+    }else
         [_imgSoldFlag setImage:nil];
+    
+    
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 }
-
-
 
 - (IBAction)btnFavClick:(id)sender {
     
@@ -126,7 +141,7 @@
         [[UIApplication sharedApplication] openURL:phoneUrl];
     } else
     {
-       UIAlertView * calert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Call facility is not available!!!" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+       UIAlertView * calert = [[UIAlertView alloc]initWithTitle:LocalizedString(@"ALERT") message:LocalizedString(@"CALL_Unavailable") delegate:nil cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil, nil];
         [calert show];
     }
 }

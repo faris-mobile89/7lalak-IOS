@@ -18,6 +18,12 @@
 @implementation AddMoreImagesVC
 @synthesize imagesData;
 
+-(void)viewDidLayoutSubviews{
+
+    [_btnDone setTitle:LocalizedString(@"DONE") forState:UIControlStateNormal];
+    [_add_image setTitle:LocalizedString(@"Add_image_label") forState:UIControlStateNormal];
+}
+
 -(NSMutableArray *)didDoneClick:(NSMutableArray *)data{
 
     if (self.delegate) {
@@ -87,7 +93,7 @@
         [_add_image setEnabled:FALSE];
     }
     
-    NSLog(@"imagesData:%@",imagesData);
+  //  NSLog(@"imagesData:%@",imagesData);
     
 }
 #pragma mark images slider view

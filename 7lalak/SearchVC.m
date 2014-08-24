@@ -29,6 +29,11 @@
 {
     [super viewDidLoad];
     self.title =LocalizedString(@"SEARCH");
+    [_price_from setPlaceholder:LocalizedString(@"price_from")];
+    [_price_to setPlaceholder:LocalizedString(@"price_to")];
+    [_keyword setPlaceholder:LocalizedString(@"Key_Words")];
+    
+       [_btnSearch setTitle:LocalizedString(@"search") forState:UIControlStateNormal];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"FFFFFF"]];
     jsonObject =[[NSDictionary alloc]init];
     subCat = [[NSDictionary alloc]init];
@@ -40,7 +45,7 @@
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
     numberToolbar.items = [NSArray arrayWithObjects:
                            
-                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
+                           [[UIBarButtonItem alloc]initWithTitle:LocalizedString(@"DONE") style:UIBarButtonItemStyleBordered target:self action:@selector(doneButton:)],
                            
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            nil];
@@ -123,8 +128,8 @@
     else{
         
         UIAlertView *someError = [[UIAlertView alloc] initWithTitle: nil
-                                                            message: @"Please enter keyword to search!"
-                                                           delegate: self cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+                                                            message: LocalizedString(@"Enter_Keyword")
+                                                           delegate: self cancelButtonTitle: LocalizedString(@"OK") otherButtonTitles: nil];
         [someError show];
     }
 }
