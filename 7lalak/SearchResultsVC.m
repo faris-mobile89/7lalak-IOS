@@ -192,8 +192,11 @@
     [cell.fDate setText:[[jsonObject
                           objectAtIndex:indexPath.row]objectForKey:@"created"]];
     
-    [cell.fPrice setText:[[jsonObject
-                           objectAtIndex:indexPath.row]objectForKey:@"price"]];
+
+    
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ %@",[[jsonObject
+                                                                 objectAtIndex:indexPath.row]objectForKey:@"price"],LocalizedString(@"KWD")];
+    [cell.fPrice setText:price];
     
     NSString * status = [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"];
     

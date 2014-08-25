@@ -14,6 +14,7 @@ UIImagePickerControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITe
 	UIButton * takePhotoBtn;
     NSString *userID;
 }
+@property (weak, nonatomic) IBOutlet UILabel *videoLabelSize;
 @property (strong, nonatomic) IBOutlet UITextView *fAdsText;
 @property (strong, nonatomic) IBOutlet UITextField *fAdsPrice;
 @property (weak, nonatomic) IBOutlet UITextField *categoryField;

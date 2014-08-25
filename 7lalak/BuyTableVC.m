@@ -198,7 +198,7 @@ UIActivityIndicatorView *activityIndicator;
 {
     UIButton *buyButton = (UIButton *)sender;
     SKProduct *product = self.products[buyButton.tag];
-    NSLog(@"Buying %@ ... (buyButtonTapped in BuyTableVC.m", product.productIdentifier);
+   // NSLog(@"Buying %@ ... (buyButtonTapped in BuyTableVC.m", product.productIdentifier);
     [[InAppAPHelper sharedInstance] buyProduct:product];
 }
 

@@ -173,7 +173,7 @@ NSInteger selectedIndex;
     
     [cell.fDate setText:[[jData objectAtIndex:indexPath.row]valueForKey:@"created"]];
     
-    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[[jData objectAtIndex:indexPath.row]valueForKey:@"price"]];
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ %@",[[jData objectAtIndex:indexPath.row]valueForKey:@"price"],LocalizedString(@"KWD")];
     
     [cell.fPrice setText:price];
     

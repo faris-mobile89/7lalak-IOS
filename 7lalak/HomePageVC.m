@@ -64,6 +64,9 @@ BOOL appEnabled=TRUE;
     _errorHolder.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
     
     [super viewDidLoad];
+   // [_btnEN setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    //[_buttonAR setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+
     [_btnEN setEnabled:FALSE];
     [_buttonAR setEnabled:FALSE];
    

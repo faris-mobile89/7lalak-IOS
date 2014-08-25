@@ -16,4 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_form;
 @property (weak, nonatomic) IBOutlet UIButton *btn_send;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *phone1Click;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *phoneClickTow;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *phone3Click;
+
 @end

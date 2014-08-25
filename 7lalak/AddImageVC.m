@@ -54,6 +54,7 @@ bool isFirstLoadSubCatImages = true;
     [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
     [choosePhotoBtn setTitle:LocalizedString(@"btn_Add_Image") forState:UIControlStateNormal];
     [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
+    [choosePhotoBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
 }
 
 - (void)viewDidLoad

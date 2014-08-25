@@ -169,7 +169,7 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
 
 - (void)provideContentForProductIdentifier:(NSString *)productIdentifier {
     
-    if ([productIdentifier isEqualToString:@"com.7lalek.hlalek.product1"] ||
+    if ([productIdentifier isEqualToString:@"com.7lalak.app.product1"] ||
         [productIdentifier isEqualToString:@"com.7lalek.hlalek.product2"] ||
         [productIdentifier isEqualToString:@"com.7lalek.hlalek.product3"] ||
         [productIdentifier isEqualToString:@"com.7lalek.hlalek.product4"] ||
@@ -226,8 +226,8 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     NSDictionary *dictParameter =@{
                                    @"tag":@"persisting",
                                    @"user_id": userId,
-                                   @"udid":apiKey,
-                                   @"product":productIdentifier,
+                                   @"UDID":apiKey,
+                                   @"product_id":productIdentifier,
                                    };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -236,7 +236,7 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
          //NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
         
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         //   NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+            //NSLog(@"Error: %@ ***** %@", operation.responseString, error);
                     }];
     [op start];
 }

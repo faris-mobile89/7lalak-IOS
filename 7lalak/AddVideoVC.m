@@ -57,7 +57,8 @@ bool isFirstLoadSubCat = true;
     [_fAdsPrice setPlaceholder:LocalizedString(@"holder_price")];
     [_buttonaddVideo setTitle:LocalizedString(@"btn_Add_Video") forState:UIControlStateNormal];
     [_upload_btn setTitle:LocalizedString(@"btn_Upload") forState:UIControlStateNormal];
-    _textVideoindicator.text=LocalizedString(@"FLAG_LESS_25MB");
+    [_buttonaddVideo setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [_videoLabelSize setText:LocalizedString(@"FLAG_LESS_25MB")];
 }
 
 - (void)viewDidLoad

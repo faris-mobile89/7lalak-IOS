@@ -71,7 +71,6 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
         
         networkImages = [dic copy];
         
-        
         if ([[jsonObject objectForKey:@"imgs"]count] ==0 ) {
             [_tabsView removeSegmentAtIndex:1 animated:NO];
         }

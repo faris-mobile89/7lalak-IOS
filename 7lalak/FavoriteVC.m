@@ -28,6 +28,10 @@
 @implementation FavoriteVC
 @synthesize jsonObject;
 
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    
+}
 -(void)viewDidLayoutSubviews{
     
     BOOL IS_4S = IS_HEIGHT_4S;
@@ -39,9 +43,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.title = LocalizedString(@"TITLE_MORE_FAV");
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
-    
     lang = [[NSString alloc]init];
     lang = [[Localization sharedInstance]getPreferredLanguage];
     NSString *Mypath = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
@@ -70,8 +74,6 @@
     jsonObject = [[NSMutableArray alloc]initWithContentsOfFile:path];
     
 }
-
-
 
 #pragma mark - Table view data source
 
@@ -121,8 +123,8 @@
     [cell.fDate setText:[[jsonObject
                           objectAtIndex:indexPath.row]objectForKey:@"created"]];
     
-    NSString *price= [[NSString alloc]initWithFormat:@"%@ KWD",[[jsonObject
-                                                                 objectAtIndex:indexPath.row]objectForKey:@"price"]];
+    NSString *price= [[NSString alloc]initWithFormat:@"%@ %@",[[jsonObject
+                                                                 objectAtIndex:indexPath.row]objectForKey:@"price"],LocalizedString(@"KWD")];
     [cell.fPrice setText:price];
     
     int status = [[[jsonObject objectAtIndex:indexPath.row]objectForKey:@"status"]intValue];
@@ -141,20 +143,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     return 95;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     selectedIndex = indexPath.row;
     ItemDetailsViewController *detail= [self.storyboard instantiateViewControllerWithIdentifier:@"itemDetailsContainer"];
     detail.jsonObject =[jsonObject  objectAtIndex:selectedIndex];
     [self.navigationController pushViewController:detail animated:YES];
-    
-    // [self performSegueWithIdentifier:@"itemDetails" sender:self];
-    
-    
 }
 
 // Override to support conditional editing of the table view.
@@ -163,6 +159,7 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated{
     
@@ -176,7 +173,6 @@
        // [newArray writeToFile:filePath atomically:YES];
     }
 }
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -194,9 +190,15 @@
 #pragma mark - Navigation
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
+    [super setEditing:FALSE animated:FALSE];
     if ([[segue identifier] isEqualToString:@""] ){
     }
+}
+
+
+-(void)dealloc{
+    
+    [self.tableView setEditing:FALSE];
 }
 
 - (void)didReceiveMemoryWarning
