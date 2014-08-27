@@ -725,13 +725,6 @@
 			name = "Add Ads";
 			sourceTree = "<group>";
 		};
-		E016972A19990F92005D85FC /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = iPad;
-			sourceTree = "<group>";
-		};
 		E016E2DA19579DBB007EE60B /* Sections */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,8 +1037,6 @@
 		E0890D1A1955C65F009A9A48 = {
 			isa = PBXGroup;
 			children = (
-				E016972A19990F92005D85FC /* iPad */,
-				E0D81D1F19751B1500A6F998 /* in-app-content */,
 				E0890D2C1955C65F009A9A48 /* 7lalak */,
 				E0890D511955C65F009A9A48 /* 7lalakTests */,
 				E0890D251955C65F009A9A48 /* Frameworks */,
@@ -1268,14 +1259,6 @@
 				E0A358001964ACF30058146B /* MediaVC.m */,
 			);
 			name = Media;
-			sourceTree = "<group>";
-		};
-		E0D81D1F19751B1500A6F998 /* in-app-content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "in-app-content";
-			path = "7lalak/in-app-content";
 			sourceTree = "<group>";
 		};
 		E0E84EB5195A52BC00308080 /* Resources */ = {
@@ -1993,7 +1976,7 @@
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = 7lalek;
-				PROVISIONING_PROFILE = "6AB83814-A6AD-47A4-ABB6-0A3A3D187FC9";
+				PROVISIONING_PROFILE = "7180ffd1-bc92-4998-ab8e-49b49347be8a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2010,7 +1993,7 @@
 				INFOPLIST_FILE = "7lalakTests/hlalekTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = 7lalek;
-				PROVISIONING_PROFILE = "6AB83814-A6AD-47A4-ABB6-0A3A3D187FC9";
+				PROVISIONING_PROFILE = "7180ffd1-bc92-4998-ab8e-49b49347be8a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
