@@ -76,13 +76,20 @@
         self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 10, 80)];
 
     }
-            self.packageLable.text = @"sdfasdf";
+            self.packageLable.text = @"";
             self.packageLable.numberOfLines = 0;
             self.packageLable.textColor = [UIColor darkGrayColor];
             self.packageLable.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:self.packageLable];
-            
-            self.productDescription = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, (self.view.frame.size.width - 40), self.view.frame.size.height)];
+    
+             if (iS_iPad) {
+                 self.productDescription = [[UITextView alloc] initWithFrame:CGRectMake(20, 400, (self.view.frame.size.width - 40), self.view.frame.size.height)];
+                 [self.productDescription setFont:[UIFont fontWithName:@"Arial" size:24]];
+
+             }else{
+                 self.productDescription = [[UITextView alloc] initWithFrame:CGRectMake(20, 10, (self.view.frame.size.width - 40), self.view.frame.size.height)];
+             }
+    
             NSString *fruitDescription = [[InAppAPHelper sharedInstance] descriptionForProduct:self.product];
             self.productDescription.text = fruitDescription;
             self.productDescription.editable = NO;
@@ -125,6 +132,7 @@
     
     NSString *imageName = [[InAppAPHelper sharedInstance] imageNameForProduct:self.product];
     self.packageImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
+    
     self.packageImageView.frame = CGRectMake((self.view.frame.size.width / 2) - (self.packageImageView.frame.size.width / 2), (self.view.frame.size.height / 2) - (self.packageImageView.frame.size.height / 2), self.packageImageView.frame.size.width, self.packageImageView.frame.size.height);
     [self.view addSubview:self.packageImageView];
     

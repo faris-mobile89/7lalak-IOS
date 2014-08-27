@@ -8,13 +8,13 @@
 
 #import "InAppAPHelper.h"
 
-static NSString *kIdentifier1  = @"com.7lalak.app.product1";
-static NSString *kIdentifier2  = @"com.7lalek.hlalek.product2";
-static NSString *kIdentifier3  = @"com.7lalek.hlalek.product3";
-static NSString *kIdentifier4  = @"com.7lalek.hlalek.product4";
-static NSString *kIdentifier5  = @"com.7lalek.hlalek.product5";
-static NSString *kIdentifier6  = @"com.7lalek.hlalek.product6";
-static NSString *kIdentifier7  = @"com.7lalek.hlalek.product7";
+static NSString *kIdentifier1  = @"com.7lalek.hlalek.product1_FN";
+static NSString *kIdentifier2  = @"com.7lalek.hlalek.product2_FN";
+static NSString *kIdentifier3  = @"com.7lalek.hlalek.product3_FN";
+static NSString *kIdentifier4  = @"com.7lalek.hlalek.product4_FN";
+static NSString *kIdentifier5  = @"com.7lalek.hlalek.product5_FN";
+static NSString *kIdentifier6  = @"com.7lalek.hlalek.product6_FN";
+static NSString *kIdentifier7  = @"com.7lalek.hlalek.product7_FN";
 
 
 @implementation InAppAPHelper

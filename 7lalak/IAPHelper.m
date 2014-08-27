@@ -169,13 +169,13 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
 
 - (void)provideContentForProductIdentifier:(NSString *)productIdentifier {
     
-    if ([productIdentifier isEqualToString:@"com.7lalak.app.product1"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product2"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product3"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product4"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product5"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product6"] ||
-        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product7"] ){
+    if ([productIdentifier isEqualToString:@"com.7lalek.hlalek.product1_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product2_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product3_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product4_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product5_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product6_FN"] ||
+        [productIdentifier isEqualToString:@"com.7lalek.hlalek.product7_FN"] ){
         
         [self persistingProducts:productIdentifier]; // save to DB
         
