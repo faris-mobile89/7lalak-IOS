@@ -20,11 +20,13 @@
 #import "HomePageVC.h"
 #import "LocalizeHelper.h"
 #import "Localization.h"
-#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
 
+#define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
 
 @interface ContainerViewController (){
     NSString *lang;
+    BOOL iS_iPad;
 }
 @property NSInteger selectedIndex;
 
@@ -40,8 +42,18 @@ UIImageView *bannerView;
 
 -(void)viewDidLayoutSubviews{
     
-    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-54);
-    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 54)];
+ iS_iPad = IS_HEIGHT_iPad;
+   
+    if (iS_iPad) {
+        _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-108);
+        bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 768, 108)];
+        
+    }else{
+        _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-54);
+        bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 54)];
+    }
+    
+  
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -55,6 +67,7 @@ UIImageView *bannerView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    iS_iPad = IS_HEIGHT_iPad;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_header.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -77,7 +90,13 @@ UIImageView *bannerView;
     NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
     NSBundle *langBundle = [NSBundle bundleWithPath:path];
 
-    [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:langBundle]forCellReuseIdentifier:@"HomeCell"];
+    if (iS_iPad) {
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell_iPad" bundle:langBundle]forCellReuseIdentifier:@"HomeCell"];
+    }else{
+        
+         [self.tableView registerNib:[UINib nibWithNibName:@"Home1ViewCell" bundle:langBundle]forCellReuseIdentifier:@"HomeCell"];
+    }
     
     lang = [[NSString alloc]init];
     lang = [[Localization sharedInstance]getPreferredLanguage];
@@ -260,7 +279,10 @@ UIImageView *bannerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
+    if (iS_iPad) {
+        return 150;
+    }
     return 95;
 }
 

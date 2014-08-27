@@ -3,9 +3,10 @@
  
  Strings.strings
  
- 7lalak
+ 7lalek
  
  Created by Faris IOS on 7/16/14.
+ fairs.it.cs@gmail.com
  
  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
  
@@ -233,7 +234,7 @@
 
 "Email_not_Valid"="البريد الإلكتروني غير صحيح !";
 
-"Number_already_Registered"="عذرا ً , لقد أدخلت رقم هاتف مسجل لدينا من قبل ! ";
+"Number_already_Registered"="عذرا ً ! رقم الهاتف مسجل لدينا من قبل ! ";
 
 //=== InApp purchase ====//
 
@@ -284,8 +285,22 @@
 "DETAILS"="تفاصيل الاعلان";
 "SOLD"="مباع";
 "Available"="متاح";
-"MESSAGE_ADs_Updated"="تم تحديث الفيديو بنجاح";
+"MESSAGE_ADs_Updated"="تم تحديث الاعلان بنجاح";
 "ERROR_UPDATED"="خطا في التحديث ! يرجى المحاولة لاحقاً";
+//====Registeration======//
+"app_work_kwait"="* البرنامج يعمل فقط في دولة الكويت";
+"input_name"="الاسم الكامل ";
+"Input_phone"="رقم الهاتف";
+"Input_email"="البريد الإلكتروني";
+"Btn_Register"="تسجيل";
+"we_sent_vcode"="لقد تم ارسال رمز التحقق الى رقم هاتفك برسالة نصية";
+"input_vcode"="رمز التحقق";
+"Btn_verify"="تحقق";
+
+
+
+
+
 
 
 

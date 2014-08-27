@@ -11,6 +11,8 @@
 #import "LocalizeHelper.h"
 #import "UIColor_hex.h"
 
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
+
 @interface TabVideoVC ()
 
 @end
@@ -31,7 +33,9 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
     
-    NSString *embedHTML = @"\
+    NSString *embedHTML;
+    
+    embedHTML = @"\
     <html><head>\
     <style type=\"text/css\">\
     body {\
@@ -42,8 +46,20 @@
     <embed id=\"yt\" src=\"%@\" type=\"application/x-shockwave-flash\" \
     width=\"%0.0f\" height=\"%0.0f\"></embed>\
     </body></html>";
+
+    bool iS_iPad = IS_HEIGHT_iPad;
     
-    NSString *html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:0], 307.0, 330.0];
+    NSString *html;
+    if (iS_iPad) {
+        
+      html  = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:0], 750.0, 800.0];
+    }else{
+    html = [NSString stringWithFormat:embedHTML,[[jsonObject objectForKey:@"vids"]objectAtIndex:0], 307.0, 330.0];
+
+    }
+   
+    
+  
     [_webView loadHTMLString:html baseURL:nil];
 
 }

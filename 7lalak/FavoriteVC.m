@@ -16,11 +16,13 @@
 #import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
 
 @interface FavoriteVC (){
     NSInteger selectedIndex;
     NSString *filePath;
     NSString *lang;
+    BOOL iS_iPad;
 }
 
 @end
@@ -43,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    iS_iPad = IS_HEIGHT_iPad;
     //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.title = LocalizedString(@"TITLE_MORE_FAV");
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
@@ -51,8 +54,12 @@
     NSString *Mypath = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
     NSBundle *langBundle = [NSBundle bundleWithPath:Mypath];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
     
+    if (iS_iPad) {
+        [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell_iPad" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }else{
+        [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSError *error;
@@ -143,6 +150,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (iS_iPad) {
+        return 150;
+    }
     return 95;
 }
 

@@ -4,6 +4,7 @@
 //
 //  Created by Faris IOS on 6/21/14.
 //  Copyright (c) 2014 Faris Abu Saleem. All rights reserved.
+//  faris.it.cs@gmail.com
 //
 
 #import "AppDelegate.h"

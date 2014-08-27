@@ -213,10 +213,11 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     NSString *userId;
     NSString *apiKey;
     NSDictionary *userData =[NSDictionary dictionaryWithContentsOfFile:path];
-    if (userData != nil) {
+    if (userData != nil && [userData count] > 0) {
         userId = [userData objectForKey:@"ID"];
         apiKey = [userData objectForKey:@"API_KEY"];
     }else{
+        return;
         userId=@"0000";
         apiKey=@"0000";
     }

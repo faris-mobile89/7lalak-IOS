@@ -16,10 +16,12 @@
 #import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
 
 @interface MyAdsVC (){
 
     NSString *lang;
+    BOOL iS_iPad;
 
 }
 @property id jData;
@@ -42,13 +44,20 @@ NSInteger selectedIndex;
 {
     [super viewDidLoad];
     
+    iS_iPad = IS_HEIGHT_iPad;
     self.title = LocalizedString(@"TITLE_MORE_MY_Ads");
     
     lang = [[NSString alloc]init];
     lang = [[Localization sharedInstance]getPreferredLanguage];
     NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
     NSBundle *langBundle = [NSBundle bundleWithPath:path];
-    [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    
+    if (iS_iPad) {
+        [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell_iPad" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }else{
+        [self.myTable registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }
+    
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 }
 
@@ -191,6 +200,9 @@ NSInteger selectedIndex;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (iS_iPad) {
+        return 150;
+    }
     return 95;
     
 }
@@ -212,6 +224,7 @@ NSInteger selectedIndex;
     details.userID = _userID;
     details.apiKey = _apiKey;
     details.jsonImages = [[jData objectAtIndex:selectedIndex]valueForKey:@"imgs"];
+    details.catName =[[jData objectAtIndex:selectedIndex]valueForKey:@"cat_name"];
     [self.navigationController pushViewController: details animated:YES];
      
  }else if ([[[jData objectAtIndex:indexPath.row]valueForKey:@"type"]isEqualToString:@"1"]){
@@ -226,7 +239,7 @@ NSInteger selectedIndex;
      details.paramStatus = [[jData objectAtIndex:selectedIndex]valueForKey:@"status"];
      details.userID = _userID;
      details.apiKey = _apiKey;
-     
+     details.catName =[[jData objectAtIndex:selectedIndex]valueForKey:@"cat_name"];
      if ([[[jData objectAtIndex:selectedIndex]valueForKey:@"vids"]count]) {
          details.isUploadVideo = true;
          details.videoURL = [[[jData objectAtIndex:selectedIndex]valueForKey:@"vids"]objectAtIndex:0];

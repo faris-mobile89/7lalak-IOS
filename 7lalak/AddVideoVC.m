@@ -27,6 +27,8 @@
     NSMutableArray *mainCat;
     UIPickerView *pickerCategoriesInput;
     UIActivityIndicatorView *activityIndicator;
+    BOOL isLoading;
+    int selectedSubCatIndex;
 }
 
 @property NSDictionary *jsonObject;
@@ -226,6 +228,7 @@ bool isFirstLoadSubCat = true;
                                     @"userID": userID,
                                     @"UDID":_apiKey,
                                     @"text":_fAdsText.text,
+                                    @"cat_name":_categoryField.text,
                                     @"price":_fAdsPrice.text,
                                     @"mainCatID":MCID,@"subCatID":SCID
                                     };
@@ -324,34 +327,63 @@ bool isFirstLoadSubCat = true;
     }
     return label;
 }
-
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component==0){
         
-        selectedIndexMain = (int)row;
+        selectedIndexMain = row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         selectedMaincatId = catId;
         _categoryField.text=@"";
         [self loadSubCat];
         
     }else if (component == 1){
-        isUserPiked = true;
-        
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
-        
-        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
-        _categoryField.text = catName;
+        selectedSubCatIndex = row;
     }
 }
+
+-(void)doneButton:(id)sender{
+    
+    // disable done button if app loading json data
+    if (isLoading) {
+        return;
+    }
+    
+    int mainSize = [[jsonObject objectForKey:@"MainCat"]count];
+    int subSize = [[subCat objectForKey:@"SubCat"]count];
+    
+    if ( subSize > 0 && mainSize> 0){
+        
+        if (selectedIndexMain > mainSize) {
+            return;
+        }
+        
+        if (selectedSubCatIndex > subSize) {
+            return;
+        }
+        
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ - %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],[[[subCat objectForKey:@"SubCat"]objectAtIndex:selectedSubCatIndex]objectForKey:@"name"]];
+        _categoryField.text = catName;
+    }
+    
+    [_fAdsPrice resignFirstResponder];
+    [_categoryField resignFirstResponder];
+    
+}
+
 
 -(void)loadSubCat{
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
     
+    isLoading = TRUE;
     [activityIndicator startAnimating];
     NSURL *url= [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
+    
+    [activityIndicator startAnimating];
+    
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -367,54 +399,42 @@ bool isFirstLoadSubCat = true;
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 isLoading = FALSE;
                  subCat = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (subCat) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [activityIndicator stopAnimating];
                          [pickerCategoriesInput reloadComponent:1];
-                         
-                         if ([subCat count]>0)
+                         [pickerCategoriesInput selectRow:0 inComponent:1 animated:YES];
+                         selectedSubCatIndex = 0;
+                         if ([subCat count]>0){
                              selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
-                         
-                         if (!isFirstLoadSubCat) {
-                             
-                             NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"name"]];
-                             _categoryField.text = catName;
-                             
                          }
-                         isFirstLoadSubCat = false;
-                         //NSLog(@"subCat: %@", subCat);
                      });
                  } else {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         //[self handleError:error];
-                         [activityIndicator stopAnimating];
                          NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
-                 [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
-                 [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
                  
-
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     NSLog(@"ERROR: %@", error);
                      [activityIndicator stopAnimating];
                  });
              }
          }
          else {
              dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
              });
          }
      }];
-    
 }
 
 -(void)loadMainCat{
@@ -422,10 +442,11 @@ bool isFirstLoadSubCat = true;
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&lang=%@",[[Localization sharedInstance]getPreferredLanguage]];
     
     NSURL* url = [NSURL URLWithString:urlString];
-    
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
+    
     [activityIndicator startAnimating];
+    isLoading = TRUE;
     
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     
@@ -435,39 +456,31 @@ bool isFirstLoadSubCat = true;
                                                NSData* data,
                                                NSError* error)
      {
+         
          if (data) {
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 isLoading = FALSE;
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
-                         [pickerCategoriesInput reloadComponent:0];
                          [activityIndicator stopAnimating];
+                         [pickerCategoriesInput reloadComponent:0];
+                         
                          catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:0]valueForKey:@"id"];
                          selectedMaincatId = catId;
-                         selectedIndexMain =0;
+                         selectedIndexMain = 0;
                          [self loadSubCat];
                          
-                         // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
-                         
-                     });
-                 } else {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         NSLog(@"ERROR: %@", error);
-                         [activityIndicator stopAnimating];
                      });
                  }
              }
-             
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
-                 [activityIndicator stopAnimating];
              }else{
                  [activityIndicator stopAnimating];
-                
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [activityIndicator stopAnimating];
                  });
@@ -477,7 +490,6 @@ bool isFirstLoadSubCat = true;
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_offiline")];
                  [activityIndicator stopAnimating];
-                 
              });
          }
      }];
@@ -512,16 +524,6 @@ bool isFirstLoadSubCat = true;
     return YES;
 }
 
--(void)doneButton:(id)sender{
-    
-    if (!isUserPiked) {
-    NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
-    _categoryField.text = catName;
-    }
-    
-    [_fAdsPrice resignFirstResponder];
-    [_categoryField resignFirstResponder];
-}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     

@@ -10,8 +10,12 @@
 #import "InAppAPHelper.h"
 #include "UIColor_hex.h"
 #import "LocalizeHelper.h"
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
 
-@interface AdsDetailViewController ()
+@interface AdsDetailViewController (){
+    BOOL iS_iPad;
+
+}
 
 @end
 
@@ -33,7 +37,7 @@
     CGRect frame = self.view.frame;
     frame.size.height -= 100;
     self.view.frame = frame;
-    
+    iS_iPad = IS_HEIGHT_iPad;
     [super viewWillAppear:animated];
     self.title = self.product.localizedTitle;
     
@@ -65,8 +69,14 @@
     }
      */ // NSLog(@"Product not purchased");
     
-            self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 10, 80)];
-            self.packageLable.text = @"";
+    if (iS_iPad) {
+        self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(300, 10, 10, 80)];
+
+    }else{
+        self.packageLable = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 10, 80)];
+
+    }
+            self.packageLable.text = @"sdfasdf";
             self.packageLable.numberOfLines = 0;
             self.packageLable.textColor = [UIColor darkGrayColor];
             self.packageLable.textAlignment = NSTextAlignmentCenter;
@@ -79,13 +89,24 @@
             self.productDescription.textColor = [UIColor darkGrayColor];
             self.productDescription.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:self.productDescription];
+              UIImageView *imageCoins;
+          if (iS_iPad) {
+              imageCoins  = [[UIImageView alloc]initWithFrame:CGRectMake(300, 100, 128, 128)];
+
+           }else{
+              imageCoins = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 128, 128)];
+             }
     
-           UIImageView *imageCoins = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 128, 128)];
-           [imageCoins setImage:[UIImage imageNamed:@"ic_coins.png"]];
+            [imageCoins setImage:[UIImage imageNamed:@"ic_coins.png"]];
            [self.view addSubview:imageCoins];
     
             self.button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            self.button.frame = CGRectMake(40, (self.view.frame.size.height - 70), 240, 50);
+          if (iS_iPad) {
+              self.button.frame = CGRectMake(240, (self.view.frame.size.height - 70), 340, 60);
+
+             }else{
+              self.button.frame = CGRectMake(40, (self.view.frame.size.height - 70), 240, 50);
+               }
             self.button.layer.cornerRadius = 5.0;
             [self.button addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             // [self.button setBackgroundColor:[UIColor lightGrayColor]];

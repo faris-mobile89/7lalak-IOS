@@ -21,6 +21,17 @@
 
 NSString *phone;
 NSString *email;
+
+
+-(void)viewDidLayoutSubviews{
+
+    [_lable1 setText:LocalizedString(@"app_work_kwait")];
+    [_fEmail setPlaceholder:LocalizedString(@"Input_email")];
+    [_fPhone setPlaceholder:LocalizedString(@"Input_phone")];
+    [_fUserName setPlaceholder:LocalizedString(@"input_name")];
+    [_register_btn setTitle:LocalizedString(@"Btn_Register") forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad
 {
     _lable1.layer.cornerRadius= 4;

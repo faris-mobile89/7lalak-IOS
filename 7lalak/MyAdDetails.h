@@ -10,6 +10,7 @@
 #import "AddMoreImagesVC.h"
 
 @interface MyAdDetails : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UITextViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,AddMoreImagesDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *numberOfPickedImages;
 @property (weak, nonatomic) IBOutlet UIButton *btnDelete;
 @property (weak, nonatomic) IBOutlet UIButton *btn_saveChanges;
 @property (weak, nonatomic) IBOutlet UITextView *description;
@@ -31,6 +32,7 @@
 @property (strong ,nonatomic) NSString * userID;
 @property (strong ,nonatomic) NSString * apiKey;
 @property (strong,nonatomic) NSArray * arrImages;
+@property (strong,nonatomic) NSString * catName;
 @property (strong,nonatomic) id jsonImages;
 @property (strong,nonatomic) NSMutableArray *attachedNewImages;
 - (IBAction)deleteBtn:(id)sender;

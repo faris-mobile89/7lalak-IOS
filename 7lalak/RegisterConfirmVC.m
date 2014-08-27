@@ -19,6 +19,13 @@
 @implementation RegisterConfirmVC
 @synthesize VCODE;
 bool flagRegisterSuccess=FALSE;
+
+-(void)viewDidLayoutSubviews{
+    
+    [_label1 setText:LocalizedString(@"we_sent_vcode")];
+    [_textVerificationCode setPlaceholder:LocalizedString(@"input_vcode")];
+    [_btnLogin setTitle:LocalizedString(@"Btn_verify") forState:UIControlStateNormal];
+}
 - (void)viewDidLoad
 {
     _label1.layer.cornerRadius= 4;

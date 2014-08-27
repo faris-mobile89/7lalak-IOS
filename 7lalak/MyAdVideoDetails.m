@@ -26,6 +26,7 @@
     UIPickerView *pickerCategoriesInput;
     NSMutableArray *imagesArray;
     NSURL *localVideoURL;
+    BOOL isLoading;
 }
 @property NSDictionary *jsonObject;
 @property NSDictionary *subCat;
@@ -75,7 +76,7 @@
     selectedMaincatId = [[NSString alloc]init];
     selectedSubcatId = [[NSString alloc]init];
      selectedSubcatId =_paramSid; selectedMaincatId=_paramMid;
-    
+    [_categoryField setText:_catName];
     if (!isUploadVideo) {
         [_iconVideoFlag setHidden:YES];
         [_labelStatus setText:LocalizedString(@"FLAG_LESS_25MB")];
@@ -227,6 +228,7 @@
                                    @"tag":@"editVideoAd",
                                    @"Ad_id":_paramAdId,
                                    @"text":_description.text,
+                                   @"cat_name":_categoryField.text,
                                    @"price":_price.text,
                                    @"status":newSatus,
                                    @"mid":paramSelectedMaincatId,
@@ -370,29 +372,49 @@
     flagEditCat = true;
     
     if (component==0){
-        selectedIndexMain = (int)row;
+        selectedIndexMain = row;
         catId = [[[jsonObject objectForKey:@"MainCat"]objectAtIndex:row]valueForKey:@"id"];
         [self loadSubCat];
         selectedMaincatId = catId;
-        //NSLog(@"Main Picked = %@ , %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],selectedMaincatId);
     }else if (component == 1){
-        
-        isUserPikedImage = true;
-        selectedIndexSub = (int)row;
+        selectedIndexSub = row;
         selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"id"];
-        
-        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
-        
-        _categoryField.text = catName;
-        
-       // NSLog(@"Sub Picked = %@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:row]valueForKey:@"name"],selectedSubcatId);
+        isUserPikedImage = true;
     }
+}
+-(void)doneButton:(id)sender{
+    
+    // disable done button if app loading json data
+    if (isLoading) {
+        return;
+    }
+    
+    int mainSize = [[jsonObject objectForKey:@"MainCat"]count];
+    int subSize = [[subCat objectForKey:@"SubCat"]count];
+    
+    if ( subSize > 0 && mainSize> 0){
+        
+        if (selectedIndexMain > mainSize) {
+            return;
+        }
+        
+        if (selectedIndexSub > subSize) {
+            return;
+        }
+        
+        NSString *catName= [[NSString alloc]initWithFormat:@"%@ - %@",[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"],[[[subCat objectForKey:@"SubCat"]objectAtIndex:selectedIndexSub]objectForKey:@"name"]];
+        _categoryField.text = catName;
+    }
+    
+    [_price resignFirstResponder];
+    [_categoryField resignFirstResponder];
+    
 }
 
 -(void)loadSubCat{
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getSubCategories.php?tag=getSubCat&mainId=%@&lang=%@",catId,[[Localization sharedInstance]getPreferredLanguage]];
-    
+    isLoading =TRUE;
     [HUD showUIBlockingIndicatorWithText:LocalizedString(@"LOADING") withTimeout:3];
     NSURL *url= [NSURL URLWithString:urlString];
     
@@ -410,6 +432,7 @@
          if (data) {
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              [HUD hideUIBlockingIndicator];
+             isLoading =FALSE;
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
                  subCat = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -420,34 +443,15 @@
                              return;
                          selectedSubcatId = [[[subCat objectForKey:@"SubCat"]objectAtIndex:0]objectForKey:@"id"];
                          [pickerCategoriesInput reloadComponent:1];
+                         [pickerCategoriesInput selectRow:0 inComponent:1 animated:YES];
+                         selectedIndexSub=0;
                          
-                         if (isFirstLoad) {
-                             
-                             // search by cat name => return cat name from JSON
-                             for (NSInteger i = 0 ; i < [[subCat objectForKey:@"SubCat"]count]; i++) {
-                                 
-                                 if ([_paramSid intValue] ==  [[[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"id"]intValue] ) {
-                                     
-                                     _categoryField.text = [[[subCat objectForKey:@"SubCat"]objectAtIndex:i]objectForKey:@"name"];
-                                     isFirstLoad = false;
-                                     break;
-                                 }
-                             }
-                         }//end first load
-                         
-                         // NSLog(@"subCat: %@", subCat);
-                         
-                     });
-                 } else {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                       //  NSLog(@"ERROR: %@", error);
                      });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
-
              }
          }
          else {
@@ -460,7 +464,7 @@
 -(void)loadMainCat{
     
     NSString *urlString = [[NSString alloc]initWithFormat:@"http://7lalek.com/api/getMainCategories.php?tag=getMainCat&lang=%@",[[Localization sharedInstance]getPreferredLanguage]];
-    
+    isLoading =TRUE;
     NSURL* url = [NSURL URLWithString:urlString];
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
     
@@ -476,7 +480,7 @@
              NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
              if (httpResponse.statusCode == 200 /* OK */) {
                  NSError* error;
-                 
+                 isLoading=FALSE;
                  jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  if (jsonObject) {
                      dispatch_async(dispatch_get_main_queue(), ^{
@@ -489,49 +493,19 @@
                          [self loadSubCat];
                          // NSLog(@"jsonObject: %@", [jsonObject objectForKey:@"MainCat"]);
                      });
-                 } else {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                        // NSLog(@"ERROR: %@", error);
-                     });
                  }
              }
              
              else if(httpResponse.statusCode == 408){
                  [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
-
                  
              }
          }
          else {
-             // show offiline msg
+             [self showErrorInterentMessage:LocalizedString(@"error_internet_timeout")];
          }
      }];
     
-}
-
-#pragma mark images slider view
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    if ([imagesArray count]) {
-        return [imagesArray count];
-    }
-    return 0;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"Cell";
-    
-    UploadCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    NSURL *u = [NSURL URLWithString:imagesArray[indexPath.row]];
-    
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame.png"]];
-    UIProgressView * p = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
-    
-    [cell.imageView setImageWithURL:u usingProgressView:p];
-    
-    [cell.deleteBtn addTarget:self action:@selector(deleteItem:event:) forControlEvents:UIControlEventTouchUpInside];
-    return cell;
 }
 
 
@@ -555,20 +529,6 @@
         return (newLength > 8) ? NO : YES;
     }
     else return YES;
-}
-
--(void)doneButton:(id)sender{
-    
-    if (flagEditCat) {
-        
-        NSString *catName= [[NSString alloc]initWithFormat:@"%@ , %@",[[[subCat objectForKey:@"SubCat"]objectAtIndex:selectedIndexSub]objectForKey:@"name"],[[[jsonObject objectForKey:@"MainCat"]objectAtIndex:selectedIndexMain]valueForKey:@"name"]];
-        _categoryField.text = catName;
-        NSLog(@"edit cat");
-    }
-    
-    
-    [_price resignFirstResponder];
-    [_categoryField resignFirstResponder];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

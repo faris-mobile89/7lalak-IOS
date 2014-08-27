@@ -14,9 +14,13 @@
 #import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
+
 
 @interface BuyTableVC (){
     NSString *lang;
+    BOOL iS_iPad;
+
 }
 
 @property (nonatomic, strong) NSArray *products;
@@ -64,13 +68,18 @@ UIActivityIndicatorView *activityIndicator;
     
     self.title = LocalizedString(@"TITLE_MORE_BUY_Ads");
     colors = [[NSArray alloc]initWithObjects:@"#EB9532",@"#EE543A",@"#D8335B",@"#973163",@"#422E39", nil];
-    
+    iS_iPad = IS_HEIGHT_iPad;
     lang = [[NSString alloc]init];
     lang = [[Localization sharedInstance]getPreferredLanguage];
     NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
     NSBundle *langBundle = [NSBundle bundleWithPath:path];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:langBundle]forCellReuseIdentifier:@"Cell"];
+    if (iS_iPad) {
+         [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell_iPad" bundle:langBundle]forCellReuseIdentifier:@"Cell"];
+    }else{
+         [self.tableView registerNib:[UINib nibWithNibName:@"ProductCell" bundle:langBundle]forCellReuseIdentifier:@"Cell"];
+    }
+    
     [self.tableView setSectionIndexBackgroundColor:[UIColor clearColor]];
     
     activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -123,7 +132,7 @@ UIActivityIndicatorView *activityIndicator;
         cell.buyButton1.layer.cornerRadius=8;
         [cell.buyButton1 setTitle:LocalizedString(@"BUY") forState:UIControlStateNormal];
         [cell.buyButton1 setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
-        [cell.buyButton1.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        //[cell.buyButton1.titleLabel setFont:[UIFont systemFontOfSize:10]];
         cell.buyButton1.tag = indexPath.row;
        [cell.buyButton1 addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -150,6 +159,9 @@ UIActivityIndicatorView *activityIndicator;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (iS_iPad) {
+        return 150;
+    }
     return 95;
 }
 

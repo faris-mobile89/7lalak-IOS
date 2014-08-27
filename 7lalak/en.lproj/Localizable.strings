@@ -154,7 +154,15 @@
 "Available"="Available";
 "MESSAGE_ADs_Updated"="Ad updated successfuly";
 "ERROR_UPDATED"="Error updating! please try later";
-
+//====Registeration======//
+"app_work_kwait"="* The application only works in kuwait";
+"input_name"="Full Name";
+"Input_phone"="Phone Number";
+"Input_email"="E-mail Adress";
+"Btn_Register"="Register";
+"we_sent_vcode"="We sent you a text message (SMS) with a verification code.";
+"input_vcode"="verification code";
+"Btn_verify"="Verify";
 
 
 

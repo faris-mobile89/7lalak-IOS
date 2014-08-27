@@ -27,6 +27,7 @@
 @property (strong ,nonatomic) NSString * userID;
 @property (strong ,nonatomic) NSString * apiKey;
 @property (strong ,nonatomic) NSString * videoURL;
+@property (strong,nonatomic) NSString * catName;
 @property  bool isUploadVideo;
 - (IBAction)deleteBtn:(id)sender;
 - (IBAction)saveBtn:(id)sender;

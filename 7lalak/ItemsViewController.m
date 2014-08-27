@@ -21,9 +21,11 @@
 #import "LocalizeHelper.h"
 #import "Localization.h"
 
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
+
 
 @interface ItemsViewController (){
-
+    BOOL iS_iPad;
     NSString * lang;
 }
 @property NSInteger selectedIndex;
@@ -40,8 +42,17 @@ UIImageView *bannerView;
 
 -(void)viewDidLayoutSubviews{
     
-    _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-54);
-    bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 54)];
+    iS_iPad = IS_HEIGHT_iPad;
+    
+    if (iS_iPad) {
+        _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-108);
+        bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 768, 108)];
+        
+    }else{
+        _tableView.frame = CGRectMake(0,0,_tableView.frame.size.width, _tableView.frame.size.height-54);
+        bannerView = [[UIImageView alloc]initWithFrame:CGRectMake(0,_tableView.frame.size.height, 320, 54)];
+    }
+    
 }
 
 
@@ -49,8 +60,7 @@ UIImageView *bannerView;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
+    iS_iPad = IS_HEIGHT_iPad;
     
     jsonObject = [[NSMutableArray alloc]init];
     
@@ -66,8 +76,13 @@ UIImageView *bannerView;
     lang = [[Localization sharedInstance]getPreferredLanguage];
     NSString *path = [[NSBundle mainBundle]pathForResource:lang ofType:@"lproj"];
     NSBundle *langBundle = [NSBundle bundleWithPath:path];
+   
+    if (iS_iPad) {
+        [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell_iPad" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }else{
+        [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
+    }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ItemViewCell" bundle:langBundle]forCellReuseIdentifier:@"ItemCell"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.view setBackgroundColor:[UIColor colorWithHexString:@"#FFFFFF"]];
 
@@ -367,7 +382,7 @@ UIImageView *bannerView;
     
     [cell.fImage sd_setImageWithURL:[NSURL URLWithString:
                                      [[jsonObject objectAtIndex:indexPath.row]objectForKey:@"img"]]
-                   placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
+                   placeholderImage:[UIImage imageNamed:@"iTunesArtwork.png"]];
     
     if ([[[jsonObject
            objectAtIndex:indexPath.row]objectForKey:@"type"]isEqualToString:@"1"]) {
@@ -404,6 +419,9 @@ UIImageView *bannerView;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (iS_iPad) {
+        return 150;
+    }
     return 95;
 }
 

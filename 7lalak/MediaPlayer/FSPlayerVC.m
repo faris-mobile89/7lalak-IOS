@@ -17,6 +17,8 @@
 #import "LocalizeHelper.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
+
 
 @interface FSPlayerVC ()
 
@@ -53,13 +55,17 @@ int playingCurrentIndex=0;
 -(void)viewDidLayoutSubviews{
     
     BOOL IS_4S = IS_HEIGHT_4S;
+     BOOL IS_iPad = IS_HEIGHT_iPad;
+    
     _holder.layer.cornerRadius = 18;
     if (IS_4S) {
         _ios5View.frame = CGRectMake(0, 365, 320, 88);
 
-    }else{
+    }else if(IS_iPad){
+        return;
+    }
+    else{
         _ios5View.frame = CGRectMake(0, 450, 320, 88);
-
     }
 }
 

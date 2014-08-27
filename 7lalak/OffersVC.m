@@ -12,6 +12,7 @@
 #import "Localization.h"
 
 #define IS_HEIGHT_4S [[UIScreen mainScreen ] bounds].size.height < 568.0f
+#define IS_HEIGHT_iPad [[UIScreen mainScreen ] bounds].size.height > 700.0f
 
 @interface OffersVC ()
 
@@ -60,10 +61,15 @@ UIActivityIndicatorView *activityIndicator;
     NSString *urlAddress;
     BOOL IS_4S = IS_HEIGHT_4S;
    
+     bool iS_iPad = IS_HEIGHT_iPad;
     
     if (IS_4S) {
         urlAddress = [[NSString alloc]initWithFormat:
                       @"http://7lalek.com/api/offers/iphone-4/home.php?lang=%@",lang];
+    }if (iS_iPad) {
+        
+        urlAddress = [[NSString alloc]initWithFormat:
+                      @"http://7lalek.com/api/offers/iphone-5/home.php?device=iPad&lang=%@",lang];
     }
     else{
          urlAddress = [[NSString alloc]initWithFormat:

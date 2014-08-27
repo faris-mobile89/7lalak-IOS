@@ -38,7 +38,7 @@
     lang = [[Localization sharedInstance]getPreferredLanguage];
     
     fImage.layer.cornerRadius=6;
-    fImage.layer.borderWidth=1.5;
+    fImage.layer.borderWidth=1.0;
     fImage.layer.masksToBounds = YES;
     fImage.clipsToBounds = YES;
     fImage.layer.borderColor=[[UIColor colorWithHexString:@"CCCCCC"] CGColor];
@@ -79,7 +79,7 @@
     [fDescription setText:[jsonObject objectForKey:@"description"]];
     [fDate setText:[jsonObject objectForKey:@"created"]];
     [_numberOfViews setText:[jsonObject objectForKey:@"views"]];
-    [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"Icon-60.png"]];
+    [fImage sd_setImageWithURL:[NSURL URLWithString:[jsonObject objectForKey:@"img"]] placeholderImage:[UIImage imageNamed:@"iTunesArtwork.png"]];
     
     NSString * status = [jsonObject objectForKey:@"status"];
     

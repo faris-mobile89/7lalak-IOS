@@ -165,15 +165,12 @@ BOOL frameSet=FALSE;
 
 - (IBAction)btnBuy:(id)sender {
     
-    [self getUserData];
-    if (isRegistered) {
+    //[self getUserData];
         
         BuyTableVC *buy = [self.storyboard instantiateViewControllerWithIdentifier:@"buyAdsView"];
         [self.navigationController pushViewController:buy animated:YES];
         
-    }else{
-        [self registerView];
-    }
+  
 }
 
 - (IBAction)btnContact:(id)sender {
