@@ -75,8 +75,7 @@ BOOL appEnabled=TRUE;
 
 -(void)loadAppData{
     
-    NSString * urlString =[[NSString alloc]initWithFormat:@"http://7lalek.com/api/appConfig.php?device=IOS"];
-    
+
     NSURL* url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
