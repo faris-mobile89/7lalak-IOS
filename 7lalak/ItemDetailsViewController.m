@@ -45,32 +45,6 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
     [tabDescription didMoveToParentViewController:self];
      [_tabsView setTitle:LocalizedString(@"DETAILS") forSegmentAtIndex:0];
     
-    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-        [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
-    }else{
-        [_tabsView setTitle:LocalizedString(@"IMAGES") forSegmentAtIndex:1];
-    }
-    
-    
-    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-        
-        
-        if ([[jsonObject objectForKey:@"vids"]count] ==0 ) {
-            [_tabsView removeSegmentAtIndex:1 animated:NO];
-        }
-    }
-    
-    if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]) {
-        
-        
-        NSMutableArray *dic =[[NSMutableArray alloc]init];
-        
-        for (NSInteger i =0 ; i< [[jsonObject objectForKey:@"imgs"]count]; i++) {
-            [dic addObject:[[jsonObject objectForKey:@"imgs"]objectAtIndex:i ] ];
-        }
-        
-        networkImages = [dic copy];
-        
         if ([[jsonObject objectForKey:@"imgs"]count] ==0 ) {
             [_tabsView removeSegmentAtIndex:1 animated:NO];
         }
@@ -107,35 +81,6 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
         [self addChildViewController:tabDescription];
         [tabDescription didMoveToParentViewController:self];
         
-        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-            [_tabsView setTitle:LocalizedString(@"VIDEO") forSegmentAtIndex:1];
-        }else{
-            [_tabsView setTitle:LocalizedString(@"IMAGES") forSegmentAtIndex:1];
-        }
-        
-        
-        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-            
-            
-            if ([[jsonObject objectForKey:@"vids"]count] ==0 ) {
-                [_tabsView removeSegmentAtIndex:1 animated:NO];
-            }
-        }
-        
-        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]) {
-            
-            
-            NSMutableArray *dic =[[NSMutableArray alloc]init];
-            
-            for (NSInteger i =0 ; i< [[jsonObject objectForKey:@"imgs"]count]; i++) {
-                [dic addObject:[[jsonObject objectForKey:@"imgs"]objectAtIndex:i ] ];
-            }
-            
-            networkImages = [dic copy];
-            
-            
-            if ([[jsonObject objectForKey:@"imgs"]count] ==0 ) {
-                [_tabsView removeSegmentAtIndex:1 animated:NO];
             }
         }
         
@@ -158,29 +103,7 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
 
     [[self.containterView subviews ]makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    NSInteger index = [self.tabsView selectedSegmentIndex];
-    if (index==1) {
-        
-        if ([[jsonObject objectForKey:@"type"]isEqualToString:@"1"]) {
-            
-            [tabVideo willMoveToParentViewController:self];
-            [self.containterView addSubview:tabVideo.view];
-            [self addChildViewController:tabVideo];
-            [tabVideo didMoveToParentViewController:self];
-            [tabVideo setTitle:LocalizedString(@"VIDEO")];
-
-        }else{
-            
-            /* OLD DESIGN
-            // sub view display
-            [tabImage willMoveToParentViewController:self];
-            [self.containterView addSubview:tabImage.view];
-            [self addChildViewController:tabImage];
-            [tabImage didMoveToParentViewController:self];
-            [tabImage setTitle:LocalizedString(@"IMAGES")];
-             */
-
-            [tabImage setTitle:LocalizedString(@"IMAGES")];
+    NSInt
 
             
             networkGallery = [[FGalleryViewController alloc] initWithPhotoSource:self];
@@ -218,29 +141,8 @@ if ([[jsonObject objectForKey:@"type"]isEqualToString:@"2"]){
 {
     NSString *caption;
     
-    if( gallery == networkGallery ) {
-        caption = @"";
-    }
-	return caption;
-}
 
-- (NSString*)photoGallery:(FGalleryViewController *)gallery urlForPhotoSize:(FGalleryPhotoSize)size atIndex:(NSUInteger)index {
-    return [networkImages objectAtIndex:index];
-}
 
-#pragma statistics traking
-
--(void)numberOfviews {
-    
-    NSString *strUl= [[NSString alloc]initWithFormat:@"http://7lalek.com/api/api.php?device=IOS&tag=numberOfViews&Ad_id=%@",[jsonObject objectForKey:@"id"]];
-    
-    NSURL* url = [NSURL URLWithString:strUl];
-    
-    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:40];
-    
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:urlRequest
                                        queue:queue
                            completionHandler:^(NSURLResponse* response,
                                                NSData* data,
