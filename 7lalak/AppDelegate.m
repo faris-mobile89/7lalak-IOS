@@ -121,12 +121,7 @@
 	
 	// Build URL String for Registration
 	//NSString *host = @"http://7lalek.com/";
-	
-	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
-	// !!! ( MUST START WITH / AND END WITH ? ).
-	// !!! SAMPLE: "/path/to/apns.php?"
-	NSString *urlString = [NSString stringWithFormat:@"http://7lalek.com/APN/apns.php?task=%@&appname=%@&appversion=%@&deviceuid=%@&devicetoken=%@&devicename=%@&devicemodel=%@&deviceversion=%@&pushbadge=%@&pushalert=%@&pushsound=%@", @"register", appName,appVersion, deviceUuid, deviceToken, deviceName, deviceModel, deviceSystemVersion, pushBadge, pushAlert, pushSound];
-	
+
 	// Register the Device Data
 	// !!! CHANGE "http" TO "https" IF YOU ARE USING HTTPS PROTOCOL
 	NSURL *url = [[NSURL alloc] initWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
